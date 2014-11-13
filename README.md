@@ -1,8 +1,7 @@
 Introduction
 --------------
 EXP CMS
-
-EXP CMS using Doptor CMS For Development
+Customise from Doptor CMS (https://github.com/Doptor/Doptor)
 
 Requirements
 --------------
