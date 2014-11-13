@@ -55,7 +55,7 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
             'host'      => 'localhost',
-            'database'  => 'lv_haivl',
+            'database'  => 'lv_doptor',
             'username'  => 'root',
             'password'  => '',
 			'charset'   => 'utf8',
