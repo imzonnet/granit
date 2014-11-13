@@ -55,7 +55,7 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
             'host'      => 'localhost',
-            'database'  => 'lv_doptor',
+            'database'  => 'lv_granit',
             'username'  => 'root',
             'password'  => '',
 			'charset'   => 'utf8',
