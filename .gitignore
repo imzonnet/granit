@@ -10,5 +10,3 @@ Thumbs.db
 .env.copy.php
 .env.local.php
 .env.local.copy.php
-bootstrap/start.php
-bootstrap/compiled.php

@@ -21,13 +21,13 @@ Doptor CMS is based on Laravel, which utilizes [Composer](http://getcomposer.org
 ###Install Doptor CMS
 1. Download or checkout the latest copy of EXP from here (https://github.com/vnzacky/Granit/)
 2. Enter the newly created folder. e.g.: `cd Granit`
-3. Extract vendor.zip and bootstrap.zip
+3. Extract `vendor.zip`
 4. Create your environment at App/config/your-environment
-5. Edit Your environment at bootstrap/strart.php
+5. Edit Your environment at `bootstrap/strart.php`
 6. Install with composer: 
-	6.1 Run: `composer dump-autoload`
-	6.2 Run: `php artisan project:setup`
-7. Access the website in browser. e.g.: www.yourdomain.com/doptor
+6.1 Run: `composer dump-autoload`
+6.2 Run: `php artisan project:setup`
+7. Access the website in browser. e.g.: www.yourdomain.com/Granit
 
 *Note: You may need to configure the `app/storage` folder to have write access by the server. A permission of `775` on the `app/storage` folder is sufficient.*
 
