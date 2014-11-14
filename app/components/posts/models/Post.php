@@ -102,7 +102,6 @@ class Post extends Eloquent implements PresentableInterface {
         if ($file) {
             if (Input::hasFile('image')) {
                 // If an actual file is selected
-
                 File::exists(public_path() . '/uploads/') || File::makeDirectory(public_path() . '/uploads/');
                 File::exists(public_path() . '/' . $this->images_path) || File::makeDirectory(public_path() . '/' . $this->images_path);
                 File::exists(public_path() . '/' . $this->thumbs_path) || File::makeDirectory(public_path() . '/' . $this->thumbs_path);
