@@ -14,4 +14,13 @@ use Carbon\Carbon;
 
 class Memorial extends Eloquent {
     protected $table = 'posts';
+
+    /**
+     * Relation with the categories table
+     * A post can have many categories
+     */
+    public function categories()
+    {
+        return $this->belongsToMany('Category');
+    }
 }

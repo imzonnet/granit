@@ -16,9 +16,9 @@ class MemorialsController extends BaseController {
      */
     public function index()
     {
-        echo " hello this is memorials";
-        $data  = \Memorial::all();
-        var_dump($data); exit;
+        $data  = \Lop::with('students')->get();
+        var_dump($data->first()->students); exit;
+
     }
 
 }
