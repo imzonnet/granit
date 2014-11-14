@@ -14,7 +14,6 @@
 
 @section('heading')
     <!-- BEGIN PAGE HEADING -->
-
         <section id="heading">
             <div class="page-title title-1">
                 <div class="container">

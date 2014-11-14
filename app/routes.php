@@ -9,7 +9,7 @@
   Description :  Doptor is Opensource CMS.
   ===================================================
  */
-
+//@TODO REMOVE THIS LATTER
 Route::get('/', function() {
     if (!Schema::hasTable('settings') || Config::get('database.default') == 'sqlite') {
         // If not installed, redirect to install page
