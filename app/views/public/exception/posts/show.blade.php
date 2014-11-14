@@ -20,20 +20,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="cell-12">
-                            <?php
-                            $menu = Menu::published()
-                                    ->where(function($query) {
-                                        $query->where('link', '=', Request::path())
-                                                ->orWhere('link_manual', '=', Request::path());
-                                    })
-                                    ->first();
-                            if ($menu) {
-                                $type = $menu->title;
-                            } else {
-                                $type = 'News';
-                            }
-                            ?>
-                            <h1 data-animate="fadeInLeft" class="fx animated fadeInLeft" style="">{{ $type }}</h1>
+                            <h1 data-animate="fadeInLeft" class="fx animated fadeInLeft" style="">{{ $post->title }}</h1>
                             <div data-animate="fadeInUp" class="breadcrumbs main-bg fx animated fadeInUp" style="">
                                 <span class="bold">You Are In:</span>
                                     <a href="{{ url('/') }}">Home</a><span class="line-separate">/</span>
@@ -57,7 +44,7 @@
 
         <div class="container">
 
-            <div id="content" class="cell-8">
+            <div id="content" class="cell-9">
 
                 <!-- BEGIN POST -->
                     <article class="post">

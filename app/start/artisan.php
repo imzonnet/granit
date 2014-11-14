@@ -13,4 +13,5 @@
 
 Artisan::add(new DatabaseBackup);
 Artisan::add(new ProjectSetup);
+Artisan::add(new ProjectSeed);
 Artisan::add(new ProjectReset);

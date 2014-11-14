@@ -1,8 +1,8 @@
-<aside id="sidebar" class="cell-4">
+<aside id="sidebar" class="cell-3">
 
     <div class="prefix_1_2">
         <?php $type = ($type == 'News') ? 'post' : 'page' ?>
-        @if ($type == 'post' || $post->type == 'post')
+        @if ( isset($post) && ($type == 'post' || $post->type == 'post') )
             <!-- BEGIN CUSTOM MENU WIDGET -->
             <div class="widget custom-menu-widget">
                 <h3 class="widget-head">Recent {{ Str::plural('post') }}:</h3>

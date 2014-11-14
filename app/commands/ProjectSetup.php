@@ -18,7 +18,7 @@ class ProjectSetup extends Command {
 	 *
 	 * @var string
 	 */
-	protected $description = 'Init Project.';
+	protected $description = 'Create the migration repository.';
 
 	/**
 	 * Create a new command instance.
@@ -48,13 +48,8 @@ class ProjectSetup extends Command {
 
         $this->call('migrate', array('--path' => 'app/components/ReportBuilder/Database/Migrations/'));
         $this->call('migrate', array('--path' => 'app/components/ReportGenerator/Database/Migrations/'));
+        $this->info('____________Completed_____________');
 
-        $this->info('');
-        $this->info('Project Seed');
-        $this->info('______________________________________________');
-        $this->call('db:seed');
-        $this->info('____________Project Setup Finish _____________');
-        $this->info('Finish: Admin account: admin/admin123');
     }
 
 }
