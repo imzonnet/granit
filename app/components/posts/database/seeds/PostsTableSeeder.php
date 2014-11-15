@@ -7,7 +7,8 @@ class PostsTableSeeder extends \Seeder {
         // Uncomment the below to wipe the table clean before populating
         DB::table('category_post')->delete();
         DB::table('posts')->delete();
-        $posts = array(
+        $user_id = User::first()->id;
+        $pages = array(
             array(
                 'title'      => 'Contact Us',
                 'permalink'  => 'contact',
@@ -15,63 +16,46 @@ class PostsTableSeeder extends \Seeder {
                 'status'     => 'published',
                 'type'       => 'page',
                 'target'     => 'public',
-                'created_by' => 1,
+                'created_by' => $user_id,
                 'created_at' => date('Y-m-d'),
                 'updated_at' => date('Y-m-d')
             )
         );
         // Uncomment the below to run the seeder
-        DB::table('posts')->insert($posts);
-
-        $posts = array(
-            array(
-                'title'      => 'The first post',
-                'permalink'  => 'the-first-post',
-                'content'    => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
-                'status'     => 'published',
-                'type'       => 'post',
-                'target'     => 'public',
-                'created_by' => 1,
-                'created_at' => date('Y-m-d'),
-                'updated_at' => date('Y-m-d')
-            ),
-            array(
-                'title'      => 'The second post',
-                'permalink'  => 'the-second-post',
-                'content'    => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
-                'status'     => 'published',
-                'type'       => 'post',
-                'target'     => 'public',
-                'created_by' => 1,
-                'created_at' => date('Y-m-d'),
-                'updated_at' => date('Y-m-d')
-            ),
-            array(
-                'title'      => 'The third post',
-                'permalink'  => 'the-thrid-post',
-                'content'    => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
-                'status'     => 'published',
-                'type'       => 'post',
-                'target'     => 'public',
-                'created_by' => 1,
-                'created_at' => date('Y-m-d'),
-                'updated_at' => date('Y-m-d')
-            )
+        DB::table('posts')->insert($pages);
+        $images = array(
+            'uploads/slideshow/1.jpg', 
+            'uploads/slideshow/2.jpg', 
+            'uploads/slideshow/3.jpg', 
+            'uploads/slideshow/4.jpg'
         );
-        DB::table('posts')->insert($posts);
+        foreach ($images as $key => $image) {
+            DB::table('posts')->insert(array(
+                'title'      => 'The post title' . $key,
+                'permalink'  => 'the-post-title-' . $key,
+                'content'    => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+                'status'     => 'published',
+                'image'      => $image,
+                'type'       => 'post',
+                'target'     => 'public',
+                'created_by' => $user_id,
+                'created_at' => date('Y-m-d'),
+                'updated_at' => date('Y-m-d')
+            ));
+        }
         
-        $post_category = array(
-            array(
-                'category_id' => 1,
-                'post_id' => 2,
-            ),
-            array(
-                'category_id' => 1,
-                'post_id' => 3,
-            )
-        );
-        // Uncomment the below to run the seeder
+        $posts = Post::all();
+        $cat_id = Category::first()->id;
+        foreach ($posts as $post) {
+            $post_category = array(
+                'category_id' => $cat_id,
+                'post_id' => $post->id,
+            );
+            // Uncomment the below to run the seeder
         DB::table('category_post')->insert($post_category);
+        }
+        
+        
     }
 
 }

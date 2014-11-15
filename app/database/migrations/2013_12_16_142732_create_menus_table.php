@@ -41,7 +41,7 @@ class CreateMenusTable extends Migration {
 			$table->timestamps();
 
 			$table->index('category');
-			$table->foreign('category')->references('id')->on('menu_categories')->on_delete('restrict')->on_update('cascade');
+			$table->foreign('category')->references('id')->on('menu_categories')->onDelete('cascade')->onUpdate('cascade');
 		});
 	}
 

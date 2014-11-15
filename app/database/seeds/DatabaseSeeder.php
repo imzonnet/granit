@@ -1,5 +1,7 @@
 <?php
 
+use Modules\Slideshow\Database\seeds\SlideshowTableSeeder;
+
 class DatabaseSeeder extends Seeder {
 
 	/**
@@ -18,6 +20,7 @@ class DatabaseSeeder extends Seeder {
         $this->call('CategoriesTableSeeder');
         $this->call('PostsTableSeeder');
         $this->call('ThemesTableSeeder');
+        $this->call('Modules\Slideshow\Database\seeds\SlideshowTableSeeder');
 	}
 
 }

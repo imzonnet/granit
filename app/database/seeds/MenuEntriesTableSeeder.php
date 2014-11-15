@@ -8,7 +8,46 @@ class MenuEntriesTableSeeder extends Seeder
 	public function run()
 	{
 		DB::table('menus')->delete();
-		DB::insert("INSERT INTO `menus` VALUES (1, 'Blog', '1-blog', 'posts', NULL, '', 1, 1, '', 1, 1, 0, 0, 0, 'published', 0, 0, 'public', 0, NULL, NULL, NULL, '', '', '2014-11-14 03:40:06', '2014-11-14 03:40:06');");
-		DB::insert("INSERT INTO `menus` VALUES (2, 'Contact Us', '1-contact-us', 'pages/contact', NULL, '', 1, 1, '', 1, 1, 0, 0, 0, 'published', 0, 0, 'public', 0, NULL, NULL, NULL, '', '', '2014-11-14 03:41:16', '2014-11-14 03:41:16');");
+		$menu_cat = MenuCategory::first()->id;
+		$menu_pos = MenuPosition::first()->id;
+
+		$data = array(
+			array(
+				'title' => 'Blog',
+				'alias' => 'blog',
+				'link' => 'posts',
+				'category' => $menu_cat,
+				'position' => $menu_pos,
+				'same_window' => 1,
+				'show_image' => 1,
+				'is_wrapper' => 0,
+				'status' => 'published',
+				'parent' => 0,
+				'order' => 0,
+				'target' => 'public',
+				'language_id' => 0,
+				'created_at' => date('Y-m-d'),
+				'updated_at' => date('Y-m-d')
+			),
+			array(
+				'title' => 'Contact Us',
+				'alias' => 'contact-us',
+				'link' => 'pages/contact',
+				'category' => $menu_cat,
+				'position' => $menu_pos,
+				'same_window' => 1,
+				'show_image' => 1,
+				'is_wrapper' => 0,
+				'status' => 'published',
+				'parent' => 0,
+				'order' => 0,
+				'target' => 'public',
+				'language_id' => 0,
+				'created_at' => date('Y-m-d'),
+				'updated_at' => date('Y-m-d')
+			),
+		);
+		DB::table('menus')->insert($data);
+
 	}
 }

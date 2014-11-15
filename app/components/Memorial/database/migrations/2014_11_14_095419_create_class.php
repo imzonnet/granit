@@ -25,7 +25,7 @@ class CreateClass extends Migration {
 	 */
 	public function down()
 	{
-		DB::drop('class');
+		Schema::drop('classes');
 	}
 
 }

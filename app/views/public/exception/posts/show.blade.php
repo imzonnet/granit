@@ -43,36 +43,33 @@
 
         <div class="container">
 
-            <div id="content" class="cell-9">
+            <div id="content" class="cell-8">
 
                 <!-- BEGIN POST -->
                     <article class="post">
-                        <!-- begin post heading -->
-                        <header class="entry-header">
-                            <h2 class="entry-title">
-                                {{ HTML::link('posts/'.$post->permalink, $post->title) }}
-                            </h2>
-                        </header>
-                        <!-- end post heading -->
-
+                       
                         <!-- begin post content -->
                         <div class="entry-content">
                             <!-- begin post image -->
-                            <figure class="featured-thumbnail full-width">
-                                @if ($type == 'post')
-                                    <span class="meta-date">
-                                        <span class="meta-date-inner">
-                                            {{ $post->date() }}
-                                        </span>
-                                    </span>
+                            @if ($type == 'post')
+                            <div class="details-img">
+                                <div class="post-lft-info">
+                                    <div class="main-bg"> {{ $post->date() }}<span class="tri-col"></span></div>
+                                </div>
+                                 @if ($post->image)
+                                    <img src="{{ url($post->image) }}" alt="" width="100%" height="350" border="0" />
                                 @endif
-                                @if ($post->image)
-                                    <img src="{{ url($post->image) }}" alt="" width="636" height="179" border="0" />
-                                @endif
-                            </figure>
+                            </div>
+                            @endif
                             <!-- end post image -->
-
+                            <article class="post-content">
+                            <div class="post-info-container">
+                                <h1 class="main-color">{{ $post->title }}</h1>
+                                
+                            </div>
                             {{ $post->content }}
+
+                            </article>
                         </div>
                         <!-- end post heading -->
 

@@ -4,6 +4,7 @@ class MenuPositionTableSeeder extends Seeder {
 
 	public function run()
 	{
+        DB::table('menu_positions')->delete();
 		$menu_positions = array(
             array(
                     'name'       => 'Public Top Menu',

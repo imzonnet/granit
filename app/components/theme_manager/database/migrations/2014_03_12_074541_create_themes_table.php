@@ -25,7 +25,7 @@ class CreateThemesTable extends Migration {
 			$table->timestamps();
 
 			$table->index('created_by');
-			$table->foreign('created_by')->references('id')->on('users')->on_delete('restrict')->on_update('cascade');
+			$table->foreign('created_by')->references('id')->on('users')->onDelete('cascade')->on_update('cascade');
 
         });
 	}

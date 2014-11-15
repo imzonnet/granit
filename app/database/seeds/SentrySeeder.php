@@ -26,7 +26,7 @@ class SentrySeeder extends Seeder {
         ));
 
         // Assign user permissions
-        $userGroup = Sentry::findGroupById(1);
+        $userGroup = Sentry::findGroupByName('Super Administrators');
         $user->addGroup($userGroup);
     }
 

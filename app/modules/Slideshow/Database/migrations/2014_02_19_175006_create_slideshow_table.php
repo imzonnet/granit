@@ -31,10 +31,10 @@ class CreateSlideshowTable extends Migration {
 			// $table->foreign('language_id')->references('id')->on('languages')->on_delete('restrict')->on_update('cascade');
 
 			$table->index('created_by');
-			$table->foreign('created_by')->references('id')->on('users')->on_delete('restrict')->on_update('cascade');
+			$table->foreign('created_by')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
 
 			$table->index('updated_by');
-			$table->foreign('updated_by')->references('id')->on('users')->on_delete('restrict')->on_update('cascade');
+			$table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
 		});
 	}
 

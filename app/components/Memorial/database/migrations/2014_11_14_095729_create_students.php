@@ -26,7 +26,7 @@ class CreateStudents extends Migration {
 	 */
 	public function down()
 	{
-        DB:drop('students');
+        Schema::drop('students');
 	}
 
 }

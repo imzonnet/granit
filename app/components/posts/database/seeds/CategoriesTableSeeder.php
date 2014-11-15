@@ -6,7 +6,7 @@ class CategoriesTableSeeder extends \Seeder {
 	{
 		// Uncomment the below to wipe the table clean before populating
 		DB::table('categories')->delete();
-
+        $user_id = User::first()->id;
 		$categories = array(
             array(
                 'name' => 'First Category',
@@ -14,7 +14,7 @@ class CategoriesTableSeeder extends \Seeder {
                 'type' => 'post',
                 'description' => 'Lorem Ipsum',
                 'status' => 'published',
-                'created_by' => 1,
+                'created_by' => $user_id,
                 'created_at' => date('Y-m-d'),
                 'updated_at' => date('Y-m-d')
             ),
@@ -24,7 +24,7 @@ class CategoriesTableSeeder extends \Seeder {
                 'type' => 'page',
                 'description' => 'Lorem Ipsum',
                 'status' => 'published',
-                'created_by' => 1,
+                'created_by' => $user_id,
                 'created_at' => date('Y-m-d'),
                 'updated_at' => date('Y-m-d')
             )

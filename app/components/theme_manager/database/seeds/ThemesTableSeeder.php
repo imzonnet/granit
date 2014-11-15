@@ -4,8 +4,9 @@ class ThemesTableSeeder extends \Seeder {
 
     public function run()
     {
-        Eloquent::unguard();
-
+        DB::table('themes')->truncate();
+        DB::table('settings')->truncate();
+        $user_id = User::first()->id;
         $themes = array(
                 array(
                     'name'        => 'Default Public Theme',
@@ -15,7 +16,7 @@ class ThemesTableSeeder extends \Seeder {
                     'screenshot'  => '',
                     'directory'   => 'default',
                     'target'      => 'public',
-                    'created_by'  => 1
+                    'created_by'  => $user_id
                 ),
                 array(
                     'name'        => 'Default Admin Theme',
@@ -25,7 +26,7 @@ class ThemesTableSeeder extends \Seeder {
                     'screenshot'  => '',
                     'directory'   => 'default',
                     'target'      => 'admin',
-                    'created_by'  => 1
+                    'created_by'  => $user_id
                 ),
                 array(
                     'name'        => 'Default Backend Theme',
@@ -35,7 +36,7 @@ class ThemesTableSeeder extends \Seeder {
                     'screenshot'  => '',
                     'directory'   => 'default',
                     'target'      => 'backend',
-                    'created_by'  => 1
+                    'created_by'  => $user_id
                 ),
                 array(
                     'name'        => 'Exception',
@@ -45,14 +46,16 @@ class ThemesTableSeeder extends \Seeder {
                     'screenshot'  => '',
                     'directory'   => 'exception',
                     'target'      => 'public',
-                    'created_by'  => 1
+                    'created_by'  => $user_id
                 )
             );
 
         DB::table('themes')->insert($themes);
+        $theme_id = Theme::where('name', '=', 'Exception')->first()->id;
+
         DB::table('settings')->insert(array(
             'name' => 'public_theme',
-            'value' => 4
+            'value' => $theme_id
         ));
     }
 
