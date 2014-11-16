@@ -595,7 +595,7 @@ header.top-head .logo{
 header.top-head .logo a {
 	display: table;
 	min-width: 207px;
-	height: 47px;
+	height: 55px;
 }
 /* ---- 3.3 Main menu ------------------ */
 .top-menu {
@@ -5747,7 +5747,7 @@ a.wit-btn {
 }
 /******* Footer NewsLetters *******/
 .foot-logo {
-	height: 40px;
+	height: 55px;
 	margin: 0 auto 5px;
 	text-align: center;
 }

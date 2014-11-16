@@ -18,8 +18,8 @@ class PostValidator extends Validator {
      * @var array
      */
     protected $rules = array(
-        'title'     => 'required|regex:/^[a-zA-Z0-9\s\?\{\}\(\)]+$/',
-        'permalink' => 'unique:posts,permalink',
+        'title'     => 'required|regex:/^[a-zA-Z0-9\-\s\?\{\}\(\)ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$/i',
+        'permalink' => 'regex:/^[a-z0-9\-]*$/|unique:posts,permalink',
         // 'image'     => 'image',
         // 'content'   => 'required',
         'status'    => 'required'
@@ -30,8 +30,8 @@ class PostValidator extends Validator {
      * @var array
      */
     protected $updateRules = array(
-        'title'     => 'required|regex:/^[a-zA-Z0-9\s\?\{\}\(\)]+$/',
-        'permalink' => 'unique:posts,permalink',
+        'title'     => 'required|regex:/^[a-zA-Z0-9\-\s\?\{\}\(\)ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$/i',
+        'permalink' => 'regex:/^[a-z0-9\-]*$/|unique:posts,permalink',
         // 'image'  => 'image',
         // 'content'   => 'required',
         'status'    => 'required'
