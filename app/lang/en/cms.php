@@ -43,5 +43,8 @@ return array(
     'modules'                => 'Modules',
     'report_generators'      => 'Report Generators',
     'synchronize'            => 'Synchronize',
-    'settings'               => 'Settings'
+    'settings'               => 'Settings',
+
+    'products'               => 'Products',
+    'product_categories'     => 'Product Categories',
 );

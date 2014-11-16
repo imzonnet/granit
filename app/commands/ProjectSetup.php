@@ -48,6 +48,8 @@ class ProjectSetup extends Command {
 
         $this->call('migrate', array('--path' => 'app/components/ReportBuilder/Database/Migrations/'));
         $this->call('migrate', array('--path' => 'app/components/ReportGenerator/Database/Migrations/'));
+
+        $this->call('migrate', array('--path' => 'app/components/Products/database/migrations'));
         $this->info('____________Completed_____________');
 
     }

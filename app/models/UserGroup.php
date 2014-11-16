@@ -49,6 +49,7 @@ class UserGroup extends Eloquent {
                     'module-builder'    => 'Module Builder',
                     'report-builder'    => 'Report Builder',
                     'report-generators' => 'Report Generators',
+                    'products'          => 'Products',
                 ),
                 'others' => array(
                     'theme-manager'   => array(

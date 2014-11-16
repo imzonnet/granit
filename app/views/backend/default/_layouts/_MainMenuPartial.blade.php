@@ -114,6 +114,33 @@
                 </ul>
             </li>
             @endif
+            <!-- Exp Component: Products -->
+            @if (can_access_menu($current_user, array('products')))
+            <li class="has-sub {{ Request::is('backend/products') || Request::is('backend/product-categories') ? 'active' : null }} ">
+                <a href="javascript:;">
+                    <i class="icon-suitcase"></i>
+                    <span class="title">{{ trans('cms.products') }}</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub">
+                    @if (can_access_menu($current_user, array('products')))
+                        <li class="{{ Request::is('backend/products') ? 'active' : null }}">
+                           <a href="{{ URL::to('backend/products') }}">
+                               {{ trans('cms.products') }}
+                           </a>
+                        </li>
+                    @endif
+                    @if (can_access_menu($current_user, array('product-categories')))
+                        <li class="{{ Request::is('backend/product-categories') ? 'active' : null }}">
+                           <a href="{{ URL::to('backend/product-categories') }}">
+                               {{ trans('cms.product_categories') }}
+                           </a>
+                        </li>
+                    @endif
+                </ul>
+            </li>
+            @endif
+            <!-- Exp Component -->
             @if (can_access_menu($current_user, array('media-manager')))
             <li class="{{ Request::is('backend/media-manager*') ? 'active' : null }}">
                <a href="{{ URL::to('backend/media-manager') }}">
