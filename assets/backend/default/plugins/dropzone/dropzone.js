@@ -506,7 +506,8 @@ require.register("dropzone/lib/dropzone.js", function(exports, require, module){
         });
       },
       sending: o.noop,
-      success: function(file) {
+      success: function(file,responseText) {
+        file.previewTemplate.find(".filename").replaceWith(o("<div class=\"filename\">" + responseText + "</div>"));
         return file.previewTemplate.addClass("success");
       },
       complete: o.noop,

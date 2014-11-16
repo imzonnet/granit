@@ -102,9 +102,11 @@ class MediaManagerController extends BaseController {
 
         try {
             $media_entry = MediaEntry::create($input);
+            $img = explode('/',$media_entry->image);
 
             if ($media_entry) {
-               return Response::json('Success', 200);
+                //return filename so we can update its at client
+               return Response::json($img[count($img)-1], 200);
             } else {
                return Response::json('Error', 400);
             }
