@@ -56,7 +56,32 @@
                             </tr>
                         </thead>
                         <tbody>
-                           
+                        @foreach( $products as $product )
+                            <tr>
+                                    <td>{{ Form::checkbox($product->id, 'checked', false) }}</td>
+                                    <td>{{ HTML::link(url($link_type . '/products/'.$product->id), $product->name) }}</td>
+                                    <td>{{ $product->status() }}</td>
+                                    <td>{{ $product->author() }}</td>
+                                    <td>
+                                        <a href="{{ URL::to($link_type . '/products/' . $product->id . '/edit') }}" class="btn btn-mini"><i class="icon-edit"></i></a>
+
+                                        <div class="actions inline">
+                                            <div class="btn btn-mini">
+                                                <i class="icon-cog"> Actions</i>
+                                            </div>
+                                            <ul class="btn btn-mini">
+                                                @if ($current_user->hasAccess("products.destroy"))
+                                                <li>
+                                                    {{ Form::open(array('route' => array($link_type . '.products.destroy', $product->id), 'method' => 'delete', 'class'=>'inline', 'onsubmit'=>"return deleteRecord($(this), 'product product');")) }}
+                                                        <button type="submit" class="danger delete"><i class="icon-trash"></i> Delete</button>
+                                                    {{ Form::close() }}
+                                                </li>
+                                                @endif
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>

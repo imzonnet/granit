@@ -116,7 +116,7 @@ class PostCategoriesController extends BaseController {
         $this->layout->title = 'Edit ' . Str::title($this->type) . ' Category';
         $this->layout->content = View::make($this->link_type.'.'.$this->current_theme.'.categories.create_edit')
                                         ->with('post_cat', Category::findOrFail($id))
-                                        ->with('type', $this->type);;
+                                        ->with('type', $this->type);
     }
 
     /**

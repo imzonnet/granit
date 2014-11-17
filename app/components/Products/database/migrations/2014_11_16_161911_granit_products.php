@@ -14,9 +14,10 @@ class GranitProducts extends Migration {
 	{
 		Schema::create('granit_products', function(Blueprint $table) {
 			$table->increments('id');
-			$table->string('code', 10);
+			$table->string('product_code', 10)->unique();
 			$table->string('name');
 			$table->string('alias')->unique();
+			$table->text('description');
 			$table->integer('cat_id')->unsigned();
 			$table->foreign('cat_id')->references('id')->on('granit_product_categories')->onDelete('cascade')->onUpdate('cascade');
 			$table->string('thumbnail');
