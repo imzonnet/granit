@@ -1,5 +1,3 @@
 <?php
-	Route::get('mytraining', function(){
-		echo "Hello my training";
-	});
+	Route::get('/backend/mytraining', 'Components\MyTraining\Controllers\backend\MyTrainingsController@index');
 ?>
