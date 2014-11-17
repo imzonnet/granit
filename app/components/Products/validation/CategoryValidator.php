@@ -27,7 +27,7 @@ class CategoryValidator extends Validator {
      * @var array
      */
     protected $message = array(
-
+        'alias.unique' => 'The alias has already been taken'
     );
 
     public function validateForUpdate($input)

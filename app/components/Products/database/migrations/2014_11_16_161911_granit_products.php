@@ -38,7 +38,7 @@ class GranitProducts extends Migration {
 	 */
 	public function down()
 	{
-		//
+		Schema::drop('granit_products');
 	}
 
 }
