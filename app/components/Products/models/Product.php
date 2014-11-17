@@ -1,4 +1,5 @@
 <?php namespace Components\Products\Models;
+
 use App, Str;
 use Robbo\Presenter\PresentableInterface;
 use Components\Products\Presenters\ProductPresenter;

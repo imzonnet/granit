@@ -1,30 +1,26 @@
-<?php namespace Components\Products\Controllers\Backend;
+<?php namespace Components\Stones\Controllers\Backend;
 
-use App, Input, Post, Redirect, Request, Sentry, Str, View, File;
-use Services\Validation\ValidationException as ValidationException;
+use View, App;
+use Components\Stones\Models\IconCategory;
 
-use Components\Products\Models\Product; 
-use Components\Products\Models\Category; 
+class IconCategories extends \BaseController {
 
-class Products extends \BaseController {
+	public function __construct() {
+		View::addLocation(app_path() . '/components/Stones/views');
+		View::addNamespace('Stones', app_path() . '/components/Stones/views');
 
-    public function __construct() {
-        //add hint for views
-        View::addLocation(app_path() . '/components/Products/views');
-        View::addNamespace('Products', app_path() . '/components/Products/views');
+		parent::__construct();
+	}
 
-        parent::__construct();
-    }
-
-    /**
+	/**
      * Display a listing of the posts.
      *
      * @return Response
      */
     public function index() {
-        $this->layout->title = 'All products';
-        $this->layout->content = View::make('Products::backend.products.index')
-                                ->with('products', Product::all());
+        $this->layout->title = 'All Icon Categories';
+        $this->layout->content = View::make('Stones::backend.icon_categories.index')
+                                ->with('categories', Product::all());
     }
 
     /**
@@ -34,7 +30,7 @@ class Products extends \BaseController {
      */
     public function create() {
         $this->layout->title = 'New Product';
-        $this->layout->content = View::make('Products::backend.products.create')
+        $this->layout->content = View::make('Stones::backend.icon_categories.create')
                                 ->with('status', Product::all_status())
                                 ->with('categories', Category::all_categories());
     }
@@ -75,7 +71,7 @@ class Products extends \BaseController {
         if (!$Product) App::abort('401');
 
         $this->layout->title = $Product->title;
-        $this->layout->content = View::make('Products::backend.products.show')
+        $this->layout->content = View::make('Stones::backend.products.show')
                                         ->with('Product', $Product);
     }
 
@@ -88,7 +84,7 @@ class Products extends \BaseController {
     public function edit($id)
     {
         $this->layout->title = 'Edit Product Product';
-        $this->layout->content = View::make('Products::backend.products.create')
+        $this->layout->content = View::make('Stones::backend.products.create')
                                 ->with('product', Product::findOrFail($id))
                                 ->with('status', Product::all_status())
                                 ->with('categories', Category::all_categories());
@@ -155,3 +151,4 @@ class Products extends \BaseController {
     }
 
 }
+

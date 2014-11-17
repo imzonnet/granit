@@ -1,6 +1,6 @@
 <?php namespace Components\Products\Models;
 
-use App, Input, Post, Redirect, Request, Sentry, Str, View, File;
+use App, Str;
 use Robbo\Presenter\PresentableInterface;
 use Components\Products\Presenters\CategoryPresenter;
 
@@ -10,6 +10,13 @@ class Category extends \Eloquent implements PresentableInterface
 	protected $filable = array('name', 'alias', 'image', 'description', 'state', 'ordering', 'created_by');
 	protected $guarded = array('id');
 
+    /**
+     * Relationship
+     */
+    public function product() {
+        return $this->hasMany('Product', 'cat_id', 'id');
+    }
+    
     /**
      * When creating a category, run the attributes through a validator first.
      * @param array $attributes

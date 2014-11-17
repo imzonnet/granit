@@ -9,8 +9,8 @@ class Categories extends \BaseController {
 
 	public function __construct() {
 		//add hint for views
-		View::addLocation(app_path() . '/components/products/views');
-		View::addNamespace('Categories', app_path() . '/components/products/views');
+		View::addLocation(app_path() . '/components/Products/views');
+		View::addNamespace('Categories', app_path() . '/components/Products/views');
 
 		parent::__construct();
 	}
