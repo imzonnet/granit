@@ -1,11 +1,12 @@
 <?php namespace Components\Stones\Controllers\Backend;
 
-use App, Input, Redirect, Request, Sentry, Str, View, File;
-use Components\Stones\Models\IconCategory;
+use View, App;
+use Components\Stones\Models\Font;
 
-class IconCategories extends \BaseController {
+class Fonts extends \BaseController {
 
 	public function __construct() {
+        
 		View::addLocation(app_path() . '/components/Stones/views');
 		View::addNamespace('Stones', app_path() . '/components/Stones/views');
 
@@ -18,9 +19,8 @@ class IconCategories extends \BaseController {
      * @return Response
      */
     public function index() {
-
         $this->layout->title = 'All Icon Categories';
-        $this->layout->content = View::make('Stones::backend.icon_categories.index')->with('categories', IconCategory::all());
+        $this->layout->content = View::make('Stones::backend.icon_categories.index');
     }
 
     /**
@@ -31,7 +31,8 @@ class IconCategories extends \BaseController {
     public function create() {
         $this->layout->title = 'New Product';
         $this->layout->content = View::make('Stones::backend.icon_categories.create')
-                                ->with('status', IconCategory::all_status());
+                                ->with('status', Product::all_status())
+                                ->with('categories', Category::all_categories());
     }
 
     /**

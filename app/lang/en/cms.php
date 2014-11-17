@@ -47,4 +47,9 @@ return array(
 
     'products'               => 'Products',
     'product_categories'     => 'Product Categories',
+    'stones'                 => 'Stones',
+    'stones.icons'           => 'Icons',
+    'stones.icon-categories' => 'Icon Categories',
+    'stones.colors'          => 'Colors',
+    'stones.fonts'           => 'Fonts',
 );

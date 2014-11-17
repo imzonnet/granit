@@ -1,6 +1,6 @@
 <?php namespace Components\Products\Controllers\Backend;
 
-use App, Input, Post, Redirect, Request, Sentry, Str, View, File;
+use App, Input, Redirect, Request, Sentry, Str, View, File;
 use Services\Validation\ValidationException as ValidationException;
 
 use Components\Products\Models\Category; 
@@ -55,7 +55,7 @@ class Categories extends \BaseController {
 
         if (!$category) App::abort('401');
 
-        $this->layout->title = $category->title;
+        $this->layout->title = $category->name;
         $this->layout->content = View::make('Categories::backend.categories.show')
                                         ->with('category', $category);
     }

@@ -1,6 +1,6 @@
 <?php namespace Components\Products\Controllers\Backend;
 
-use App, Input, Post, Redirect, Request, Sentry, Str, View, File;
+use App, Input, Redirect, Request, Sentry, Str, View, File;
 use Services\Validation\ValidationException as ValidationException;
 
 use Components\Products\Models\Product; 
@@ -47,7 +47,6 @@ class Products extends \BaseController {
     public function store() {
         $input = Input::all();
 
-
         try {
             $redirect = (isset($input['form_save'])) ? "backend/products" : "backend/products/create";
             unset($input['form_save']);
@@ -70,13 +69,13 @@ class Products extends \BaseController {
      */
     public function show($id)
     {
-        $Product = Product::findOrFail($id);
+        $product = Product::findOrFail($id);
 
-        if (!$Product) App::abort('401');
+        if (!$product) App::abort('401');
 
-        $this->layout->title = $Product->title;
+        $this->layout->title = $product->name;
         $this->layout->content = View::make('Products::backend.products.show')
-                                        ->with('Product', $Product);
+                                        ->with('product', $product);
     }
 
     /**

@@ -77,7 +77,7 @@
                                     </div>
 
                                     <div class="control-group {{{ $errors->has('description') ? 'error' : '' }}}">
-                                        <label class="control-label">Description <span class="red">*</span></label>
+                                        <label class="control-label">Description</label>
                                         <div class="controls line">
                                            <textarea class="span12 ckeditor m-wrap" id="content" name="description" rows="6">{{ (!isset($category)) ? Input::old('description') : $category->description }}</textarea>
                                            {{ $errors->first('description', '<span class="help-inline">:message</span>') }}
@@ -87,15 +87,15 @@
                                     <div class="control-group {{{ $errors->has('status') ? 'error' : '' }}}">
                                         <label class="control-label">Status <span class="red">*</span></label>
                                         <div class="controls line">
-                                            {{ Form::select('status', $status, (!isset($post)) ? Input::old('status') : $post->status, array('class'=>'chosen span6 m-wrap', 'style'=>'width:285px')) }}
+                                            {{ Form::select('status', $status, (!isset($category)) ? Input::old('status') : $category->status, array('class'=>'chosen span6 m-wrap', 'style'=>'width:285px')) }}
                                             {{ $errors->first('status', '<span class="help-inline">:message</span>') }}
                                         </div>
                                     </div>
 
                                     <div class="control-group">
-                                        <label class="control-label">Order: </label>            
+                                        <label class="control-label">Order</label>            
                                         <div class="controls line">
-                                            {{Form::text('ordering', (!isset($category)) ? Input::old('alias') : $category->ordering, array('class' => 'input-xlarge', 'placeholder' => '0'))}}
+                                            {{Form::text('ordering', (!isset($category)) ? Input::old('ordering') : $category->ordering, array('class' => 'input-xlarge', 'placeholder' => '0'))}}
                                         </div>
                                     </div>
 

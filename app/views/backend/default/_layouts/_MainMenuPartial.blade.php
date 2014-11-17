@@ -140,6 +140,45 @@
                 </ul>
             </li>
             @endif
+            @if (can_access_menu($current_user, array('stones')))
+            <li class="has-sub {{ Request::is('backend/stones') || Request::is('backend/stones/icon-categories') || Request::is('backend/stones/icons') || Request::is('backend/stones/fonts') || Request::is('backend/stones/colors') ? 'active' : null }} ">
+                <a href="javascript:;">
+                    <i class="icon-cut"></i>
+                    <span class="title">{{ trans('cms.stones') }}</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub">
+                    @if (can_access_menu($current_user, array('stones-icons')))
+                        <li class="{{ Request::is('backend/stones/icons') ? 'active' : null }}">
+                           <a href="{{ URL::to('backend/stones/icons') }}">
+                               {{ trans('cms.stones.icons') }}
+                           </a>
+                        </li>
+                    @endif
+                    @if (can_access_menu($current_user, array('stones-icon-categories')))
+                        <li class="{{ Request::is('backend/stones/icon-categories') ? 'active' : null }}">
+                           <a href="{{ URL::to('backend/stones/icon-categories') }}">
+                               {{ trans('cms.stones.icon-categories') }}
+                           </a>
+                        </li>
+                    @endif
+                    @if (can_access_menu($current_user, array('stones-colors')))
+                        <li class="{{ Request::is('backend/stones/colors') ? 'active' : null }}">
+                           <a href="{{ URL::to('backend/stones/colors') }}">
+                               {{ trans('cms.stones.colors') }}
+                           </a>
+                        </li>
+                    @endif
+                    @if (can_access_menu($current_user, array('stones-fonts')))
+                        <li class="{{ Request::is('backend/stones/fonts') ? 'active' : null }}">
+                           <a href="{{ URL::to('backend/stones/fonts') }}">
+                               {{ trans('cms.stones.fonts') }}
+                           </a>
+                        </li>
+                    @endif
+                </ul>
+            </li>
+            @endif
             <!-- Exp Component -->
             @if (can_access_menu($current_user, array('media-manager')))
             <li class="{{ Request::is('backend/media-manager*') ? 'active' : null }}">

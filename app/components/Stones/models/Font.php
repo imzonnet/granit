@@ -1,6 +1,36 @@
 <?php namespace Components\Stones\Models;
 
-class Font extends \BaseController {
+use App, Str;
+use Robbo\Presenter\PresentableInterface;
+use Components\Products\Presenters\CategoryPresenter;
+
+class Font extends \Eloquent implements PresentableInterface {
 	protected $table = 'granit_fonts';
 	
+	/**
+     * Get all the statuses available for a post
+     * @return array
+     */
+    public static function all_status()
+    {
+        return array(
+                'published'   => 'Publish',
+                'unpublished' => 'Unpublish',
+                'drafted'     => 'Draft',
+                'archived'    => 'Archive'
+            );
+    }
+    /**
+     * Get thumbnail image
+     * @return string
+     */
+    
+    /**
+    * Implement presenter
+    */
+    public function getPresenter() {
+        return new ProductPresenter($this);
+    }
+
+
 }

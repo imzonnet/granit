@@ -50,6 +50,12 @@ class UserGroup extends Eloquent {
                     'report-builder'    => 'Report Builder',
                     'report-generators' => 'Report Generators',
                     'products'          => 'Products',
+                    'product-categories'=> 'Product Categories',
+                    'stones-icons'      => 'Stone Icons',
+                    'stones-icon-categories'   => 'Stone Icon Categories',
+                    'stones-colors'     => 'Stone Colors',
+                    'stones-fonts'      => 'Stone Fonts',
+
                 ),
                 'others' => array(
                     'theme-manager'   => array(
