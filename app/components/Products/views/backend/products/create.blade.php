@@ -68,7 +68,7 @@
                                     <div class="control-group {{{ $errors->has('status') ? 'error' : '' }}}">
                                         <label class="control-label">Category <span class="red">*</span></label>
                                         <div class="controls line">
-                                            {{ Form::select('cat_id', $categories, (!isset($product)) ? Input::old('cat_id') : $post->cat_id, array('class'=>'chosen span6 m-wrap', 'style'=>'width:285px')) }}
+                                            {{ Form::select('cat_id', $categories, (!isset($product)) ? Input::old('cat_id') : $product->cat_id, array('class'=>'chosen span6 m-wrap', 'style'=>'width:285px')) }}
                                             {{ $errors->first('status', '<span class="help-inline">:message</span>') }}
                                         </div>
                                     </div>
@@ -110,7 +110,7 @@
                                     <div class="control-group {{{ $errors->has('status') ? 'error' : '' }}}">
                                         <label class="control-label">Status <span class="red">*</span></label>
                                         <div class="controls line">
-                                            {{ Form::select('status', $status, (!isset($product)) ? Input::old('status') : $post->status, array('class'=>'chosen span6 m-wrap', 'style'=>'width:285px')) }}
+                                            {{ Form::select('status', $status, (!isset($product)) ? Input::old('status') : $product->status, array('class'=>'chosen span6 m-wrap', 'style'=>'width:285px')) }}
                                             {{ $errors->first('status', '<span class="help-inline">:message</span>') }}
                                         </div>
                                     </div>

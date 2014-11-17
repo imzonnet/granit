@@ -74,8 +74,9 @@ class Products extends \BaseController {
     {
         $this->layout->title = 'Edit Product Product';
         $this->layout->content = View::make('products::backend.products.create')
-                                ->with('Product', Product::findOrFail($id))
-                                ->with('status', Product::all_status());
+                                ->with('product', Product::findOrFail($id))
+                                ->with('status', Product::all_status())
+                                ->with('categories', Category::all_categories());
     }
 
     /**
@@ -93,8 +94,8 @@ class Products extends \BaseController {
             unset($input['form_save_new']);
             Product::findOrFail($id)->update($input);
 
-            return Redirect::to("backend/product-products")
-                                ->with('success_message', 'The post Product was updated.');
+            return Redirect::to("backend/products")
+                                ->with('success_message', 'The product was updated.');
         }
 
         catch(ValidationException $e)
@@ -132,9 +133,9 @@ class Products extends \BaseController {
         }
 
         $wasOrWere = (count($selected_ids) > 1) ? 's were' : ' was';
-        $message = 'The product Product' . $wasOrWere . ' deleted.';
+        $message = 'The product' . $wasOrWere . ' deleted.';
 
-        return Redirect::to("backend/product-products")
+        return Redirect::to("backend/products")
                             ->with('success_message', $message);
     }
 
