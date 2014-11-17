@@ -33,7 +33,8 @@ class ProductValidator extends Validator {
      * @var array
      */
     protected $message = array(
-        'alias.unique' => 'The alias has already been taken'
+        'alias.unique' => 'The alias has already been taken',
+        'cat_id.required' => 'The category must required'
     );
 
     public function validateForUpdate($input)

@@ -59,7 +59,11 @@ class Product extends \Eloquent implements PresentableInterface {
                 'archived'    => 'Archive'
             );
     }
-
+    /**
+     * Get thumbnail image
+     * @return string
+     */
+    
     /**
     * Implement presenter
     */

@@ -65,11 +65,12 @@
                                         </div>
                                     </div>
 
-                                    <div class="control-group {{{ $errors->has('status') ? 'error' : '' }}}">
+                                    <div class="control-group {{{ $errors->has('cat_id') ? 'error' : '' }}}">
                                         <label class="control-label">Category <span class="red">*</span></label>
                                         <div class="controls line">
                                             {{ Form::select('cat_id', $categories, (!isset($product)) ? Input::old('cat_id') : $product->cat_id, array('class'=>'chosen span6 m-wrap', 'style'=>'width:285px')) }}
-                                            {{ $errors->first('status', '<span class="help-inline">:message</span>') }}
+                                            {{ HTML::link("$link_type/product-categories/create", "Add Category", array('class'=>'btn btn-mini mb-15')) }}
+                                            {{ $errors->first('cat_id', '<span class="help-inline">:message</span>') }}
                                         </div>
                                     </div>
 
@@ -100,10 +101,13 @@
                                         </div>
                                     </div>
                                     
-                                    <div class="control-group">
-                                        <label class="control-label">Price <span class="red">*</span</label>            
+                                    <div class="control-group {{{ $errors->has('price') ? 'error' : '' }}}">
+                                        <label class="control-label">Price <span class="red">*</span></label>            
                                         <div class="controls line">
+                                            <div class="input-append">
                                             {{Form::text('price', (!isset($product)) ? Input::old('price') : $product->price, array('class' => 'input-xlarge', 'placeholder' => '0.0'))}}
+                                            <span class="add-on">$</span>
+                                            </div>
                                         </div>
                                     </div>
 
