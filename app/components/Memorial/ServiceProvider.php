@@ -8,6 +8,7 @@ namespace App\Components\Memorial;
  */
 class ServiceProvider extends \App\Components\ServiceProvider {
 
+
     public function register()
     {
         parent::register('memorial');
@@ -17,5 +18,4 @@ class ServiceProvider extends \App\Components\ServiceProvider {
     {
         parent::boot('memorial');
     }
-
 }

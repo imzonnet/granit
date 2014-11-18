@@ -7,6 +7,6 @@
  */
 
 return array(
-    'number'    => 'value',
+    'number'    => ['key1' =>'value'],
     'number2'    => 'value2',
 );
