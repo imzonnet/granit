@@ -10,12 +10,12 @@ class ServiceProvider extends \App\Components\ServiceProvider {
 
     public function register()
     {
-        parent::register('mygalleries');
+        parent::register('Mygalleries');
     }
 
     public function boot()
     {
-        parent::boot('mygalleries');
+        parent::boot('Mygalleries');
     }
 
 }

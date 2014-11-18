@@ -5,12 +5,12 @@ class ServiceProvider extends \App\Components\ServiceProvider {
 
     public function register()
     {
-        parent::register('stones');
+        parent::register('Stones');
     }
 
     public function boot()
     {
-        parent::boot('stones');
+        parent::boot('Stones');
     }
 
 }
