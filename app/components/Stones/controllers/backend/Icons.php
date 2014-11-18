@@ -1,25 +1,28 @@
 <?php namespace Components\Stones\Controllers\Backend;
 
-use View, App;
+use App, Input, Redirect, Request, Sentry, Str, View, File;
+use Services\Validation\ValidationException as ValidationException;
 use Components\Stones\Models\Icon;
+use Components\Stones\Models\IconCategory;
 
 class Icons extends \BaseController {
 
-	public function __construct() {
-		View::addLocation(app_path() . '/components/Stones/views');
-		View::addNamespace('Stones', app_path() . '/components/Stones/views');
+    public function __construct() {
+        View::addLocation(app_path() . '/components/Stones/views');
+        View::addNamespace('Stones', app_path() . '/components/Stones/views');
 
-		parent::__construct();
-	}
+        parent::__construct();
+    }
 
-	/**
+    /**
      * Display a listing of the posts.
      *
      * @return Response
      */
     public function index() {
-        $this->layout->title = 'All Icon Categories';
-        $this->layout->content = View::make('Stones::backend.icon_categories.index');
+
+        $this->layout->title = 'All Icons';
+        $this->layout->content = View::make('Stones::backend.icons.index')->with('icons', Icon::all());
     }
 
     /**
@@ -28,10 +31,10 @@ class Icons extends \BaseController {
      * @return Response
      */
     public function create() {
-        $this->layout->title = 'New Product';
-        $this->layout->content = View::make('Stones::backend.icon_categories.create')
-                                ->with('status', Product::all_status())
-                                ->with('categories', Category::all_categories());
+        $this->layout->title = 'New Icon';
+        $this->layout->content = View::make('Stones::backend.icons.create')
+                                ->with('status', Icon::all_status())
+                                ->with('categories', IconCategory::all_categories());
     }
 
     /**
@@ -41,16 +44,15 @@ class Icons extends \BaseController {
      */
     public function store() {
         $input = Input::all();
-
-
+        if (isset($input['form_close'])) {
+            return Redirect::to("backend/stones/icons");
+        }
         try {
-            $redirect = (isset($input['form_save'])) ? "backend/products" : "backend/products/create";
-            unset($input['form_save']);
-            unset($input['form_save_new']);
-            Product::create($input);
+            $redirect = (isset($input['form_save'])) ? "backend/stones/icons" : "backend/stones/icons/create";
+            Icon::create($input);
 
             return Redirect::to($redirect)
-                                ->with('success_message', 'The product was created.');
+                                ->with('success_message', 'The Icon was created.');
         } catch(ValidationException $e) {
             return Redirect::back()->withInput()->withErrors($e->getErrors());
         }
@@ -65,13 +67,13 @@ class Icons extends \BaseController {
      */
     public function show($id)
     {
-        $Product = Product::findOrFail($id);
+        $category = Icon::findOrFail($id);
 
-        if (!$Product) App::abort('401');
+        if (!$category) App::abort('401');
 
-        $this->layout->title = $Product->title;
-        $this->layout->content = View::make('Stones::backend.products.show')
-                                        ->with('Product', $Product);
+        $this->layout->title = $category->name;
+        $this->layout->content = View::make('Stones::backend.icons.show')
+                                        ->with('category', $category);
     }
 
     /**
@@ -82,11 +84,12 @@ class Icons extends \BaseController {
      */
     public function edit($id)
     {
-        $this->layout->title = 'Edit Product Product';
-        $this->layout->content = View::make('Stones::backend.products.create')
-                                ->with('product', Product::findOrFail($id))
-                                ->with('status', Product::all_status())
-                                ->with('categories', Category::all_categories());
+        $icon = Icon::find($id);
+        $this->layout->title = 'Edit ' . $icon->name;
+        $this->layout->content = View::make('Stones::backend.icons.create')
+                                ->with('status', Icon::all_status())
+                                ->with('icon', $icon)
+                                ->with('categories', IconCategory::all_categories());
     }
 
     /**
@@ -98,18 +101,17 @@ class Icons extends \BaseController {
     public function update($id)
     {
         $input = Input::all();
-        try
-        {
+        if (isset($input['form_close'])) {
+            return Redirect::to("backend/stones/icons");
+        }
+        try {
             unset($input['form_save']);
             unset($input['form_save_new']);
-            Product::findOrFail($id)->update($input);
+            Icon::findOrFail($id)->update($input);
 
-            return Redirect::to("backend/products")
-                                ->with('success_message', 'The product was updated.');
-        }
-
-        catch(ValidationException $e)
-        {
+            return Redirect::to("backend/stones/icons")
+                                ->with('success_message', 'The category was updated.');
+        } catch(ValidationException $e) {
             return Redirect::back()->withInput()->withErrors($e->getErrors());
         }
     }
@@ -143,9 +145,9 @@ class Icons extends \BaseController {
         }
 
         $wasOrWere = (count($selected_ids) > 1) ? 's were' : ' was';
-        $message = 'The product' . $wasOrWere . ' deleted.';
+        $message = 'The category' . $wasOrWere . ' deleted.';
 
-        return Redirect::to("backend/products")
+        return Redirect::to("backend/stones/icons")
                             ->with('success_message', $message);
     }
 

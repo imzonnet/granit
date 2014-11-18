@@ -6,15 +6,19 @@ use Components\Stones\Presenters\IconCategoryPresenter;
 
 class IconCategory extends \Eloquent implements PresentableInterface {
 	protected $table = 'granit_icon_categories';
-	
 	public $timestamps = false;
 	
+	protected $fillable = array('name', 'image', 'description', 'state', 'ordering', 'created_by', 'parent_id');
 	protected $guarded = array('id');
 
 	public function icon() {
 		return $this->hasMany('Icon', 'cat_id', 'id', 'granit_icon_categories');
 	}
-
+	/**
+     * When creating a category, run the attributes through a validator first.
+     * @param array $attributes
+     * @return void
+     */
 	public static function create(array $attributes = array()) {
 		App::make('Components\\Stones\\Validation\\IconCategoryValidator')->validateForCreation($attributes);
 		$attributes['created_by'] = current_user()->id;
@@ -22,13 +26,25 @@ class IconCategory extends \Eloquent implements PresentableInterface {
 	}
 
 	/**
+     * When creating a category, run the attributes through a validator first.
+     * @param array $attributes
+     * @return void
+     */
+	public function update(array $attributes = array()) {
+		App::make('Components\\Stones\\Validation\\IconCategoryValidator')->validateForUpdate($attributes);
+		$attributes['created_by'] = current_user()->id;
+		return parent::update($attributes);
+	}
+
+	/**
      * Get all the icon categories
      * @return array
      */
-	public static function all_categories() {
-		$categories = array('0' => '');
+	public static function all_categories($id = 0) {
+		$categories = array('0' => 'None');
 		foreach (IconCategory::all() as $category) {
-			$categories[$category->id] = $category->name;
+			if( $category->id != $id )
+				$categories[$category->id] = $category->name;
 		}
 		return $categories;
 	}

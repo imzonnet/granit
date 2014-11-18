@@ -1,8 +1,9 @@
-<?php namespace Components\Stones\Validation;
+<?php
+namespace Components\Stones\Validation;
 
 use Services\Validation\Validator as Validator;
 
-class IconCategoryValidator extends Validator {
+class FontValidator extends Validator{
 
 	/**
      * Default rules
@@ -10,6 +11,7 @@ class IconCategoryValidator extends Validator {
      */
     protected $rules = array(
         'name'     		=> 'required|regex:/^[a-zA-Z0-9\-\s\?\{\}\(\)ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$/',
+        'url' 		=> 'required|url',
     );
 
     /**
@@ -18,6 +20,7 @@ class IconCategoryValidator extends Validator {
      */
     protected $updateRules = array(
         'name'     		=> 'required|regex:/^[a-zA-Z0-9\-\s\?\{\}\(\)ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$/',
+        'url'		=> 'required|url',
     );
 
     /**

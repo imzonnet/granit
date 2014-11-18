@@ -119,7 +119,12 @@ return array(
         'App\Components\Memorial\ServiceProvider',
 
 
+
         'App\Components\MyGalleries\ServiceProvider',
+
+        'App\Components\Products\ServiceProvider',
+        'App\Components\Stones\ServiceProvider',
+
 	),
 
 	/*

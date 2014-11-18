@@ -12,10 +12,10 @@
                 <div class="blue widget-title">
                     <h4>
                         <i class="icon-user"></i>
-                        @if (!isset($icon))
-                            <span class="hidden-480">Create New Category</span>
+                        @if (!isset($font))
+                            <span class="hidden-480">Create Font</span>
                         @else
-                            <span class="hidden-480">Edit Category</span>
+                            <span class="hidden-480">Edit Font</span>
                         @endif
                     </h4>
                 </div>
@@ -24,10 +24,10 @@
                         <div class="tab-content">
                             <div class="tab-pane active" id="widget_tab1">
                                 <!-- BEGIN FORM-->
-                                @if (!isset($icon))
-                                {{ Form::open(array('route'=>$link_type . '.stones.icons.store', 'method'=>'post', 'class'=>'form-horizontal', 'files'=>true)) }}
+                                @if (!isset($font))
+                                {{ Form::open(array('route'=>$link_type . '.stones.fonts.store', 'method'=>'post', 'class'=>'form-horizontal', 'files'=>true)) }}
                                 @else
-                                {{ Form::open(array('route' => array($link_type . '.stones.icons.update', $icon->id), 'method'=>'PUT', 'class'=>'form-horizontal', 'files'=>true)) }}
+                                {{ Form::open(array('route' => array($link_type . '.stones.fonts.update', $font->id), 'method'=>'PUT', 'class'=>'form-horizontal', 'files'=>true)) }}
                                 @endif
 
                                     @if ($errors->has())
@@ -37,52 +37,30 @@
                                         </div>
                                     @endif
 
-                                    @if (isset($icon))
-                                        {{ Form::hidden('id', $icon->id) }}
+                                    @if (isset($font))
+                                        {{ Form::hidden('id', $font->id) }}
                                     @endif
                                     
                                     <div class="control-group {{{ $errors->has('name') ? 'error' : '' }}}">
-                                        <label class="control-label">Title <span class="red">*</span></label>
+                                        <label class="control-label">Name <span class="red">*</span></label>
                                         <div class="controls">
-                                            {{ Form::text('name', (!isset($icon)) ? Input::old('name') : $icon->name, array('class' => 'input-xlarge'))}}
+                                            {{ Form::text('name', (!isset($font)) ? Input::old('name') : $font->name, array('class' => 'input-xlarge'))}}
                                             {{ $errors->first('name', '<span class="help-inline">:message</span>') }}
                                         </div>
                                     </div>
-                                   
-                                    <div class="control-group {{{ $errors->has('image') ? 'error' : '' }}}">
-                                        <label class="control-label">Image <span class="red">*</span></label>
+                        
+                                    <div class="control-group {{{ $errors->has('url') ? 'error' : '' }}}">
+                                        <label class="control-label">URL <span class="red">*</span></label>
                                         <div class="controls">
-                                            {{-- Form::file('image', array('class' => 'input-xlarge')) --}}
-                                            {{ Form::hidden('image') }}
-                                            <a class="btn btn-primary insert-media" id="insert-main-image" href="#"> Select main image</a>
-                                            <span class="file-name">
-                                                {{ $icon->image or '' }}
-                                            </span>
-                                            {{ $errors->first('image', '<span class="help-inline">:message</span>') }}
+                                            {{ Form::text('url', (!isset($font)) ? Input::old('url') : $font->url, array('class' => 'input-xlarge', 'placeholder' => 'http://fonts.googleapis.com/css?family=Open+Sans'))}}
+                                            {{ $errors->first('url', '<span class="help-inline">:message</span>') }}
                                         </div>
                                     </div>
  
-                                    <div class="control-group {{{ $errors->has('customize') ? 'error' : '' }}}">
-                                        <label class="control-label">Customize <span class="red">*</span></label>
-                                        <div class="controls">
-                                            {{ Form::checkbox('customize', (!isset($icon)) ? Input::old('customize') : $icon->customize, null ,array('class' => 'input-xlarge'))}}
-                                            {{ $errors->first('name', '<span class="help-inline">:message</span>') }}
-                                        </div>
-                                    </div>
-                                        
-                                    <div class="control-group {{{ $errors->has('cat_id') ? 'error' : '' }}}">
-                                        <label class="control-label">Icon category <span class="red">*</span></label>
-                                        <div class="controls line">
-                                            {{ Form::select('cat_id', $categories, (!isset($icon)) ? Input::old('cat_id') : $icon->cat_id, array('class'=>'chosen span6 m-wrap', 'style'=>'width:285px')) }}
-                                            <a href="{{URL::route($link_type .'.stones.icon-categories.create')}}" class="btn btn-mini mb-15">Create categories</a>
-                                            {{ $errors->first('cat_id', '<span class="help-inline">:message</span>') }}
-                                        </div>
-                                    </div>
-
                                     <div class="control-group {{{ $errors->has('status') ? 'error' : '' }}}">
                                         <label class="control-label">Status <span class="red">*</span></label>
                                         <div class="controls line">
-                                            {{ Form::select('status', $status, (!isset($icon)) ? Input::old('status') : $icon->status, array('class'=>'chosen span6 m-wrap', 'style'=>'width:285px')) }}
+                                            {{ Form::select('status', $status, (!isset($font)) ? Input::old('status') : $font->status, array('class'=>'chosen span6 m-wrap', 'style'=>'width:285px')) }}
                                             {{ $errors->first('status', '<span class="help-inline">:message</span>') }}
                                         </div>
                                     </div>
@@ -91,7 +69,7 @@
                                     <div class="control-group">
                                         <label class="control-label">Order</label>            
                                         <div class="controls line">
-                                            {{Form::text('ordering', (!isset($icon)) ? Input::old('ordering') : $icon->ordering, array('class' => 'input-xlarge', 'placeholder' => '0'))}}
+                                            {{Form::text('ordering', (!isset($font)) ? Input::old('ordering') : $font->ordering, array('class' => 'input-xlarge', 'placeholder' => '0'))}}
                                         </div>
                                     </div>
 

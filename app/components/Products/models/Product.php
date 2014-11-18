@@ -8,7 +8,6 @@ class Product extends \Eloquent implements PresentableInterface {
 	protected $table = 'granit_products';
     
     protected $fillale = array('code', 'name', 'alias', 'cat_id', 'image', 'price', 'state', 'ordering', 'created_by');
-    
     protected $guarded = array('id');
     /**
      * Relationship

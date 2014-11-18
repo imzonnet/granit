@@ -1,8 +1,9 @@
-<?php namespace Components\Stones\Validation;
+<?php
+namespace Components\Stones\Validation;
 
 use Services\Validation\Validator as Validator;
 
-class IconCategoryValidator extends Validator {
+class IconValidator extends Validator{
 
 	/**
      * Default rules
@@ -10,6 +11,8 @@ class IconCategoryValidator extends Validator {
      */
     protected $rules = array(
         'name'     		=> 'required|regex:/^[a-zA-Z0-9\-\s\?\{\}\(\)ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$/',
+        'image' 		=> 'required',
+        'cat_id'		=> 'required|exists:granit_icon_categories,id',
     );
 
     /**
@@ -18,6 +21,7 @@ class IconCategoryValidator extends Validator {
      */
     protected $updateRules = array(
         'name'     		=> 'required|regex:/^[a-zA-Z0-9\-\s\?\{\}\(\)ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$/',
+        'cat_id'		=> 'required',
     );
 
     /**
@@ -25,6 +29,8 @@ class IconCategoryValidator extends Validator {
      * @var array
      */
     protected $message = array(
+    	'cat_id.required' => 'The category must required',
+        'cat_id.exists' => 'The category must required'
     );
 
     public function validateForCreation($input)
