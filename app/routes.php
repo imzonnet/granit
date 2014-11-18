@@ -269,10 +269,6 @@ foreach(glob("app/modules/*/routes.php") as $route) {
     require_once($route);
 }
 
-// Add the routes of installed components
-foreach(glob("app/components/*/routes.php") as $route) {
-    require_once($route);
-}
 
 if (!Config::get('app.debug')) {
     // Display error pages only if debug mode is disabled

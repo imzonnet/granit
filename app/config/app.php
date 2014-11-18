@@ -114,6 +114,9 @@ return array(
 		'Menu\MenuServiceProvider',
 		'Barryvdh\DomPDF\ServiceProvider',
 		'Mews\Captcha\CaptchaServiceProvider',
+
+
+        'App\Components\Memorial\ServiceProvider',
 	),
 
 	/*
