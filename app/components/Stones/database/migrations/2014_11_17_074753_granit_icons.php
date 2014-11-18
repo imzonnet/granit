@@ -15,7 +15,7 @@ class GranitIcons extends Migration {
 		Schema::create('granit_icons', function(Blueprint $table) {
 			$table->increments('id');
 			$table->string('name');
-			$table->string('images');
+			$table->string('image');
 			$table->tinyInteger('customize');
 			$table->integer('cat_id')->unsigned();
 			$table->foreign('cat_id')->references('id')->on('granit_icon_categories')->onDelete('cascade')->onUpdate('cascade');

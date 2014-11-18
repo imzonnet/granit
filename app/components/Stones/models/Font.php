@@ -2,12 +2,39 @@
 
 use App, Str;
 use Robbo\Presenter\PresentableInterface;
-use Components\Products\Presenters\CategoryPresenter;
+use Components\Stones\Presenters\FontPresenter;
 
 class Font extends \Eloquent implements PresentableInterface {
-	protected $table = 'granit_fonts';
-	
-	/**
+    protected $table = 'granit_fonts';
+    public $timestamps = false;
+
+    protected $fillable = array('name', 'url', 'status', 'ordering', 'created_by');
+    protected $guarded = array('id');
+
+
+    /**
+     * When creating a icon, run the attributes through a validator first.
+     * @param array $attributes
+     * @return void
+     */
+    public static function create(array $attributes = array()) {
+        App::make('Components\\Stones\\Validation\\FontValidator')->validateForCreation($attributes);
+        $attributes['created_by'] = current_user()->id;
+        return parent::create($attributes);
+    }
+
+    /**
+     * When creating a icon, run the attributes through a validator first.
+     * @param array $attributes
+     * @return void
+     */
+    public function update(array $attributes = array()) {
+        App::make('Components\\Stones\\Validation\\FontValidator')->validateForUpdate($attributes);
+        $attributes['created_by'] = current_user()->id;
+        return parent::update($attributes);
+    }
+
+    /**
      * Get all the statuses available for a post
      * @return array
      */
@@ -29,8 +56,7 @@ class Font extends \Eloquent implements PresentableInterface {
     * Implement presenter
     */
     public function getPresenter() {
-        return new ProductPresenter($this);
+        return new FontPresenter($this);
     }
-
 
 }

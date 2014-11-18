@@ -63,7 +63,7 @@
                                     </div>
 
                                     <div class="control-group {{{ $errors->has('description') ? 'error' : '' }}}">
-                                        <label class="control-label">Description <span class="red">*</span></label>
+                                        <label class="control-label">Description</label>
                                         <div class="controls line">
                                            <textarea class="span12 ckeditor m-wrap" id="content" name="description" rows="6">{{ (!isset($category)) ? Input::old('description') : $category->description }}</textarea>
                                            {{ $errors->first('description', '<span class="help-inline">:message</span>') }}

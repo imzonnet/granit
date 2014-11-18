@@ -34,8 +34,6 @@ class Categories extends \BaseController {
 
         try {
             $redirect = (isset($input['form_save'])) ? "backend/product-categories" : "backend/product-categories/create";
-        	unset($input['form_save']);
-        	unset($input['form_save_new']);
         	Category::create($input);
 
             return Redirect::to($redirect)
@@ -91,8 +89,6 @@ class Categories extends \BaseController {
         }
         try
         {
-        	unset($input['form_save']);
-        	unset($input['form_save_new']);
             Category::findOrFail($id)->update($input);
 
             return Redirect::to("backend/product-categories")

@@ -26,9 +26,9 @@
                                     <i class="icon-cog"> Actions</i>
                                 </div>
                                 <ul class="btn">
-                                    @if ($current_user->hasAccess("stone-icon-categories.destroy"))
+                                    @if ($current_user->hasAccess("stones-icons.destroy"))
                                     <li>
-                                        {{ Form::open(array('route' => array($link_type . '.stones/icon-categories.destroy', 'multiple'), 'method' => 'delete', 'class'=>'inline', 'onsubmit'=>"return deleteRecords($(this), 'categories');")) }}
+                                        {{ Form::open(array('route' => array($link_type . '.stones.icons.destroy', 'multiple'), 'method' => 'delete', 'class'=>'inline', 'onsubmit'=>"return deleteRecords($(this), 'icons');")) }}
                                             {{ Form::hidden('selected_ids', '', array('id'=>'selected_ids')) }}
                                             <button type="submit" class="danger delete"><i class="icon-trash"></i> Delete</button>
                                         {{ Form::close() }}
@@ -37,9 +37,9 @@
                                 </ul>
                             </div>
                         </div>
-                        @if ($current_user->hasAccess("product-categories.create"))
+                        @if ($current_user->hasAccess("stones-icons.create"))
                         <div class="btn-group pull-right">
-                            <button data-href="{{ URL::to($link_type . '/stones/icon-categories/create') }}" class="btn btn-success">
+                            <button data-href="{{ URL::to($link_type . '/stones/icons/create') }}" class="btn btn-success">
                                 Add New <i class="icon-plus"></i>
                             </button>
                         </div>
@@ -56,23 +56,23 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach( $categories as $category )
+                        @foreach( $icons as $icon )
                             <tr>
-                                    <td>{{ Form::checkbox($category->id, 'checked', false) }}</td>
-                                    <td>{{ HTML::link(url($link_type . '/stones/icon-categories/'.$category->id), $category->name) }}</td>
-                                    <td>{{ $category->status() }}</td>
-                                    <td>{{ $category->author() }}</td>
+                                    <td>{{ Form::checkbox($icon->id, 'checked', false) }}</td>
+                                    <td>{{ HTML::link(url($link_type . '/stones/icons/'.$icon->id), $icon->name) }}</td>
+                                    <td>{{ $icon->status() }}</td>
+                                    <td>{{ $icon->author() }}</td>
                                     <td>
-                                        <a href="{{ URL::to($link_type . '/stones/icon-categories/' . $category->id . '/edit') }}" class="btn btn-mini"><i class="icon-edit"></i></a>
+                                        <a href="{{ URL::to($link_type . '/stones/icons/' . $icon->id . '/edit') }}" class="btn btn-mini"><i class="icon-edit"></i></a>
 
                                         <div class="actions inline">
                                             <div class="btn btn-mini">
                                                 <i class="icon-cog"> Actions</i>
                                             </div>
                                             <ul class="btn btn-mini">
-                                                @if ($current_user->hasAccess("stones-icon-categories.destroy"))
+                                                @if ($current_user->hasAccess("stones-icons.destroy"))
                                                 <li>
-                                                    {{ Form::open(array('route' => array($link_type . '.stones.icon-categories.destroy', $category->id), 'method' => 'delete', 'class'=>'inline', 'onsubmit'=>"return deleteRecord($(this), 'product category');")) }}
+                                                    {{ Form::open(array('route' => array($link_type . '.stones.icons.destroy', $icon->id), 'method' => 'delete', 'class'=>'inline', 'onsubmit'=>"return deleteRecord($(this), 'product icon');")) }}
                                                         <button type="submit" class="danger delete"><i class="icon-trash"></i> Delete</button>
                                                     {{ Form::close() }}
                                                 </li>

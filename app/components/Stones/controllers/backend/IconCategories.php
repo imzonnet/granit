@@ -1,6 +1,7 @@
 <?php namespace Components\Stones\Controllers\Backend;
 
 use App, Input, Redirect, Request, Sentry, Str, View, File;
+use Services\Validation\ValidationException as ValidationException;
 use Components\Stones\Models\IconCategory;
 
 class IconCategories extends \BaseController {
@@ -47,8 +48,6 @@ class IconCategories extends \BaseController {
         }
         try {
             $redirect = (isset($input['form_save'])) ? "backend/stones/icon-categories" : "backend/stones/icon-categories/create";
-            unset($input['form_save']);
-            unset($input['form_save_new']);
             IconCategory::create($input);
 
             return Redirect::to($redirect)
@@ -84,11 +83,12 @@ class IconCategories extends \BaseController {
      */
     public function edit($id)
     {
-        $this->layout->title = 'Edit Icon Category';
+        $category = IconCategory::find($id);
+        $this->layout->title = 'Edit ' . $category->name;
         $this->layout->content = View::make('Stones::backend.icon_categories.create')
-                                ->with('product', Product::findOrFail($id))
-                                ->with('status', Product::all_status()) 
-                                ->with('categories', Category::all_categories());
+                                ->with('status', IconCategory::all_status())
+                                ->with('parent_id', IconCategory::all_categories($category->id))
+                                ->with('category', $category);
     }
 
     /**
@@ -104,9 +104,7 @@ class IconCategories extends \BaseController {
             return Redirect::to("backend/stones/icon-categories");
         }
         try {
-            unset($input['form_save']);
-            unset($input['form_save_new']);
-            Product::findOrFail($id)->update($input);
+            IconCategory::findOrFail($id)->update($input);
 
             return Redirect::to("backend/stones/icon-categories")
                                 ->with('success_message', 'The category was updated.');
@@ -138,9 +136,9 @@ class IconCategories extends \BaseController {
         }
 
         foreach ($selected_ids as $id) {
-            $Product = Product::findOrFail($id);
+            $category = IconCategory::findOrFail($id);
 
-            $Product->delete();
+            $category->delete();
         }
 
         $wasOrWere = (count($selected_ids) > 1) ? 's were' : ' was';

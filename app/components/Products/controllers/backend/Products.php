@@ -51,8 +51,6 @@ class Products extends \BaseController {
         }
         try {
             $redirect = (isset($input['form_save'])) ? "backend/products" : "backend/products/create";
-            unset($input['form_save']);
-            unset($input['form_save_new']);
             Product::create($input);
 
             return Redirect::to($redirect)
@@ -109,8 +107,6 @@ class Products extends \BaseController {
         }
         try
         {
-            unset($input['form_save']);
-            unset($input['form_save_new']);
             Product::findOrFail($id)->update($input);
 
             return Redirect::to("backend/products")
