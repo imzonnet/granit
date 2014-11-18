@@ -117,6 +117,9 @@ return array(
 
 
         'App\Components\Memorial\ServiceProvider',
+
+
+        'App\Components\MyGalleries\ServiceProvider',
 	),
 
 	/*
