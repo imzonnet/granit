@@ -21,8 +21,7 @@ class GranitIconCategories extends Migration {
 			$table->integer('ordering');
 			$table->integer('created_by')->unsigned();
 			$table->foreign('created_by')->references('id')->on('users');
-			$table->integer('parent_id')->unsigned();
-			$table->foreign('parent_id')->references('id')->on('granit_icon_categories');
+			$table->integer('parent_id')->unsigned()->default(0);
 		});
 	}
 

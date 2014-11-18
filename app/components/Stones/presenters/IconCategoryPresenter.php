@@ -1,6 +1,7 @@
 <?php namespace Components\Stones\Presenters;
 
 use Robbo\Presenter\Presenter;
+use Components\Stones\Models\IconCategory;
 
 class IconCategoryPresenter extends Presenter
 {
@@ -20,6 +21,19 @@ class IconCategoryPresenter extends Presenter
     public function status()
     {
         return \Str::title($this->status);
+    }
+    
+    /**
+     * Get the parent category
+     * @return string
+     */
+    public function parent_category()
+    {
+        $category = IconCategory::find($this->parent_id);
+        if(isset($category))
+            return $category->name;
+        else
+            return '';
     }
 
     /**

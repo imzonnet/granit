@@ -59,20 +59,20 @@
                         @foreach( $categories as $category )
                             <tr>
                                     <td>{{ Form::checkbox($category->id, 'checked', false) }}</td>
-                                    <td>{{ HTML::link(url($link_type . '/product-categories/'.$category->id), $category->name) }}</td>
+                                    <td>{{ HTML::link(url($link_type . '/stones/icon-categories/'.$category->id), $category->name) }}</td>
                                     <td>{{ $category->status() }}</td>
                                     <td>{{ $category->author() }}</td>
                                     <td>
-                                        <a href="{{ URL::to($link_type . '/product-categories/' . $category->id . '/edit') }}" class="btn btn-mini"><i class="icon-edit"></i></a>
+                                        <a href="{{ URL::to($link_type . '/stones/icon-categories/' . $category->id . '/edit') }}" class="btn btn-mini"><i class="icon-edit"></i></a>
 
                                         <div class="actions inline">
                                             <div class="btn btn-mini">
                                                 <i class="icon-cog"> Actions</i>
                                             </div>
                                             <ul class="btn btn-mini">
-                                                @if ($current_user->hasAccess("product-categories.destroy"))
+                                                @if ($current_user->hasAccess("stones-icon-categories.destroy"))
                                                 <li>
-                                                    {{ Form::open(array('route' => array($link_type . '.product-categories.destroy', $category->id), 'method' => 'delete', 'class'=>'inline', 'onsubmit'=>"return deleteRecord($(this), 'product category');")) }}
+                                                    {{ Form::open(array('route' => array($link_type . '.stones.icon-categories.destroy', $category->id), 'method' => 'delete', 'class'=>'inline', 'onsubmit'=>"return deleteRecord($(this), 'product category');")) }}
                                                         <button type="submit" class="danger delete"><i class="icon-trash"></i> Delete</button>
                                                     {{ Form::close() }}
                                                 </li>

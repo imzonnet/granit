@@ -1,7 +1,7 @@
 <?php namespace Components\Products\Presenters;
 
 use Robbo\Presenter\Presenter;
-
+use Components\Products\Models\Category;
 class ProductPresenter extends Presenter {
 
 	/**
@@ -21,9 +21,19 @@ class ProductPresenter extends Presenter {
     {
         return \Str::title($this->status);
     }
+    
+    /**
+     * Get the page's status
+     * @return string
+     */
+    public function category()
+    {
+        return Category::findOrFail($this->cat_id)->name;
+    }
+    
 
     /**
-     * Get the category's author
+     * Get the product's author
      * @return string
      */
     public function author()

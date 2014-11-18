@@ -71,9 +71,9 @@
                                     </div>
                                         
                                     <div class="control-group {{{ $errors->has('prent_id') ? 'error' : '' }}}">
-                                        <label class="control-label">Prent </label>
+                                        <label class="control-label">Icon parent </label>
                                         <div class="controls line">
-                                            {{ Form::select('prent_id', $prent_id, (!isset($category)) ? Input::old('prent_id') : $category->status, array('class'=>'chosen span6 m-wrap', 'style'=>'width:285px')) }}
+                                            {{ Form::select('parent_id', $parent_id, (!isset($category)) ? Input::old('prent_id') : $category->parent_id, array('class'=>'chosen span6 m-wrap', 'style'=>'width:285px')) }}
                                             {{ $errors->first('prent_id', '<span class="help-inline">:message</span>') }}
                                         </div>
                                     </div>

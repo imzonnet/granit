@@ -116,7 +116,7 @@
             @endif
             <!-- Exp Component: Products -->
             @if (can_access_menu($current_user, array('products')))
-            <li class="has-sub {{ Request::is('backend/products') || Request::is('backend/product-categories') ? 'active' : null }} ">
+            <li class="has-sub {{ Request::is('backend/products*') || Request::is('backend/product-categories*') ? 'active' : null }} ">
                 <a href="javascript:;">
                     <i class="icon-suitcase"></i>
                     <span class="title">{{ trans('cms.products') }}</span>
@@ -141,7 +141,7 @@
             </li>
             @endif
             @if (can_access_menu($current_user, array('stones')))
-            <li class="has-sub {{ Request::is('backend/stones') || Request::is('backend/stones/icon-categories') || Request::is('backend/stones/icons') || Request::is('backend/stones/fonts') || Request::is('backend/stones/colors') ? 'active' : null }} ">
+            <li class="has-sub {{ Request::is('backend/stones*') || Request::is('backend/stones/icon-categories*') || Request::is('backend/stones/icons*') || Request::is('backend/stones/fonts*') || Request::is('backend/stones/colors*') ? 'active' : null }} ">
                 <a href="javascript:;">
                     <i class="icon-cut"></i>
                     <span class="title">{{ trans('cms.stones') }}</span>

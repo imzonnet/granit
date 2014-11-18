@@ -28,6 +28,9 @@ class Categories extends \BaseController {
 	public function store() {
 		$input = Input::all();
 
+        if (isset($input['form_close'])) {
+            return Redirect::to("backend/product-categories");
+        }
 
         try {
             $redirect = (isset($input['form_save'])) ? "backend/product-categories" : "backend/product-categories/create";
@@ -83,6 +86,9 @@ class Categories extends \BaseController {
     public function update($id)
     {
     	$input = Input::all();
+        if (isset($input['form_close'])) {
+            return Redirect::to("backend/product-categories");
+        }
         try
         {
         	unset($input['form_save']);

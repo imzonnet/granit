@@ -11,6 +11,13 @@ class Product extends \Eloquent implements PresentableInterface {
     
     protected $guarded = array('id');
     /**
+     * Relationship
+     */
+    public function category() {
+        return $this->belongsTo('Category', 'cat_id', 'id');
+    }
+
+    /**
      * When creating a category, run the attributes through a validator first.
      * @param array $attributes
      * @return void

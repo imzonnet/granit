@@ -29,9 +29,10 @@ class IconCategories extends \BaseController {
      * @return Response
      */
     public function create() {
-        $this->layout->title = 'New Product';
+        $this->layout->title = 'New Icon Category';
         $this->layout->content = View::make('Stones::backend.icon_categories.create')
-                                ->with('status', IconCategory::all_status());
+                                ->with('status', IconCategory::all_status())
+                                ->with('parent_id', IconCategory::all_categories());
     }
 
     /**
@@ -41,16 +42,17 @@ class IconCategories extends \BaseController {
      */
     public function store() {
         $input = Input::all();
-
-
+        if (isset($input['form_close'])) {
+            return Redirect::to("backend/stones/icon-categories");
+        }
         try {
-            $redirect = (isset($input['form_save'])) ? "backend/products" : "backend/products/create";
+            $redirect = (isset($input['form_save'])) ? "backend/stones/icon-categories" : "backend/stones/icon-categories/create";
             unset($input['form_save']);
             unset($input['form_save_new']);
-            Product::create($input);
+            IconCategory::create($input);
 
             return Redirect::to($redirect)
-                                ->with('success_message', 'The product was created.');
+                                ->with('success_message', 'The icon category was created.');
         } catch(ValidationException $e) {
             return Redirect::back()->withInput()->withErrors($e->getErrors());
         }
@@ -65,13 +67,13 @@ class IconCategories extends \BaseController {
      */
     public function show($id)
     {
-        $Product = Product::findOrFail($id);
+        $category = IconCategory::findOrFail($id);
 
-        if (!$Product) App::abort('401');
+        if (!$category) App::abort('401');
 
-        $this->layout->title = $Product->title;
-        $this->layout->content = View::make('Stones::backend.products.show')
-                                        ->with('Product', $Product);
+        $this->layout->title = $category->name;
+        $this->layout->content = View::make('Stones::backend.icon_categories.show')
+                                        ->with('category', $category);
     }
 
     /**
@@ -82,10 +84,10 @@ class IconCategories extends \BaseController {
      */
     public function edit($id)
     {
-        $this->layout->title = 'Edit Product Product';
-        $this->layout->content = View::make('Stones::backend.products.create')
+        $this->layout->title = 'Edit Icon Category';
+        $this->layout->content = View::make('Stones::backend.icon_categories.create')
                                 ->with('product', Product::findOrFail($id))
-                                ->with('status', Product::all_status())
+                                ->with('status', Product::all_status()) 
                                 ->with('categories', Category::all_categories());
     }
 
@@ -98,18 +100,17 @@ class IconCategories extends \BaseController {
     public function update($id)
     {
         $input = Input::all();
-        try
-        {
+        if (isset($input['form_close'])) {
+            return Redirect::to("backend/stones/icon-categories");
+        }
+        try {
             unset($input['form_save']);
             unset($input['form_save_new']);
             Product::findOrFail($id)->update($input);
 
-            return Redirect::to("backend/products")
-                                ->with('success_message', 'The product was updated.');
-        }
-
-        catch(ValidationException $e)
-        {
+            return Redirect::to("backend/stones/icon-categories")
+                                ->with('success_message', 'The category was updated.');
+        } catch(ValidationException $e) {
             return Redirect::back()->withInput()->withErrors($e->getErrors());
         }
     }
@@ -143,9 +144,9 @@ class IconCategories extends \BaseController {
         }
 
         $wasOrWere = (count($selected_ids) > 1) ? 's were' : ' was';
-        $message = 'The product' . $wasOrWere . ' deleted.';
+        $message = 'The category' . $wasOrWere . ' deleted.';
 
-        return Redirect::to("backend/products")
+        return Redirect::to("backend/stones/icon-categories")
                             ->with('success_message', $message);
     }
 

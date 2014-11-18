@@ -46,7 +46,9 @@ class Products extends \BaseController {
      */
     public function store() {
         $input = Input::all();
-
+        if (isset($input['form_close'])) {
+            return Redirect::to("backend/products");
+        }
         try {
             $redirect = (isset($input['form_save'])) ? "backend/products" : "backend/products/create";
             unset($input['form_save']);
@@ -102,6 +104,9 @@ class Products extends \BaseController {
     public function update($id)
     {
         $input = Input::all();
+        if (isset($input['form_close'])) {
+            return Redirect::to("backend/products");
+        }
         try
         {
             unset($input['form_save']);
