@@ -17,7 +17,9 @@ class MemorialsController extends BaseController {
     public function index()
     {
         $config = \Config::get("memorial::basic");
+
         echo \Lang::get('memorial::basic.lang');
+
         var_dump($config); exit;
 
         $data  = \Lop::with('students')->get();
