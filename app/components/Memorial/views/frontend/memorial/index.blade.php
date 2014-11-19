@@ -1,11 +1,22 @@
 @section('styles')
-	{{ HTML::style("app/components/Memorial/assets/css/memorial.css") }}
+	{{ HTML::style("assets/public/exception/css/memorial/memorial.css") }}
 @stop
 
 @section('scripts')
-	{{ HTML::script("app/components/Memorial/assets/js/memorial.js") }}
+	{{ HTML::script("assets/public/exception/js/memorial/memorial.js") }}
 @stop
 
 @section('content')
-	Content Memorial...
+	<section class="sectionWrapper">
+        <div class="container">
+            <div class="cell-12">
+        		<ul class='header-tab'>
+        			<li><a href='#!'>Biography</a></li>
+        			<li><a href='#!'>Obituary</a></li>
+        			<li><a href='#!'>Biography</a></li>
+        			<li><a href='#!'>Biography</a></li>
+        		</ul>
+        	</div>
+    	</div>
+	</div>
 @stop

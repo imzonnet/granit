@@ -12,11 +12,13 @@ class CreateStudents extends Migration {
 	 */
 	public function up()
 	{
+		
         Schema::create('students', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('class_id')->index();
             $table->string('title');
         });
+   		
 	}
 
 	/**

@@ -12,10 +12,12 @@ class CreateClass extends Migration {
 	 */
 	public function up()
 	{
+		
         Schema::create('class', function(Blueprint $table) {
             $table->increments('id');
             $table->string('title');
         });
+	
 	}
 
 	/**
