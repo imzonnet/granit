@@ -1,4 +1,4 @@
-<?php namespace Modules\Slideshow\Database\seeds;
+<?php namespace Modules\Slideshow\Database\Seeds;
 use DB;
 
 class SlideshowTableSeeder extends \Seeder {

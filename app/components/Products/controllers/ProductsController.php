@@ -15,7 +15,7 @@ class ProductsController extends \BaseController {
     }
     
     public function index() {
-        $products = Product::published()->recent()->paginate(5);
+        $products = Product::published()->recent()->paginate(9);
 
         $this->layout->title = 'All products';
         $this->layout->content = View::make('Products::public.products.index')->with('products', $products);
