@@ -5,3 +5,6 @@ Route::resource('/backend/stones/icon-categories', 'Components\Stones\Controller
 Route::resource('/backend/stones/colors', 'Components\Stones\Controllers\Backend\ColorsController');
 Route::resource('/backend/stones/fonts', 'Components\Stones\Controllers\Backend\FontsController');
 
+
+//Route For Front-end
+Route::resource('/design', 'Components\Stones\Controllers\DesignsController');
