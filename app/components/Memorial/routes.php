@@ -6,4 +6,6 @@
  * Time: 4:16 PM
  */
 
-Route::get('/memorial','Components\Memorial\Controllers\MemorialsController@index');
+// Route::get('/memorial','Components\Memorial\Controllers\MemorialsController@index');
+
+Route::get('/memorial','Components\Memorial\Controllers\frontend\MemorialController@index');
