@@ -5,9 +5,8 @@ use Robbo\Presenter\PresentableInterface;
 use Components\Products\Presenters\ProductPresenter;
 
 class Product extends \Eloquent implements PresentableInterface {
-	protected $table = 'granit_products';
-    
-    protected $fillale = array('code', 'name', 'alias', 'cat_id', 'image', 'price', 'state', 'ordering', 'created_by');
+    protected $table = 'granit_products';
+    protected $fillable = array('product_code', 'name', 'alias', 'cat_id', 'image', 'price', 'state', 'ordering', 'created_by');
     protected $guarded = array('id');
     /**
      * Relationship
@@ -47,13 +46,28 @@ class Product extends \Eloquent implements PresentableInterface {
         if ($alias == '') {
             $this->attributes['alias'] = Str::slug($this->attributes['name'], '-');
 
-            if (Category::where('alias', '=', $this->attributes['alias'])->first()) {
+            if (Product::where('alias', '=', $this->attributes['alias'])->first()) {
                 $this->attributes['alias'] = Str::slug($this->attributes['name'], '-') . '-1';
             }
         }
     }
-
-	/**
+    /**
+     * Get all the published posts that are within the publish date range
+     * @return query
+     */
+    public function scopePublished($query)
+    {
+        return $query->where('status', '=', 'published');
+    }
+    /**
+     * Get the recently created posts
+     * @return query
+     */
+    public function scopeRecent($query)
+    {
+        return $query->orderBy('created_at', 'DESC');
+    }
+    /**
      * Get all the statuses available for a post
      * @return array
      */

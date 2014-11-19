@@ -4,10 +4,9 @@ use App, Str;
 use Robbo\Presenter\PresentableInterface;
 use Components\Products\Presenters\CategoryPresenter;
 
-class Category extends \Eloquent implements PresentableInterface
-{
+class Category extends \Eloquent implements PresentableInterface {
 	protected $table = 'granit_product_categories';
-	protected $filable = array('name', 'alias', 'image', 'description', 'state', 'ordering', 'created_by');
+	protected $fillable = array('name', 'alias', 'image', 'description', 'state', 'ordering', 'created_by');
 	protected $guarded = array('id');
 
     /**

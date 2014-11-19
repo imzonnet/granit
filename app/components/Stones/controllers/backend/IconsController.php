@@ -2,9 +2,10 @@
 
 use App, Input, Redirect, Request, Sentry, Str, View, File;
 use Services\Validation\ValidationException as ValidationException;
-use Components\Stones\Models\Color;
+use Components\Stones\Models\Icon;
+use Components\Stones\Models\IconCategory;
 
-class Colors extends \BaseController {
+class IconsController extends \BaseController {
 
     public function __construct() {
         View::addLocation(app_path() . '/components/Stones/views');
@@ -20,8 +21,8 @@ class Colors extends \BaseController {
      */
     public function index() {
 
-        $this->layout->title = 'All Colors';
-        $this->layout->content = View::make('Stones::backend.colors.index')->with('colors', Color::all());
+        $this->layout->title = 'All Icons';
+        $this->layout->content = View::make('Stones::backend.icons.index')->with('icons', Icon::all());
     }
 
     /**
@@ -30,9 +31,10 @@ class Colors extends \BaseController {
      * @return Response
      */
     public function create() {
-        $this->layout->title = 'New Color';
-        $this->layout->content = View::make('Stones::backend.colors.create')
-                                ->with('status', Color::all_status());
+        $this->layout->title = 'New Icon';
+        $this->layout->content = View::make('Stones::backend.icons.create')
+                                ->with('status', Icon::all_status())
+                                ->with('categories', IconCategory::all_categories());
     }
 
     /**
@@ -43,14 +45,14 @@ class Colors extends \BaseController {
     public function store() {
         $input = Input::all();
         if (isset($input['form_close'])) {
-            return Redirect::to("backend/stones/colors");
+            return Redirect::to("backend/stones/icons");
         }
         try {
-            $redirect = (isset($input['form_save'])) ? "backend/stones/colors" : "backend/stones/colors/create";
-            Color::create($input);
+            $redirect = (isset($input['form_save'])) ? "backend/stones/icons" : "backend/stones/icons/create";
+            Icon::create($input);
 
             return Redirect::to($redirect)
-                                ->with('success_message', 'The Color was created.');
+                                ->with('success_message', 'The Icon was created.');
         } catch(ValidationException $e) {
             return Redirect::back()->withInput()->withErrors($e->getErrors());
         }
@@ -65,13 +67,13 @@ class Colors extends \BaseController {
      */
     public function show($id)
     {
-        $color = Color::findOrFail($id);
+        $category = Icon::findOrFail($id);
 
-        if (!$color) App::abort('401');
+        if (!$category) App::abort('401');
 
-        $this->layout->title = $color->name;
-        $this->layout->content = View::make('Stones::backend.colors.show')
-                                        ->with('color', $color);
+        $this->layout->title = $category->name;
+        $this->layout->content = View::make('Stones::backend.icons.show')
+                                        ->with('category', $category);
     }
 
     /**
@@ -82,11 +84,12 @@ class Colors extends \BaseController {
      */
     public function edit($id)
     {
-        $color = Color::find($id);
-        $this->layout->title = 'Edit ' . $color->name;
-        $this->layout->content = View::make('Stones::backend.colors.create')
-                                ->with('status', Color::all_status())
-                                ->with('color', $color);
+        $icon = Icon::find($id);
+        $this->layout->title = 'Edit ' . $icon->name;
+        $this->layout->content = View::make('Stones::backend.icons.create')
+                                ->with('status', Icon::all_status())
+                                ->with('icon', $icon)
+                                ->with('categories', IconCategory::all_categories());
     }
 
     /**
@@ -99,14 +102,14 @@ class Colors extends \BaseController {
     {
         $input = Input::all();
         if (isset($input['form_close'])) {
-            return Redirect::to("backend/stones/colors");
+            return Redirect::to("backend/stones/icons");
         }
         try {
             unset($input['form_save']);
             unset($input['form_save_new']);
-            Color::findOrFail($id)->update($input);
+            Icon::findOrFail($id)->update($input);
 
-            return Redirect::to("backend/stones/colors")
+            return Redirect::to("backend/stones/icons")
                                 ->with('success_message', 'The category was updated.');
         } catch(ValidationException $e) {
             return Redirect::back()->withInput()->withErrors($e->getErrors());
@@ -144,7 +147,7 @@ class Colors extends \BaseController {
         $wasOrWere = (count($selected_ids) > 1) ? 's were' : ' was';
         $message = 'The category' . $wasOrWere . ' deleted.';
 
-        return Redirect::to("backend/stones/colors")
+        return Redirect::to("backend/stones/icons")
                             ->with('success_message', $message);
     }
 

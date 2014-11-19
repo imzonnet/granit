@@ -5,7 +5,7 @@ use Services\Validation\ValidationException as ValidationException;
 
 use Components\Products\Models\Category; 
 
-class Categories extends \BaseController {
+class CategoriesController extends \BaseController {
 
 	public function __construct() {
 		//add hint for views

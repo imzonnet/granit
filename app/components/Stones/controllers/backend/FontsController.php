@@ -2,26 +2,26 @@
 
 use App, Input, Redirect, Request, Sentry, Str, View, File;
 use Services\Validation\ValidationException as ValidationException;
-use Components\Stones\Models\IconCategory;
+use Components\Stones\Models\Font;
 
-class IconCategories extends \BaseController {
+class FontsController extends \BaseController {
 
-	public function __construct() {
-		View::addLocation(app_path() . '/components/Stones/views');
-		View::addNamespace('Stones', app_path() . '/components/Stones/views');
+    public function __construct() {
+        View::addLocation(app_path() . '/components/Stones/views');
+        View::addNamespace('Stones', app_path() . '/components/Stones/views');
 
-		parent::__construct();
-	}
+        parent::__construct();
+    }
 
-	/**
+    /**
      * Display a listing of the posts.
      *
      * @return Response
      */
     public function index() {
 
-        $this->layout->title = 'All Icon Categories';
-        $this->layout->content = View::make('Stones::backend.icon_categories.index')->with('categories', IconCategory::all());
+        $this->layout->title = 'All Fonts';
+        $this->layout->content = View::make('Stones::backend.fonts.index')->with('fonts', Font::all());
     }
 
     /**
@@ -30,10 +30,9 @@ class IconCategories extends \BaseController {
      * @return Response
      */
     public function create() {
-        $this->layout->title = 'New Icon Category';
-        $this->layout->content = View::make('Stones::backend.icon_categories.create')
-                                ->with('status', IconCategory::all_status())
-                                ->with('parent_id', IconCategory::all_categories());
+        $this->layout->title = 'New Font';
+        $this->layout->content = View::make('Stones::backend.fonts.create')
+                                ->with('status', Font::all_status());
     }
 
     /**
@@ -44,14 +43,14 @@ class IconCategories extends \BaseController {
     public function store() {
         $input = Input::all();
         if (isset($input['form_close'])) {
-            return Redirect::to("backend/stones/icon-categories");
+            return Redirect::to("backend/stones/fonts");
         }
         try {
-            $redirect = (isset($input['form_save'])) ? "backend/stones/icon-categories" : "backend/stones/icon-categories/create";
-            IconCategory::create($input);
+            $redirect = (isset($input['form_save'])) ? "backend/stones/fonts" : "backend/stones/fonts/create";
+            Font::create($input);
 
             return Redirect::to($redirect)
-                                ->with('success_message', 'The icon category was created.');
+                                ->with('success_message', 'The Font was created.');
         } catch(ValidationException $e) {
             return Redirect::back()->withInput()->withErrors($e->getErrors());
         }
@@ -66,13 +65,13 @@ class IconCategories extends \BaseController {
      */
     public function show($id)
     {
-        $category = IconCategory::findOrFail($id);
+        $font = Font::findOrFail($id);
 
-        if (!$category) App::abort('401');
+        if (!$font) App::abort('401');
 
-        $this->layout->title = $category->name;
-        $this->layout->content = View::make('Stones::backend.icon_categories.show')
-                                        ->with('category', $category);
+        $this->layout->title = $font->name;
+        $this->layout->content = View::make('Stones::backend.fonts.show')
+                                        ->with('font', $font);
     }
 
     /**
@@ -83,12 +82,11 @@ class IconCategories extends \BaseController {
      */
     public function edit($id)
     {
-        $category = IconCategory::find($id);
-        $this->layout->title = 'Edit ' . $category->name;
-        $this->layout->content = View::make('Stones::backend.icon_categories.create')
-                                ->with('status', IconCategory::all_status())
-                                ->with('parent_id', IconCategory::all_categories($category->id))
-                                ->with('category', $category);
+        $font = Font::find($id);
+        $this->layout->title = 'Edit ' . $font->name;
+        $this->layout->content = View::make('Stones::backend.fonts.create')
+                                ->with('status', Font::all_status())
+                                ->with('font', $font);
     }
 
     /**
@@ -101,12 +99,14 @@ class IconCategories extends \BaseController {
     {
         $input = Input::all();
         if (isset($input['form_close'])) {
-            return Redirect::to("backend/stones/icon-categories");
+            return Redirect::to("backend/stones/fonts");
         }
         try {
-            IconCategory::findOrFail($id)->update($input);
+            unset($input['form_save']);
+            unset($input['form_save_new']);
+            Font::findOrFail($id)->update($input);
 
-            return Redirect::to("backend/stones/icon-categories")
+            return Redirect::to("backend/stones/fonts")
                                 ->with('success_message', 'The category was updated.');
         } catch(ValidationException $e) {
             return Redirect::back()->withInput()->withErrors($e->getErrors());
@@ -136,15 +136,15 @@ class IconCategories extends \BaseController {
         }
 
         foreach ($selected_ids as $id) {
-            $category = IconCategory::findOrFail($id);
+            $Product = Product::findOrFail($id);
 
-            $category->delete();
+            $Product->delete();
         }
 
         $wasOrWere = (count($selected_ids) > 1) ? 's were' : ' was';
         $message = 'The category' . $wasOrWere . ' deleted.';
 
-        return Redirect::to("backend/stones/icon-categories")
+        return Redirect::to("backend/stones/fonts")
                             ->with('success_message', $message);
     }
 

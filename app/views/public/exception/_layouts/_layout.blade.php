@@ -3,6 +3,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>{{ Services\MenuManager::getTitle($title) }}</title>
+                <meta name="csrf-token" content="{{ csrf_token() }}" />
 		@section('meta_description')
 		    <!-- -->
 		@show
