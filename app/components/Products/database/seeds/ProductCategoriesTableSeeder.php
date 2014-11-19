@@ -10,11 +10,11 @@ class ProductCategoriesTableSeeder extends \Seeder {
         $user = \User::first();
         foreach(range(1,5) as $index) {
             $name = $faker->name;
-            $alias = \Str::title($name);
+            $alias = \Str::slug($name);
             DB::table('granit_product_categories')->insert([
                 'name' => $name,
                 'alias' => $alias,
-                'image' => $faker->imageUrl(250,300),
+                'image' => $faker->imageUrl(rand(250, 270), 300),
                 'description' => $faker->text,
                 'status' => 'published',
                 'ordering' => 0,

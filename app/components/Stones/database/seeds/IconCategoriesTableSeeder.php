@@ -11,7 +11,7 @@ class IconCategoriesTableSeeder extends \Seeder {
         foreach(range(1,5) as $index) {
             DB::table('granit_icon_categories')->insert([
                 'name' => $faker->name,
-                'image' => $faker->imageUrl(170, 200),
+                'image' => $faker->imageUrl(rand(170,180), 210),
                 'description' => $faker->text,
                 'status' => 'published',
                 'ordering' => 0,

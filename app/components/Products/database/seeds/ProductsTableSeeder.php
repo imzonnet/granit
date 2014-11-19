@@ -16,13 +16,13 @@ class ProductsTableSeeder extends \Seeder {
         foreach(range(1,15) as $index) {
             
             $name = $faker->name;
-            $alias = \Str::title($name);
+            $alias = \Str::slug($name);
             DB::table('granit_products')->insert([
                 'product_code' => $faker->ean8,
                 'name' => $name,
                 'alias' => $alias,
                 'thumbnail' => '',
-                'image' => $faker->imageUrl(350,400),
+                'image' => $faker->imageUrl(rand(350, 370), 400),
                 'description' => $faker->text,
                 'price' => $faker->numberBetween(50, 100),
                 'cat_id' => $categories[array_rand($categories)],
