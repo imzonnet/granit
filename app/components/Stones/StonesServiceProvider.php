@@ -1,7 +1,7 @@
 <?php
 namespace App\Components\Stones;
 
-class ServiceProvider extends \App\Components\ServiceProvider {
+class StonesServiceProvider extends \App\Components\ServiceProvider {
 
     public function register()
     {
