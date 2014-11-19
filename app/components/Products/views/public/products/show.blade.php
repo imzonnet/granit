@@ -44,13 +44,6 @@
 @section('content')
 <div class="sectionWrapper">
     <div class="container">
-        @if( $current_user->hasAccess('products.destroy') )
-        <div class="row">
-            <div class="clearfix padd-bottom-15">
-                <div class="left">Edit</div>
-            </div>
-        </div>
-        @endif
         <div class="row">
             <div class="cell-12">
                 <div class="row">
