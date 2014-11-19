@@ -53,9 +53,7 @@
                         <a href="{{url('products/'.$product->alias)}}"><img alt="" src="{{url($product->image)}}"></a>
                     </div>
                     <div class="item-details">
-                        <div class="clearfix padd-bottom-10">
-                        {{$product->description}}
-                        </div>
+                        <p> {{$product->description}} </p>
                         <div class="left">
                             <div class="item-price">${{$product->price}}</div>
                         </div>
