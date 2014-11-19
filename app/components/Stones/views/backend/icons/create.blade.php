@@ -65,8 +65,8 @@
                                     <div class="control-group {{{ $errors->has('customize') ? 'error' : '' }}}">
                                         <label class="control-label">Customize <span class="red">*</span></label>
                                         <div class="controls">
-                                            {{ Form::checkbox('customize', (!isset($icon)) ? Input::old('customize') : $icon->customize, null ,array('class' => 'input-xlarge'))}}
-                                            {{ $errors->first('name', '<span class="help-inline">:message</span>') }}
+                                            {{ Form::checkbox('customize', 1, (  !isset($icon) ? Input::old('customize') : $icon->customize ) == 1 ? true : false,array('class' => 'input-xlarge'))}}
+                                            {{ $errors->first('customize', '<span class="help-inline">:message</span>') }}
                                         </div>
                                     </div>
                                         

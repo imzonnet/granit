@@ -8,7 +8,7 @@ class IconCategory extends \Eloquent implements PresentableInterface {
 	protected $table = 'granit_icon_categories';
 	public $timestamps = false;
 	
-	protected $fillable = array('name', 'image', 'description', 'state', 'ordering', 'created_by', 'parent_id');
+	protected $fillable = array('name', 'image', 'description', 'status', 'ordering', 'created_by', 'parent_id');
 	protected $guarded = array('id');
 
 	public function icon() {

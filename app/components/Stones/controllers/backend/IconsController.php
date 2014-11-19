@@ -47,6 +47,7 @@ class IconsController extends \BaseController {
         if (isset($input['form_close'])) {
             return Redirect::to("backend/stones/icons");
         }
+        dd($input);
         try {
             $redirect = (isset($input['form_save'])) ? "backend/stones/icons" : "backend/stones/icons/create";
             Icon::create($input);

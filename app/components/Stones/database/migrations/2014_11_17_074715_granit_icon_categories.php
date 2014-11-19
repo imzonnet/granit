@@ -20,7 +20,7 @@ class GranitIconCategories extends Migration {
 			$table->string('status');
 			$table->integer('ordering');
 			$table->integer('created_by')->unsigned();
-			$table->foreign('created_by')->references('id')->on('users');
+			$table->foreign('created_by')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
 			$table->integer('parent_id')->unsigned()->default(0);
 		});
 	}

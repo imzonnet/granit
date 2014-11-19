@@ -8,7 +8,7 @@ class Icon extends \Eloquent implements PresentableInterface {
     protected $table = 'granit_icons';
     public $timestamps = false;
 
-    protected $fillable = array('name', 'image', 'customize', 'state', 'ordering', 'created_by', 'cat_id');
+    protected $fillable = array('name', 'image', 'customize', 'status', 'ordering', 'created_by', 'cat_id');
     protected $guarded = array('id');
 
 
@@ -24,6 +24,7 @@ class Icon extends \Eloquent implements PresentableInterface {
     public static function create(array $attributes = array()) {
         App::make('Components\\Stones\\Validation\\IconValidator')->validateForCreation($attributes);
         $attributes['created_by'] = current_user()->id;
+        if(!isset($attributes['customize'])) $attributes['customize'] = 0;
         return parent::create($attributes);
     }
 
@@ -35,6 +36,7 @@ class Icon extends \Eloquent implements PresentableInterface {
     public function update(array $attributes = array()) {
         App::make('Components\\Stones\\Validation\\IconValidator')->validateForUpdate($attributes);
         $attributes['created_by'] = current_user()->id;
+        if(!isset($attributes['customize'])) $attributes['customize'] = 0;
         return parent::update($attributes);
     }
 

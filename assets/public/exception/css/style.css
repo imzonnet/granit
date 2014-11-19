@@ -5952,3 +5952,6 @@ footer .no-margin{
 a.main-color:hover,.project-name:hover,.box-top .more-btn:hover{
 	color:#333 !important
 }
+.products-wrap .product-item:nth-child(3n+1) {
+    clear: left;
+}

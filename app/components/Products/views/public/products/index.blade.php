@@ -44,8 +44,9 @@
 <section class="sectionWrapper">
     <div class="container">
         <div class="row">
+            <div class="products-wrap">
             @foreach( $products as $product )
-            <div class="cell-4 fx shop-item" data-animate="fadeInUp">
+            <div class="cell-4 fx product-item" data-animate="fadeInUp">
                 <div class="item-box">
                     <h3 class="item-title"><a href="{{url('products/'.$product->alias)}}">{{$product->name}}</a></h3>
                     <div class="item-img">
@@ -65,6 +66,7 @@
                 </div>
             </div>
             @endforeach
+            </div>
         </div>
     </div>
 </section>
