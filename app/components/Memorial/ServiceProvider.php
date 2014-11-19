@@ -11,11 +11,11 @@ class ServiceProvider extends \App\Components\ServiceProvider {
 
     public function register()
     {
-        parent::register('memorial');
+        parent::register('Memorial');
     }
 
     public function boot()
     {
-        parent::boot('memorial');
+        parent::boot('Memorial');
     }
 }

@@ -49,12 +49,17 @@ class UserGroup extends Eloquent {
                     'module-builder'    => 'Module Builder',
                     'report-builder'    => 'Report Builder',
                     'report-generators' => 'Report Generators',
+                    
                     'products'          => 'Products',
                     'product-categories'=> 'Product Categories',
                     'stones-icons'      => 'Stone Icons',
                     'stones-icon-categories'   => 'Stone Icon Categories',
                     'stones-colors'     => 'Stone Colors',
                     'stones-fonts'      => 'Stone Fonts',
+                    'memorial'          => 'Memorial',
+                    'memorial-guestbook'=> 'Memorial Guestbook',
+                    'memorial-media'    => 'Memorial Media',
+                    'memorial-users'    => 'Memorial Users',
 
                 ),
                 'others' => array(
