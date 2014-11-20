@@ -30,7 +30,8 @@ $env = $app->detectEnvironment(array(
 	'devjoom' => ['cpanel.cloudone.vn'],
 	'ducanh' => array('VnZacky'),
 	'conghieu' => array('HieuHuynh'),
-    'hiepdesk' =>['NguyenHiep-Desk']
+    'hiepdesk' =>['NguyenHiep-Desk'],
+    'hieplap' =>['NguyenHiep-Lap']
 ));
 
 /*
