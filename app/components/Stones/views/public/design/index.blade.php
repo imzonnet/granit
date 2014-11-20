@@ -54,7 +54,7 @@
             <div class="cell-12">
                 <div id="design-container" class="design-container">
                     <div class="design-area left">
-                        @include('Stones::public.design.areatool', array("product_cat" => $productCategories))
+                        @include('Stones::public.design.areatool', array("product_cat" => $productCategories, "icon_cat" => $iconcategories))
                     </div>
                     <div class="design-area right">
                         @include('Stones::public.design.areadesign')

@@ -26,7 +26,39 @@ class DesignsController extends \BaseController {
         ->with('colors', Color::all())
         ->with('fonts', Font::all())
         ->with('icons', Icon::all())
-        ->with('iconcategories', IconCategory::all());
+        ->with('iconcategories', IconCategory::all_categories());
+    }
+
+    public function ajax() {
+        extract($_POST);
+        $layout = null;
+
+        switch ($handle) {
+            case 'getProductsById':
+                $layout = View::make('Stones::public.design.layouts.products')
+                ->with('products', Product::whereRaw("cat_id = {$id} and status = 'published'")->get())
+                ->render();
+                break;
+            case 'getIconsById':
+                $layout = View::make('Stones::public.design.layouts.icons')
+                ->with('icons', Icon::whereRaw("cat_id = {$id} and status = 'published'")->get())
+                ->render();
+                break;
+            case 'getLayoutProductDesign':
+                $layout = View::make('Stones::public.design.layouts.productdesign')
+                ->with('product', Product::findOrFail($id))
+                ->render();
+                break;
+        }
+        echo json_encode( array('layout' => $layout) );exit;
+    }
+
+    public function store(){
+        $this->layout->title = 'Store';
+    }
+
+    public function show(){
+        $this->layout->title = 'Show';
     }
 }
 
