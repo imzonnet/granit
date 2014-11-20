@@ -119,21 +119,21 @@
             <li class="has-sub {{ Request::is('backend/products*') || Request::is('backend/product-categories*') ? 'active' : null }} ">
                 <a href="javascript:;">
                     <i class="icon-suitcase"></i>
-                    <span class="title">{{ trans('cms.products') }}</span>
+                    <span class="title">{{ trans('Products::cms.products') }}</span>
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub">
                     @if (can_access_menu($current_user, array('products')))
                         <li class="{{ Request::is('backend/products') ? 'active' : null }}">
                            <a href="{{ URL::to('backend/products') }}">
-                               {{ trans('cms.products') }}
+                               {{ trans('Products::cms.products') }}
                            </a>
                         </li>
                     @endif
                     @if (can_access_menu($current_user, array('product-categories')))
                         <li class="{{ Request::is('backend/product-categories') ? 'active' : null }}">
                            <a href="{{ URL::to('backend/product-categories') }}">
-                               {{ trans('cms.product_categories') }}
+                               {{ trans('Products::cms.product_categories') }}
                            </a>
                         </li>
                     @endif
@@ -144,41 +144,82 @@
             <li class="has-sub {{ Request::is('backend/stones*') || Request::is('backend/stones/icon-categories*') || Request::is('backend/stones/icons*') || Request::is('backend/stones/fonts*') || Request::is('backend/stones/colors*') ? 'active' : null }} ">
                 <a href="javascript:;">
                     <i class="icon-cut"></i>
-                    <span class="title">{{ trans('cms.stones') }}</span>
+                    <span class="title">{{ trans('Stones::cms.stones') }}</span>
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub">
                     @if (can_access_menu($current_user, array('stones-icons')))
                         <li class="{{ Request::is('backend/stones/icons') ? 'active' : null }}">
                            <a href="{{ URL::to('backend/stones/icons') }}">
-                               {{ trans('cms.stones.icons') }}
+                               {{ trans('Stones::cms.stones.icons') }}
                            </a>
                         </li>
                     @endif
                     @if (can_access_menu($current_user, array('stones-icon-categories')))
                         <li class="{{ Request::is('backend/stones/icon-categories') ? 'active' : null }}">
                            <a href="{{ URL::to('backend/stones/icon-categories') }}">
-                               {{ trans('cms.stones.icon-categories') }}
+                               {{ trans('Stones::cms.stones.icon-categories') }}
                            </a>
                         </li>
                     @endif
                     @if (can_access_menu($current_user, array('stones-colors')))
                         <li class="{{ Request::is('backend/stones/colors') ? 'active' : null }}">
                            <a href="{{ URL::to('backend/stones/colors') }}">
-                               {{ trans('cms.stones.colors') }}
+                               {{ trans('Stones::cms.stones.colors') }}
                            </a>
                         </li>
                     @endif
                     @if (can_access_menu($current_user, array('stones-fonts')))
                         <li class="{{ Request::is('backend/stones/fonts') ? 'active' : null }}">
                            <a href="{{ URL::to('backend/stones/fonts') }}">
-                               {{ trans('cms.stones.fonts') }}
+                               {{ trans('Stones::cms.stones.fonts') }}
                            </a>
                         </li>
                     @endif
                 </ul>
             </li>
             @endif
+            
+            @if (can_access_menu($current_user, array('memorials', 'memorial-guestbook', 'memorial-media')))
+            <li class="has-sub {{ Request::is('backend/memorials*') || Request::is('backend/memorial*') || Request::is('backend/stones/icons*') || Request::is('backend/stones/fonts*') || Request::is('backend/stones/colors*') ? 'active' : null }} ">
+                <a href="javascript:;">
+                    <i class="icon-group"></i>
+                    <span class="title">{{ trans('Memorials::cms.memorials') }}</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub">
+                    @if (can_access_menu($current_user, array('memorials')))
+                        <li class="{{ Request::is('backend/memorials') ? 'active' : null }}">
+                           <a href="{{ URL::to('backend/memorials') }}">
+                               {{ trans('Memorials::cms.memorials') }}
+                           </a>
+                        </li>
+                    @endif
+                    @if (can_access_menu($current_user, array('memorial-guestbook')))
+                        <li class="{{ Request::is('backend/memorial-guestbooks') ? 'active' : null }}">
+                           <a href="{{ URL::to('backend/memorial-guestbooks') }}">
+                               {{ trans('Memorials::cms.memorial-guestbooks') }}
+                           </a>
+                        </li>
+                    @endif
+                    @if (can_access_menu($current_user, array('memorial-media')))
+                        <li class="{{ Request::is('backend/memorial-media') ? 'active' : null }}">
+                           <a href="{{ URL::to('backend/memorial-media') }}">
+                               {{ trans('Memorials::cms.memorial-media') }}
+                           </a>
+                        </li>
+                    @endif
+                    @if (can_access_menu($current_user, array('memorial-users')))
+                        <li class="{{ Request::is('backend/memorial-users') ? 'active' : null }}">
+                           <a href="{{ URL::to('backend/memorial-users') }}">
+                               {{ trans('Memorials::cms.memorial-users') }}
+                           </a>
+                        </li>
+                    @endif
+                </ul>
+            </li>
+            @endif
+            
             <!-- Exp Component -->
             @if (can_access_menu($current_user, array('media-manager')))
             <li class="{{ Request::is('backend/media-manager*') ? 'active' : null }}">

@@ -56,8 +56,8 @@ class UserGroup extends Eloquent {
                     'stones-icon-categories'   => 'Stone Icon Categories',
                     'stones-colors'     => 'Stone Colors',
                     'stones-fonts'      => 'Stone Fonts',
-                    'memorial'          => 'Memorial',
-                    'memorial-guestbook'=> 'Memorial Guestbook',
+                    'memorials'          => 'Memorials',
+                    'memorial-guestbooks'=> 'Memorial Guestbooks',
                     'memorial-media'    => 'Memorial Media',
                     'memorial-users'    => 'Memorial Users',
 

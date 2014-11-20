@@ -116,7 +116,7 @@ return array(
 		'Mews\Captcha\CaptchaServiceProvider',
 
 
-            'App\Components\Memorial\ServiceProvider',
+            'App\Components\Memorials\MemorialsServiceProvider',
             'App\Components\MyGalleries\ServiceProvider',
             'App\Components\Products\ProductsServiceProvider',
             'App\Components\Stones\StonesServiceProvider',

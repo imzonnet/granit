@@ -44,12 +44,5 @@ return array(
     'report_generators'      => 'Report Generators',
     'synchronize'            => 'Synchronize',
     'settings'               => 'Settings',
-
-    'products'               => 'Products',
-    'product_categories'     => 'Product Categories',
-    'stones'                 => 'Stones',
-    'stones.icons'           => 'Icons',
-    'stones.icon-categories' => 'Icon Categories',
-    'stones.colors'          => 'Colors',
-    'stones.fonts'           => 'Fonts',
+    
 );

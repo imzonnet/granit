@@ -53,7 +53,7 @@
                                         <label class="control-label">Image <span class="red">*</span></label>
                                         <div class="controls">
                                             {{-- Form::file('image', array('class' => 'input-xlarge')) --}}
-                                            {{ Form::hidden('image') }}
+                                            {{ Form::hidden('image', (!isset($icon)) ? Input::old('image') : $icon->image) }}
                                             <a class="btn btn-primary insert-media" id="insert-main-image" href="#"> Select main image</a>
                                             <span class="file-name">
                                                 {{ $icon->image or '' }}
