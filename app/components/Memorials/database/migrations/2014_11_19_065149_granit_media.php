@@ -20,8 +20,8 @@ class GranitMedia extends Migration {
                 $table->string('url', 45);
                 $table->integer('memorial_id')->unsigned();
                 $table->foreign('memorial_id')->references('id')->on('granit_memorials')->onDelete('cascade')->onUpdate('cascade');
-        	$table->integer('create_by')->unsigned();
-                $table->foreign('create_by')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+        	$table->integer('created_by')->unsigned();
+                $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         	$table->string('status')->default('published');
         	$table->integer('ordering');
         	$table->timestamps();
@@ -35,7 +35,7 @@ class GranitMedia extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('granit_media');
+		Schema::drop('granit_memorial_media');
 	}
 
 }

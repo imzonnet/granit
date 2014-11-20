@@ -41,6 +41,9 @@ class ProjectSeed extends Command {
         $this->info('Install Sample Data');
         $this->info('______________________________________________');
         $this->call('db:seed');
+        $this->call('db:seed', ['--class' => 'Components\Products\Database\Seeder\DatabaseSeeder']);
+        $this->call('db:seed', ['--class' => 'Components\Stones\Database\Seeder\DatabaseSeeder']);
+        $this->call('db:seed', ['--class' => 'Components\Memorials\Database\Seeder\DatabaseSeeder']);
         $this->info('____________Completed_____________');
         $this->info('Finish: Admin account: admin/admin123');
 	}

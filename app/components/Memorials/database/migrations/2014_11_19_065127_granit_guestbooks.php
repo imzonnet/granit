@@ -12,14 +12,14 @@ class GranitGuestbooks extends Migration {
 	 */
 	public function up()
 	{
-            Schema::create('granit_guestbooks', function(Blueprint $table) {
+            Schema::create('granit_memorial_guestbooks', function(Blueprint $table) {
                 $table->increments('id');
                 $table->string('title', 45);
                 $table->text('content');
                 $table->integer('memorial_id')->unsigned();
                 $table->foreign('memorial_id')->references('id')->on('granit_memorials')->onDelete('cascade')->onUpdate('cascade');
-        	$table->integer('create_by')->unsigned();
-                $table->foreign('create_by')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+        	$table->integer('created_by')->unsigned();
+                $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         	$table->string('status')->default('published');
         	$table->integer('ordering');
         	$table->timestamps();
@@ -33,7 +33,7 @@ class GranitGuestbooks extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('granit_guestbooks');
+		Schema::drop('granit_memorial_guestbooks');
 	}
 
 }

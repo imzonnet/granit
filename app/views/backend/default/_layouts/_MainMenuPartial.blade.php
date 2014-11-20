@@ -189,12 +189,13 @@
                 </a>
                 <ul class="sub">
                     @if (can_access_menu($current_user, array('memorials')))
-                        <li class="{{ Request::is('backend/memorials') ? 'active' : null }}">
+                        <li class="{{ Request::is('backend/memorials') || Request::is('backend/memorial*') ? 'active' : null }}">
                            <a href="{{ URL::to('backend/memorials') }}">
                                {{ trans('Memorials::cms.memorials') }}
                            </a>
                         </li>
                     @endif
+                    <!--
                     @if (can_access_menu($current_user, array('memorial-guestbook')))
                         <li class="{{ Request::is('backend/memorial-guestbooks') ? 'active' : null }}">
                            <a href="{{ URL::to('backend/memorial-guestbooks') }}">
@@ -216,6 +217,7 @@
                            </a>
                         </li>
                     @endif
+                    -->
                 </ul>
             </li>
             @endif

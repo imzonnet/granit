@@ -61,7 +61,7 @@
                             <tr>
                                 <td>{{ Form::checkbox($memorial->id, 'checked', false) }}</td>
                                 
-                                <td>{{ $memorial->name }}</td>
+                                <td>{{ HTML::linkRoute($link_type . '.memorials.show', $memorial->name, $memorial->id) }}</td>
                                 <td>{{ $memorial->birthday }}</td>
                                 <td>{{ $memorial->death }}</td>
                                 <td>{{ $memorial->author() }}</td>
@@ -69,13 +69,13 @@
                                     <a href="{{ URL::to($link_type . '/memorials/' . $memorial->id . '/edit') }}" class="btn btn-mini"><i class="icon-edit"></i></a>
                                     
                                     @if ($current_user->hasAccess("memorial-guestbooks.create"))
-                                        <a href="{{URL::route('backend.memorial-guestbooks.create')}}" class="btn btn-mini">Guestbooks</a>
+                                        <a href="{{URL::route('backend.memorial.guestbooks.index', $memorial->id)}}" class="btn btn-mini">Guestbooks</a>
                                     @endif
                                     @if ($current_user->hasAccess("memorial-media.create"))
-                                        <a href="{{URL::route('backend.memorial-media.create')}}" class="btn btn-mini">Media</a>
+                                        <a href="{{URL::route('backend.memorial.media.index', $memorial->id)}}" class="btn btn-mini">Media</a>
                                     @endif
                                     @if ($current_user->hasAccess("memorial-users.create"))
-                                        <a href="{{URL::route('backend.memorial-users.create')}}" class="btn btn-mini">Users</a>
+                                        <a href="{{URL::route('backend.memorial.users.index', $memorial->id)}}" class="btn btn-mini">Users</a>
                                     @endif
                                     @if ($current_user->hasAccess("memorials.destroy"))
                                         {{ Form::open(array('route' => array($link_type . '.memorials.destroy', $memorial->id), 'method' => 'delete', 'class'=>'inline', 'onsubmit'=>"return deleteRecord($(this), 'Memorial');")) }}

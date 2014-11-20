@@ -2,9 +2,9 @@
 
 use App, Input, Post, Redirect, Request, Sentry, Str, View, File;
 
-class MemorialUser extends \Eloquent 
+class User extends \Eloquent 
 {
     protected $table = 'granit_memorial_users';
-    protected $fillable = array('name', 'avatar', 'birthday', 'death', 'biography', 'obituary', 'status', 'ordering', 'created_by');
+    protected $fillable = array('user_id', 'memorial_id', 'status', 'created_by');
     protected $guarded = array('id');
 }

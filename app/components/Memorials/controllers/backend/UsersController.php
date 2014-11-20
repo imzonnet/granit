@@ -4,7 +4,7 @@ use App, Input, Redirect, Request, Sentry, Str, View, File;
 use Services\Validation\ValidationException as ValidationException;
 use Components\Memorials\Models\Memorial;
 
-class MemorialUsersController extends \BaseController {
+class UsersController extends \BaseController {
 
     public function __construct() {
         View::addLocation(app_path() . '/components/Memorials/views');

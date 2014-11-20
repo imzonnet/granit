@@ -19,7 +19,6 @@ class GranitMemorialUsers extends Migration {
         	$table->integer('user_id')->unsigned();
                 $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         	$table->string('status')->default('published');
-        	$table->integer('ordering');
         	$table->timestamps();
             });
 	}

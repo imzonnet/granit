@@ -30,6 +30,23 @@ class MenuEntriesTableSeeder extends Seeder
                             'updated_at' => date('Y-m-d')
                     ),
                     array(
+                            'title' => 'Memorials',
+                            'alias' => 'memorial',
+                            'link' => 'memorial',
+                            'category' => $menu_cat,
+                            'position' => $menu_pos,
+                            'same_window' => 1,
+                            'show_image' => 1,
+                            'is_wrapper' => 0,
+                            'status' => 'published',
+                            'parent' => 0,
+                            'order' => 0,
+                            'target' => 'public',
+                            'language_id' => 0,
+                            'created_at' => date('Y-m-d'),
+                            'updated_at' => date('Y-m-d')
+                    ),
+                    array(
                             'title' => 'Blog',
                             'alias' => 'blog',
                             'link' => 'posts',
