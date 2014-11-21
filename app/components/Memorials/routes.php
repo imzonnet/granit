@@ -7,4 +7,4 @@ Route::resource('/backend/memorial.media','Components\Memorials\Controllers\back
 Route::resource('/backend/memorial.users','Components\Memorials\Controllers\backend\UsersController');
 
 // Frontend
-Route::get('/memorial','Components\Memorials\Controllers\frontend\MemorialController@index');
+Route::resource('/memorial','Components\Memorials\Controllers\MemorialsController', ['only' => ['index', 'show']]);
