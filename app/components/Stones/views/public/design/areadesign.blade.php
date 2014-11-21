@@ -1,3 +1,3 @@
 <div class="content-area-design">
-	areadesign.
+	<!-- Load ajax content -->
 </div>

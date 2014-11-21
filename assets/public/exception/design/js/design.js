@@ -1,6 +1,4 @@
 /* design.js */
-
-
 !(function($){
 	$(function(){
 		// tool (tabs switch) =============================================
@@ -46,16 +44,19 @@
 					
 					images.fadeOut(0);
 
-					images.each(function(){
-						$(this).load(function() {
-							$(this).fadeIn();
-							img_complete += 1;
-							if( img_complete == count_images ){
-								thisEl.parent().removeClass('loading-animate'); // remove loading animate
-							}
+					if(count_images > 0){
+						images.each(function(){
+							$(this).load(function() {
+								$(this).fadeIn();
+								img_complete += 1;
+								if( img_complete == count_images ){
+									thisEl.parent().removeClass('loading-animate'); // remove loading animate
+								}
+							})
 						})
-					})
-
+					}else{
+						thisEl.parent().removeClass('loading-animate'); // remove loading animate
+					}
 					
 				}
 			})
@@ -81,5 +82,26 @@
 				}
 			})
 		})
+
+		// choose icon =============================================
+		$('.content-icons').on('click', '.icon-item', function(e){
+
+			var content_area_design = $('.content-area-design .design-inner .image-frame');
+			if( content_area_design.length == 0 ){ 
+				return; 
+			}
+
+			var thisEl = $(this),
+				imgEl = thisEl.children('img'),
+				imgSrc = imgEl.attr('src'),
+				layout_icon = $('<img>').addClass('layout-design').attr('src', imgSrc);
+			
+			content_area_design.append(layout_icon);
+		})
+
+		// build layout =============================================
+		function buildLayout(ThisEl, params){
+
+		}
 	})
 })(jQuery)

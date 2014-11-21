@@ -36,11 +36,13 @@
 	height: 550px;
 	padding: 20px;
 	background: url(../images/bg_thread.gif);
+	overflow: hidden;
 }
 .design-container select,
 .design-container input,
 .design-container textarea{
-	background: #f0f0f0;
+	background: #FAFAFA;
+	border: 1px solid #FAFAFA;
     border-radius: 2px;
     color: #333;
 }
@@ -117,17 +119,57 @@
 	line-height: normal;
 }
 .content-area-tool .content-inner .design-item{
-	width: calc(100% / 3 - 4px);
-	margin-right: 4px;
-	margin-bottom: 4px;
-	display: inline-block;
-	vertical-align: top;
 	cursor: pointer;
-	font-size: 0;
+    display: inline-block;
+    font-size: 0;
+    margin-bottom: 4px;
+    margin-right: 4px;
+    text-align: center;
+    vertical-align: middle;
+    width: calc(100% / 3 - 4px);
+    overflow: hidden;
 }
 .content-area-tool .content-inner .design-item img{
-	height: 120px;
 	width: 100%;
+	max-width: 100%;
+}
+.content-area-tool .content-inner .design-item.icon-item img{
+	width: auto;
+}
+.content-area-tool .content-text{}
+.content-area-tool .content-text .text-design{
+	width: 100%;
+	max-width: 100%;
+	padding: 10px;
+}
+.content-area-tool .content-text .control-text-format{}
+.content-area-tool .content-text .control-text-format ul{
+	padding: 15px 0;
+}
+.content-area-tool .content-text .control-text-format ul li{
+	display: inline-block;
+	vertical-align: top;
+}
+.content-area-tool .content-text .control-text-format ul li label{
+	cursor: pointer;
+    display: inline-block;
+    font-size: 0;
+    line-height: normal;
+    margin-right: 10px;
+    padding: 5px;
+    text-align: center;	
+    width: 32px;
+    border-radius: 2px;
+    border: solid 1px transparent;
+    transition: .3s;
+    -webkit-transition: .3s;
+}
+.content-area-tool .content-text .control-text-format ul li input[type="checkbox"]:checked ~ label,
+.content-area-tool .content-text .control-text-format ul li input[type="radio"]:checked ~ label{
+	border: solid 1px #FFF;
+}
+.content-area-tool .content-text .control-text-format ul li label i{
+	font-size: 20px;
 }
 
 /* area design */
@@ -138,5 +180,11 @@
 }
 .content-area-design .design-inner{}
 .content-area-design .design-inner .image-frame{
+	display: inline-block;
+}
+.layout-design{
+	position: absolute;
+	left: 0;
+	top: 0;
 	display: inline-block;
 }
