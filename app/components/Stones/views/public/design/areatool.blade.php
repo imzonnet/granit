@@ -32,11 +32,11 @@
 						<label for="fontitalic"><i class="fa fa-italic"></i></label>
 					</li>
 					<li>
-						<input class="hidden" type="radio" id="textalignleft" name="textalign" id="textalignleft" checked="true" value="left"/>
+						<input class="hidden" type="radio" id="textalignleft" name="textalign" id="textalignleft" value="left"/>
 						<label for="textalignleft"><i class="fa fa-align-left"></i></label>
 					</li>
 					<li>
-						<input class="hidden" type="radio" id="textaligncenter" name="textalign" id="textaligncenter" value="center"/>
+						<input class="hidden" type="radio" id="textaligncenter" name="textalign" id="textaligncenter" value="center" checked="true" />
 						<label for="textaligncenter"><i class="fa fa-align-center"></i></label>
 					</li>
 					<li>
@@ -51,7 +51,7 @@
 			</div>
 			<div class="control-font-size">
 				<p>Font size(px): <span id="js-ranger-fontsize-value" class="num-font-size"></span></p>
-				<div id="js-font-size" data-size-default="20" data-size-start="12" data-size-end="100"></div>
+				<div id="js-font-size" data-size-default="30" data-size-start="12" data-size-end="100"></div>
 			</div>
 			<div class="line-design"></div>
 			<button class="btn btn-add-text" id="add_text"><i class="fa fa-plus"></i> Add Text</button>

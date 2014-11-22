@@ -1,80 +1,6 @@
 /* design.js */
 !(function($){
 	$(function(){
-		// init =============================================
-		function init(){
-			var cssText = {};
-
-			// Textarea
-			var textarea = $('#text-design');
-
-			// Text Format
-			var fontweight = $('#fontweight');
-			( fontweight.prop('checked') == true )? cssText.fontWeight = "bold" : "";
-			var fontitalic = $('#fontitalic');
-			( fontitalic.prop('checked') == true )? cssText.fontFamily = "italic" : "";
-			var textalign = $('input[name="textalign"]');
-			cssText.fontStyle = textalign.val();
-			
-			// Text Format (event)
-			fontweight.on('click', function(){
-				( fontweight.prop('checked') == true )? 
-					cssText.fontWeight = "bold" : cssText.fontWeight = "";
-				textarea.css(cssText);
-			})
-			fontitalic.on('click', function(){
-				( fontitalic.prop('checked') == true )? 
-					cssText.fontFamily = "italic" : cssText.fontFamily = "";
-				textarea.css(cssText);
-			})
-			textalign.on('click', function(){
-				cssText.fontStyle = textalign.val();
-				alert(cssText.fontStyle);
-				textarea.css(cssText);
-			})
-
-
-			// Color
-			var colorEl = $('input[name="color"]'),
-				settings = {
-					animationSpeed: 50,
-					animationEasing: 'swing',
-					change: null,
-					changeDelay: 0,
-					control: 'wheel',
-					defaultValue: '',
-					hide: null,
-					hideSpeed: 100,
-					inline: false,
-					letterCase: 'lowercase',
-					opacity: false,
-					position: 'bottom left',
-					show: null,
-					showSpeed: 100,
-					theme: 'default',
-				};
-			colorEl.minicolors(settings);
-			cssText.color = colorEl.val();
-
-			// Font size
-			var controlFontSizeEl = $('#js-font-size');
-			controlFontSizeEl.noUiSlider({
-				start: [ controlFontSizeEl.data('size-default') ],
-				step: 1,
-				range: {
-					'min': [ controlFontSizeEl.data('size-start') ],
-					'max': [ controlFontSizeEl.data('size-end') ]
-				},
-				format: wNumb({
-					decimals: 0
-				})
-			}).Link('lower').to( $('#js-ranger-fontsize-value') );
-			cssText.color = controlFontSizeEl.data('size-default');
-
-			textarea.css(cssText);
-		}
-		init();
-
 		// tool (tabs switch) =============================================
 		$('.js-tabs').each(function(){
 			var thisEl = $(this);
@@ -192,5 +118,88 @@
 				ThisEl.remove();
 			})
 		}
+
+		// initToolText =============================================
+		function initToolText(){
+			var cssText = {};
+
+			// Textarea
+			var textarea = $('#text-design');
+
+			// Text Format (default)
+			var fontweight = $('#fontweight'),
+				fontitalic = $('#fontitalic'),
+				textalign = $('input[name="textalign"]');
+
+			fontweight.on('change', function(){
+				( fontweight.prop('checked') == true )? 
+					cssText.fontWeight = "bold" : cssText.fontWeight = "";
+				textarea.css(cssText);
+			}).trigger('change')
+			
+			fontitalic.on('change', function(){
+				( fontitalic.prop('checked') == true )? 
+					cssText.fontStyle = "italic" : cssText.fontStyle = "";
+				textarea.css(cssText);
+			}).trigger('change')
+			
+			textalign.on('change', function(){
+				cssText.textAlign = $('input[name="textalign"]:checked').val();
+				textarea.css(cssText);
+			}).trigger('change')
+
+			// Font family (default)
+			var fonts = $('select[name="fonts"]');
+			fonts.on('change', function(){
+				cssText.fontFamily = $('select[name="fonts"] option:selected').html();
+				textarea.css(cssText);
+			}).trigger('change')
+
+			// Color
+			var colorEl = $('input[name="color"]'),
+				settings = {
+					change: function(hex, opacity){
+						cssText.color = hex;
+						textarea.css(cssText);
+					},
+					control: 'wheel',
+				};
+			colorEl.minicolors(settings).trigger('change')
+
+			// Font size
+			var controlFontSizeEl = $('#js-font-size');
+			controlFontSizeEl.noUiSlider({
+				start: [ controlFontSizeEl.data('size-default') ],
+				step: 1,
+				range: {
+					'min': [ controlFontSizeEl.data('size-start') ],
+					'max': [ controlFontSizeEl.data('size-end') ]
+				},
+				format: wNumb({
+					decimals: 0
+				})
+			})
+			.Link('lower')
+			.to( $('#js-ranger-fontsize-value') )
+			.on({
+				slide: function(){
+					var value =  $(this).val();
+					cssText.fontSize = value + 'px';
+					cssText.lineHeight = value + 'px';
+					textarea.css(cssText);
+				}
+			}).trigger('slide')
+		}
+		initToolText();
+
+		$('#add_text').on('click', function(){
+			var content_area_design = $('.content-area-design .design-inner .image-frame');
+			if( content_area_design.length == 0 ){ 
+				$.dialog({ mess: "Please choose product." });
+				return; 
+			}
+
+			
+		})
 	})
 })(jQuery)

@@ -14,6 +14,11 @@
     {{ HTML::style("assets/public/exception/design/css/jquery.nouislider.min.css") }}
     {{ HTML::style("assets/public/exception/design/css/dialog.css") }}
     {{ HTML::style("assets/public/exception/design/css/design.css") }}
+    @if(count($fonts_include) > 0)
+        @foreach($fonts_include as $item)
+            {{ HTML::style($item->url) }}
+        @endforeach
+    @endif
 @stop
 
 @section('scripts')
