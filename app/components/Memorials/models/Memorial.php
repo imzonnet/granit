@@ -1,15 +1,42 @@
-<?php namespace Components\Memorials\Models;
+<?php
 
-use App, Str;
+namespace Components\Memorials\Models;
+
+use App,
+    Str;
 use Robbo\Presenter\PresentableInterface;
 use Components\Memorials\Presenters\MemorialPresenter;
+use Components\Memorials\Models\Media;
+use Components\Memorials\Models\Guestbook;
+use Components\Memorials\Models\User;
 
-class Memorial extends \Eloquent implements PresentableInterface
-{
+class Memorial extends \Eloquent implements PresentableInterface {
+
     protected $table = 'granit_memorials';
     protected $fillable = array('name', 'avatar', 'birthday', 'death', 'biography', 'obituary', 'created_by');
     protected $guarded = array('id');
-    
+
+    /*
+     * Relationship to table media
+     */
+    public function media() {
+        return $this->hasMany('Components\Memorials\Models\Media', 'memorial_id', 'id');
+    }
+
+    /*
+     * Relationship to table media
+     */
+    public function guestbook() {
+        return $this->hasMany('Components\Memorials\Models\Guestbook', 'memorial_id', 'id');
+    }
+
+    /*
+     * Relationship to table media
+     */
+    public function user() {
+        return $this->hasMany('Components\Memorials\Models\User', 'memorial_id', 'id');
+    }
+
     /**
      * When creating a icon, run the attributes through a validator first.
      * @param array $attributes
@@ -38,12 +65,12 @@ class Memorial extends \Eloquent implements PresentableInterface
      * Get thumbnail image
      * @return string
      */
-    
+
     /**
-    * Implement presenter
-    */
+     * Implement presenter
+     */
     public function getPresenter() {
         return new MemorialPresenter($this);
     }
-    
-}   
+
+}

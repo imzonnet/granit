@@ -58,9 +58,11 @@
                         </div>
                         <div id="guest-book" class="tab-panel" style="display: none;">
                             <div class="content">
-                                <p><a href="#" class="btn main-bg">Sign Guest Book</a></p>
+                                @if( $has_access == 'true' )
+                                <p><a href="#" class="btn main-bg" id="btn-guestbook">Sign Guest Book</a></p>
+                                @endif
                                 <ul class="accordion" id="accordion">
-                                    @foreach($guestbooks as $index => $guestbook)
+                                    @foreach($memorial->guestbook as $index => $guestbook)
                                     <li class="">
                                         <h3><a href="#"><span><i class="fa fa-book"></i>{{ $guestbook->title }}</span></a></h3>
                                         <div class="accordion-panel {{$index==0 ? 'active' : ''}}" style="display: none;">
@@ -73,9 +75,11 @@
                         </div>
                         <div id="media" class="tab-panel" style="display: none;">
                             <div class="content">
-                                <p><a href="#" class="btn main-bg">Submit Media</a></p>
+                                @if( $has_access == 'true' )
+                                <p><a href="#" class="btn main-bg" id="btn-media">Submit Media</a></p>
+                                @endif
                                 <div class="row">
-                                    @foreach($media as $item)
+                                    @foreach($memorial->media as $item)
                                     <div class="cell-3 media-item">
                                         {{ $item->media() }}
                                     </div>
@@ -99,3 +103,15 @@
 </section>
 @stop
 
+@section('scripts')
+<script>
+    !(function ($) {
+        $(function () {
+            $('#btn-guestbook').click(function(e){
+                e.prentDefault();
+                
+            });
+        })
+    })(jQuery)
+</script>
+@stop

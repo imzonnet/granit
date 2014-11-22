@@ -1,4 +1,5 @@
 <?php
+use Faker\Factory as Faker;
 
 class SentrySeeder extends Seeder {
 
@@ -24,10 +25,31 @@ class SentrySeeder extends Seeder {
                 'superuser' => 1
             ),
         ));
+        
+        $group2 = Sentry::createGroup(array(
+            'name'        => 'Members',
+            'permissions' => array(
+                'users' => 1
+            ),
+        ));
 
         // Assign user permissions
         $userGroup = Sentry::findGroupByName('Super Administrators');
         $user->addGroup($userGroup);
+        $faker = Faker::create();
+        foreach(range(1, 50) as $index) {
+            $user = Sentry::createUser(array(
+                'username'   => 'member'.$index,
+                'password'   => 'password',
+                'email'     => $faker->email,
+                'first_name' => $faker->firstName,
+                'last_name'  => $faker->lastName,
+                'last_pw_changed' => new DateTime,
+                'activated'  => 1,
+            ));
+            $userGroup = Sentry::findGroupByName('Members');
+            $user->addGroup($userGroup);
+        }
     }
 
 }

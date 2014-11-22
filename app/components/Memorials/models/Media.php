@@ -61,6 +61,7 @@ class Media extends \Eloquent implements PresentableInterface {
 
     /**
      * Get thumbnail Video Youtube, Vimeo
+     * @return string
      */
     function getThumbnail($url) {
         if ($this->_is_youtube($url)) {

@@ -3,6 +3,7 @@
 use App, Input, Redirect, Request, Sentry, Str, View, File;
 use Services\Validation\ValidationException as ValidationException;
 use Components\Memorials\Models\Memorial;
+use Components\Memorials\Models\User;
 
 class UsersController extends \BaseController {
 
@@ -18,10 +19,14 @@ class UsersController extends \BaseController {
      *
      * @return Response
      */
-    public function index() {
-
-        $this->layout->title = 'All Memorials';
-        $this->layout->content = View::make('Memorials::backend.memorials.index')->with('memorials', Memorial::all());
+    public function index($mid) {
+        $memorial = Memorial::findOrFail($mid);
+        if (!$memorial) App::abort('401');
+        $users = $memorial->user;
+        $this->layout->title = 'All users of ' . $memorial->name;
+        $this->layout->content = View::make('Memorials::backend.users.index')
+                ->with('users', $users)
+                ->with('memorial', $memorial);
     }
 
     /**
@@ -29,9 +34,13 @@ class UsersController extends \BaseController {
      *
      * @return Response
      */
-    public function create() {
-        $this->layout->title = 'New Memorial';
-        $this->layout->content = View::make('Memorials::backend.memorials.create');
+    public function create($mid) {
+        $memorial = Memorial::findOrFail($mid);
+        if (!$memorial) App::abort('401');
+        $users = \User::all();
+        $this->layout->title = 'New user of ' . $memorial->name;
+        $this->layout->content = View::make('Memorials::backend.users.create')->with('memorial', $memorial)
+            ->with('users', $users);
     }
 
     /**
@@ -39,17 +48,17 @@ class UsersController extends \BaseController {
      *
      * @return Response
      */
-    public function store() {
+    public function store($mid) {
         $input = Input::all();
         if (isset($input['form_close'])) {
-            return Redirect::to("backend/memorials");
+            return Redirect::route('backend.memorial.users.index', [$mid]);
         }
         try {
-            $redirect = (isset($input['form_save'])) ? "backend/memorials" : "backend/memorials/create";
-            Memorial::create($input);
+            $redirect = (isset($input['form_save'])) ? "backend.memorial.users.index" : "backend.memorial.users.create";
+            User::create($input);
 
-            return Redirect::to($redirect)
-                                ->with('success_message', 'The Memorial was created.');
+            return Redirect::route($redirect, [$mid])
+                                ->with('success_message', 'The users was added.');
         } catch(ValidationException $e) {
             return Redirect::back()->withInput()->withErrors($e->getErrors());
         }
@@ -62,15 +71,17 @@ class UsersController extends \BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function show($id)
+    public function show($mid, $id)
     {
-        $memorial = Memorial::findOrFail($id);
-
+        $memorial = Memorial::findOrFail($mid);
         if (!$memorial) App::abort('401');
-
-        $this->layout->title = $memorial->name;
-        $this->layout->content = View::make('Memorials::backend.memorials.show')
-                                        ->with('memorial', $memorial);
+        $users = User::findOrFail($id);
+        if (!$users) App::abort('401');
+        
+        $this->layout->title = $users->title;
+        $this->layout->content = View::make('Memorials::backend.users.show')
+                                        ->with('memorial', $memorial)
+                                        ->with('users', $users);
     }
 
     /**
@@ -79,12 +90,17 @@ class UsersController extends \BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function edit($id)
+    public function edit($mid, $id)
     {
-        $memorial = Memorial::find($id);
-        $this->layout->title = 'Edit ' . $memorial->name;
-        $this->layout->content = View::make('Memorials::backend.memorials.create')
-                                ->with('memorial', $memorial);
+        $memorial = Memorial::find($mid);
+        if (!$memorial) App::abort('401');
+        $users = User::find($id);
+        if (!$users) App::abort('401');
+        
+        $this->layout->title = 'Edit ' . $users->title;
+        $this->layout->content = View::make('Memorials::backend.users.create')
+                                ->with('memorial', $memorial)
+                                ->with('users', $users)->with('type', User::type());
     }
 
     /**
@@ -93,17 +109,17 @@ class UsersController extends \BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function update($mid, $id)
     {
         $input = Input::all();
         if (isset($input['form_close'])) {
-            return Redirect::to("backend/memorials");
+            return Redirect::route("backend.memorial.users.index", [$mid]);
         }
         try {
-            Memorial::findOrFail($id)->update($input);
+            User::findOrFail($id)->update($input);
 
-            return Redirect::to("backend/memorials")
-                                ->with('success_message', 'The category was updated.');
+            return Redirect::route("backend.memorial.users.index", $mid)
+                                ->with('success_message', 'The users was updated.');
         } catch(ValidationException $e) {
             return Redirect::back()->withInput()->withErrors($e->getErrors());
         }
@@ -115,9 +131,8 @@ class UsersController extends \BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id=null)
+    public function destroy($mid, $id=null)
     {
-
 
         // If multiple ids are specified
         if ($id == 'multiple') {
@@ -132,15 +147,15 @@ class UsersController extends \BaseController {
         }
 
         foreach ($selected_ids as $id) {
-            $Product = Product::findOrFail($id);
+            $users = User::findOrFail($id);
 
-            $Product->delete();
+            $users->delete();
         }
 
         $wasOrWere = (count($selected_ids) > 1) ? 's were' : ' was';
         $message = 'The memorial' . $wasOrWere . ' deleted.';
 
-        return Redirect::to("backend/memorials")
+        return Redirect::route("backend.memorial.users.index", $mid)
                             ->with('success_message', $message);
     }
 

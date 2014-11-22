@@ -4,6 +4,7 @@ use View;
 use Components\Memorials\Models\Memorial;
 use Components\Memorials\Models\Media;
 use Components\Memorials\Models\Guestbook;
+use Components\Memorials\Models\User;
 
 class MemorialsController extends \BaseController {
 
@@ -27,14 +28,24 @@ class MemorialsController extends \BaseController {
      */
     public function show($id) {
         $memorial = Memorial::findOrFail($id);
-        $guestbooks = Guestbook::where('memorial_id',$id)->get();
-        $media = Media::where('memorial_id',$id)->get();
         if(!$memorial) App::abort('401');
+        $has_access = User::hasAccess($memorial->id, current_user()->id);
         $this->layout->title = 'Memorial';
         $this->layout->content = View::make('Memorials::public.memorials.show')
-                ->with('memorial', $memorial)
-                ->with('guestbooks', $guestbooks)
-                ->with('media', $media);
+                ->with('memorial', $memorial)->with('has_access', $has_access);
     }
+    
+    /**
+     * Ajax create guestbook, media
+     */
+    public function ajax() {
+        if(\Request::ajax()) {
+            return \Response::json($_POST);
+        } else {
+            echo 1;
+        }
+        exit;
+    }
+    
 
 }
