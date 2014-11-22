@@ -1,6 +1,80 @@
 /* design.js */
 !(function($){
 	$(function(){
+		// init =============================================
+		function init(){
+			var cssText = {};
+
+			// Textarea
+			var textarea = $('#text-design');
+
+			// Text Format
+			var fontweight = $('#fontweight');
+			( fontweight.prop('checked') == true )? cssText.fontWeight = "bold" : "";
+			var fontitalic = $('#fontitalic');
+			( fontitalic.prop('checked') == true )? cssText.fontFamily = "italic" : "";
+			var textalign = $('input[name="textalign"]');
+			cssText.fontStyle = textalign.val();
+			
+			// Text Format (event)
+			fontweight.on('click', function(){
+				( fontweight.prop('checked') == true )? 
+					cssText.fontWeight = "bold" : cssText.fontWeight = "";
+				textarea.css(cssText);
+			})
+			fontitalic.on('click', function(){
+				( fontitalic.prop('checked') == true )? 
+					cssText.fontFamily = "italic" : cssText.fontFamily = "";
+				textarea.css(cssText);
+			})
+			textalign.on('click', function(){
+				cssText.fontStyle = textalign.val();
+				alert(cssText.fontStyle);
+				textarea.css(cssText);
+			})
+
+
+			// Color
+			var colorEl = $('input[name="color"]'),
+				settings = {
+					animationSpeed: 50,
+					animationEasing: 'swing',
+					change: null,
+					changeDelay: 0,
+					control: 'wheel',
+					defaultValue: '',
+					hide: null,
+					hideSpeed: 100,
+					inline: false,
+					letterCase: 'lowercase',
+					opacity: false,
+					position: 'bottom left',
+					show: null,
+					showSpeed: 100,
+					theme: 'default',
+				};
+			colorEl.minicolors(settings);
+			cssText.color = colorEl.val();
+
+			// Font size
+			var controlFontSizeEl = $('#js-font-size');
+			controlFontSizeEl.noUiSlider({
+				start: [ controlFontSizeEl.data('size-default') ],
+				step: 1,
+				range: {
+					'min': [ controlFontSizeEl.data('size-start') ],
+					'max': [ controlFontSizeEl.data('size-end') ]
+				},
+				format: wNumb({
+					decimals: 0
+				})
+			}).Link('lower').to( $('#js-ranger-fontsize-value') );
+			cssText.color = controlFontSizeEl.data('size-default');
+
+			textarea.css(cssText);
+		}
+		init();
+
 		// tool (tabs switch) =============================================
 		$('.js-tabs').each(function(){
 			var thisEl = $(this);
@@ -88,20 +162,35 @@
 
 			var content_area_design = $('.content-area-design .design-inner .image-frame');
 			if( content_area_design.length == 0 ){ 
+				$.dialog({ mess: "Please choose product." });
 				return; 
 			}
 
 			var thisEl = $(this),
 				imgEl = thisEl.children('img'),
 				imgSrc = imgEl.attr('src'),
-				layout_icon = $('<img>').addClass('layout-design').attr('src', imgSrc);
+				layout_icon = $('<div>').addClass('layout-design').html('<img src="'+imgSrc+'"/>');
 			
 			content_area_design.append(layout_icon);
+			buildLayout(layout_icon, {drag: true});
 		})
 
 		// build layout =============================================
 		function buildLayout(ThisEl, params){
+			if( params.drag == true )
+				ThisEl.addClass('l-move').draggable();
 
+			delLayout(ThisEl);
+		}
+
+		// del layout =============================================
+		function delLayout(ThisEl){
+			var delEl = $('<span>').attr('title', 'remove').addClass('l-del');
+			ThisEl.append(delEl);
+
+			delEl.on('click', function(e){
+				ThisEl.remove();
+			})
 		}
 	})
 })(jQuery)

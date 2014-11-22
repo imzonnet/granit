@@ -34,6 +34,14 @@ class Font extends \Eloquent implements PresentableInterface {
         return parent::update($attributes);
     }
 
+    public static function all_fonts() {
+        $fonts = array();
+        foreach( Font::all() as $item ) {
+            $fonts[$item->id] = $item->name;
+        }
+        return $fonts;
+    }
+
     /**
      * Get all the statuses available for a post
      * @return array

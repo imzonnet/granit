@@ -1,6 +1,6 @@
 <div class="content-area-tool js-tabs">
 	<ul class="controler-tab">
-		<li class='active'><a href="javascript:" data-tabs="tab-product">Select product</a></li>
+		<li class='active'><a href="javascript:" data-tabs="tab-product">Products</a></li>
 		<li><a href="javascript:" data-tabs="tab-graphics">Graphics</a></li>
 		<li><a href="javascript:" data-tabs="tab-text">Text</a></li>
 	</ul>
@@ -32,25 +32,29 @@
 						<label for="fontitalic"><i class="fa fa-italic"></i></label>
 					</li>
 					<li>
-						<input class="hidden" type="radio" id="textalignleft" name="textalign" id="textalignleft" checked="true"/>
+						<input class="hidden" type="radio" id="textalignleft" name="textalign" id="textalignleft" checked="true" value="left"/>
 						<label for="textalignleft"><i class="fa fa-align-left"></i></label>
 					</li>
 					<li>
-						<input class="hidden" type="radio" id="textaligncenter" name="textalign" id="textaligncenter"/>
+						<input class="hidden" type="radio" id="textaligncenter" name="textalign" id="textaligncenter" value="center"/>
 						<label for="textaligncenter"><i class="fa fa-align-center"></i></label>
 					</li>
 					<li>
-						<input class="hidden" type="radio" id="textalignright" name="textalign" id="textalignright"/>
+						<input class="hidden" type="radio" id="textalignright" name="textalign" id="textalignright" value="right"/>
 						<label for="textalignright"><i class="fa fa-align-right"></i></label>
 					</li>
 				</ul>
 			</div>
 			<div class="control-font-style">
-				
+				{{ Form::select('fonts', $fonts, '', array('style' => 'width: 70%')) }}
+				{{ Form::text('color', '#333'); }}
 			</div>
-			<div class="control-font-size"></div>
+			<div class="control-font-size">
+				<p>Font size(px): <span id="js-ranger-fontsize-value" class="num-font-size"></span></p>
+				<div id="js-font-size" data-size-default="20" data-size-start="12" data-size-end="100"></div>
+			</div>
 			<div class="line-design"></div>
-			<button class="btn" id="add_text">Add Text</button>
+			<button class="btn btn-add-text" id="add_text"><i class="fa fa-plus"></i> Add Text</button>
 		</div>	
 	</div>
 </div>

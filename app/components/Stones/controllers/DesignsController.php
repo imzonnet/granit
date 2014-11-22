@@ -24,7 +24,7 @@ class DesignsController extends \BaseController {
         ->with('products', Product::all())
         ->with('productCategories', Category::all_categories())
         ->with('colors', Color::all())
-        ->with('fonts', Font::all())
+        ->with('fonts', Font::all_fonts())
         ->with('icons', Icon::all())
         ->with('iconcategories', IconCategory::all_categories());
     }
