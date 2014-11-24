@@ -41,7 +41,7 @@
 .design-container select,
 .design-container input,
 .design-container textarea{
-	background: #FAFAFA;
+	background: rgba(245,245,245,.9);
 	border: 1px solid #FAFAFA;
     border-radius: 2px;
     color: #333;
@@ -250,6 +250,8 @@ input[name="color"]{
 	left: 0;
 	top: 0;
 	display: inline-block;
+	width: initial !important;
+	height: initial !important;
 }
 .l-move{
 	cursor: move;
@@ -265,7 +267,23 @@ input[name="color"]{
     width: 24px;
     display: none;
 }
+
 .layout-design:hover .l-del,
 .layout-design:hover .l-resize{
 	display: block;
+}
+.layout-design.active{
+	box-shadow: 0 0 0 1px;
+	z-index: 999;
+}
+.layout-design.active:after{
+	content: "\f040";
+	font-family: FontAwesome;
+	position: absolute;
+	line-height: normal;
+	left: 50%;
+	top: -17px;
+	font-size: 13px;
+	transform: translateX(-50%);
+	-webkit-transform: translateX(-50%);
 }

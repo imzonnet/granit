@@ -119,12 +119,58 @@
 			})
 		}
 
+		// add text =============================================
+		var layout_active = "";
+		$('#add_text').on('click', function(){
+			var content_area_design = $('.content-area-design .design-inner .image-frame');
+			if( content_area_design.length == 0 ){ 
+				$.dialog({ mess: "Please choose product." });
+				return; 
+			}
+
+			var text_area = $('#text-design'),
+				text = text_area.val(),
+				paramsStyle = {
+					color: text_area.css('color'),
+					fontFamily: text_area.css('font-family'),
+					fontSize: parseInt(text_area.css('font-size').replace('px','')),
+					fontStyle: text_area.css('font-style'),
+					fontWeight: text_area.css('font-weight'),
+					lineHeight: text_area.css('line-height'),
+					textAlign: text_area.css('text-align'),
+				},
+				layout_text = $('<div>');
+
+			layout_text
+			.addClass('layout-design')
+			.css(paramsStyle)
+			.html("<div class='text-inner'>"+text.replace(/\r\n|\r|\n/g,"<br />")+"</div>"); // .replace(/<br\s?\/?>/g,"\n");
+
+			content_area_design.append(layout_text);
+			layout_text.on('click', function(e){
+				e.stopPropagation();
+				layout_active = $(this);
+				$(this).addClass('active').siblings().removeClass('active');
+			})
+			buildLayout(layout_text, {drag: true});
+		})
+
+		// clear layout active
+		$('.content-area-design').on('click', '.image-frame', function(e){
+			$(this).find('.layout-design.active').removeClass('active');
+			layout_active = "";
+		})
+
 		// initToolText =============================================
 		function initToolText(){
 			var cssText = {};
 
 			// Textarea
 			var textarea = $('#text-design');
+			textarea.on('input', function(e){
+				if(layout_active.length <= 0){ return; }
+				layout_active.children('.text-inner').html($(this).val().replace(/\r\n|\r|\n/g,"<br />"));
+			})
 
 			// Text Format (default)
 			var fontweight = $('#fontweight'),
@@ -135,17 +181,26 @@
 				( fontweight.prop('checked') == true )? 
 					cssText.fontWeight = "bold" : cssText.fontWeight = "";
 				textarea.css(cssText);
+
+				if(layout_active.length <= 0){ return; }
+				layout_active.css(cssText)
 			}).trigger('change')
 			
 			fontitalic.on('change', function(){
 				( fontitalic.prop('checked') == true )? 
 					cssText.fontStyle = "italic" : cssText.fontStyle = "";
 				textarea.css(cssText);
+
+				if(layout_active.length <= 0){ return; }
+				layout_active.css(cssText)
 			}).trigger('change')
 			
 			textalign.on('change', function(){
 				cssText.textAlign = $('input[name="textalign"]:checked').val();
 				textarea.css(cssText);
+
+				if(layout_active.length <= 0){ return; }
+				layout_active.css(cssText)
 			}).trigger('change')
 
 			// Font family (default)
@@ -153,6 +208,9 @@
 			fonts.on('change', function(){
 				cssText.fontFamily = $('select[name="fonts"] option:selected').html();
 				textarea.css(cssText);
+
+				if(layout_active.length <= 0){ return; }
+				layout_active.css(cssText)
 			}).trigger('change')
 
 			// Color
@@ -161,10 +219,14 @@
 					change: function(hex, opacity){
 						cssText.color = hex;
 						textarea.css(cssText);
+
+						if(layout_active.length <= 0){ return; }
+						layout_active.css(cssText)
 					},
 					control: 'wheel',
 				};
-			colorEl.minicolors(settings).trigger('change')
+			colorEl.minicolors(settings);
+			textarea.css('color', colorEl.val());
 
 			// Font size
 			var controlFontSizeEl = $('#js-font-size');
@@ -187,19 +249,12 @@
 					cssText.fontSize = value + 'px';
 					cssText.lineHeight = value + 'px';
 					textarea.css(cssText);
+
+					if(layout_active.length <= 0){ return; }
+					layout_active.css(cssText)
 				}
 			}).trigger('slide')
 		}
 		initToolText();
-
-		$('#add_text').on('click', function(){
-			var content_area_design = $('.content-area-design .design-inner .image-frame');
-			if( content_area_design.length == 0 ){ 
-				$.dialog({ mess: "Please choose product." });
-				return; 
-			}
-
-			
-		})
 	})
 })(jQuery)
