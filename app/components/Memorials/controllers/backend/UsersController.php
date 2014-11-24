@@ -10,7 +10,6 @@ class UsersController extends \BaseController {
     public function __construct() {
         View::addLocation(app_path() . '/components/Memorials/views');
         View::addNamespace('Memorials', app_path() . '/components/Memorials/views');
-
         parent::__construct();
     }
 
@@ -57,10 +56,10 @@ class UsersController extends \BaseController {
             $redirect = (isset($input['form_save'])) ? "backend.memorial.users.index" : "backend.memorial.users.create";
             User::create($input);
 
-            return Redirect::route($redirect, [$mid])
+            return Redirect::route('backend.memorial.users.index', [$mid])
                                 ->with('success_message', 'The users was added.');
         } catch(ValidationException $e) {
-            return Redirect::back()->withInput()->withErrors($e->getErrors());
+            return Redirect::back()->withErrors($e->getErrors());
         }
 
     }

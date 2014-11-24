@@ -5953,7 +5953,3 @@ a.main-color:hover,.project-name:hover,.box-top .more-btn:hover{
 	color:#333 !important
 }
 .products-wrap .product-item:nth-child(3n+1) { clear: left; }
-.memorial .post-info h2 { margin-top: 0px; }
-.memorial .post-info .post-meta li { float: none; margin-bottom: 10px;}
-.memorial .post-item:nth-child(2n+1) { clear: left; }
-#memorial #media .media-item:nth-child(4n+1) { clear: left; }

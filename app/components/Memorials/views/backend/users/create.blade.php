@@ -7,6 +7,15 @@
 @section('content')
 <div class="row-fluid">
     <div class="span12">
+        <div id="errors-div">
+            @if ($errors->has('memorial_id') || $errors->has('user_id') )
+                <div class="alert alert-error hide" style="display: block;">
+                  <button data-dismiss="alert" class="close">×</button>
+                  <p>{{ $errors->first("memorial_id", "<span class=\'help-inline\'>:message</span>") }}
+                      {{ $errors->first("user_id", "<span class=\'help-inline\'>:message</span>") }}</p>
+               </div>
+           @endif
+       </div>
         <!-- BEGIN EXAMPLE TABLE widget-->
         <div class="widget light-gray box">
             <div class="blue widget-title">
@@ -19,32 +28,7 @@
                 </div>
             </div>
             <div class="widget-body">
-                <div class="clearfix margin-bottom-10">
-                    <div class="btn-group pull-right">
-                        <div class="actions inline">
-                            <div class="btn">
-                                <i class="icon-cog"> Actions</i>
-                            </div>
-                            <ul class="btn">
-                                @if ($current_user->hasAccess("memorial-users.destroy"))
-                                <li>
-                                    {{ Form::open(array('route' => array($link_type . '.memorial.users.destroy', $memorial->id, 'multiple'), 'method' => 'delete', 'class'=>'inline', 'onsubmit'=>"return deleteRecords($(this), 'memorials');")) }}
-                                    {{ Form::hidden('selected_ids', '', array('id'=>'selected_ids')) }}
-                                    <button type="submit" class="danger delete"><i class="icon-trash"></i> Delete</button>
-                                    {{ Form::close() }}
-                                </li>
-                                @endif
-                            </ul>
-                        </div>
-                    </div>
-                    @if ($current_user->hasAccess("memorial-users.create"))
-                    <div class="btn-group pull-right">
-                        <button data-href="{{URL::route($link_type.'.memorial.users.create', $memorial->id)}}" class="btn btn-success">
-                            Add New <i class="icon-plus"></i>
-                        </button>
-                    </div>
-                    @endif
-                </div>
+                
                 <table class="table table-striped table-hover table-bordered" id="sample_1">
                     <thead>
                         <tr>

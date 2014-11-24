@@ -14,10 +14,10 @@ class GranitMedia extends Migration {
 	{
             Schema::create('granit_memorial_media', function(Blueprint $table) {
                 $table->increments('id');
-                $table->string('title', 45);
+                $table->string('title');
                 $table->enum('media_type', array('image', 'audio', 'video'))->default('image');
-                $table->string('image', 45);
-                $table->string('url', 45);
+                $table->string('image');
+                $table->string('url');
                 $table->integer('memorial_id')->unsigned();
                 $table->foreign('memorial_id')->references('id')->on('granit_memorials')->onDelete('cascade')->onUpdate('cascade');
         	$table->integer('created_by')->unsigned();

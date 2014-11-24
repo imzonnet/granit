@@ -20,21 +20,21 @@ class Memorial extends \Eloquent implements PresentableInterface {
      * Relationship to table media
      */
     public function media() {
-        return $this->hasMany('Components\Memorials\Models\Media', 'memorial_id', 'id');
+        return $this->hasMany('Components\Memorials\Models\Media', 'memorial_id', 'id')->orderBy('id','desc');
     }
 
     /*
      * Relationship to table media
      */
     public function guestbook() {
-        return $this->hasMany('Components\Memorials\Models\Guestbook', 'memorial_id', 'id');
+        return $this->hasMany('Components\Memorials\Models\Guestbook', 'memorial_id', 'id')->orderBy('id','desc');
     }
 
     /*
      * Relationship to table media
      */
     public function user() {
-        return $this->hasMany('Components\Memorials\Models\User', 'memorial_id', 'id');
+        return $this->hasMany('Components\Memorials\Models\User', 'memorial_id', 'id')->orderBy('id','desc');
     }
 
     /**

@@ -19,7 +19,7 @@ class MemorialMediaTableSeeder extends \Seeder {
                 'title' => $faker->name,
                 'media_type' => 'image',
                 'image' => $faker->imageUrl(rand(350, 450), rand(250, 300)),
-                'url' => '',
+                'url' => $faker->imageUrl(rand(650, 750), rand(650, 700)),
                 'memorial_id' => $memorials[array_rand($memorials)],
                 'created_by' => $user->id,
                 'created_at' => $faker->dateTime('now'),

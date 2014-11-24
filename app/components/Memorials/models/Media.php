@@ -29,7 +29,9 @@ class Media extends \Eloquent implements PresentableInterface {
         App::make('Components\\Memorials\\Validation\\MediaValidator')->validateForCreation($attributes);
         $attributes['created_by'] = current_user()->id;
         if( $attributes['media_type'] == 'video' && isset($attributes['url']) ) {
-            $attributes['image'] = $this->getThumbnail($attributes['url']);
+            $attributes['image'] = self::getThumbnail($attributes['url']);
+        } else {
+            $attributes['url'] = $attributes['image'];
         }
         return parent::create($attributes);
     }
@@ -43,7 +45,7 @@ class Media extends \Eloquent implements PresentableInterface {
         App::make('Components\\Memorials\\Validation\\MediaValidator')->validateForUpdate($attributes);
         $attributes['created_by'] = current_user()->id;
         if( $attributes['media_type'] == 'video' && isset($attributes['url']) ) {
-            $attributes['image'] = $this->getThumbnail($attributes['url']);
+            $attributes['image'] = self::getThumbnail($attributes['url']);
         }
         return parent::update($attributes);
     }
@@ -63,41 +65,41 @@ class Media extends \Eloquent implements PresentableInterface {
      * Get thumbnail Video Youtube, Vimeo
      * @return string
      */
-    function getThumbnail($url) {
-        if ($this->_is_youtube($url)) {
+    public static function getThumbnail($url) {
+        if (self::_is_youtube($url)) {
             $pattern = '/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/i';
             preg_match($pattern, $url, $res);
             if (count($res) && strlen($res[1]) == 11) {
-                return $this->_youtube_thumbnail($res[1]);
+                return self::_youtube_thumbnail($res[1]);
             } else {
                 return '';
             }
-        } elseif ($this->_is_vimeo($url)) {
+        } elseif (self::_is_vimeo($url)) {
             $pattern = '/\/\/(www\.)?vimeo.com\/(\d+)($|\/)/';
             preg_match($pattern, $url, $matches);
             if (count($matches)) {
-                return $this->_vimeo_thumbnail($matches[2]);
+                return self::_vimeo_thumbnail($matches[2]);
             }
         }
     }
 
     //check is youtube server
-    function _is_youtube($url) {
+    public static function _is_youtube($url) {
         return (preg_match('/youtu\.be/i', $url) || preg_match('/youtube\.com\/watch/i', $url));
     }
 
     //check is vimeo server
-    function _is_vimeo($url) {
+    public static function _is_vimeo($url) {
         return (preg_match('/vimeo\.com/i', $url));
     }
 
     //get youtube thumbnail
-    function _youtube_thumbnail($id) {
+    public static function _youtube_thumbnail($id) {
         return 'http://i1.ytimg.com/vi/' . $id . '/hqdefault.jpg';
     }
 
     //get vimeo thumbnail
-    function _vimeo_thumbnail($id) {
+    public static function _vimeo_thumbnail($id) {
         $hash = unserialize(file_get_contents("http://vimeo.com/api/v2/video/$id.php"));
         return $hash[0]['thumbnail_medium'];
     }

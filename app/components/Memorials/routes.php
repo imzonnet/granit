@@ -8,4 +8,4 @@ Route::resource('/backend/memorial.users','Components\Memorials\Controllers\back
 
 // Frontend
 Route::resource('/memorial','Components\Memorials\Controllers\MemorialsController', ['only' => ['index', 'show']]);
-Route::get('/memorial/ajax', 'Components\Memorials\Controllers\MemorialsController@ajax');
+Route::post('/memorial/ajax', [ 'as' => 'memorial.ajax', 'uses' => 'Components\Memorials\Controllers\MemorialsController@ajax']);
