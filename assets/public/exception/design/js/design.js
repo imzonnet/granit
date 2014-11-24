@@ -104,7 +104,23 @@
 		// build layout =============================================
 		function buildLayout(ThisEl, params){
 			if( params.drag == true )
-				ThisEl.addClass('l-move').draggable();
+				ThisEl.addClass('l-move').draggable({
+					start: function (event, ui) {
+						var left = parseInt($(this).css('left'),10);
+						left = isNaN(left) ? 0 : left;
+						var top = parseInt($(this).css('top'),10);
+						top = isNaN(top) ? 0 : top;
+						recoupLeft = left - ui.position.left;
+						recoupTop = top - ui.position.top;
+					},
+					drag: function( event, ui ) {
+						ui.position.left = parseInt(recoupLeft + ui.position.left);
+						ui.position.top = parseInt(recoupTop + ui.position.top);
+					}
+				});
+
+			if( params.rotate == true )
+				ThisEl.rotate();
 
 			delLayout(ThisEl);
 		}
@@ -144,15 +160,17 @@
 			layout_text
 			.addClass('layout-design')
 			.css(paramsStyle)
-			.html("<div class='text-inner'>"+text.replace(/\r\n|\r|\n/g,"<br />")+"</div>"); // .replace(/<br\s?\/?>/g,"\n");
+			.html("<div class='text-inner'>"+text.replace(/\n/g,"<br>")+"</div>");
 
 			content_area_design.append(layout_text);
 			layout_text.on('click', function(e){
 				e.stopPropagation();
 				layout_active = $(this);
+				synLayoutText(layout_active);
+
 				$(this).addClass('active').siblings().removeClass('active');
 			})
-			buildLayout(layout_text, {drag: true});
+			buildLayout(layout_text, {drag: true, rotate: true});
 		})
 
 		// clear layout active
@@ -160,6 +178,55 @@
 			$(this).find('.layout-design.active').removeClass('active');
 			layout_active = "";
 		})
+
+		// syn layout text
+		function synLayoutText(thisEl){
+			var layoutText = $(thisEl),
+				text = layoutText.children('.text-inner').html(),
+				paramsStyle = {
+					color: layoutText.css('color'),
+					fontFamily: layoutText.css('font-family'),
+					fontSize: parseInt(layoutText.css('font-size').replace('px','')),
+					fontStyle: layoutText.css('font-style'),
+					fontWeight: layoutText.css('font-weight'),
+					lineHeight: layoutText.css('line-height'),
+					textAlign: layoutText.css('text-align'),
+				},
+				text_area = $('#text-design');	
+
+			text_area.val(
+					text.replace(/<br>/gi,"\n")
+					.replace(/&amp;/gi, '&')
+				);
+
+			// syn font weight
+			var fontweight = $('#fontweight');
+			if( paramsStyle.fontWeight == 400 || paramsStyle.fontWeight == "bold" )
+				fontweight.prop('checked', false).trigger('change');
+			else
+				fontweight.prop('checked', true).trigger('change');
+
+			// syn font italic
+			var fontitalic = $('#fontitalic');
+			if( paramsStyle.fontStyle == "italic" )
+				fontitalic.prop('checked', true).trigger('change');
+			else
+				fontitalic.prop('checked', false).trigger('change');
+
+			// syn text align
+			$('input[name="textalign"][value="'+paramsStyle.textAlign+'"]')
+			.prop('checked', true).trigger('change');
+
+			// syn font family
+			$('select[name="fonts"] option[value="'+paramsStyle.fontFamily.replace(/ /gi, '+')+'"]')
+			.prop('selected', true).trigger('change');
+
+			// syn color
+			$('input[name="color"]').val(rgb2hex(paramsStyle.color)).trigger('keyup');
+
+			// syn font size
+			$('#js-font-size').val(paramsStyle.fontSize).trigger('slide');
+		}
 
 		// initToolText =============================================
 		function initToolText(){
@@ -256,5 +323,14 @@
 			}).trigger('slide')
 		}
 		initToolText();
+
+		// conver color rgb to hex =============================================
+		function rgb2hex(rgb) {
+		    rgb = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+))?\)$/);
+		    function hex(x) {
+		        return ("0" + parseInt(x).toString(16)).slice(-2);
+		    }
+		    return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+		}
 	})
 })(jQuery)

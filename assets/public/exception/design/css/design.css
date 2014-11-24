@@ -267,9 +267,12 @@ input[name="color"]{
     width: 24px;
     display: none;
 }
-
+.pl_rotate_control{
+	display: none;
+}
 .layout-design:hover .l-del,
-.layout-design:hover .l-resize{
+.layout-design:hover .l-resize,
+.layout-design:hover .pl_rotate_control{
 	display: block;
 }
 .layout-design.active{

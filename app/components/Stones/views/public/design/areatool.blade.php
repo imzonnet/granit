@@ -46,7 +46,13 @@
 				</ul>
 			</div>
 			<div class="control-font-style">
-				{{ Form::select('fonts', $fonts, '', array('style' => 'width: 70%')) }}
+				<?php if(count($fonts) > 0){
+					$font_arr = array();
+					foreach($fonts as $f){
+						$font_arr[str_replace(" ", "+",$f)] = $f;
+					}
+				} ?>
+				{{ Form::select('fonts', $font_arr, '', array('style' => 'width: 70%')) }}
 				{{ Form::text('color', '#333'); }}
 			</div>
 			<div class="control-font-size">

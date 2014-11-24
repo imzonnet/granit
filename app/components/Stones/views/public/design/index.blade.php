@@ -12,6 +12,7 @@
     {{ HTML::style("http://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css") }}
     {{ HTML::style("assets/public/exception/design/css/jquery.minicolors.css") }}
     {{ HTML::style("assets/public/exception/design/css/jquery.nouislider.min.css") }}
+    {{ HTML::style("assets/public/exception/design/css/rotate.css") }}
     {{ HTML::style("assets/public/exception/design/css/dialog.css") }}
     {{ HTML::style("assets/public/exception/design/css/design.css") }}
     @if(count($fonts_include) > 0)
@@ -25,6 +26,7 @@
     {{ HTML::script("http://code.jquery.com/ui/1.11.2/jquery-ui.js") }}
     {{ HTML::script("assets/public/exception/design/js/jquery.minicolors.min.js") }}  
     {{ HTML::script("assets/public/exception/design/js/jquery.nouislider.all.min.js") }}  
+    {{ HTML::script("assets/public/exception/design/js/rotate.js") }}  
     {{ HTML::script("assets/public/exception/design/js/dialog.js") }}  
     {{ HTML::script("assets/public/exception/design/js/design.js") }}  
 @stop
