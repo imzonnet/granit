@@ -65,7 +65,7 @@
                                 @if( $has_access == 'true' )
                                     @include('Memorials::public.guestbooks.create')
                                 @endif
-                                <ul class="accordion" id="accordion">
+                                <ul class="accordion" id="guestbook-content">
                                     @foreach($memorial->guestbook as $index => $guestbook)
                                     <li>
                                         <h3><a href="#"><span><i class="fa fa-book"></i>{{ $guestbook->title }}</span></a></h3>
@@ -117,28 +117,29 @@
         $(function ($) {
             $('#btn-guestbook').click(function (e) {
                 e.preventDefault();
-                $('.modal-body', '#guestbook').addClass('loading-animate');
-                var mid = $('input[name="memorial_id"]', '#guestbook').val();
-                var title = $('input[name="title"]', '#guestbook').val();
-                var content = $('#content', '#guestbook').val();
+                $('.modal-body', '#form-guestbook').addClass('loading-animate');
+                var mid = $('input[name="memorial_id"]', '#form-guestbook').val();
+                var title = $('input[name="title"]', '#form-guestbook').val();
+                var content = $('#content', '#form-guestbook').val();
                 $.ajax({
                     headers: {'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')},
                     url: '{{URL::route("memorial.ajax")}}',
                     type: 'post',
                     data: {type: 'guestbook', title: title, content: content, memorial_id: mid, status: 'published'},
                     success: function (data) {
-                        $('#accordion', '#guestbook').find('u').each(function () {
+                        $('#guestbook-content').find('u').each(function () {
                             $(this).remove()
                         })
                         var html = "";
                         html += '<li><h3><a href="#"><span><i class="fa fa-book"></i> ' + title + '</span></a></h3>';
                         html += '<div class="accordion-panel">' + content + '</div></li>';
-                        html += $('#accordion', '#guestbook').html();
-                        $('#accordion', '#guestbook').html(html).accordion();
-                        $('input[name="title"]', '#guestbook').val('');
-                        $('#content', '#guestbook').val('');
-                        $('.modal-body', '#guestbook').removeClass('loading-animate');
-                        $('#form-guestbook', '#guestbook').modal('hide');
+                        html += $('#guestbook-content').html();
+                        
+                        $('#guestbook-content').html(html).accordion();
+                        $('input[name="title"]', '#form-guestbook').val('');
+                        $('#content', '#form-guestbook').val('');
+                        $('.modal-body', '#form-guestbook').removeClass('loading-animate');
+                        $('#form-guestbook').modal('hide');
                     },
                     error: function (data) {
                         $('.modal-body').removeClass('loading-animate');

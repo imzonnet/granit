@@ -182,7 +182,7 @@ button.close {
 .contact-form input, 
 .contact-form select,
 .contact-form textarea {
-    text-transform: normal;
+    text-transform: none;
 }
 .loading-animate{ 
     position: relative; 
