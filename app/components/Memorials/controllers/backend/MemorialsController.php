@@ -88,7 +88,7 @@ class MemorialsController extends \BaseController {
     }
 
     /**
-     * Update the specified post Product in storage.
+     * Update the specified post Memorial in storage.
      *
      * @param  int  $id
      * @return Response
@@ -110,7 +110,7 @@ class MemorialsController extends \BaseController {
     }
 
     /**
-     * Remove the specified post Product from storage.
+     * Remove the specified post Memorial from storage.
      *
      * @param  int  $id
      * @return Response
@@ -132,9 +132,9 @@ class MemorialsController extends \BaseController {
         }
 
         foreach ($selected_ids as $id) {
-            $Product = Product::findOrFail($id);
+            $memorial = Memorial::findOrFail($id);
 
-            $Product->delete();
+            $memorial->delete();
         }
 
         $wasOrWere = (count($selected_ids) > 1) ? 's were' : ' was';
