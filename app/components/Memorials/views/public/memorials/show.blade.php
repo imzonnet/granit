@@ -115,6 +115,7 @@
 <script>
     !(function ($) {
         $(function ($) {
+            $('.accordion').accordion();
             $('#btn-guestbook').click(function (e) {
                 e.preventDefault();
                 $('.modal-body', '#form-guestbook').addClass('loading-animate');
