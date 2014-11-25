@@ -1,37 +1,26 @@
 <?php
-
+use Faker\Factory as Faker;
 class CategoriesTableSeeder extends \Seeder {
 
-	public function run()
-	{
-		// Uncomment the below to wipe the table clean before populating
-		DB::table('categories')->delete();
+    public function run() {
+        // Uncomment the below to wipe the table clean before populating
+        $faker = Faker::create();
+        DB::table('categories')->delete();
         $user_id = User::first()->id;
-		$categories = array(
-            array(
-                'name' => 'First Category',
-                'alias' => 'first-category',
+        foreach(range(0,5) as $index) {
+            $name = $faker->name;
+            $slug = \Str::slug($name);
+            DB::table('categories')->insert(array(
+                'name' => $name,
+                'alias' => $slug,
                 'type' => 'post',
-                'description' => 'Lorem Ipsum',
+                'description' => $faker->paragraph,
                 'status' => 'published',
                 'created_by' => $user_id,
                 'created_at' => date('Y-m-d'),
                 'updated_at' => date('Y-m-d')
-            ),
-            array(
-                'name' => 'Another Category',
-                'alias' => 'another-category',
-                'type' => 'page',
-                'description' => 'Lorem Ipsum',
-                'status' => 'published',
-                'created_by' => $user_id,
-                'created_at' => date('Y-m-d'),
-                'updated_at' => date('Y-m-d')
-            )
-		);
-
-		// Uncomment the below to run the seeder
-		DB::table('categories')->insert($categories);
-	}
+            ));
+        }
+    }
 
 }

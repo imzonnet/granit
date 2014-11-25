@@ -9,15 +9,15 @@ class MemorialsTableSeeder extends \Seeder {
         $faker = Faker::create();
         DB::table('granit_memorials')->delete();
         $user = \User::first();
-        foreach(range(1,10) as $index) {
+        foreach(range(1,20) as $index) {
             
             DB::table('granit_memorials')->insert([
                 'name' => $faker->name,
                 'avatar' => $faker->imageUrl(rand(350, 370), 400),
                 'birthday' => $faker->dateTimeThisCentury(),
                 'death' => $faker->dateTimeBetween('-3 months', '-1 months'),
-                'biography' => $faker->paragraph(),
-                'obituary' => $faker->paragraph(),
+                'biography' => $faker->text,
+                'obituary' => $faker->text,
                 'created_by' => $user->id,
                 'created_at' => $faker->dateTime('now'),
                 'updated_at' => $faker->dateTime('now'),

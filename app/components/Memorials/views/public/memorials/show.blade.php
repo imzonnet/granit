@@ -62,8 +62,12 @@
                         </div>
                         <div id="guestbook" class="tab-panel" style="display: none;">
                             <div class="content">
-                                @if( $has_access == 'true' )
+                                @if(\Sentry::check())
+                                    @if( $has_access == 'true' )
                                     @include('Memorials::public.guestbooks.create')
+                                    @endif
+                                @else
+                                    <p><a href="{{url('/login')}}" class="btn btn-small main-bg">Login for Submit Media</a></p>
                                 @endif
                                 <ul class="accordion" id="guestbook-content">
                                     @foreach($memorial->guestbook as $index => $guestbook)
@@ -79,8 +83,12 @@
                         </div>
                         <div id="media" class="tab-panel" style="display: none;">
                             <div class="content">
-                                @if( $has_access == 'true' )
-                                    @include('Memorials::public.media.create')
+                                @if(\Sentry::check())
+                                    @if( $has_access == 'true' )
+                                        @include('Memorials::public.media.create')
+                                    @endif
+                                @else
+                                    <p><a href="{{url('/login')}}" class="btn btn-small main-bg">Login for Submit Media</a></p>
                                 @endif
                                 <div class="row" id="media-content">
                                     @foreach($memorial->media as $item)

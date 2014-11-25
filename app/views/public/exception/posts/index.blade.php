@@ -77,13 +77,17 @@
                                     </ul>
                                 </div>
                             </div>
-                            {{Str::limit($post->content,300)}}
+                            <p>{{Str::limit($post->content,600)}}</p>
                             <p><a class="read-more" href="posts/{{$post->permalink}}">Read more</a> </p>
                         </article>
                     </div>
                 @endforeach
                 </div>
-
+                
+                <div class="clearfix"></div>
+                <div class="pager skew-25">
+                    {{$posts->links()}}
+                </div>
             </div>
 
             @include('public.exception.posts.sidebar')

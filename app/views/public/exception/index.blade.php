@@ -1,79 +1,471 @@
 @section('styles')
-    <!-- Flexslider -->
-    {{ HTML::style("assets/public/default/css/flexslider.css") }}
+<!-- Flexslider -->
+{{ HTML::style("assets/public/default/css/flexslider.css") }}
 @stop
 
 @section('scripts')
-    <!-- Flexslider -->
-    {{ HTML::script("assets/public/default/js/jquery.flexslider.js") }}
+<!-- Flexslider -->
+{{ HTML::script("assets/public/default/js/jquery.flexslider.js") }}
 
-    <!-- Flexslider Init -->
-    <script type="text/javascript">
+<!-- Flexslider Init -->
+<script type="text/javascript">
 
-        $(window).load(function(){
+    $(window).load(function () {
         $('.flexslider').flexslider({
-                animation: "fade",
-                controlNav: false,
-                // Callback API
-                before: function(){},
-                after: function(){},
-            start: function(slider){
-          $('#slider').removeClass('loading');
-        }
-      });
+            animation: "fade",
+            controlNav: false,
+            // Callback API
+            before: function () {
+            },
+            after: function () {
+            },
+            start: function (slider) {
+                $('#slider').removeClass('loading');
+            }
+        });
     });
 
-    </script>
+</script>
 @stop
 
 @section('slider')
-    @if ($slides->count() > 0)
-        <!-- BEGIN SLIDER -->
-        <section id="slider" class="loading">
+@if ($slides->count() > 0)
+<!-- BEGIN SLIDER -->
+<section id="slider" class="loading">
 
-            <div class="container-fluid">
+    <div class="container-fluid">
 
-                    <div class="flexslider">
-                        <ul class="slides">
-                            <!-- Begin Single Slide -->
-                            @foreach ($slides as $slide)
-                                <li>
-                                    <img src="{{ URL::to($slide->image) }}" />
-                                    <div class="slide-caption">
-                                        {{ $slide->caption }}
-                                    </div>
-                                </li>
-                            @endforeach
-                            <!-- End Single Slide -->
-                        </ul>
+        <div class="flexslider">
+            <ul class="slides">
+                <!-- Begin Single Slide -->
+                @foreach ($slides as $slide)
+                <li>
+                    <img src="{{ URL::to($slide->image) }}" />
+                    <div class="slide-caption">
+                        {{ $slide->caption }}
                     </div>
+                </li>
+                @endforeach
+                <!-- End Single Slide -->
+            </ul>
+        </div>
 
-            </div>
+    </div>
 
-        </section>
-        <!-- END SLIDER -->
-    @endif
+</section>
+<!-- END SLIDER -->
+@endif
 @stop
 
 @section('content')
-    <section class="sectionWrapper">
+<!-- Content Start -->
+<div id="contentWrapper">
+    <!-- Welcome Box start -->
+    <div class="welcome">
         <div class="container">
-            <div class="cell-12">
-                @if (isset($page))
-                    <h2>{{ $page->title }}</h2>
+            <h3 class="center block-head"><span class="main-color">Welcome To EXCEPTION</span> - Business HTML Template</h3>
+            <p class="margin-bottom-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque imperdiet purus quis metus imperdiet fermentum. Suspendisse hendrerit id lacus id lobortis. Vestibulum quam elit, dapibus hendrerit id lacus id lobortis. Vestibulum quam elit, dapibus ac augue ut.</p>
+        </div>
+    </div>
+    <!-- Welcome Box end -->
 
-                    {{ $page->content }}
-                @else
-                    <h2>Welcome</h2>
+    <!-- Services boxes style 1 start -->
+    <div class="gry-bg">
+        <div class="container">
+            <div class="row">
+                <div class="cell-3 service-box-1 fx" data-animate="fadeInUp" data-animation-delay="200">
+                    <div class="box-top">
+                        <i class="fa fa-leaf"></i>
+                        <h3><span>Collecting</span><br>Requirements</h3>
+                        <p>Proin gravida nibh vel velit auctor enean sollicitud lorem quis bibendum auctor, nisi elit consequipsum.Proin gravida nibh vel velit auctor enean sollicitud lorem quis bibendum auctor, nisi elit consequipsum.</p>
+                        <a class="more-btn" href="services.html">Read More</a>
+                    </div>
+                </div>
+                <div class="cell-3 service-box-1 fx" data-animate="fadeInUp" data-animation-delay="400">
+                    <div class="box-top">
+                        <i class="fa fa-recycle"></i>
+                        <h3><span>Inspiring</span><br>Graphic Design</h3>
+                        <p>Proin gravida nibh vel velit auctor enean sollicitud lorem quis bibendum auctor, nisi elit consequipsum.Proin gravida nibh vel velit auctor enean sollicitud lorem quis bibendum auctor, nisi elit consequipsum.</p>
+                        <a class="more-btn" href="services.html">Read More</a>
+                    </div>
+                </div>
+                <div class="cell-3 service-box-1 fx" data-animate="fadeInUp" data-animation-delay="600">
+                    <div class="box-top">
+                        <i class="fa fa-puzzle-piece"></i>
+                        <h3><span>Implementing</span><br>The Template</h3>
+                        <p>Proin gravida nibh vel velit auctor enean sollicitud lorem quis bibendum auctor, nisi elit consequipsum.Proin gravida nibh vel velit auctor enean sollicitud lorem quis bibendum auctor, nisi elit consequipsum.</p>
+                        <a class="more-btn" href="services.html">Read More</a>
+                    </div>
+                </div>
+                <div class="cell-3 service-box-1 fx" data-animate="fadeInUp" data-animation-delay="800">
+                    <div class="box-top">
+                        <i class="fa fa-legal"></i>
+                        <h3><span>Testing</span><br>Functionality</h3>
+                        <p>Proin gravida nibh vel velit auctor enean sollicitud lorem quis bibendum auctor, nisi elit consequipsum.Proin gravida nibh vel velit auctor enean sollicitud lorem quis bibendum auctor, nisi elit consequipsum.</p>
+                        <a class="more-btn" href="services.html">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Services boxes style 1 start -->
 
-                    <p>The CMS public section can now be viewed at {{ HTML::link(url('/'), url('/')) }}</p>
+    <!-- About us and Features container start -->
+    <div class="sectionWrapper">
+        <div class="container">
+            <div class="row">
+                <!-- about us left block -->
+                <div class="cell-7">								
 
-                    <p>The CMS admin can now be viewed at {{ HTML::link(url('admin'), url('admin')) }}</p>
+                    <!-- testimonials start -->
+                    <div class="fx" data-animate="fadeInLeft">
+                        <h3 class="block-head">What They Said About Us</h3>
 
-                    <p>The CMS backend can now be viewed at {{ HTML::link(url('backend'), url('backend')) }}</p>
-                @endif
+                        <div class="testimonials-1">
+                            <!-- testimonials item start -->
+                            <div>
+                                <div class="testimonials-bg">
+                                    <img alt="" src="{{URL::to('assets/public/exception/images/people/1.jpg')}}" class="testimonials-img">
+                                    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit pellentesqueLorem ipsum dolor sit amet, consectetur.</span>
+                                    <div class="rating">
+                                        <span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span>
+                                    </div>
+                                </div>
+                                <div class="testimonials-name"><strong>John Smith:</strong> ThemeForest</div>
+                            </div>
+                            <!-- testimonials item end -->
+
+                            <!-- testimonials item start -->
+                            <div>
+                                <div class="testimonials-bg">
+                                    <img alt="" src="{{URL::to('assets/public/exception/images/people/1.jpg')}}" class="testimonials-img">
+                                    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit pellentesqueLorem ipsum dolor sit amet, consectetur.</span>
+                                    <div class="rating">
+                                        <span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>
+                                    </div>
+                                </div>
+                                <div class="testimonials-name"><strong>Ellina Willaims: </strong>Envato Market</div>
+                            </div>
+                            <!-- testimonials item end -->
+
+                            <!-- testimonials item start -->
+                            <div>
+                                <div class="testimonials-bg">
+                                    <img alt="" src="{{URL::to('assets/public/exception/images/people/1.jpg')}}" class="testimonials-img">
+                                    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit pellentesqueLorem ipsum dolor sit amet, consectetur.</span>
+                                    <div class="rating">
+                                        <span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span>
+                                    </div>
+                                </div>
+                                <div class="testimonials-name"><strong>Joanne Alexander: </strong>Vodafone</div>
+                            </div>
+                            <!-- testimonials item end -->
+
+                            <!-- testimonials item start -->
+                            <div>
+                                <div class="testimonials-bg">
+                                    <img alt="" src="{{URL::to('assets/public/exception/images/people/1.jpg')}}" class="testimonials-img">
+                                    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit pellentesqueLorem ipsum dolor sit amet, consectetur.</span>
+                                    <div class="rating">
+                                        <span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>
+                                    </div>
+                                </div>
+                                <div class="testimonials-name"><strong>Danny Willaims: </strong>HSBC Bank</div>
+                            </div>
+                            <!-- testimonials item end -->
+
+                        </div>
+
+                        <p class="padd-top-20">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque imperdiet purus quis metus imperdiet fermentum. Suspendisse hendrerit id lacus id lobortis. Vestibulum quam elit, dapibus ac augue ut, porttitor viverra dui. Pellentesque imperdiet purus quis metus imperdiet fermentum. Suspendisse hendrerit id lacus id lobortis. Vestibulum quam elit, apibus ac augue ut, porttitor viverra dui. Lorem ipsum dolor sit.</p>
+
+                    </div>
+                    <!-- testimonials end -->
+
+                </div>
+                <!-- about us left block end -->
+
+                <!-- our skills right block -->
+                <div class="cell-5 fx" data-animate="fadeInRight">
+                    <h3 class="block-head">Our Skills</h3>
+                    <ul class="levels">
+                        <li>
+                            <div class="level-name">Web UI Development</div>
+                            <div class="level-out"><span></span>
+                                <div class="level-in" data-percent="100"></div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="level-name">ASP.NET Development</div>
+                            <div class="level-out"><span></span>
+                                <div class="level-in" data-percent="60"></div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="level-name">Graphic design</div>
+                            <div class="level-out"><span></span>
+                                <div class="level-in" data-percent="90"></div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="level-name">SEO Managment</div>
+                            <div class="level-out"><span></span>
+                                <div class="level-in" data-percent="80"></div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- our skills right block end -->							
+            </div>
+        </div>
+    </div>
+    <!-- About us and Features container end -->
+
+    <!-- our clients block start -->
+    <div class="sectionWrapper gry-bg">
+        <div class="container">
+            <h3 class="block-head">Our Clients</h3>
+            <div class="clients">
+                <div>
+                    <a class="white-bg" href="#"><img alt="" src="{{URL::to('assets/public/exception/images/clients/client-1.png')}}"></a>
+                </div>
+                <div>
+                    <a class="white-bg" href="#"><img alt="" src="{{URL::to('assets/public/exception/images/clients/client-2.png')}}"></a>
+                </div>
+                <div>
+                    <a class="white-bg" href="#"><img alt="" src="{{URL::to('assets/public/exception/images/clients/client-3.png')}}"></a>
+                </div>
+                <div>
+                    <a class="white-bg" href="#"><img alt="" src="{{URL::to('assets/public/exception/images/clients/client-4.png')}}"></a>
+                </div>
+                <div>
+                    <a class="white-bg" href="#"><img alt="" src="{{URL::to('assets/public/exception/images/clients/client-5.png')}}"></a>
+                </div>
+                <div>
+                    <a class="white-bg" href="#"><img alt="" src="{{URL::to('assets/public/exception/images/clients/client-6.png')}}"></a>
+                </div>
+                <div>
+                    <a class="white-bg" href="#"><img alt="" src="{{URL::to('assets/public/exception/images/clients/client-7.png')}}"></a>
+                </div>
+                <div>
+                    <a class="white-bg" href="#"><img alt="" src="{{URL::to('assets/public/exception/images/clients/client-8.png')}}"></a>
+                </div>
+                <div>
+                    <a class="white-bg" href="#"><img alt="" src="{{URL::to('assets/public/exception/images/clients/client-9.png')}}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- our clients block end -->
+
+    <!-- Responsive Design start -->
+    <div class="sectionWrapper">
+        <div class="container">
+            <div class="row">
+                <div class="cell-8">
+
+                    <!-- Responsive Web Design start -->
+                    <div class="fx" data-animate="fadeInLeft">
+                        <h3 class="block-head">Responsive Web Design</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque imperdiet purus quis metus imperdiet fermentum. Suspendisse hendrerit id lacus id lobortis. Vestibulum quam elit, dapibus ac augue ut, porttitor viverra dui.
+                            Pellentesque imperdiet purus quis metus imperdiet fermentum. Suspendisse hendrerit id lacus id lobortis. Vestibulum quam elit, apibus ac augue ut, porttitor viverra dui. Lorem ipsum dolor sit amet, consectet urapibus ac augue ut, porttitor viverra dui. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <ul class="list prim list-ok">
+                            <li class="fx" data-animate="fadeInLeft">Lorem ipsum dolor sit amet, consectetur adipiscing elit pellentesque</li>
+                            <li class="fx" data-animate="fadeInLeft" data-animation-delay="200">Suspendisse hendrerit id lacus id lobortis vestibulum quam elit</li>
+                            <li class="fx" data-animate="fadeInLeft" data-animation-delay="400">Fusce scelerisque pellentesqu suspendisse elementum adipiscing</li>
+                            <li class="fx" data-animate="fadeInLeft" data-animation-delay="600">Feugiat sodales pretium massa euismod tempus suspendisse hendrerit</li>
+                        </ul>
+                    </div>
+                    <!-- Responsive Web Design end -->
+
+                </div>
+
+                <!-- right devices image start -->
+                <div class="cell-4 fx" data-animate="flipInX">
+                    <div class="padd-top-25 center">
+                        <img alt="" src="{{URL::to('assets/public/exception/images/devices.png')}}">
+                    </div>
+                </div>
+                <!-- right devices image end -->
 
             </div>
         </div>
-    </section>
+    </div>
+    <!-- Responsive Design end -->
+
+    <!-- FUN Staff start -->
+    <div class="fun-staff staff-1 block-bg-2 sectionWrapper">
+        <div class="container">
+            <!-- staff item start -->
+            <div class="cell-2 fx" data-animate="fadeInDown" data-animation-delay="200">
+                <div class="fun-number">1962</div>
+                <div class="fun-text main-bg">Traffic</div>
+                <div class="fun-icon"><i class="fa fa-leaf"></i></div>
+            </div>
+            <!-- staff item end -->
+
+            <!-- staff item start -->
+            <div class="cell-2 fx" data-animate="fadeInDown" data-animation-delay="400">
+                <div class="fun-number">136</div>
+                <div class="fun-text main-bg">Working Hours</div>
+                <div class="fun-icon"><i class="fa fa-clock-o"></i></div>
+            </div>
+            <!-- staff item end -->
+
+            <!-- staff item start -->
+            <div class="cell-4 fx" data-animate="fadeInDown">
+                <div class="fun-title extraBold">Let’s Have Some <span>Fun</span></div>
+            </div>
+            <div class="cell-2 fx" data-animate="fadeInDown" data-animation-delay="600">
+                <div class="fun-number">2350</div>
+                <div class="fun-text main-bg">Users</div>
+                <div class="fun-icon"><i class="fa fa-group"></i></div>
+            </div>
+            <!-- staff item end -->
+
+            <!-- staff item start -->
+            <div class="cell-2 fx" data-animate="fadeInDown" data-animation-delay="800">
+                <div class="fun-number">985</div>
+                <div class="fun-text main-bg">Notifications</div>
+                <div class="fun-icon"><i class="fa fa-bell"></i></div>
+            </div>
+            <!-- staff item end -->
+
+        </div><!-- .container end -->
+    </div><!-- .funn-staff end -->
+    <!-- FUN Staff end -->
+
+    <!-- Portfolio start -->
+    <div class="sectionWrapper">
+        <div class="container">
+            <div class="row">
+                <div class="cell-3">
+                    <h3 class="block-head side-heading">Recent <span>projects</span></h3>
+                    <p class="portfolio-lft-txt">Browse our recent projects and you will see how we work and what are the technologies we use to build websites with a high quality and profissional ways to present you all what you need, All we aim is to make our customers satisfied and happy with all of our services.</p>
+                    <div class="viewAll">
+                        <a class="btn" href="portfolio-4-cols.html">Browse All Projects</a>
+                    </div>
+                </div>
+                <div class="cell-9">
+                    <div class="homeGallery portfolio">
+                        <!-- staff item start -->
+                        <div>
+                            <div class="portfolio-item">
+                                <div class="img-holder">
+                                    <div class="img-over">
+                                        <a href="portfolio-single.html" class="fx link"><b class="fa fa-link"></b></a>
+                                        <a href="{{URL::to('assets/public/exception/images/portfolio/1.jpg')}}" class="fx zoom" data-gal="prettyPhoto[pp_gal]" title="Project Title"><b class="fa fa-search-plus"></b></a>
+                                    </div>
+                                    <img alt="" src="{{URL::to('assets/public/exception/images/portfolio/1.jpg')}}">
+                                </div>
+                                <div class="name-holder">
+                                    <a href="#" class="project-name">Project Title</a>
+                                    <span class="project-options">Project Category</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- staff item end -->
+
+                        <!-- staff item start -->
+                        <div>
+                            <div class="portfolio-item">
+                                <div class="img-holder">
+                                    <div class="img-over">
+                                        <a href="portfolio-single.html" class="fx link"><b class="fa fa-link"></b></a>
+                                        <a href="{{URL::to('assets/public/exception/images/portfolio/1.jpg')}}" class="fx zoom" data-gal="prettyPhoto[pp_gal]" title="Project Title"><b class="fa fa-search-plus"></b></a>
+                                    </div>
+                                    <img alt="" src="{{URL::to('assets/public/exception/images/portfolio/1.jpg')}}">
+                                </div>
+                                <div class="name-holder">
+                                    <a href="#" class="project-name">Project Title</a>
+                                    <span class="project-options">Project Category</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- staff item end -->
+
+                        <!-- staff item start -->
+                        <div>
+                            <div class="portfolio-item">
+                                <div class="img-holder">
+                                    <div class="img-over">
+                                        <a href="portfolio-single.html" class="fx link"><b class="fa fa-link"></b></a>
+                                        <a href="{{URL::to('assets/public/exception/images/portfolio/1.jpg')}}" class="fx zoom" data-gal="prettyPhoto[pp_gal]" title="Project Title"><b class="fa fa-search-plus"></b></a>
+                                    </div>
+                                    <img alt="" src="{{URL::to('assets/public/exception/images/portfolio/1.jpg')}}">
+                                </div>
+                                <div class="name-holder">
+                                    <a href="#" class="project-name">Project Title</a>
+                                    <span class="project-options">Project Category</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- staff item end -->
+
+                        <!-- staff item start -->
+                        <div>
+                            <div class="portfolio-item">
+                                <div class="img-holder">
+                                    <div class="img-over">
+                                        <a href="portfolio-single.html" class="fx link"><b class="fa fa-link"></b></a>
+                                        <a href="{{URL::to('assets/public/exception/images/portfolio/1.jpg')}}" class="fx zoom" data-gal="prettyPhoto[pp_gal]" title="Project Title"><b class="fa fa-search-plus"></b></a>
+                                    </div>
+                                    <img alt="" src="{{URL::to('assets/public/exception/images/portfolio/1.jpg')}}">
+                                </div>
+                                <div class="name-holder">
+                                    <a href="#" class="project-name">Project Title</a>
+                                    <span class="project-options">Project Category</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- staff item end -->
+
+                        <!-- staff item start -->
+                        <div>
+                            <div class="portfolio-item">
+                                <div class="img-holder">
+                                    <div class="img-over">
+                                        <a href="portfolio-single.html" class="fx link"><b class="fa fa-link"></b></a>
+                                        <a href="{{URL::to('assets/public/exception/images/portfolio/1.jpg')}}" class="fx zoom" data-gal="prettyPhoto[pp_gal]" title="Project Title"><b class="fa fa-search-plus"></b></a>
+                                    </div>
+                                    <img alt="" src="{{URL::to('assets/public/exception/images/portfolio/1.jpg')}}">
+                                </div>
+                                <div class="name-holder">
+                                    <a href="#" class="project-name">Project Title</a>
+                                    <span class="project-options">Project Category</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- staff item end -->
+
+                        <!-- staff item start -->
+                        <div>
+                            <div class="portfolio-item">
+                                <div class="img-holder">
+                                    <div class="img-over">
+                                        <a href="portfolio-single.html" class="fx link"><b class="fa fa-link"></b></a>
+                                        <a href="{{URL::to('assets/public/exception/images/portfolio/1.jpg')}}" class="fx zoom" data-gal="prettyPhoto[pp_gal]" title="Project Title"><b class="fa fa-search-plus"></b></a>
+                                    </div>
+                                    <img alt="" src="{{URL::to('assets/public/exception/images/portfolio/1.jpg')}}">
+                                </div>
+                                <div class="name-holder">
+                                    <a href="#" class="project-name">Project Title</a>
+                                    <span class="project-options">Project Category</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- staff item end -->
+
+                    </div><!-- .portfolioGallery end -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Portfolio end -->
+
+</div>
+<!-- Content End -->
 @stop

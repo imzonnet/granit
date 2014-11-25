@@ -45,25 +45,29 @@
     <div class="container">
         <div class="row">
             <div class="products-wrap">
-            @foreach( $products as $product )
-            <div class="cell-4 fx product-item shop-item" data-animate="fadeInUp">
-                <div class="item-box">
-                    <h3 class="item-title"><a href="{{url('products/'.$product->alias)}}">{{$product->name}}</a></h3>
-                    <div class="item-img">
-                        <a href="{{url('products/'.$product->alias)}}"><img alt="" src="{{url($product->image)}}"></a>
-                    </div>
-                    <div class="item-details">
-                        <p> {{$product->description}} </p>
-                        <div class="left">
-                            <div class="item-price">${{$product->price}}</div>
+                @foreach( $products as $product )
+                <div class="cell-4 fx product-item shop-item" data-animate="fadeInUp">
+                    <div class="item-box">
+                        <h3 class="item-title"><a href="{{url('products/'.$product->alias)}}">{{$product->name}}</a></h3>
+                        <div class="item-img">
+                            <a href="{{url('products/'.$product->alias)}}"><img alt="" src="{{url($product->image)}}"></a>
                         </div>
-                        <div class="right">
-                            <a href="#"><div class="item-price"><i class="fa fa-shopping-cart"></i> Design</div></a>
+                        <div class="item-details">
+                            <p> {{$product->description}} </p>
+                            <div class="left">
+                                <div class="item-price">${{$product->price}}</div>
+                            </div>
+                            <div class="right">
+                                <a href="{{url('/design')}}"><div class="item-price"><i class="fa fa-shopping-cart"></i> Design</div></a>
+                            </div>
                         </div>
                     </div>
                 </div>
+                @endforeach
             </div>
-            @endforeach
+            <div class="clearfix"></div>
+            <div class="pager skew-25">
+                {{$products->links()}}
             </div>
         </div>
     </div>

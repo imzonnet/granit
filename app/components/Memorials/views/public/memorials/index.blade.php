@@ -1,3 +1,7 @@
+@section('styles')
+{{HTML::style('assets/public/exception/memorials/css/style.css')}}
+@stop
+
 @section('heading')
 <!-- BEGIN PAGE HEADING -->
 <div class="page-title title-1">
@@ -39,10 +43,10 @@
                 <div class="cell-6 post-item fx" data-animate="fadeInLeft">
                     <div class="post-image cell-4">
                         <div class="row">
-                        <a href="{{URL::to('/memorial/' . $memorial->id)}}">
-                            <div class="mask"></div>
-                            <img src="{{$memorial->avatar}}" alt="{{$memorial->name}}">
-                        </a>
+                            <a href="{{URL::to('/memorial/' . $memorial->id)}}">
+                                <div class="mask"></div>
+                                <img src="{{$memorial->avatar}}" alt="{{$memorial->name}}">
+                            </a>
                         </div>
                     </div>
                     <article class="post-content cell-8">
@@ -55,11 +59,15 @@
                                 </ul>
                             </div>
                         </div>
-                        <p>{{Str::words($memorial->biography, $words = 100, $end = '...')}}</p>
-                        <p><a href="/memorial/">Readmore</a></p>
+                        <p>{{Str::words($memorial->biography, $words = 200, $end = '...')}}</p>
+                        <p><a href="{{URL::to('/memorial/' . $memorial->id)}}">Readmore</a></p>
                     </article>
                 </div>
                 @endforeach
+            </div>
+            <div class="clearfix"></div>
+            <div class="pager skew-25">
+                {{$memorials->links()}}
             </div>
         </div>
     </div>
