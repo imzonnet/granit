@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class GranitProducts extends Migration {
+class GranitProductColors extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,16 +12,16 @@ class GranitProducts extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('granit_products', function(Blueprint $table) {
+		Schema::create('granit_product_colors', function(Blueprint $table) {
 			$table->increments('id');
-			$table->string('product_code', 10)->unique();
-			$table->string('name');
-			$table->string('alias')->unique();
-			$table->text('description');
-			$table->integer('cat_id')->unsigned();
-			$table->foreign('cat_id')->references('id')->on('granit_product_categories')->onDelete('cascade')->onUpdate('cascade');
+			$table->string('name', 45);
+			$table->integer('product_id')->unsigned();
+			$table->foreign('product_id')->references('id')->on('granit_products')->onDelete('cascade')->onUpdate('cascade');
 			$table->string('thumbnail');
-			$table->string('status')->default('published');
+			$table->string('image');
+			$table->decimal('price',10,2);
+			$table->decimal('characteristic_price',10,2);
+			$table->string('state')->default('published');
 			$table->integer('ordering');
 			$table->integer('created_by')->unsigned();
 			$table->foreign('created_by')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
@@ -36,7 +36,7 @@ class GranitProducts extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('granit_products');
+		Schema::drop('granit_product_colors');
 	}
 
 }

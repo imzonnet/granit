@@ -10,9 +10,9 @@
 
                     <div class="form-horizontal">
 
-                        @if ($product->image != '')
+                        @if ($product->thumbnail != '')
                             <div class="control-group">
-                                <div class="controls line">{{ HTML::image($product->image, '', array('width'=> '400')) }}</div>
+                                <div class="controls line">{{ HTML::image($product->thumbnail, '', array('max-width'=> '400')) }}</div>
                             </div>
                         @endif
 

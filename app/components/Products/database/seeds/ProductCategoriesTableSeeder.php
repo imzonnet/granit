@@ -7,14 +7,15 @@ class ProductCategoriesTableSeeder extends \Seeder {
     public function run() {
         $faker = Faker::create();
         DB::table('granit_product_categories')->delete();
+        $cats = ['Small', 'Medium', 'Large'];
         $user = \User::first();
-        foreach(range(1,5) as $index) {
-            $name = $faker->name;
+        foreach($cats as $cat) {
+            $name = $cat;
             $alias = \Str::slug($name);
             DB::table('granit_product_categories')->insert([
                 'name' => $name,
                 'alias' => $alias,
-                'image' => $faker->imageUrl(rand(250, 270), 300),
+                'image' => "assets/granit/u-{$name}.png",
                 'description' => $faker->text,
                 'status' => 'published',
                 'ordering' => 0,

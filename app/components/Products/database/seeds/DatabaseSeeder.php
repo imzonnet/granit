@@ -15,6 +15,7 @@ class DatabaseSeeder extends \Seeder {
             \Eloquent::unguard();
             $this->call('Components\Products\Database\Seeds\ProductCategoriesTableSeeder');
             $this->call('Components\Products\Database\Seeds\ProductsTableSeeder');
+            $this->call('Components\Products\Database\Seeds\ProductColorsTableSeeder');
 	}
 
 }
