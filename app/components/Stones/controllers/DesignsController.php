@@ -3,6 +3,7 @@
 use View, App, Str;
 use Components\Products\Models\Category;
 use Components\Products\Models\Product;
+use Components\Products\Models\ProductColor;
 use Components\Stones\Models\Color;
 use Components\Stones\Models\Font;
 use Components\Stones\Models\Icon;
@@ -22,7 +23,7 @@ class DesignsController extends \BaseController {
         $this->layout->title = 'Design';
         $this->layout->content = View::make('Stones::public.design.index')
         ->with('products', Product::all())
-        ->with('productCategories', Category::all_categories())
+        ->with('productCategories', Category::all())
         ->with('colors', Color::all())
         ->with('fonts', Font::all_fonts())
         ->with('fonts_include', Font::all())
@@ -48,6 +49,16 @@ class DesignsController extends \BaseController {
             case 'getLayoutProductDesign':
                 $layout = View::make('Stones::public.design.layouts.productdesign')
                 ->with('product', Product::findOrFail($id))
+                ->render();
+                break;
+            case 'getProductByCatId':
+                $layout = View::make('Stones::public.design.layouts.products')
+                ->with('products', Product::whereRaw("cat_id = {$id} and status = 'published'")->get())
+                ->render();
+                break;
+            case 'getProductColorByProductid':
+                $layout = View::make('Stones::public.design.layouts.productcolors')
+                ->with('productcolors', ProductColor::whereRaw("product_id = {$id} and state = 'published'")->get())
                 ->render();
                 break;
         }

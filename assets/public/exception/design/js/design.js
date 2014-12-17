@@ -60,28 +60,28 @@
 					
 				}
 			})
-		}).trigger('change')
+		})//.trigger('change')
 
 		// choose product =============================================
-		$('.content-products').on('click', '.product-item', function(e){
-			var thisEl = $(this),
-				p_id = thisEl.data('product-id');
+		// $('.content-products').on('click', '.product-item', function(e){
+		// 	var thisEl = $(this),
+		// 		p_id = thisEl.data('product-id');
 
-			$('.design-area.right').addClass('loading-animate'); // add loading animate
+		// 	$('.design-area.right').addClass('loading-animate'); // add loading animate
 
-			$.ajax({
-				headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },
-				type: "POST",
-				url: "design/ajax",
-				data: { handle: 'getLayoutProductDesign', id: p_id },
-				success: function(data){
-					var obj = $.parseJSON(data);
-					$('.content-area-design').html(obj.layout);
+		// 	$.ajax({
+		// 		headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },
+		// 		type: "POST",
+		// 		url: "design/ajax",
+		// 		data: { handle: 'getLayoutProductDesign', id: p_id },
+		// 		success: function(data){
+		// 			var obj = $.parseJSON(data);
+		// 			$('.content-area-design').html(obj.layout);
 
-					$('.design-area.right').removeClass('loading-animate'); // add loading animate
-				}
-			})
-		})
+		// 			$('.design-area.right').removeClass('loading-animate'); // add loading animate
+		// 		}
+		// 	})
+		// })
 
 		// choose icon =============================================
 		$('.content-icons').on('click', '.icon-item', function(e){
@@ -103,7 +103,7 @@
 
 		// build layout =============================================
 		function buildLayout(ThisEl, params){
-			if( params.drag == true )
+			if( params.drag == true ){
 				ThisEl.addClass('l-move').draggable({
 					start: function (event, ui) {
 						var left = parseInt($(this).css('left'),10);
@@ -118,6 +118,7 @@
 						ui.position.top = parseInt(recoupTop + ui.position.top);
 					}
 				});
+			}
 
 			if( params.rotate == true )
 				ThisEl.rotate();
@@ -322,7 +323,7 @@
 				}
 			}).trigger('slide')
 		}
-		initToolText();
+		// initToolText();
 
 		// conver color rgb to hex =============================================
 		function rgb2hex(rgb) {
@@ -332,5 +333,179 @@
 		    }
 		    return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
 		}
+
+		// UPDATE =============================================
+		// Select product cat
+		$('.product-cat-content li a').click(function(){
+			var thisEl = $(this),
+				catId = thisEl.data('cat-id');
+
+			thisEl.parent().parent().addClass('loading-animate'); // add loading animate
+
+			$.ajax({
+				headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },
+				type: "POST",
+				url: "design/ajax",
+				data: { handle: 'getProductByCatId', id: catId },
+				success: function(data){
+					var obj = $.parseJSON(data),
+						content = $('.content-products');
+					
+					content.html(obj.layout);
+
+					var images = content.find('img'),
+						count_images = images.length,
+						img_complete = 0;
+					
+					images.fadeOut(0);
+
+					if(count_images > 0){
+						images.each(function(){
+							$(this).load(function() {
+								$(this).fadeIn();
+								img_complete += 1;
+								if( img_complete == count_images ){
+									thisEl.parent().parent().removeClass('loading-animate'); // remove loading animate
+								}
+							})
+						})
+					}else{
+						thisEl.parent().parent().removeClass('loading-animate'); // remove loading animate
+					}
+				}
+			})
+		})
+		$('.product-cat-content li:first-child a').trigger('click');
+
+		// choose product =============================================
+		var layoutItem = {
+			fitsttext: '',
+			name_date: '',
+			memorialwords: ''
+		}
+		$('.content-products').on('click', '.product-item', function(e){
+			var thisEl = $(this),
+				p_id = thisEl.data('product-id');
+
+			$('.design-area.right').addClass('loading-animate'); // add loading animate
+
+			$.ajax({
+				headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },
+				type: "POST",
+				url: "design/ajax",
+				data: { handle: 'getProductColorByProductid', id: p_id },
+				success: function(data){
+					var obj = $.parseJSON(data);
+					$('.content-area-design').html(obj.layout);
+					layoutItem.fitsttext = $('.content-area-design').find('.layout-fitsttext-area');
+					layoutItem.name_date = $('.content-area-design').find('.layout-name-date-area');
+					layoutItem.memorialwords = $('.content-area-design').find('.layout-memorialwords-area');
+
+					setTextStyle();
+
+					$('.content-area-design').find('.content-product-color ul li:first-child a').trigger('click'); // active first item
+					$('.design-area.right').removeClass('loading-animate'); // add loading animate
+				}
+			})
+		})
+		// set text style tab text
+		function setTextStyle(){
+			var text_style = {
+				color: $('input[type="radio"][name="text-color"]:checked').val(),
+				fontFamily: $('input[type="radio"][name="font-family"]:checked').val(),
+				fontSize: '16px',
+				lineHeight: '20px'
+			}
+
+			$.each(layoutItem, function($k, $elem){
+				$elem.css(text_style);
+
+				buildLayout($elem, {drag: true})
+			})
+		}
+
+		// choose product color =============================================
+		$('.content-area-design').on('click', '.choose-pcolor-js', function(e){
+			var main_frame_image = $('.content-area-design').find('#main-frame-image'),
+				thisEl = $(this),
+				pcolor_id = thisEl.data('pcolor-id'),
+				pcolor_img = thisEl.data('pcolor-img');
+
+			thisEl.parent().addClass('active').siblings().removeClass('active');
+
+			main_frame_image.css('display', 'block').attr('src', pcolor_img);
+		})
+
+		// control tab text
+		var textControlEl = {};
+		function iniTextControl(){
+			var textContent = $('.content-text');
+			textControlEl.hide_first_text = textContent.find('input[type="checkbox"][name="hide_first_text"]');
+			
+			// First text
+			textControlEl.first_text = textContent.find('input[type="text"][name="first_text"]');
+			textControlEl.first_text.bind('input', function(){
+				if(layoutItem.fitsttext.length <= 0){ return; }
+				layoutItem.fitsttext.children('.layout-inner-area').html( $(this).val() );
+			})
+
+			// Name
+			textControlEl.name = textContent.find('input[type="text"][name="name"]');
+			textControlEl.name.bind('input', function(){ 
+				if(layoutItem.name_date.length <= 0){ return; }
+				layoutItem.name_date.children('.layout-inner-area').children('.nametext').html( $(this).val() );
+			})
+
+			// birthdate
+			textControlEl.birthdate = textContent.find('.content-birth-death .content-birthdate');
+			textControlEl.birthdate.find('input[type="text"]').each(function(){
+				$(this).bind('input', function(){
+					var thiEl = $(this), text_date = "f";
+
+					thiEl.parent().children('input[type="text"]').each(function(){
+						var name = $(this).attr('name'),
+							value = $(this).val();
+
+						if(!value){ value = (name != 'b-y')? ". 00" : ". 0000"; }
+						text_date += '. '+value;
+					})
+					
+					layoutItem.name_date
+					.children('.layout-inner-area')
+					.children('.datetext')
+					.children('.birthdatetext')
+					.html( text_date );
+				})
+			})
+
+			// deathdate
+			textControlEl.deathdate = textContent.find('.content-birth-death .content-deathdate');
+			textControlEl.deathdate.find('input[type="text"]').each(function(){
+				$(this).bind('input', function(){
+					var thiEl = $(this), text_date = "d";
+
+					thiEl.parent().children('input[type="text"]').each(function(){
+						var name = $(this).attr('name'),
+							value = $(this).val();
+
+						if(!value){ value = (name != 'd-y')? ". 00" : ". 0000"; }
+						text_date += '. '+value;
+					})
+					
+					layoutItem.name_date
+					.children('.layout-inner-area')
+					.children('.datetext')
+					.children('.deathdatetext')
+					.html( text_date );
+				})
+			})
+
+			//memorial_words
+			textControlEl.memorial_words = textContent.find('input[type="text"][name="memorial_words"]');
+			textControlEl.memorial_words.bind('input', function(){
+				
+			})
+		}
+		iniTextControl();
 	})
 })(jQuery)

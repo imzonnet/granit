@@ -24,7 +24,7 @@
 	top: 50%;
 	width: 32px;
 	height: 32px;
-	background: #FFF;
+	background: #555;
 	border-radius: 2px;
 	transform: translate3d(-50%, -50%, 0);
 	-webkit-transform: translate3d(-50%, -50%, 0);
@@ -33,9 +33,10 @@
 }
 .design-container{
 	width: 100%;
-	height: 550px;
+	height: 600px;
 	padding: 20px;
-	background: url(../images/bg_thread.gif);
+	/*background: url(../images/bg_thread.gif);*/
+	background: #FFF;
 	overflow: hidden;
 }
 .design-container select,
@@ -125,21 +126,20 @@ input[name="color"]{
 	color: #FFF;
 	font-size: 13px;
 	padding: 8px 15px;
-	text-transform: uppercase;
 }
 .content-area-tool .content-tab{
 	background: #E7512F;
 	display: none;
-	padding: 10px;
+	padding: 30px;
 	color: #FFF;
-	height: 475px;
+	height: 526px;
 }
 .content-area-tool .content-tab.active{
 	display: block;
 }
 .content-area-tool .content-inner{
 	width: 100%;
-	height: 400px;
+	height: 300px;
 	overflow: auto;
 	text-align: left;
 	line-height: normal;
@@ -152,8 +152,9 @@ input[name="color"]{
     margin-right: 4px;
     text-align: center;
     vertical-align: middle;
-    width: calc(100% / 3 - 4px);
+    width: calc(100% / 2 - 4px);
     overflow: hidden;
+    padding: 10px
 }
 .content-area-tool .content-inner .design-item img{
 	width: 100%;
@@ -289,4 +290,158 @@ input[name="color"]{
 	font-size: 13px;
 	transform: translateX(-50%);
 	-webkit-transform: translateX(-50%);
+}
+
+/* UPDATE */
+#design-container input{
+	text-transform: inherit;
+}
+#design-container a{
+	color: #FFF;
+}
+.text-ellipsis{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.product-search-content{
+	position: relative;
+}
+.product-search-content:after{
+	content: "\f002";
+	position: absolute;
+	right: 18px;
+	top: 50%;
+	transform: translateY(-50%);
+	-webkit-transform: translateY(-50%);
+
+	font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    color: #333;
+}
+.product-search-content input{
+	padding: 10px;
+	width: calc(100% - 20px);
+}
+
+.product-cat-content{
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	font-size: 0;
+	line-height: normal;
+}
+.product-cat-content li{
+	width: calc(100%/3);
+	display: inline-block;
+	vertical-align: bottom;
+}
+.content-products{
+	height: 300px;
+    overflow: auto;
+}
+.product-item p{
+	background: #FC8267;
+	padding: 3px;
+	margin-bottom: 0;
+}
+.content-area-design .content-inner{
+	min-height: 540px;
+	max-height: 540px;
+	position: relative;
+}
+.content-product-color{
+	position: absolute;
+	left: 0;
+	bottom: 0;
+}
+.content-product-color h4{
+	font-size: 13px;
+}
+.content-product-color ul li{
+	display: inline-block;
+	vertical-align: top;
+	margin-right: 10px;
+	font-size: 0;
+    line-height: normal;
+}
+.content-product-color ul li.active{
+	box-shadow: 0 0 0 2px #4FBC1C;
+	position: relative;
+}
+.content-product-color ul li.active:after{
+	content: "";
+	position: absolute;
+	top: -10px;
+	left: 50%;
+	border: solid 4px transparent;
+	border-bottom: 4px solid #4FBC1C;
+	transform: translateX(-50%);
+	-webkit-transform: translateX(-50%);
+}
+.content-text{
+	text-align: left;
+	height: 466px;
+    overflow: auto;
+}
+.control-row{
+	width: 100%;
+	margin-bottom: 15px;
+}
+.control-row p{
+	margin-bottom: 5px;
+}
+.row-full-all,
+.row-full-all label,
+.row-full-all input[type="text"],
+.row-full-all select,
+.row-full-all textarea
+{
+	width: 100%;
+}
+.content-birth-death{ width: 100%; }
+.content-birth-death > div{
+	display: inline-block;
+	vertical-align: top;
+}
+.content-birth-death > div input{
+	width: 25%;
+}
+.content-color-fonttype{}
+.content-color-fonttype > div{
+	display: inline-block;
+	vertical-align: top;
+}
+.content-color-text{}
+.content-color-text li{
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 4px;
+}
+.content-color-text li span{
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+}
+.text-align-center{
+	text-align: center;
+}
+.layout-item-area{
+	display: inline-block;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: auto !important;
+	height: auto !important;
+}
+
+input[name="text-color"]:checked ~ span{
+	box-shadow: 0 0 0 2px #4fbc1c;
+}
+.datetext > div{
+	display: table-cell;
+	width: 50%;
+	white-space: nowrap;
 }
