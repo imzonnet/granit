@@ -21,7 +21,7 @@ class GranitProductColors extends Migration {
 			$table->string('image');
 			$table->decimal('price',10,2);
 			$table->decimal('characteristic_price',10,2);
-			$table->string('state')->default('published');
+			$table->string('status')->default('published');
 			$table->integer('ordering');
 			$table->integer('created_by')->unsigned();
 			$table->foreign('created_by')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');

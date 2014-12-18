@@ -2225,6 +2225,11 @@ blockquote span {
 .service-box-1 {
     position: relative;
 }
+.service-box-1 .box-top img {
+    height: 50px;
+    width: 50x;
+    margin-top: 20px;
+}
 .box-top {
     z-index: 2;
     overflow: hidden;
@@ -2237,13 +2242,15 @@ blockquote span {
     font-size: 38px;
     width:103px;
     height:103px;
-    line-height:95px;
     text-align:center;
+    vertical-align: middle;
     border-radius:50%;
     border:3px #fff solid;
     -moz-box-shadow: inset 0 0 13px rgba(0,0,0,.4);
     -webkit-box-shadow: inset 0 0 13px rgba(0,0,0,.4);
     box-shadow: inset 0 0 13px rgba(0,0,0,.4);
+    background-color: rgba(255, 255, 255, 0);
+    transition: background-color 0.5s;
 }
 .box-top h3 {
     margin: 0 0 10px;
@@ -2256,7 +2263,7 @@ blockquote span {
 }
 .box-top h3 span{
     text-transform:none;
-    font-size:19px;
+    font-size:18px;
     font-weight:100;
     display:block;
     margin-bottom:-15px
@@ -2287,6 +2294,7 @@ blockquote span {
     -o-transition: transform 0.3s;
     -webkit-transition: -webkit-transform 0.3s;
     transition: transform 0.3s;
+    background-color: rgba(255, 255, 255, 1);
 }
 .service-box-1:hover h3{
     color:#fff

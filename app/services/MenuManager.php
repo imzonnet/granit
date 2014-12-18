@@ -47,9 +47,9 @@ class MenuManager {
                             || (Sentry::check() // Check if the user is logged in
                                 && in_array(Sentry::getUser()->getGroups()->first()->name, $item->selected_groups('name'))) // Check if the current user group lies in the selected group for menu
                             ) {
-                        $image = ($item->icon != '') ? "<img src='" . url($item->icon) . "'>" : '';
+                        $image = ($item->icon != '') ? "<div class='menu-icon'><img src='" . url($item->icon) . "'></div>" : '';
 
-                        $item->title = "<div class='menu-icon'>{$image}</div>{$item->title}";
+                        $item->title = "{$image}{$item->title}";
 
                         $menus = MenuManager::findChildren($item);
 

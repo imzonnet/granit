@@ -1,41 +1,41 @@
-<!-- login box start -->
-<div class="login-box">
-    <a class="close-login" href="#"><i class="fa fa-times"></i></a>
-    <form>
-        <div class="container">
-            <p>Hello our valued visitor, We present you the best web solutions and high quality graphic designs with a lot of features. just login to your account and enjoy ...</p>
-            <div class="login-controls">
-                <div class="skew-25 input-box left">
-                    <input type="text" class="txt-box skew25" placeholder="User name Or Email" />
-                </div>
-                <div class="skew-25 input-box left">
-                    <input type="password" class="txt-box skew25" placeholder="Password" />
-                </div>
-                <div class="left skew-25 main-bg">
-                    <input type="submit" class="btn skew25" value="Login" />
-                </div>
-                <div class="check-box-box">
-                    <input type="checkbox" class="check-box" /><label>Remember me !</label>
-                    <a href="#">Forgot your password ?</a>
-                </div>
-            </div>
-        </div>
-    </form>
-</div>
-<!-- login box End -->
-
 <!-- Header Start -->
 <div id="headWrapper" class="clearfix">
-
+    <div class="login-box"> <a href="#" class="close-login"><i class="fa fa-times"></i></a>
+        <form>
+            <div class="container">
+                <p>Hello our valued visitor, We present you the best web solutions and high quality graphic designs with a lot of features. just login to your account and enjoy ...</p>
+                <div class="login-controls">
+                    <div class="skew-25 input-box left">
+                        <input type="text" placeholder="User name Or Email" class="txt-box skew25"> </div>
+                    <div class="skew-25 input-box left">
+                        <input type="password" placeholder="Password" class="txt-box skew25"> </div>
+                    <div class="left skew-25 main-bg">
+                        <input type="submit" value="Login" class="btn skew25"> </div>
+                    <div class="check-box-box">
+                        <input type="checkbox" class="check-box">
+                        <label>Remember me !</label> <a href="#">Forgot your password ?</a> </div>
+                </div>
+            </div>
+        </form>
+    </div>
     <!-- top bar start -->
     <div class="top-bar">
         <div class="container">
             <div class="row">
                 <div class="cell-5">
-                    {{Services\MenuManager::generate('public-small-menu-left')}}
+                    <ul> 
+                        <li><a href="#"><i class="fa fa-envelope"></i> granithollin@granithollin.is</a></li> 
+                        <li><span><i class="fa fa-phone"></i> 555-3888</span></li> 
+                    </ul>
                 </div>
                 <div class="cell-7 right-bar">
                     {{Services\MenuManager::generate('public-small-menu-right', 'right')}}
+                    <ul class="right"> 
+                        <li><a href="cart.html"><i class="fa fa-shopping-cart"></i>0 item(s) - $0.00</a></li> 
+                        <li><a href="#"><i class="fa fa-sitemap"></i>Site Map</a></li> 
+                        <li><a href="#"><i class="fa fa-user"></i>Register</a></li> 
+                        <li><a class="login-btn" href="#"><b class="tri hidden"></b><i class="fa fa-unlock-alt"></i> Login</a></li> 
+                    </ul>
                 </div>
             </div>
         </div>

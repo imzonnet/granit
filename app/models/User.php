@@ -125,5 +125,5 @@ class User extends Eloquent {
             return false;
         }
     }
-
+    
 }

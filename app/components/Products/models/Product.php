@@ -6,7 +6,7 @@ use Components\Products\Presenters\ProductPresenter;
 
 class Product extends \Eloquent implements PresentableInterface {
     protected $table = 'granit_products';
-    protected $fillable = array('product_code', 'name', 'alias', 'cat_id', 'image', 'price', 'state', 'ordering', 'created_by');
+    protected $fillable = array('product_code', 'name', 'alias', 'cat_id', 'thumbnail', 'state', 'ordering', 'created_by');
     protected $guarded = array('id');
     /**
      * Relationship

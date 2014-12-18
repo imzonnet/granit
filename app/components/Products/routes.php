@@ -2,6 +2,7 @@
 
 //Route For Back-end
 Route::resource('/backend/products', 'Components\Products\Controllers\Backend\ProductsController');
+Route::resource('/backend/product.colors', 'Components\Products\Controllers\Backend\ProductColorsController');
 Route::resource('/backend/product-categories', 'Components\Products\Controllers\Backend\CategoriesController');
 
 //Route For Front-end

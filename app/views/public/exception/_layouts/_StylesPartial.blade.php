@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="{{URL::to("assets/public/exception/rs-plugin/css/settings.css")}}">
 <link rel="stylesheet" href="{{URL::to("assets/public/exception/css/style.css")}}">
 <link rel="stylesheet" href="{{URL::to("assets/public/exception/css/responsive.css")}}">
+<link rel="stylesheet" href="{{URL::to("assets/public/exception/css/custom.css")}}">
 
 <!--[if lt IE 9]>
     <link rel="stylesheet" href="{{URL::to("assets/public/exception/css/ie.css")}}">

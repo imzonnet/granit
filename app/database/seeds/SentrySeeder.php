@@ -19,14 +19,21 @@ class SentrySeeder extends Seeder {
             'activated'  => 1,
         ));
 
-        $group = Sentry::createGroup(array(
+        $groupAdmin = Sentry::createGroup(array(
             'name'        => 'Super Administrators',
             'permissions' => array(
                 'superuser' => 1
             ),
         ));
         
-        $group2 = Sentry::createGroup(array(
+        $groupManager = Sentry::createGroup(array(
+            'name'        => 'Manager',
+            'permissions' => array(
+                'manager' => 1
+            ),
+        ));
+        
+        $groupMember = Sentry::createGroup(array(
             'name'        => 'Members',
             'permissions' => array(
                 'users' => 1
@@ -35,8 +42,23 @@ class SentrySeeder extends Seeder {
 
         // Assign user permissions
         $userGroup = Sentry::findGroupByName('Super Administrators');
-        $user->addGroup($userGroup);
+        $user->addGroup($groupAdmin);
         $faker = Faker::create();
+        foreach(range(1, 10) as $index) {
+            $user = Sentry::createUser(array(
+                'username'   => 'manager'.$index,
+                'password'   => 'password',
+                'email'     => $faker->email,
+                'first_name' => $faker->firstName,
+                'last_name'  => $faker->lastName,
+                'last_pw_changed' => new DateTime,
+                'activated'  => 1,
+                'photo' => $faker->imageUrl(rand(390, 400), 390, 'people')
+            ));
+            //$userGroup = Sentry::findGroupByName('Members');
+            $user->addGroup($groupManager);
+        }
+        
         foreach(range(1, 50) as $index) {
             $user = Sentry::createUser(array(
                 'username'   => 'member'.$index,
@@ -47,8 +69,8 @@ class SentrySeeder extends Seeder {
                 'last_pw_changed' => new DateTime,
                 'activated'  => 1,
             ));
-            $userGroup = Sentry::findGroupByName('Members');
-            $user->addGroup($userGroup);
+            //$userGroup = Sentry::findGroupByName('Members');
+            $user->addGroup($groupMember);
         }
     }
 

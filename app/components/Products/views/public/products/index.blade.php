@@ -50,7 +50,7 @@
                     <div class="item-box">
                         <h3 class="item-title"><a href="{{url('products/'.$product->alias)}}">{{$product->name}}</a></h3>
                         <div class="item-img">
-                            <a href="{{url('products/'.$product->alias)}}"><img alt="" src="{{url($product->image)}}"></a>
+                            <a href="{{url('products/'.$product->alias)}}"><img alt="" src="{{url($product->thumbnail)}}"></a>
                         </div>
                         <div class="item-details">
                             <p> {{$product->description}} </p>

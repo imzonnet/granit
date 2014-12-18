@@ -48,7 +48,8 @@ Route::get('contact/{category}/{contact}', 'Components\ContactManager\Controller
 Route::post('contact/{contact}/send', 'Components\ContactManager\Controllers\PublicController@sendMessage');
 
 Route::resource('form', 'FormController', array('only'=>array('store', 'show')));
-
+//about us page
+Route::get('about-us', 'HomeController@about');
 /*
   |--------------------------------------------------------------------------
   | Backend Routes

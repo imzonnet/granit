@@ -51,6 +51,7 @@ class UserGroup extends Eloquent {
                     'report-generators' => 'Report Generators',
                     
                     'products'          => 'Products',
+                    'product-colors'          => 'Product Colors',
                     'product-categories'=> 'Product Categories',
                     'stones-icons'      => 'Stone Icons',
                     'stones-icon-categories'   => 'Stone Icon Categories',

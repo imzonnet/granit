@@ -49,7 +49,7 @@
                 <div class="row">
                     <div class="cell-4">
                         <div class="product-img">
-                            <img alt="" id="img_01" src="{{url($product->image)}}" />
+                            <img alt="" id="img_01" src="{{url($product->thumbnail)}}" />
                         </div>
                     </div>
                     <div class="cell-8">

@@ -1,0 +1,15 @@
+.main-navigation .menu-icon img {
+    max-width: 35px;
+    max-height: 35px;
+}
+.top-nav > ul > li > a {
+    padding-top: 15px;
+}
+
+#footWrapper .address li {
+    padding: 5px 0px;
+}
+#footWrapper .address li i {
+    display: inline-block;
+    padding-right: 5px;
+}

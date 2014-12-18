@@ -2,7 +2,7 @@
 
 use Services\Validation\Validator as Validator;
 
-class ProductValidator extends Validator {
+class ProductColorValidator extends Validator {
 
 	/**
      * Default rules
@@ -10,11 +10,10 @@ class ProductValidator extends Validator {
      */
     protected $rules = array(
         'name'     		=> 'required|regex:/^[a-zA-Z0-9\-\.\s\?\{\}\(\)ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$/',
-        'product_code'          => 'required|unique:granit_products,product_code',
-        'cat_id'		=> 'required|alpha_num',
+        'product_id'		=> 'required|alpha_num',
+        'thumbnail'             => 'required',
         'image'                 => 'required',
         'price'			=> 'required',
-        'alias' 		=> 'regex:/^[a-z0-9\-]*$/|unique:granit_products,alias',
     );
 
     /**
@@ -23,10 +22,10 @@ class ProductValidator extends Validator {
      */
     protected $updateRules = array(
         'name'     		=> 'required|regex:/^[a-zA-Z0-9\-\.\s\?\{\}\(\)ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$/',
-        'product_code'          => 'required|unique:granit_products,product_code',
-        'cat_id'		=> 'required|alpha_num',
+        'product_id'		=> 'required|alpha_num',
+        'thumbnail'             => 'required',
+        'image'                 => 'required',
         'price'			=> 'required',
-        'alias' 		=> 'regex:/^[a-z0-9\-]*$/|unique:granit_products,alias',
     );
 
     /**
@@ -34,9 +33,6 @@ class ProductValidator extends Validator {
      * @var array
      */
     protected $message = array(
-        'alias.unique' => 'The alias has already been taken',
-        'cat_id.required' => 'The category must required',
-        'product_code.unique' => 'The product code has already been taken',
     );
     public function validateForCreation($input)
     {
@@ -45,9 +41,6 @@ class ProductValidator extends Validator {
     
     public function validateForUpdate($input)
     {
-        $this->updateRules['alias'] .= ',' . $input['id'];
-        $this->updateRules['product_code'] .= ',' . $input['id'];
-
         return $this->validate($input, $this->updateRules, $this->message);
     }
 
