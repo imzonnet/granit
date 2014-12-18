@@ -27,7 +27,7 @@
 	</div>
 	@if(count($productcolors) > 0)
 	<div class="content-product-color">
-		<h4>Select Color:</h4>
+		<h4>Color</h4>
 		<ul>
 			@foreach($productcolors as $pcolor)
 			<li>

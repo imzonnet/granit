@@ -1,16 +1,76 @@
 /* design.js */
+
+// add job title or place birth
+function addJobOrPlace(elem){ 
+	var thisEl = $(elem),
+		del_el = $('<button>').addClass('design-custom-btn').attr({'type': 'button', 'onclick': 'delJobOrPlace(this)'}).html('<i class="fa fa-trash"></i>'),
+		add_job_or_place_el = $('<p class="add_job_or_place">').html('<input type="text" style="width: 270px;">').append(del_el);
+	
+	thisEl.addClass('visible-btn').after( add_job_or_place_el );
+}
+
+function delJobOrPlace(elem){
+	$(elem).parent().prev().removeClass('visible-btn');
+	$(elem).parent().remove();
+}
+
 !(function($){
 	$(function(){
 		// tool (tabs switch) =============================================
 		$('.js-tabs').each(function(){
 			var thisEl = $(this);
-			thisEl.find('[data-tabs]').on('click', function(){
+			thisEl.find('[data-tabs]').on('click', function(e){
 				var tab_name = $(this).data('tabs');
 
 				$(this).parent('li').addClass('active').siblings().removeClass('active');
 				thisEl.find('[data-content-tabs="'+tab_name+'"]').addClass('active').siblings().removeClass('active');
 			})
+			thisEl.children('ul').find('li a[data-tabs-action="newtab"]').on('click', function(e){			
+				var $this = $(this);
+					keytab = $this.data('key-tab');
+
+				switch(keytab){
+					case 'name': addMoreTabName(thisEl); break;
+				}
+			})
 		})
+
+		function addMoreTabName(elem){
+			var controler_tab_name = elem.children('.controler-tab-name');
+				count = controler_tab_name.children('li').length,
+				rand_id = Math.random().toString(36).substring(7),
+				html_inner = elem.find('[data-content-tabs="tab-name-1"]').html(),
+				name_tab_el = $('<li>').html('<a href="javascript:" data-tabs="tab-name-'+rand_id+'">Name '+count+'</a>'),
+				content_tab_el = $('<div>').addClass('content-tab').attr('data-content-tabs', 'tab-name-'+rand_id),
+				del_tab_el = $('<span>').addClass('del-tab').attr('data-del-tabs', 'tab-name-'+rand_id).html('<i class="fa fa-trash"></i> Delete');
+			
+			name_tab_el.children('a').click(function(){
+				var tab_name = $(this).data('tabs');
+				
+				$(this).parent().addClass('active').siblings().removeClass('active');
+				elem.find('[data-content-tabs="'+tab_name+'"]').addClass('active').siblings().removeClass('active');
+			})
+
+			del_tab_el.on('click', function(e){
+				var tab_del = $(this).data('del-tabs'),
+					this_tab_name = elem.find('[data-tabs="'+tab_del+'"]').parent();
+				
+				this_tab_name.prev().children('a').trigger('click');
+				this_tab_name.remove();
+				elem.find('[data-content-tabs="'+tab_del+'"]').remove();
+			})
+
+			controler_tab_name.children('li:last-child').before(name_tab_el).before(' ');
+			elem.append(content_tab_el.html(html_inner).append(del_tab_el));
+			
+			content_tab_el.find('input').each(function(){
+				if( $('this').attr('type') == "text" ){
+					$('this').val('');
+				}else if( $('this').attr('type') == "checkbox" ){
+					$('this').prop('checked', false);
+				}
+			})
+		}
 
 		// Select product cat, icon cat =============================================
 		$('[name="product_cat"], [name="icon_cat"]').change(function(){

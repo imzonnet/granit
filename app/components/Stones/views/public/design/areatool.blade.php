@@ -34,38 +34,51 @@
 				<p><input name="first_text" type="text"></p>
 			</div>
 
-			<div class="control-row row-full-all">
-				<p><strong>Name</strong></p>
-				<p><input name="name" type="text"></p>
-				<p><a href="javascript:"><i class="fa fa-plus-circle"></i> Add job title / place of birth</a></p>
-			</div>
-
-			<div class="control-row content-birth-death">
-				<div style="width: 50%;">
-					<p><strong>Birthday</strong></p>
-					<p class="content-birthdate">
-						<input type="text" name="b-d" placeholder="dd" maxlength="2"/> - 
-						<input type="text" name="b-m" placeholder="mm" maxlength="2"/> - 
-						<input type="text" name="b-y" placeholder="yyyy" maxlength="4"/>
-					</p>
-				</div><!-- 
-				--><div style="width: 50%;">
-					<p><strong>Death</strong></p>
-					<p class="content-deathdate">
-						<input type="text" name="d-d" placeholder="dd" maxlength="2"/> - 
-						<input type="text" name="d-m" placeholder="mm" maxlength="2"/> - 
-						<input type="text" name="d-y" placeholder="yyyy" maxlength="4"/>
-					</p>
+			<div class="control-name js-tabs">
+				<ul class="controler-tab-name">
+					<li class='active'><a href="javascript:" data-tabs="tab-name-1">Name 1</a></li>
+					 <li><a href="javascript:" data-tabs-action="newtab" data-key-tab="name"><i class="fa fa-plus"></i></a></li>
+				</ul>
+				<div class="content-tab active" data-content-tabs="tab-name-1">
+					<div class="content-tab-inner row-full-all">
+						<input type="text" name="name" placeholder="Name">
+						<button class="btn btn-custom-design" type="button" onclick="addJobOrPlace(this)">
+							<i class="fa fa-plus-circle"></i> Add job title / place or birth
+						</button>
+						<div class="b-d-date">
+							<div class="b-date">
+								<strong style="color: #333;">Birthday</strong> </br>
+								<input name="b-d" placeholder="dd" maxlength="2"> - 
+								<input name="b-m" placeholder="mm" maxlength="2"> - 
+								<input name="b-y" placeholder="yyyy" maxlength="4">
+							</div>
+							<div class="d-date">
+								<strong style="color: #333;">Death</strong> </br>
+								<input name="d-d" placeholder="dd" maxlength="2"> - 
+								<input name="d-m" placeholder="mm" maxlength="2"> - 
+								<input name="d-y" placeholder="yyyy" maxlength="4">
+							</div>
+							<p></p>
+						</div>
+						<label>
+							<input type="checkbox" name="expect_to_add_another_namelater"> 
+							Expect to add another name later
+						</label>
+					</div>
 				</div>
-
-				<p><input type="checkbox" name=""> Expect another name later</p>
 			</div>
-
-			<div class="control-row row-full-all">
-				<p><strong>Memorial words</strong> <span style="float: right;"><input type="checkbox" name="hide_memorial_words"/> Hide</span></p>
-				<p><input name="memorial_words" type="text"></p>
-				<p>Use "/" to make a new line</p>
-				<p><a href="javascript:"><i class="fa fa-plus-circle"></i> Add a poem</a></p>
+			<p></p>
+			<div class="control-memorial-worlds js-tabs">
+				<strong>Memorial worlds</strong>
+				<ul class="controler-tab-memorial-worlds">
+					<li class='active'><a href="javascript:" data-tabs="tab-name-1">Line 1</a></li>
+					<li><a href="javascript:" data-tabs-action="newtab" data-key-tab="memorial_worlds"><i class="fa fa-plus"></i></a></li>
+				</ul>
+				<div class="content-tab active" data-content-tabs="tab-name-1">
+					<div class="content-tab-inner row-full-all">
+						<input name="memorial-worlds" type="text" placeholder="Memorial worlds">
+					</div>
+				</div>
 			</div>
 
 			<div class="control-row row-full-all content-color-fonttype">
