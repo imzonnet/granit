@@ -33,23 +33,32 @@ class HomeController extends BaseController {
                 ->with('menu', $menu);
     }
 
+    /**
+     * Contact Page
+     */
     public function getContact() {
         $contact = Post::type('page')
                 ->where('permalink', 'contact')
                 ->first();
-
+        //$contact->extras['contact_coords'] = '57.7973333,12.0502107';
         $this->layout->title = 'Contact Us';
 
         $this->layout->content = View::make('public.' . $this->current_theme . '.contact')
-                ->with('contact', $contact);
+                ->with('post', $contact);
     }
+
+    /*
+     * Send Mail
+     */
 
     public function postContact() {
         $input = Input::all();
 
         $rules = array(
             'email' => 'required|min:5|email',
-            'name' => 'required|alpha|min:5',
+            'name' => 'required|min:5',
+            'comments' => 'required|min:10',
+            'subject' => 'required|min:3',
         );
 
         $validator = Validator::make(Input::all(), $rules);
@@ -59,11 +68,10 @@ class HomeController extends BaseController {
                             ->withErrors($validator)
                             ->withInput();
         }
-
         try {
             Mail::send('public.' . $this->current_theme . '.email', $input, function($message) use($input) {
                 $message->from($input['email'], $input['name']);
-                $message->to(Setting::value('email_username'), $input['name'])
+                $message->to(get_setting('email_username'), $input['name'])
                         ->subject($input['subject']);
             });
         } catch (Exception $e) {

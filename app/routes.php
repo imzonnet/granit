@@ -50,6 +50,8 @@ Route::post('contact/{contact}/send', 'Components\ContactManager\Controllers\Pub
 Route::resource('form', 'FormController', array('only'=>array('store', 'show')));
 //about us page
 Route::get('about-us', 'HomeController@about');
+Route::get('contact', 'HomeController@getContact');
+Route::post('contact', 'HomeController@postContact');
 /*
   |--------------------------------------------------------------------------
   | Backend Routes

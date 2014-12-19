@@ -15,10 +15,8 @@ class ProductColorsTableSeeder extends \Seeder {
         
         foreach($products as $product_id) {
             foreach(range(1, 3) as $number){
-                $name = $faker->name;
-                $alias = \Str::slug($name);
                 DB::table('granit_product_colors')->insert([
-                    'name' => $name,
+                    'name' => $faker->colorName,
                     'product_id' => $product_id,
                     'thumbnail' => "assets/granit/color-{$number}.jpg",
                     'image' => "assets/granit/{$number}-SB.jpg",

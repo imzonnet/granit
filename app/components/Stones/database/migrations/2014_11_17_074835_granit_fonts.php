@@ -5,32 +5,30 @@ use Illuminate\Database\Migrations\Migration;
 
 class GranitFonts extends Migration {
 
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::create('granit_fonts', function(Blueprint $table) {
-			$table->increments('id');
-			$table->string('name');
-			$table->string('url');
-			$table->string('status');
-			$table->integer('ordering')->default(0);
-			$table->integer('created_by')->unsigned();
-			$table->foreign('created_by')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-		});
-	}
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up() {
+        Schema::create('granit_fonts', function(Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('url');
+            $table->string('status');
+            $table->integer('ordering')->default(0);
+            $table->integer('created_by')->unsigned();
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+        });
+    }
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::drop('granit_fonts');
-	}
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down() {
+        Schema::drop('granit_fonts');
+    }
 
 }

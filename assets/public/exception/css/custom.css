@@ -13,3 +13,7 @@
     display: inline-block;
     padding-right: 5px;
 }
+
+.team-boxes .cell-4:nth-child(4n+1) {
+    clear: left;
+}

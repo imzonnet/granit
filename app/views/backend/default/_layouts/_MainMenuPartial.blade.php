@@ -124,21 +124,14 @@
                 </a>
                 <ul class="sub">
                     @if (can_access_menu($current_user, array('products')))
-                        <li class="{{ Request::is('backend/products') ? 'active' : null }}">
+                        <li class="{{ Request::is('backend/products*') || Request::is('backend/product-colors*') ? 'active' : null }}">
                            <a href="{{ URL::to('backend/products') }}">
                                {{ trans('Products::cms.products') }}
                            </a>
                         </li>
                     @endif
-                    @if (can_access_menu($current_user, array('product-colors')))
-                        <li class="{{ Request::is('backend/product-colors') ? 'active' : null }}">
-                           <a href="{{ URL::to('backend/product-colors') }}">
-                               {{ trans('Products::cms.product_colors') }}
-                           </a>
-                        </li>
-                    @endif
                     @if (can_access_menu($current_user, array('product-categories')))
-                        <li class="{{ Request::is('backend/product-categories') ? 'active' : null }}">
+                        <li class="{{ Request::is('backend/product-categories*') ? 'active' : null }}">
                            <a href="{{ URL::to('backend/product-categories') }}">
                                {{ trans('Products::cms.product_categories') }}
                            </a>
@@ -156,28 +149,28 @@
                 </a>
                 <ul class="sub">
                     @if (can_access_menu($current_user, array('stones-icons')))
-                        <li class="{{ Request::is('backend/stones/icons') ? 'active' : null }}">
+                        <li class="{{ Request::is('backend/stones/icons*') ? 'active' : null }}">
                            <a href="{{ URL::to('backend/stones/icons') }}">
                                {{ trans('Stones::cms.stones.icons') }}
                            </a>
                         </li>
                     @endif
                     @if (can_access_menu($current_user, array('stones-icon-categories')))
-                        <li class="{{ Request::is('backend/stones/icon-categories') ? 'active' : null }}">
+                        <li class="{{ Request::is('backend/stones/icon-categories*') ? 'active' : null }}">
                            <a href="{{ URL::to('backend/stones/icon-categories') }}">
                                {{ trans('Stones::cms.stones.icon-categories') }}
                            </a>
                         </li>
                     @endif
                     @if (can_access_menu($current_user, array('stones-colors')))
-                        <li class="{{ Request::is('backend/stones/colors') ? 'active' : null }}">
+                        <li class="{{ Request::is('backend/stones/colors*') ? 'active' : null }}">
                            <a href="{{ URL::to('backend/stones/colors') }}">
                                {{ trans('Stones::cms.stones.colors') }}
                            </a>
                         </li>
                     @endif
                     @if (can_access_menu($current_user, array('stones-fonts')))
-                        <li class="{{ Request::is('backend/stones/fonts') ? 'active' : null }}">
+                        <li class="{{ Request::is('backend/stones/fonts*') ? 'active' : null }}">
                            <a href="{{ URL::to('backend/stones/fonts') }}">
                                {{ trans('Stones::cms.stones.fonts') }}
                            </a>

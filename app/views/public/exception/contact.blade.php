@@ -1,41 +1,42 @@
 @section('styles')
 @stop
 
-@section('content')
-    <div class="indent">
-
-        @if (isset($post->extras['contact_coords']))
-            <div class="container">
-                <div class="grid_12">
-
-                    <!-- BEGIN GOOGLE MAP -->
-                    <div class="map-wrapper">
-                        <div id="map_canvas"></div>
-                    </div>
-                    <!-- END GOOGLE MAP -->
-
+@section('heading')
+<!-- BEGIN PAGE HEADING -->
+<section id="heading">
+    <div class="page-title title-1">
+        <div class="container">
+            <div class="row">
+                <div class="cell-12">
+                    <h1 data-animate="fadeInLeft" class="fx animated fadeInLeft" style="">Contact <span>Us</span></h1>
                 </div>
             </div>
-        @endif
+        </div>
+    </div>
+</section>
+<!-- END PAGE HEADING -->
+@stop
 
-        <div class="container">
+@section('content')
 
-            <div class="grid_8">
-                <h4 class="alt-title">send us mail:</h4>
-
+<div class="padd-top-50">
+    <div class="container">
+        <div class="row">
+            <div class="cell-7 contact-form fx" data-animate="fadeInLeft" id="contact">
+                <h3 class="block-head">Hafa Samband</h3>
                 <div id="errors-div">
                     @if (Session::has('error_message'))
-                        <div class="alert alert-error">
+                        <div class="box error-box">
                             <strong>Error!</strong> {{ Session::get('error_message') }}
                         </div>
                     @endif
                     @if (Session::has('success_message'))
-                        <div class="alert alert-success">
+                        <div class="box success-box">
                             <strong>Success!</strong> {{ Session::get('success_message') }}
                         </div>
                     @endif
                     @if( $errors->count() > 0 )
-                        <div class="alert alert-error">
+                        <div class="box error-box">
                             <p>The following errors have occurred:</p>
                             <ul id="form-errors">
                                 {{ $errors->first('email', '<li>:message</li>') }}
@@ -47,61 +48,84 @@
 
                 <!-- BEGIN CONTACT FORM -->
                 {{ Form::open(array('url'=>'contact', 'id'=>'contact-form', 'class'=>'contact-form')) }}
-                    <div class="grid_5 alpha">
-                        <div class="field clearfix">
-                            {{ Form::textarea('comments', Input::old('comments'), array('id'=>'comments', 'cols'=>'30', 'rows'=>'10', 'placeholder'=>'your comment...')) }}
-                        </div>
-                    </div>
-                    <div class="grid_3 omega">
-                        <div class="field clearfix">
+                        
+                        <div class="form-input">
                             {{ Form::text('name', Input::old('name'), array('id'=>'name', 'placeholder'=>'your name...')) }}
                         </div>
-                        <div class="field clearfix">
+                        <div class="form-input">
                             {{ Form::text('email', Input::old('email'), array('id'=>'email', 'placeholder'=>'your email...')) }}
                         </div>
-                        <div class="field clearfix">
+                        <div class="form-input">
                             {{ Form::text('subject', Input::old('subject'), array('id'=>'subject', 'placeholder'=>'your subject...')) }}
                         </div>
-                        <div class="btn-wrapper">
-                            <input type="submit" id="submit" value="send"/><i class="btn-marker"></i>
+                        <div class="form-input">
+                            {{ Form::textarea('comments', Input::old('comments'), array('id'=>'comments', 'cols'=>'30', 'rows'=>'10', 'placeholder'=>'your comment...')) }}
                         </div>
-                        <div id="response"></div>
-                    </div>
+                        <div class="form-input">
+                            <input type="submit" id="submit" class="btn btn-large main-bg" value="send"/>
+                        </div>
+                
                 {{ Form::close() }}
                 <!-- END CONTACT FORM -->
-
+                
             </div>
-
-            @if ($post->content != '')
-                <div class="grid_4">
-                    <div class="prefix_1_2">
-                        <h4 class="alt-title">contacts:</h4>
-
-                        {{ $post->content }}
-
+            <div class="cell-5 contact-detalis">
+                <h3 class="block-head">Contact Details</h3>
+                <p class="fx" data-animate="fadeInRight center">
+                    {{HTML::image(asset('uploads/images/contact.png'))}}
+                </p>
+                <hr class="hr-style4">
+                <div class="clearfix"></div>
+                <div class="padding-vertical">
+                    <div class="cell-5 fx" data-animate="fadeInRight">
+                        <h4 class="main-color bold">Hafa Samband:</h4>
+                        <p>Bæjarhraun 26,<br />220 Hafnarfjörður</p>
+                        <h4 class="main-color bold">Email:</h4>
+                        <p>granithollin@granithollin.is</p>
+                        <h4 class="main-color bold">Phone:</h4>
+                        <p>+354 555-3888</p>
+                    </div>
+                    <div class="cell-2"><br></div>
+                    <div class="cell-5 fx" data-animate="fadeInRight">
+                        <h4 class="main-color bold">Opening Hours</h4>
+                        <h5>Opening Hours:</h5>
+                        <p>Opening Hours</p>
+                        <h5>Saturdays:</h5>
+                        <p>Saturdays</p>
+                        <h5>Sundays:</h5>
+                        <p>Closed</p>
                     </div>
                 </div>
-            @endif
-
+            </div>
         </div>
-
     </div>
+</div>
+
+<div class="padd-top-50">
+    <div class="container">
+        <div class="row">
+            <div id="map_canvas"></div>
+        </div>
+    </div>
+</div>
 @stop
 
 @section('scripts')
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
-    {{ HTML::script('assets/public/default/js/jquery.ui.map.js') }}
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+{{ HTML::script('assets/public/default/js/jquery.ui.map.js') }}
 
-    @if (isset($post->extras['contact_coords']))
-        <script type="text/javascript">
-            $(document).ready(function(){
-                var zoom= $('#map_canvas').gmap('option', 'zoom');
 
-                $('#map_canvas').gmap().bind('init', function(ev, map) {
-                    $('#map_canvas').gmap('addMarker', {'position': '{{ $post->extras['contact_coords'] }}', 'bounds': true});
-                    $('#map_canvas').gmap('option', 'zoom', 12);
-                });
-            });
-        </script>
-    @endif
+<script type="text/javascript">
+$(document).ready(function () {
+    var zoom = $('#map_canvas').gmap('option', 'zoom');
+
+    $('#map_canvas').gmap().bind('init', function (ev, map) {
+        $('#map_canvas').gmap('addMarker', {'position': '64.079650,-21.940151', 'bounds': true}).click(function(){
+            $('#map_canvas').gmap('openInfoWindow', {'content': 'Hello World!'}, this);
+        });
+        $('#map_canvas').gmap('option', 'zoom', 16);
+    });
+});
+</script>
+
 @stop
