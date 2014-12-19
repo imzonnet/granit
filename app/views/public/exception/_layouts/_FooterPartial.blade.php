@@ -45,10 +45,14 @@
         <div class="container">
             <div class="row">
                 <!-- footer copyrights left cell -->
-                <div class="copyrights cell-5">{{Setting::value('footer_text', '© Copyrights Granithöllin 2015. All rights reserved.')}}</div>
-
+                <div class="copyrights cell-4">{{Setting::value('footer_text', '© Copyrights Granithöllin 2015. All rights reserved.')}}</div>
+                <div class="language cell-4">
+                    <ul class="language-list">
+                        <li><a href="#">{{HTML::image(asset('uploads/images/en.png'), 'English',['width' => '30px', 'class' => 'left', 'style' => 'padding-right: 5px;'])}} EN</a></li>
+                    </ul>
+                </div>
                 <!-- footer social links right cell start -->
-                <div class="cell-7">
+                <div class="cell-4">
                     <ul class="social-list right">
                         <li class="skew-25"><a href="{{Setting::value('facebook_link', '#')}}" data-title="facebook" data-tooltip="true"><span class="fa fa-facebook skew25"></span></a></li>
                         <li class="skew-25"><a href="{{Setting::value('twitter_link', '#')}}" data-title="goole plus" data-tooltip="true"><span class="fa fa-google-plus skew25"></span></a></li>

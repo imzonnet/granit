@@ -104,7 +104,7 @@ class MenuEntriesTableSeeder extends Seeder {
             array(
                 'title' => 'Contact Us',
                 'alias' => 'contact-us',
-                'link' => 'pages/contact',
+                'link' => 'contact',
                 'category' => $menu_cat,
                 'position' => $menu_pos1,
                 'icon' => 'uploads/images/icons/about.png',
@@ -212,7 +212,7 @@ class MenuEntriesTableSeeder extends Seeder {
             array(
                 'title' => 'Contact Us',
                 'alias' => 'contact-us-0',
-                'link' => 'pages/contact',
+                'link' => 'contact',
                 'category' => $menu_cat,
                 'position' => $menu_pos2,
                 'same_window' => 1,
