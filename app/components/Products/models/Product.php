@@ -1,18 +1,32 @@
-<?php namespace Components\Products\Models;
+<?php
 
-use App, Str;
+namespace Components\Products\Models;
+
+use App,
+    Str;
 use Robbo\Presenter\PresentableInterface;
 use Components\Products\Presenters\ProductPresenter;
+use Components\Products\Models\ProductColor;
+use Components\Products\Models\Category;
 
 class Product extends \Eloquent implements PresentableInterface {
+
     protected $table = 'granit_products';
-    protected $fillable = array('product_code', 'name', 'alias', 'cat_id', 'thumbnail', 'state', 'ordering', 'created_by');
+    protected $fillable = array('product_code', 'name', 'alias', 'cat_id', 'status', 'ordering', 'created_by');
     protected $guarded = array('id');
+
     /**
      * Relationship
      */
     public function category() {
-        return $this->belongsTo('Category', 'cat_id', 'id');
+        return $this->belongsTo('Components\Products\Models\Category', 'cat_id', 'id');
+    }
+
+    /**
+     * Relationship
+     */
+    public function productColor() {
+        return $this->hasMany('Components\Products\Models\ProductColor', 'product_id', 'id');
     }
 
     /**
@@ -26,6 +40,7 @@ class Product extends \Eloquent implements PresentableInterface {
 
         return parent::create($attributes);
     }
+
     /**
      * When creating a category, run the attributes through a validator first.
      * @param array $attributes
@@ -37,12 +52,12 @@ class Product extends \Eloquent implements PresentableInterface {
 
         return parent::update($attributes);
     }
+
     /**
      * Automatically set the alias, if one is not provided
      * @param string $alias
      */
-    public function setAliasAttribute($alias)
-    {
+    public function setAliasAttribute($alias) {
         if ($alias == '') {
             $this->attributes['alias'] = Str::slug($this->attributes['name'], '-');
 
@@ -51,45 +66,46 @@ class Product extends \Eloquent implements PresentableInterface {
             }
         }
     }
+
     /**
      * Get all the published posts that are within the publish date range
      * @return query
      */
-    public function scopePublished($query)
-    {
+    public function scopePublished($query) {
         return $query->where('status', '=', 'published');
     }
+
     /**
      * Get the recently created posts
      * @return query
      */
-    public function scopeRecent($query)
-    {
+    public function scopeRecent($query) {
         return $query->orderBy('created_at', 'DESC');
     }
+
     /**
      * Get all the statuses available for a post
      * @return array
      */
-    public static function all_status()
-    {
+    public static function all_status() {
         return array(
-                'published'   => 'Publish',
-                'unpublished' => 'Unpublish',
-                'drafted'     => 'Draft',
-                'archived'    => 'Archive'
-            );
+            'published' => 'Publish',
+            'unpublished' => 'Unpublish',
+            'drafted' => 'Draft',
+            'archived' => 'Archive'
+        );
     }
+
     /**
      * Get thumbnail image
      * @return string
      */
-    
+
     /**
-    * Implement presenter
-    */
+     * Implement presenter
+     */
     public function getPresenter() {
         return new ProductPresenter($this);
     }
-    
+
 }

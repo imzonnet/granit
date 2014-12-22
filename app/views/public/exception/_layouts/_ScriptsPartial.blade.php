@@ -29,6 +29,9 @@
 <!-- Input placeholder plugin -->
 <script type="text/javascript" src="{{URL::to('assets/public/exception/js/jquery.placeholder.js')}}"></script>
 
+<!-- Istope plugin -->
+<script type="text/javascript" src="{{URL::to('assets/public/exception/js/isotope.pkgd.min.js')}}"></script>
+
 <!-- general script file -->
 <script type="text/javascript" src="{{URL::to('assets/public/exception/js/script.js')}}"></script>
 

@@ -14,6 +14,7 @@ class GranitIconCategories extends Migration {
         Schema::create('granit_icon_categories', function(Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('alias')->unique();
             $table->string('image');
             $table->text('description');
             $table->string('status');

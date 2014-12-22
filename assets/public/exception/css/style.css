@@ -4439,7 +4439,6 @@ img.loader{
     position: relative;
     margin-bottom: 30px;
     background-color: #f4f4f4;
-    cursor: pointer;
     -moz-transition: all 0.4s ease-in-out;
     -o-transition: all 0.4s ease-in-out;
     -webkit-transition: all 0.4s ease-in-out;
@@ -4548,12 +4547,7 @@ img.loader{
     -webkit-transition: all 0.4s ease-in-out;
     transition: all 0.4s ease-in-out;
 }
-.item-box:hover {
-    background: #F0F0F0;
-}
-.item-box:hover .item-img {
-    opacity: 0.5;
-}
+
 .sale{
     position: absolute;
     right: 5px;

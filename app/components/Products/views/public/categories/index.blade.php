@@ -74,24 +74,24 @@
                     </div>
                     <div class="clearfix"></div>
                 </div>
-                <div class="products-wrap">
+                <div class="block-wrap">
                     <h2 class="block-head">Gravestones</h2>
-                    <div class="product-items">
-                        @foreach( $products as $product )
-                        <div class="cell-4 fx product-item shop-item" data-animate="fadeInUp">
+                    <div class="categories-items">
+                        <div class="category-item">
                             <div class="item-box">
-                                <h3 class="item-title"><a href="{{url('products/'.$product->alias)}}">{{$product->name}}</a></h3>
+                                <h3 class="item-title"><a href="{{url('category/all')}}">All Gravestones</a></h3>
                                 <div class="item-img">
-                                    <a href="{{url('products/'.$product->alias)}}"><img alt="" src="{{url($product->thumbnail)}}"></a>
+                                    <a href="{{url('category/all')}}"><img src="{{url('assets/granit/cat.png')}}" alt="" /></a>
                                 </div>
-                                <div class="item-details">
-                                    <p> {{$product->description}} </p>
-                                    <div class="left">
-                                        <div class="item-price">${{$product->price}}</div>
-                                    </div>
-                                    <div class="right">
-                                        <a href="{{url('/design')}}"><div class="item-price"><i class="fa fa-shopping-cart"></i> Design</div></a>
-                                    </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        @foreach( $categories as $category)
+                        <div class="cell-4 fx category-item shop-item" data-animate="fadeInUp">
+                            <div class="item-box">
+                                <h3 class="item-title"><a href="{{url('category/'.$category->alias)}}">{{$category->name}}</a></h3>
+                                <div class="item-img">
+                                    <a href="{{url('category/'.$category->alias)}}"><img alt="" src="{{url($category->image)}}"></a>
                                 </div>
                             </div>
                         </div>
@@ -99,9 +99,24 @@
                     </div>
                 </div>
                 <div class="clearfix"></div>
-                <div class="pager skew-25">
-                    {{$products->links()}}
+                
+                <div class="block-wrap">
+                    <h2 class="block-head">Accessories</h2>
+                    <div class="categories-items">
+                        @foreach( $icon_categories as $category)
+                        <div class="cell-3 fx category-item shop-item" data-animate="fadeInUp">
+                            <div class="item-box">
+                                <h3 class="item-title"><a href="{{url('categories/'.$category->alias)}}">{{$category->name}}</a></h3>
+                                <div class="item-img">
+                                    <a href="{{url('categories/'.$category->alias)}}"><img alt="" src="{{url($category->image)}}"></a>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
                 </div>
+                <div class="clearfix"></div>
+                
             </div>
         </div>
     </div>

@@ -20,7 +20,8 @@ class GranitProducts extends Migration {
 			$table->text('description');
 			$table->integer('cat_id')->unsigned();
 			$table->foreign('cat_id')->references('id')->on('granit_product_categories')->onDelete('cascade')->onUpdate('cascade');
-			$table->string('thumbnail');
+                        $table->string('width');
+                        $table->string('height');
 			$table->string('status')->default('published');
 			$table->integer('ordering');
 			$table->integer('created_by')->unsigned();

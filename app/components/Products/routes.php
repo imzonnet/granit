@@ -7,3 +7,7 @@ Route::resource('/backend/product-categories', 'Components\Products\Controllers\
 
 //Route For Front-end
 Route::resource('/products', 'Components\Products\Controllers\ProductsController', array('only' => ['index', 'show']));
+Route::get('/categories', 'Components\Products\Controllers\CategoriesController@index');
+Route::get('/category', 'Components\Products\Controllers\CategoriesController@index');
+Route::get('/category/{id}', 'Components\Products\Controllers\CategoriesController@show');
+Route::resource('/icon-category', 'Components\Products\Controllers\IconCategoriesController', array('only' => ['index', 'show']));

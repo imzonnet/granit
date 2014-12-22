@@ -52,7 +52,8 @@ class ProductColorsController extends \BaseController {
             App::abort('401');
 
         $this->layout->title = 'New Color of ' . $product->name;
-        $this->layout->content = View::make('Products::backend.colors.create')->with('product', $product);
+        $this->layout->content = View::make('Products::backend.colors.create')->with('product', $product)
+            ->with('status', ProductColor::all_status());
     }
 
     /**
