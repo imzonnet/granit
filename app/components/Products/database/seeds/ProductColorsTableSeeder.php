@@ -31,16 +31,16 @@ class ProductColorsTableSeeder extends \Seeder {
         foreach (Product::all() as $product) {
             $products[] = $product->id;
         }
+        $sale = [0,10,0,15,0,20,10,0,0,0,0];
         foreach ($products as $product_id) {
             foreach (range(1, rand(2, 4)) as $number) {
                 DB::table('granit_product_color_map')->insert([
                     'name' => $faker->colorName,
                     'product_id' => $product_id,
                     'color_id' => $colors[array_rand($colors)],
-                    'thumbnail' => "assets/granit/color-{$number}.jpg",
-                    'image' => "assets/granit/{$number}-SB.jpg",
+                    'image' => "assets/granit/{$number}-SB.png",
                     'price' => $faker->randomNumber(2),
-                    'sale' => 0,
+                    'sale' => $sale[array_rand($sale)],
                     'characteristic_price' => $faker->randomNumber(2),
                     'status' => 'published',
                     'ordering' => 0,

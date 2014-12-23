@@ -19,7 +19,6 @@ class GranitProductColorMap extends Migration {
 			$table->foreign('product_id')->references('id')->on('granit_products')->onDelete('cascade')->onUpdate('cascade');
 			$table->integer('color_id')->unsigned();
 			$table->foreign('color_id')->references('id')->on('granit_product_colors')->onDelete('cascade')->onUpdate('cascade');
-                        $table->string('thumbnail');
 			$table->string('image');
 			$table->decimal('price',10,2);
 			$table->integer('sale')->unsigned()->default(0);
@@ -39,7 +38,7 @@ class GranitProductColorMap extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('granit_product_colors');
+		Schema::drop('granit_product_color_map');
 	}
 
 }

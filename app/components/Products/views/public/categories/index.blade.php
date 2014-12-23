@@ -24,7 +24,7 @@
                 if ($menu) {
                     $type = $menu->title;
                 } else {
-                    $type = 'Products';
+                    $type = 'Categories';
                 }
                 ?>
                 <h1 class="fx" style="">{{ $type }}</h1>

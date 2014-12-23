@@ -8,6 +8,7 @@ use View,
 use Components\Products\Models\Product;
 use Components\Products\Models\Category;
 use Components\Stones\Models\IconCategory;
+use Components\Stones\Models\Icon;
 
 class CategoriesController extends \BaseController {
 
@@ -32,14 +33,31 @@ class CategoriesController extends \BaseController {
     public function show($alias) {
         if ($alias == 'all') {
             $products = Product::paginate(9);
+            $title = "Gravestones";
         } else {
             $category = Category::whereAlias($alias)->first();
-            $products = Product::where('cat_id','=',$category->id)->paginate(9);
+            $title = $category->name;
+            $products = Product::where('cat_id', '=', $category->id)->paginate(9);
         }
         if (!$products)
             App::abort('404');
-        $this->layout->title = 'Gravestones';
+        $this->layout->title = $title;
         $this->layout->content = View::make('Products::public.categories.show')->with('products', $products);
+    }
+
+    public function showIcon($alias) {
+        if ($alias == 'all') {
+            $icons = IconCategory::paginate(9);
+            $title = "Accessories";
+        } else {
+            $category = IconCategory::whereAlias($alias)->first();
+            $title = $category->name;
+            $icons = Icon::where('cat_id', '=', $category->id)->paginate(9);
+        }
+        if (!$icons)
+            App::abort('404');
+        $this->layout->title = $title;
+        $this->layout->content = View::make('Products::public.categories.icon')->with('icons', $icons);
     }
 
 }

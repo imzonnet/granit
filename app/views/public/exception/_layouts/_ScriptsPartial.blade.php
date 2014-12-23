@@ -34,6 +34,7 @@
 
 <!-- general script file -->
 <script type="text/javascript" src="{{URL::to('assets/public/exception/js/script.js')}}"></script>
+<script type="text/javascript" src="{{URL::to('assets/public/exception/js/main.js')}}"></script>
 
 @section('scripts')
     {{-- Here goes the page level scripts and plugins --}}

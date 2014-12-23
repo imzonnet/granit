@@ -31,7 +31,7 @@
                 <div data-animate="fadeInUp" class="breadcrumbs main-bg fx animated fadeInUp" style="">
                     <span class="bold">You Are In:</span>
                     <a href="{{ url('/') }}">Home</a><span class="line-separate">/</span>
-                    <a href="{{ url('category') }}">Category</a><span class="line-separate"></span>
+                    <a href="{{ url('categories') }}">Categories</a><span class="line-separate"></span>
                 </div>
             </div>
         </div>
@@ -88,22 +88,29 @@
                 <div class="clearfix"></div>
                 <div class="products-wrap">
                     <h2 class="block-head">Gravestones</h2>
-                    <div class="product-items">
+                    <div class="product-items grid-list">
                         @foreach( $products as $product )
                         <div class="product-item cell-4 fx"  data-animate="fadeInUp">
-                            <h3 class="product-title"><a href="{{url('product/'.$product->alias)}}">{{$product->product_code}} {{$product->name}}</a></h3>
-                            <div class="product-image">
-                                <a href="{{url('product/'.$product->alias)}}"><img alt="" src="{{url($product->productColor->first()->image)}}"></a>
-                            </div>
-                            <ul class="product-colors">
-                                @foreach($product->productColor as $index => $product_color)
-                                <li class="change-color {{$index == 0 ? 'active' : ''}}" data-image="{{url($product_color->image)}}" data-price="$ {{$product_color->price}}" data-url="{{url('/design/'.$product->id.'/'.$product_color->color_id)}}"><img src="{{url($product_color->color->icon)}}" alt="" /></li>
-                                @endforeach
-                            </ul>
-                            <h3 class="product-price">$ {{$product->productColor->first()->price}}</h3>
-                            <div class="product-details">
-                                <h3><a href="{{url('product/'.$product->alias)}}">{{$product->proce}}</a></h3>
-                                <div class="text-center">
+                            <div class="product-box">
+                                <h3 class="product-title"><a href="{{url('product/'.$product->alias)}}">{{$product->product_code}} {{$product->name}}</a></h3>
+                                <div class="product-sale">
+                                    @if($product->productColor->first()->sale > 0)
+                                    <span class="discount">{{$product->productColor->first()->sale}}% </span>
+                                    @endif
+                                </div>
+                                <div class="product-image">
+                                    <a href="{{url('product/'.$product->alias)}}"><img alt="" src="{{url($product->productColor->first()->image)}}"></a>
+                                </div>
+                                <ul class="product-colors">
+                                    @foreach($product->productColor as $index => $product_color)
+                                    <li class="{{$index == 0 ? 'active' : ''}}"><a class="change-color" data-image="{{url($product_color->image)}}" data-price='{{$product_color->getPrice()}}' data-url="{{url('/design/'.$product->id.'/'.$product_color->color_id)}}" data-sale="{{$product_color->sale}}"><img src="{{url($product_color->color->icon)}}" alt="" /></a></li>
+                                    @endforeach
+                                </ul>
+                                <div class="price-box">
+                                    {{$product->productColor->first()->getPrice()}}
+                                </div>
+                                <div class="btn-design">
+                                    <h3 class="btn btn-lg"><a href="{{url('design/'.$product->id .'/'.$product->productColor->first()->color_id)}}">Design & Order</a></h3>
                                 </div>
                             </div>
                         </div>
@@ -118,23 +125,4 @@
         </div>
     </div>
 </section>
-@stop
-
-@section('scripts')
-<script>
-    jQuery(document).ready(function ($) {
-        $('.change-color').click(function (e) {
-            var $this = $(this),
-                    $parent = $this.parents('.product-item'),
-                    price = $this.data('price'),
-                    image = $this.data('image'),
-                    url = $this.data('url');
-            $('.product-image img', $parent).attr('src', image);
-            $('.product-price', $parent).text(price);
-            $('.product-colors li', $parent).removeClass('active');
-            $('.btn-design a', $parent).attr('href', url);
-            $this.addClass('active');
-        });
-    });
-</script>
 @stop

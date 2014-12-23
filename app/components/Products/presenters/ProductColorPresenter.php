@@ -1,15 +1,17 @@
-<?php namespace Components\Products\Presenters;
+<?php
+
+namespace Components\Products\Presenters;
 
 use Robbo\Presenter\Presenter;
 use Components\Products\Models\Product;
+
 class ProductColorPresenter extends Presenter {
 
-	/**
+    /**
      * Get the creation date of the page
      * @return string
      */
-    public function date()
-    {
+    public function date() {
         return $this->created_at->format('d') . '<br>' . $this->created_at->format('M') . '<br>' . $this->created_at->format('Y');
     }
 
@@ -17,27 +19,37 @@ class ProductColorPresenter extends Presenter {
      * Get the page's status
      * @return string
      */
-    public function status()
-    {
+    public function status() {
         return \Str::title($this->status);
     }
-    
+
     /**
      * Get the page's status
      * @return string
      */
-    public function product()
-    {
+    public function product() {
         return Product::findOrFail($this->product_id)->name;
     }
-    
+
+    /**
+     * Get The price
+     */
+    public function getPrice() {
+        $html = '';
+        if( $this->sale > 0 ) {
+            $new = $this->price - $this->price*$this->sale/100;
+            $html .= '<span class="product-price">$'.$new.'</span><span class="old-price">$'.$this->price.'</span>';
+        } else {
+            $html .= '<span class="product-price">$'.$this->price.'</span>';
+        }
+        return $html;
+    }
 
     /**
      * Get the product's author
      * @return string
      */
-    public function author()
-    {
+    public function author() {
         try {
             $user = \Sentry::findUserById($this->created_by);
             return $user->username;

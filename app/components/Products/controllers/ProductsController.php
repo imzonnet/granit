@@ -1,12 +1,16 @@
-<?php namespace Components\Products\Controllers;
+<?php
 
-use View, App, Str;
+namespace Components\Products\Controllers;
+
+use View,
+    App,
+    Str;
 use Components\Products\Models\Product;
 use Components\Products\Models\Category;
 use Components\Stones\Models\IconCategory;
 
 class ProductsController extends \BaseController {
-    
+
     public function __construct() {
         //add hint for views
         View::addLocation(app_path() . '/components/Products/views');
@@ -15,21 +19,23 @@ class ProductsController extends \BaseController {
         View::share('menu_icon_categories', IconCategory::menu());
         parent::__construct();
     }
-    
+
     public function index() {
         $products = Product::published()->recent()->paginate(9);
 
         $this->layout->title = 'All products';
         $this->layout->content = View::make('Products::public.products.index')->with('products', $products);
-        
     }
+
     public function show($alias) {
         $product = Product::whereAlias($alias)->first();
-        if (!$product) App::abort('404');
-        
+        if (!$product)
+            App::abort('404');
+        $product_relateds = Product::where('cat_id', '=', $product->cat_id)->whereNotIn('id', [$product->id])->take(4)->get();
         $this->layout->title = $product->name;
-        $this->layout->content = View::make('Products::public.products.show')->with('product', $product);
+        $this->layout->content = View::make('Products::public.products.show')
+                ->with('product', $product)
+                ->with('product_relateds', $product_relateds);
     }
+
 }
-
-

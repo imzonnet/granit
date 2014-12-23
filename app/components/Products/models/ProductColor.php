@@ -10,7 +10,7 @@ use Components\Products\Presenters\ProductColorPresenter;
 class ProductColor extends \Eloquent implements PresentableInterface {
 
     protected $table = 'granit_product_color_map';
-    protected $fillable = array('product_id', 'name', 'color_id', 'image', 'price', 'characteristic_price', 'status', 'ordering', 'created_by');
+    protected $fillable = array('product_id', 'name', 'color_id', 'image', 'price', 'sale', 'characteristic_price', 'status', 'ordering', 'created_by');
     protected $guarded = array('id');
 
     /**

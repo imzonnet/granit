@@ -63,7 +63,7 @@
                                     {{ $errors->first('thumbnail', '<span class="help-inline">:message</span>') }}
                                 </div>
                             </div>
-                            
+
                             <div class="control-group {{{ $errors->has('image') ? 'error' : '' }}}">
                                 <label class="control-label">Image <span class="red">*</span></label>
                                 <div class="controls">
@@ -86,7 +86,15 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="control-group {{{ $errors->has('sale') ? 'error' : '' }}}">
+                                <label class="control-label">Sale <span class="red">*</span></label>            
+                                <div class="controls line">
+                                    <div class="input-append">
+                                        {{Form::text('sale', (!isset($color)) ? Input::old('sale') : $color->sale, array('class' => 'input-xlarge', 'placeholder' => '0'))}}
+                                        <span class="add-on">%</span>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="control-group {{{ $errors->has('characteristic_price') ? 'error' : '' }}}">
                                 <label class="control-label">Characteristic Price <span class="red">*</span></label>            
                                 <div class="controls line">
