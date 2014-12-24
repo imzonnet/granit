@@ -47,7 +47,7 @@
             <div class="cell-3">
                 @include('Products::public._layouts.sidebar')
             </div>
-            <div class="cell-9 product-item">
+            <div class="cell-9 pdocut-detail product-item">
                 <div class="cell-4">
                     <div class="product-image">
                         <img alt="" id="img_01" src="{{url($product->productColor->first()->image)}}" />
@@ -68,7 +68,8 @@
                                 <li class="{{$index == 0 ? 'active' : ''}}">
                                     <a href="#" data-url="{{url('/design/'.$product->id.'/'.$color->color_id)}}" data-price='{{$color->getPrice()}}' data-image="{{url($color->image)}}" class="change-color">
                                         <img alt="" src="{{url($color->color->icon)}}">
-                                    </a>
+                                    </a><br /> 
+                                    <span>{{$color->color->name}}</span>
                                 </li>
                                 @endforeach
                             </ul>
@@ -142,6 +143,7 @@
                         </div>
                         @endforeach
                     </div>
+                    <div class="clearfix"></div>
                 </div>
             </div>
         </div>

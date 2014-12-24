@@ -46,33 +46,28 @@
         <div class="row">
             <div class="cell-3">
                 @include('Products::public._layouts.sidebar')
-                <div class="widget menu-categories fx animated fadeInLeft undefined" style="">
-                    <div class="catalogue gry-bg padd-horizontal-10 center">
-                        <h1 class="main-color">SPECIAL <br />OFFER</h1>
-                        <img src="{{url('assets/granit/product.png')}}" alt="" />                      
-                        <p><a class="btn more-btn" href="#">Read</a></p>
-                    </div>
+                <!-- filter -->
+                <div class="widget menu-categories fx animated fadeInLeft">
+                    <h3 class="widget-head">Search Filters</h3> 
+                    <div class="widget-content">
+                        <h4>Colors</h4>
+                        <ul id="filter-colors">
+                            @foreach($colors as $color)
+                            <li><a class="button" href="#" data-filter=".{{$color->id}}-{{\Str::slug($color->name)}}"><img src="{{url($color->icon)}}" alt="" />{{$color->name}}</a></li>
+                            @endforeach
+                        </ul>
+                    </div> 
                 </div>
-
             </div>
             <div class="cell-9">
                 <div class="toolsBar">
                     <div class="cell-10 left products-filter-top">
                         <div class="left">
                             <span>Sort by: </span>
-                            <select name="is-sort" id="is-sort">
-                                <option value="data" selected="selected">Date</option>
-                                <option value="price">Price</option>
-                                <option>All</option>
-                            </select>
-                        </div>
-                        <div class="left">
-                            <span>Pages: </span>
-                            <select>
-                                <option selected="selected">20</option>
-                                <option>30</option>
-                                <option>50</option>
-                                <option>All</option>
+                            <select name="is-sort" id="sorts">
+                                <option value="original-order" data-sort-by="original-order" selected="selected">Date</option>
+                                <option value="name" data-sort-by="name">Name</option>
+                                <option value="price" data-sort-by="price">Price</option>
                             </select>
                         </div>
                         <div class="left order-asc">
@@ -92,7 +87,7 @@
                         @foreach( $products as $product )
                         <div class="product-item cell-4 fx"  data-animate="fadeInUp">
                             <div class="product-box">
-                                <h3 class="product-title"><a href="{{url('product/'.$product->alias)}}">{{$product->product_code}} {{$product->name}}</a></h3>
+                                <h3 class="product-title"><a class="name" href="{{url('product/'.$product->alias)}}">{{$product->product_code}} {{$product->name}}</a></h3>
                                 <div class="product-sale">
                                     @if($product->productColor->first()->sale > 0)
                                     <span class="discount">{{$product->productColor->first()->sale}}% </span>
@@ -125,4 +120,31 @@
         </div>
     </div>
 </section>
+@stop
+
+@section('scripts')
+<script>
+    jQuery(document).ready(function ($) {
+        var $container = $('.product-items').isotope({
+            itemSelector: '.product-item',
+            layoutMode: 'fitRows',
+            getSortData: {
+                name: '.name',
+                price: '.product-price',
+                number: '.number'
+            }
+        });
+        // bind sort button click
+        $('#sorts').on('change', function () {
+            var sortByValue = $(this).val();
+            $container.isotope({sortBy: sortByValue});
+        });
+        $('#filter-colors').on( 'click', function() {
+        var filterValue = $( this ).attr('data-filter');
+        // use filterFn if matches value
+        filterValue = filterFns[ filterValue ] || filterValue;
+        $container.isotope({ filter: filterValue });
+      });
+    });
+</script>
 @stop

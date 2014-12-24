@@ -22,55 +22,45 @@
 }
 .product-colors li {
     display: inline-block;
-    position: relative;
+    text-align: center;
+}
+.product-colors li a{
+    display: inline-block;
     border-radius: 100%;
     border: 3px solid transparent;
+    position: relative;
+    width: 25px;
+    height: 25px;
 }
 .product-colors li img{
     display: block;
     border-radius: 100%;
+    width: 100%;
+    height: 100%;
 }
-.product-colors li.active,
-.product-colors li:hover {
+.product-colors li.active a,
+.product-colors li:hover a{
     border: 3px solid green;
     cursor: pointer;
 }
-.product-colors li.active:before,
-.product-colors li:hover:before {
-    border-bottom: 16px solid green;
+.product-colors li.active a:before,
+.product-colors li:hover a:before {
+    border-bottom: 17px solid green;
     border-left: 9px solid transparent;
     border-right: 10px solid transparent;
     content: "";
+    display: block;
     height: 0;
-    left: 3px;
+    left: 0;
     position: absolute;
     top: -16px;
     width: 0;
 }
-#gal1 li:before {
+
+#gal1 li a:before {
     content: none;
 }
-.product-box {
-    position: relative;
-    margin-bottom: 30px;
-    background-color: #f4f4f4;
-    -moz-transition: all 0.4s ease-in-out;
-    -o-transition: all 0.4s ease-in-out;
-    -webkit-transition: all 0.4s ease-in-out;
-    transition: all 0.4s ease-in-out;
-}
-.product-box:after {
-    position: absolute;
-    bottom: -3px;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    content: "";
-}
-.product-box:hover:after {
-    bottom: -1px;
-    height: 1px;
-}
+
 .product-title {
     margin: 0;
     padding: 10px 0;
@@ -267,4 +257,33 @@
     color: #fff;
     font-size: 20px;
     font-weight: bold;
+}
+
+.product-relateds .product-items{ background-color: #EEE; }
+.product-relateds .product-items .product-box {
+    margin: 20px 0px;
+    border: 1px solid #ddd;
+    background-color: #EEE;
+}
+.product-items .product-box {
+    margin-bottom: 30px;
+}
+
+.pdocut-detail .product-image {
+    border: 1px solid #eee;
+    position: relative;
+}
+.pdocut-detail .product-image h3 {
+    font-size: 22px;
+    background: #E7512F;
+    color: #FFF;
+    width: 50%;
+    padding: 5px;
+    position: absolute;
+    top: 10px;
+    left: -5px;
+}
+
+.pdocut-detail .product-image {
+    padding-top: 50px;
 }
