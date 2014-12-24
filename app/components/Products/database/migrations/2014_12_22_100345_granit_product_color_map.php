@@ -24,7 +24,7 @@ class GranitProductColorMap extends Migration {
 			$table->integer('sale')->unsigned()->default(0);
 			$table->decimal('characteristic_price',10,2);
 			$table->string('status')->default('published');
-			$table->integer('ordering');
+			$table->integer('ordering')->default(0);
 			$table->integer('created_by')->unsigned();
 			$table->foreign('created_by')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
 			$table->timestamps();

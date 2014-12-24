@@ -50,7 +50,7 @@ class MenuEntriesTableSeeder extends Seeder {
             array(
                 'title' => 'Products',
                 'alias' => 'product',
-                'link' => 'products',
+                'link' => 'categories',
                 'category' => $menu_cat,
                 'position' => $menu_pos1,
                 'icon' => 'uploads/images/icons/product.png',

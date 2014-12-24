@@ -31,6 +31,7 @@
     position: relative;
     width: 25px;
     height: 25px;
+    transition: none;
 }
 .product-colors li img{
     display: block;
@@ -286,4 +287,49 @@
 
 .pdocut-detail .product-image {
     padding-top: 50px;
+}
+
+#prodduct-filter {
+    
+}
+#prodduct-filter .filter-item {
+    margin-bottom: 30px;
+}
+    
+#prodduct-filter .filter-item h3 {
+    color: #000;
+    text-transform: none;
+    font-weight: bold;
+}
+#prodduct-filter .filter-item label{
+    text-align: center;
+    display: block;
+    width: 100%;
+    color: #000;
+}
+#prodduct-filter .filter-item .ui-slider-range {
+    background: #666;
+}
+#prodduct-filter .filter-item .ui-state-default {
+    background: #E7512F;
+    border-color: #E7512F;
+}
+
+#filter-colors li {
+}
+#filter-colors li a {
+    display: block;
+    height: 35px;
+    line-height: 30px;
+    margin: 5px 0px;
+}
+#filter-colors li a img,
+#filter-colors li a span{
+    display: block;
+    border: 2px solid green;
+    border-radius: 100%;
+    float: left;
+    margin-right: 10px;
+    width: 25px;
+    height: 25px;
 }

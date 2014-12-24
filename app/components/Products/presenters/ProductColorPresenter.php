@@ -44,7 +44,7 @@ class ProductColorPresenter extends Presenter {
         }
         return $html;
     }
-
+    
     /**
      * Get the product's author
      * @return string

@@ -12,7 +12,7 @@ use Components\Products\Models\Category;
 class Product extends \Eloquent implements PresentableInterface {
 
     protected $table = 'granit_products';
-    protected $fillable = array('product_code', 'name', 'alias', 'cat_id', 'status', 'ordering', 'created_by');
+    protected $fillable = array('product_code', 'name', 'alias', 'width', 'height', 'cat_id', 'status', 'ordering', 'created_by');
     protected $guarded = array('id');
 
     /**

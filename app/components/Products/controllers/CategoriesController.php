@@ -6,6 +6,7 @@ use View,
     App,
     Str;
 use Components\Products\Models\Product;
+use Components\Products\Models\ProductColor;
 use Components\Products\Models\Category;
 use Components\Products\Models\Color;
 use Components\Stones\Models\IconCategory;
@@ -42,10 +43,17 @@ class CategoriesController extends \BaseController {
         }
         if (!$products)
             App::abort('404');
+        $price['max'] = ProductColor::max('price');
+        $price['min'] = ProductColor::min('price');
+        $width['min'] = Product::min('width');;
+        $width['max'] = Product::max('width');
+        $height['max'] = Product::max('height');
+        $height['min'] = Product::min('height');
         $this->layout->title = $title;
         $this->layout->content = View::make('Products::public.categories.show')
                 ->with('products', $products)
-            ->with('colors', Color::all());
+                ->with('colors', Color::all())
+                ->with('price', $price)->with('width', $width)->with('height', $height);
     }
 
     public function showIcon($alias) {

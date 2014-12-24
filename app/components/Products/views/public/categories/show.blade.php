@@ -47,15 +47,40 @@
             <div class="cell-3">
                 @include('Products::public._layouts.sidebar')
                 <!-- filter -->
-                <div class="widget menu-categories fx animated fadeInLeft">
+                <div id="prodduct-filter" class="widget menu-categories fx animated fadeInLeft">
                     <h3 class="widget-head">Search Filters</h3> 
                     <div class="widget-content">
-                        <h4>Colors</h4>
-                        <ul id="filter-colors">
-                            @foreach($colors as $color)
-                            <li><a class="button" href="#" data-filter=".{{$color->id}}-{{\Str::slug($color->name)}}"><img src="{{url($color->icon)}}" alt="" />{{$color->name}}</a></li>
-                            @endforeach
-                        </ul>
+                        <div class="clearfix filter-item">
+                            <h3>Price</h3>
+                            <p>
+                                <label for="amount">Range: <span id="amount"></span></label>
+                            </p>
+                            <div id="filter-price" data-value-max="{{$price['max']}}" data-value-min="{{$price['min']}}"></div>
+                        </div>
+                        <div class="clearfix filter-item">
+                            <h3>Measurements</h3>
+                            <div>
+                                <p>
+                                    <label for="width">Width: <span id="width"></span></label>
+                                </p>
+                                <div id="filter-width" data-value-max="{{$width['max']}}" data-value-min="{{$width['min']}}"></div>
+                            </div>
+                            <div>
+                                <p>
+                                    <label for="height">Height: <span id="height"></span></label>
+                                </p>
+                                <div id="filter-height" data-value-max="{{$height['max']}}" data-value-min="{{$height['min']}}"></div>
+                            </div>
+                        </div>
+                        <div class="clearfix filter-item">
+                            <h3>Colors</h3>
+                            <ul id="filter-colors">
+                                <li><a class="button" href="#" data-filter="*"><span>All</span></a></li>
+                                @foreach($colors as $color)
+                                <li><a class="button" href="#" data-filter=".{{\Str::slug($color->name)}}-{{$color->id}}"><img src="{{url($color->icon)}}" alt="" />{{$color->name}}</a></li>
+                                @endforeach
+                            </ul>
+                        </div>
                     </div> 
                 </div>
             </div>
@@ -85,7 +110,7 @@
                     <h2 class="block-head">Gravestones</h2>
                     <div class="product-items grid-list">
                         @foreach( $products as $product )
-                        <div class="product-item cell-4 fx"  data-animate="fadeInUp">
+                        <div class="product-item cell-4 {{$product->getClasses()}}" data-width="{{$product->width}}" data-height="{{$product->height}}">
                             <div class="product-box">
                                 <h3 class="product-title"><a class="name" href="{{url('product/'.$product->alias)}}">{{$product->product_code}} {{$product->name}}</a></h3>
                                 <div class="product-sale">
@@ -122,29 +147,93 @@
 </section>
 @stop
 
+@section('styles')
+<link rel="stylesheet" href="{{URL::to("assets/public/exception/css/jquery-ui.min.css")}}">
+@stop
+
 @section('scripts')
+<script type="text/javascript" src="{{URL::to('assets/public/exception/js/jquery-ui.min.js')}}"></script>
 <script>
-    jQuery(document).ready(function ($) {
-        var $container = $('.product-items').isotope({
-            itemSelector: '.product-item',
-            layoutMode: 'fitRows',
-            getSortData: {
-                name: '.name',
-                price: '.product-price',
-                number: '.number'
-            }
-        });
-        // bind sort button click
-        $('#sorts').on('change', function () {
-            var sortByValue = $(this).val();
-            $container.isotope({sortBy: sortByValue});
-        });
-        $('#filter-colors').on( 'click', function() {
-        var filterValue = $( this ).attr('data-filter');
-        // use filterFn if matches value
-        filterValue = filterFns[ filterValue ] || filterValue;
-        $container.isotope({ filter: filterValue });
-      });
+jQuery(document).ready(function ($) {
+    var $container = $('.product-items').isotope({
+        itemSelector: '.product-item',
+        layoutMode: 'fitRows',
+        getSortData: {
+            name: '.name',
+            price: '.product-price parseInt',
+        }
     });
+    // bind sort button click
+    $('#sorts').on('change', function () {
+        var sortByValue = $(this).val();
+        $container.isotope({sortBy: sortByValue});
+    });
+    $('#filter-colors').on('click', 'a', function (e) {
+        e.preventDefault();
+        var filterValue = $(this).attr('data-filter');
+        // use filterFn if matches value
+        console.log(filterValue);
+        $container.isotope({filter: filterValue});
+    });
+    var filterFns = {
+        // show if number is greater than 50
+        numberGreaterThan50: function () {
+            var number = $(this).find('.number').text();
+            return parseInt(number, 10) > 50;
+        },
+        // show if name ends with -ium
+        ium: function () {
+            var name = $(this).find('.name').text();
+            return name.match(/ium$/);
+        }
+    };
+    //price filter
+    var min = parseInt($("#filter-price").data('value-min'));
+    var max = parseInt($("#filter-price").data('value-max'));
+    $("#filter-price").slider({
+        range: true,
+        min: min,
+        max: max,
+        values: [min, max],
+        slide: function (event, ui) {
+            var min = ui.values[ 0 ],
+                    max = ui.values[ 1 ];
+            $container.isotope({filter: function () {
+                    var price = $(this).find('.product-price').text();
+                    price = parseInt(price.replace('$', ''));
+                    $("#amount").text("$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ]);
+                    return price >= min && price <= max ? true : false;
+                }})
+        }
+    });
+    $("#amount").text("$" + $("#filter-price").slider("values", 0) + " - $" + $("#filter-price").slider("values", 1));
+    //Width filter
+    filter_measult($container, "#filter-width", 'width', '#width');
+    filter_measult($container, "#filter-height", 'height', '#height');
+
+});
+
+function filter_measult($container, $e, $data, $rs) {
+    var min = parseInt($($e).data('value-min'));
+    var max = parseInt($($e).data('value-max'));
+    $($e).slider({
+        range: true,
+        min: min,
+        max: max,
+        values: [min, max],
+        slide: function (event, ui) {
+            var min = ui.values[ 0 ],
+                    max = ui.values[ 1 ];
+            $container.isotope({filter: function () {
+                    var width = $(this).data($data);
+                    width = parseInt(width);
+                    $($rs).text(ui.values[ 0 ] + " cm - " + ui.values[ 1 ] + " cm");
+                    return width >= min && width <= max ? true : false;
+                }})
+        }
+    });
+    $($rs).text($($e).slider("values", 0) + " cm - " + $($e).slider("values", 1) + 'cm');
+}
+
 </script>
 @stop

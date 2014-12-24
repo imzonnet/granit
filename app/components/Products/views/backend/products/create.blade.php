@@ -74,19 +74,6 @@
                                         </div>
                                     </div>
 
-                                    <div class="control-group {{{ $errors->has('image') ? 'error' : '' }}}">
-                                        <label class="control-label">Image <span class="red">*</span></label>
-                                        <div class="controls">
-                                            {{-- Form::file('image', array('class' => 'input-xlarge')) --}}
-                                            {{ Form::hidden('image',(!isset($product)) ? Input::old('image') : $product->image) }}
-                                            <a class="btn btn-primary insert-media" id="insert-main-image" href="#"> Select main image</a>
-                                            <span class="file-name">
-                                                {{ $product->image or '' }}
-                                            </span>
-                                            {{ $errors->first('image', '<span class="help-inline">:message</span>') }}
-                                        </div>
-                                    </div>
-
                                     <div class="control-group">
                                         <div class="controls line">
                                             <a class="btn btn-primary insert-media" id="insert-media" href="#"> Insert Media</a>
@@ -98,16 +85,6 @@
                                         <div class="controls line">
                                            <textarea class="span12 ckeditor m-wrap" id="content" name="description" rows="6">{{ (!isset($product)) ? Input::old('description') : $product->description }}</textarea>
                                            {{ $errors->first('description', '<span class="help-inline">:message</span>') }}
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="control-group {{{ $errors->has('price') ? 'error' : '' }}}">
-                                        <label class="control-label">Price <span class="red">*</span></label>            
-                                        <div class="controls line">
-                                            <div class="input-append">
-                                            {{Form::text('price', (!isset($product)) ? Input::old('price') : $product->price, array('class' => 'input-xlarge', 'placeholder' => '0.0'))}}
-                                            <span class="add-on">$</span>
-                                            </div>
                                         </div>
                                     </div>
 
