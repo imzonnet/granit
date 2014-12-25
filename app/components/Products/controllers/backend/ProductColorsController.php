@@ -14,6 +14,7 @@ use Services\Validation\ValidationException as ValidationException;
 use Components\Products\Models\Product;
 use Components\Products\Models\ProductColor;
 use Components\Products\Models\Category;
+use Components\Products\Models\Color;
 
 class ProductColorsController extends \BaseController {
 
@@ -36,7 +37,7 @@ class ProductColorsController extends \BaseController {
         $colors = ProductColor::where('product_id', '=', $pid)->get();
 
         $this->layout->title = 'All Color of ' . $product->name;
-        $this->layout->content = View::make('Products::backend.colors.index')
+        $this->layout->content = View::make('Products::backend.product_colors.index')
                 ->with('colors', $colors)
                 ->with('product', $product);
     }
@@ -52,8 +53,9 @@ class ProductColorsController extends \BaseController {
             App::abort('401');
 
         $this->layout->title = 'New Color of ' . $product->name;
-        $this->layout->content = View::make('Products::backend.colors.create')->with('product', $product)
-            ->with('status', ProductColor::all_status());
+        $this->layout->content = View::make('Products::backend.product_colors.create')->with('product', $product)
+            ->with('status', ProductColor::all_status())
+            ->with('color_list', Color::all_colors());
     }
 
     /**
@@ -92,7 +94,7 @@ class ProductColorsController extends \BaseController {
             App::abort('401');
 
         $this->layout->title = $color->title;
-        $this->layout->content = View::make('Products::backend.colors.show')
+        $this->layout->content = View::make('Products::backend.product_colors.show')
                 ->with('product', $product)
                 ->with('color', $color);
     }
@@ -112,10 +114,11 @@ class ProductColorsController extends \BaseController {
             App::abort('401');
 
         $this->layout->title = 'Edit ' . $color->name;
-        $this->layout->content = View::make('Products::backend.colors.create')
+        $this->layout->content = View::make('Products::backend.product_colors.create')
                 ->with('product', $product)
                 ->with('color', $color)
-                ->with('status', ProductColor::all_status());
+                ->with('status', ProductColor::all_status())
+            ->with('color_list', Color::all_colors());
     }
 
     /**

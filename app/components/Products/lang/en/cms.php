@@ -2,6 +2,6 @@
 
 return array(
     'products'               => 'Products',
-    'product_categories'     => 'Product Categories',
-    'product_colors'         => 'Product Colors',
+    'categories'     => 'Product Categories',
+    'colors'         => 'Stone Colors',
 );

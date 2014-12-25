@@ -13,9 +13,9 @@
                 <h4>
                     <i class="icon-user"></i>
                     @if (!isset($color))
-                    <span class="hidden-480">Create New Color</span>
+                    <span class="hidden-480">Create New Category</span>
                     @else
-                    <span class="hidden-480">Edit Color</span>
+                    <span class="hidden-480">Edit Category</span>
                     @endif
                 </h4>
             </div>
@@ -25,9 +25,9 @@
                         <div class="tab-pane active" id="widget_tab1">
                             <!-- BEGIN FORM-->
                             @if (!isset($color))
-                            {{ Form::open(array('route'=> [$link_type . '.product.colors.store', $product->id], 'method'=>'post', 'class'=>'form-horizontal', 'files'=>true)) }}
+                            {{ Form::open(array('route'=>$link_type . '.product-colors.store', 'method'=>'post', 'class'=>'form-horizontal', 'files'=>true)) }}
                             @else
-                            {{ Form::open(array('route' => [$link_type . '.product.colors.update', $product->id, $color->id], 'method'=>'PUT', 'class'=>'form-horizontal', 'files'=>true)) }}
+                            {{ Form::open(array('route' => array($link_type . '.product-colors.update', $color->id), 'method'=>'PUT', 'class'=>'form-horizontal', 'files'=>true)) }}
                             @endif
 
                             @if ($errors->has())
@@ -35,9 +35,6 @@
                                 <button data-dismiss="alert" class="close">×</button>
                                 You have some form errors. Please check below.
                             </div>
-                            @endif
-                            @if (isset($product))
-                            {{ Form::hidden('product_id', $product->id) }}
                             @endif
                             @if (isset($color))
                             {{ Form::hidden('id', $color->id) }}
@@ -51,72 +48,18 @@
                                 </div>
                             </div>
 
-                            <div class="control-group {{{ $errors->has('thumbnail') ? 'error' : '' }}}">
+                            <div class="control-group {{{ $errors->has('icon') ? 'error' : '' }}}">
                                 <label class="control-label">Thumbnail <span class="red">*</span></label>
                                 <div class="controls">
-                                    {{-- Form::file('image', array('class' => 'input-xlarge')) --}}
-                                    {{ Form::hidden('thumbnail',(!isset($color)) ? Input::old('thumbnail') : $color->thumbnail) }}
-                                    <a class="btn btn-primary insert-media" data-field-name='thumbnail' id="insert-main-thumbnail" href="#"> Select main thumbnail</a>
+                                    {{ Form::hidden('icon', (!isset($color)) ? Input::old('icon') : $color->icon) }}
+                                    <a class="btn btn-primary insert-media" id="insert-main-image" href="#"> Select main image</a>
                                     <span class="file-name">
-                                        {{ $color->thumbnail or '' }}
+                                        {{ $color->icon or '' }}
+                                        @if(isset($color))
+                                        <img src="{{url($color->icon)}}" alt="" />
+                                        @endif
                                     </span>
-                                    {{ $errors->first('thumbnail', '<span class="help-inline">:message</span>') }}
-                                </div>
-                            </div>
-
-                            <div class="control-group {{{ $errors->has('image') ? 'error' : '' }}}">
-                                <label class="control-label">Image <span class="red">*</span></label>
-                                <div class="controls">
-                                    {{-- Form::file('image', array('class' => 'input-xlarge')) --}}
-                                    {{ Form::hidden('image',(!isset($color)) ? Input::old('image') : $color->image) }}
-                                    <a class="btn btn-primary insert-media" data-field-name='image' id="insert-main-image" href="#"> Select main image</a>
-                                    <span class="file-name">
-                                        {{ $color->image or '' }}
-                                    </span>
-                                    {{ $errors->first('image', '<span class="help-inline">:message</span>') }}
-                                </div>
-                            </div>
-
-                            <div class="control-group {{{ $errors->has('price') ? 'error' : '' }}}">
-                                <label class="control-label">Price <span class="red">*</span></label>            
-                                <div class="controls line">
-                                    <div class="input-prepend">
-                                        <span class="add-on">$</span>
-                                        {{Form::text('price', (!isset($color)) ? Input::old('price') : $color->price, array('class' => 'input-xlarge', 'placeholder' => '0.0'))}}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="control-group {{{ $errors->has('sale') ? 'error' : '' }}}">
-                                <label class="control-label">Sale <span class="red">*</span></label>            
-                                <div class="controls line">
-                                    <div class="input-append">
-                                        {{Form::text('sale', (!isset($color)) ? Input::old('sale') : $color->sale, array('class' => 'input-xlarge', 'placeholder' => '0'))}}
-                                        <span class="add-on">%</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="control-group {{{ $errors->has('characteristic_price') ? 'error' : '' }}}">
-                                <label class="control-label">Characteristic Price <span class="red">*</span></label>            
-                                <div class="controls line">
-                                    <div class="input-prepend">
-                                        <span class="add-on">$</span>
-                                        {{Form::text('characteristic_price', (!isset($color)) ? Input::old('characteristic_price') : $color->characteristic_price, array('class' => 'input-xlarge', 'placeholder' => '0.0'))}}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="control-group {{{ $errors->has('status') ? 'error' : '' }}}">
-                                <label class="control-label">Status <span class="red">*</span></label>
-                                <div class="controls line">
-                                    {{ Form::select('status', $status, (!isset($color)) ? Input::old('status') : $color->status, array('class'=>'chosen span6 m-wrap', 'style'=>'width:285px')) }}
-                                    {{ $errors->first('status', '<span class="help-inline">:message</span>') }}
-                                </div>
-                            </div>
-
-                            <div class="control-group">
-                                <label class="control-label">Order</label>            
-                                <div class="controls line">
-                                    {{Form::text('ordering', (!isset($color)) ? Input::old('alias') : $color->ordering, array('class' => 'input-xlarge', 'placeholder' => '0'))}}
+                                    {{ $errors->first('icon', '<span class="help-inline">:message</span>') }}
                                 </div>
                             </div>
 
@@ -157,6 +100,7 @@
             pick12HourFormat: false
         });
     });
+
     MediaExp.init();
 </script>
 @stop

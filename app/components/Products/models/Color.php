@@ -13,6 +13,7 @@ class Color extends \Eloquent implements PresentableInterface {
     protected $table = 'granit_product_colors';
     protected $fillable = array('name', 'icon');
     protected $guarded = array('id');
+    public $timestamps = false;
 
     /**
      * Relationship

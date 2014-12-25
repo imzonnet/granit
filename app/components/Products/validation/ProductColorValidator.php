@@ -11,7 +11,7 @@ class ProductColorValidator extends Validator {
     protected $rules = array(
         'name'     		=> 'required|regex:/^[a-zA-Z0-9\-\.\s\?\{\}\(\)ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$/',
         'product_id'		=> 'required|alpha_num',
-        'thumbnail'             => 'required',
+        'color_id'		=> 'required|alpha_num',
         'image'                 => 'required',
         'price'			=> 'required',
     );
@@ -23,7 +23,7 @@ class ProductColorValidator extends Validator {
     protected $updateRules = array(
         'name'     		=> 'required|regex:/^[a-zA-Z0-9\-\.\s\?\{\}\(\)ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$/',
         'product_id'		=> 'required|alpha_num',
-        'thumbnail'             => 'required',
+        'color_id'		=> 'required|alpha_num',
         'image'                 => 'required',
         'price'			=> 'required',
     );

@@ -1,10 +1,20 @@
-<?php namespace Components\Products\Controllers\Backend;
+<?php
 
-use App, Input, Redirect, Request, Sentry, Str, View, File;
+namespace Components\Products\Controllers\Backend;
+
+use App,
+    Input,
+    Redirect,
+    Request,
+    Sentry,
+    Str,
+    View,
+    File;
 use Services\Validation\ValidationException as ValidationException;
-
-use Components\Products\Models\Product; 
-use Components\Products\Models\Category; 
+use Components\Products\Models\Product;
+use Components\Products\Models\Category;
+use Components\Products\Models\Color;
+use Components\Products\Models\ProductColor;
 
 class ProductsController extends \BaseController {
 
@@ -24,7 +34,7 @@ class ProductsController extends \BaseController {
     public function index() {
         $this->layout->title = 'All products';
         $this->layout->content = View::make('Products::backend.products.index')
-                                ->with('products', Product::all());
+                ->with('products', Product::all());
     }
 
     /**
@@ -35,8 +45,9 @@ class ProductsController extends \BaseController {
     public function create() {
         $this->layout->title = 'New Product';
         $this->layout->content = View::make('Products::backend.products.create')
-                                ->with('status', Product::all_status())
-                                ->with('categories', Category::all_categories());
+                ->with('status', Product::all_status())
+                ->with('categories', Category::all_categories())
+                ->with('colors', Color::all());
     }
 
     /**
@@ -54,11 +65,10 @@ class ProductsController extends \BaseController {
             Product::create($input);
 
             return Redirect::to($redirect)
-                                ->with('success_message', 'The product was created.');
-        } catch(ValidationException $e) {
+                            ->with('success_message', 'The product was created.');
+        } catch (ValidationException $e) {
             return Redirect::back()->withInput()->withErrors($e->getErrors());
         }
-
     }
 
     /**
@@ -67,15 +77,15 @@ class ProductsController extends \BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function show($id)
-    {
+    public function show($id) {
         $product = Product::findOrFail($id);
 
-        if (!$product) App::abort('401');
+        if (!$product)
+            App::abort('401');
 
         $this->layout->title = $product->name;
         $this->layout->content = View::make('Products::backend.products.show')
-                                        ->with('product', $product);
+                ->with('product', $product);
     }
 
     /**
@@ -84,13 +94,13 @@ class ProductsController extends \BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         $this->layout->title = 'Edit Product Product';
         $this->layout->content = View::make('Products::backend.products.create')
-                                ->with('product', Product::findOrFail($id))
-                                ->with('status', Product::all_status())
-                                ->with('categories', Category::all_categories());
+                ->with('product', Product::findOrFail($id))
+                ->with('status', Product::all_status())
+                ->with('categories', Category::all_categories())
+                ->with('colors', Color::all());
     }
 
     /**
@@ -99,22 +109,17 @@ class ProductsController extends \BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function update($id)
-    {
+    public function update($id) {
         $input = Input::all();
         if (isset($input['form_close'])) {
             return Redirect::to("backend/products");
         }
-        try
-        {
+        try {
             Product::findOrFail($id)->update($input);
 
             return Redirect::to("backend/products")
-                                ->with('success_message', 'The product was updated.');
-        }
-
-        catch(ValidationException $e)
-        {
+                            ->with('success_message', 'The product was updated.');
+        } catch (ValidationException $e) {
             return Redirect::back()->withInput()->withErrors($e->getErrors());
         }
     }
@@ -125,8 +130,7 @@ class ProductsController extends \BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id=null)
-    {
+    public function destroy($id = null) {
 
 
         // If multiple ids are specified
@@ -151,7 +155,7 @@ class ProductsController extends \BaseController {
         $message = 'The product' . $wasOrWere . ' deleted.';
 
         return Redirect::to("backend/products")
-                            ->with('success_message', $message);
+                        ->with('success_message', $message);
     }
 
 }

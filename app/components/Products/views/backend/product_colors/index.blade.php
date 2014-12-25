@@ -28,7 +28,7 @@
                                 <ul class="btn">
                                     @if ($current_user->hasAccess("product-colors.destroy"))
                                     <li>
-                                        {{ Form::open(array('route' => array($link_type . '.product-colors.destroy', 'multiple'), 'method' => 'delete', 'class'=>'inline', 'onsubmit'=>"return deleteRecords($(this), 'product-colors');")) }}
+                                        {{ Form::open(array('route' => array($link_type . '.product.colors.destroy', 'multiple'), 'method' => 'delete', 'class'=>'inline', 'onsubmit'=>"return deleteRecords($(this), 'colors');")) }}
                                             {{ Form::hidden('selected_ids', '', array('id'=>'selected_ids')) }}
                                             <button type="submit" class="danger delete"><i class="icon-trash"></i> Delete</button>
                                         {{ Form::close() }}
@@ -37,9 +37,9 @@
                                 </ul>
                             </div>
                         </div>
-                            @if ($current_user->hasAccess("product-colors.create"))
+                        @if ($current_user->hasAccess("product-colors.create"))
                         <div class="btn-group pull-right">
-                            <button data-href="{{ URL::to($link_type . '/product-colors/create') }}" class="btn btn-success">
+                            <button data-href="{{ URL::to($link_type . '/product/'.$product->id.'/colors/create') }}" class="btn btn-success">
                                 Add New <i class="icon-plus"></i>
                             </button>
                         </div>
@@ -50,7 +50,8 @@
                             <tr>
                                 <th class="span1"><input type="checkbox" class="select_all" /></th>
                                 <th>Title</th>
-                                <th>Icon</th>
+                                <th>Status</th>
+                                <th>Created by</th>
                                 <th class="span2"></th>
                             </tr>
                         </thead>
@@ -58,10 +59,11 @@
                         @foreach( $colors as $color )
                             <tr>
                                     <td>{{ Form::checkbox($color->id, 'checked', false) }}</td>
-                                    <td>{{ HTML::link(url($link_type . '/product-colors/'.$color->id), $color->name) }}</td>
-                                    <td><img src="{{ url($color->icon) }}" alt=""/></td>
+                                    <td>{{ HTML::link(url($link_type . '/product/'.$product->id.'/colors/'.$color->id), $color->name) }}</td>
+                                    <td>{{ $color->status() }}</td>
+                                    <td>{{ $color->author() }}</td>
                                     <td>
-                                        <a href="{{ URL::to($link_type . '/product-colors/' . $color->id . '/edit') }}" class="btn btn-mini"><i class="icon-edit"></i></a>
+                                        <a href="{{ URL::to($link_type . '/product/'.$product->id.'/colors/' . $color->id . '/edit') }}" class="btn btn-mini"><i class="icon-edit"></i></a>
 
                                         <div class="actions inline">
                                             <div class="btn btn-mini">
@@ -70,7 +72,7 @@
                                             <ul class="btn btn-mini">
                                                 @if ($current_user->hasAccess("product-colors.destroy"))
                                                 <li>
-                                                    {{ Form::open(array('route' => array($link_type . '.product-colors.destroy', $color->id), 'method' => 'delete', 'class'=>'inline', 'onsubmit'=>"return deleteRecord($(this), 'product category');")) }}
+                                                    {{ Form::open(array('route' => array($link_type . '.product.colors.destroy', $product->id, $color->id), 'method' => 'delete', 'class'=>'inline', 'onsubmit'=>"return deleteRecord($(this), 'product color');")) }}
                                                         <button type="submit" class="danger delete"><i class="icon-trash"></i> Delete</button>
                                                     {{ Form::close() }}
                                                 </li>

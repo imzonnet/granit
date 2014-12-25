@@ -56,12 +56,13 @@ var MediaExp = function () {
             var insert_modal = $('#ajax-insert-modal');
             var calling_div;
             var field_name;
+            var parent;
             $('.insert-media').on('click', function(event) {
-                console.log('clicked');
-                calling_div = event.target.id;
+                calling_div = $(this);
                 field_name = $(this).data('field-name');
+                parent = $(this).parent();
                 $('body').modalmanager('loading');
-
+                console.log(calling_div);
                 setTimeout(function(){
                     var media_manager_link = window.base_url+'/'+window.link_type+'/media-manager';
                     insert_modal.load(media_manager_link, '', function(){
@@ -80,11 +81,12 @@ var MediaExp = function () {
 
                 var image_path = folder_name.trimLeft()+'/'+image;
 
-                if (calling_div == "insert-main-"+ field_name) {
+                if ($(parent).find('input[type="hidden"]').length) {
 
-                    $('input[name='+field_name+']').val(image_path);
+                    //$('input[name='+field_name+']').val(image_path);
+                    $(parent).find('input[type="hidden"]').val(image_path);
                     // Display the name of the current selected file
-                    $('#'+calling_div).parent().find('.file-name').text(image_path);
+                    $(calling_div).parent().find('.file-name').text(image_path);
 
                 } else {
                     var image_url = window.base_url+'/'+folder_name+'/'+image;

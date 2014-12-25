@@ -116,7 +116,7 @@
             @endif
             <!-- Exp Component: Products -->
             @if (can_access_menu($current_user, array('products')))
-            <li class="has-sub {{ Request::is('backend/products*') || Request::is('backend/product-colors*') || Request::is('backend/product-categories*') ? 'active' : null }} ">
+            <li class="has-sub {{ Request::is('backend/product*') || Request::is('backend/product-colors*') || Request::is('backend/product-categories*') ? 'active' : null }} ">
                 <a href="javascript:;">
                     <i class="icon-suitcase"></i>
                     <span class="title">{{ trans('Products::cms.products') }}</span>
@@ -124,7 +124,7 @@
                 </a>
                 <ul class="sub">
                     @if (can_access_menu($current_user, array('products')))
-                        <li class="{{ Request::is('backend/products*') || Request::is('backend/product-colors*') ? 'active' : null }}">
+                        <li class="{{ Request::is('backend/products*') ? 'active' : null }}">
                            <a href="{{ URL::to('backend/products') }}">
                                {{ trans('Products::cms.products') }}
                            </a>
@@ -133,7 +133,14 @@
                     @if (can_access_menu($current_user, array('product-categories')))
                         <li class="{{ Request::is('backend/product-categories*') ? 'active' : null }}">
                            <a href="{{ URL::to('backend/product-categories') }}">
-                               {{ trans('Products::cms.product_categories') }}
+                               {{ trans('Products::cms.categories') }}
+                           </a>
+                        </li>
+                    @endif
+                    @if (can_access_menu($current_user, array('products')))
+                        <li class="{{ Request::is('backend/product-colors*') ? 'active' : null }}">
+                           <a href="{{ URL::to('backend/product-colors') }}">
+                               {{ trans('Products::cms.colors') }}
                            </a>
                         </li>
                     @endif

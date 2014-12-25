@@ -4,6 +4,7 @@
 Route::resource('/backend/products', 'Components\Products\Controllers\Backend\ProductsController');
 Route::resource('/backend/product.colors', 'Components\Products\Controllers\Backend\ProductColorsController');
 Route::resource('/backend/product-categories', 'Components\Products\Controllers\Backend\CategoriesController');
+Route::resource('/backend/product-colors', 'Components\Products\Controllers\Backend\ColorsController');
 
 //Route For Front-end
 Route::get('/categories', 'Components\Products\Controllers\CategoriesController@index');

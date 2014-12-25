@@ -1,26 +1,27 @@
 <?php
+
 /*
-=================================================
-CMS Name  :  DOPTOR
-CMS Version :  v1.2
-Available at :  www.doptor.org
-Copyright : Copyright (coffee) 2011 - 2014 Doptor. All rights reserved.
-License : GNU/GPL, visit LICENSE.txt
-Description :  Doptor is Opensource CMS.
-===================================================
-*/
+  =================================================
+  CMS Name  :  DOPTOR
+  CMS Version :  v1.2
+  Available at :  www.doptor.org
+  Copyright : Copyright (coffee) 2011 - 2014 Doptor. All rights reserved.
+  License : GNU/GPL, visit LICENSE.txt
+  Description :  Doptor is Opensource CMS.
+  ===================================================
+ */
+
 class UserGroup extends Eloquent {
+
     /**
      * The database table used by the model.
      *
      * @var string
      */
     protected $table = 'user_groups';
+    protected $guarded = array();
 
-	protected $guarded = array();
-
-    public static function all_groups()
-    {
+    public static function all_groups() {
         $groups = array();
         foreach (Sentry::findAllGroups() as $group) {
             $groups[$group->id] = $group->name;
@@ -28,63 +29,61 @@ class UserGroup extends Eloquent {
         return $groups;
     }
 
-    public static function access_areas()
-    {
+    public static function access_areas() {
         return array(
-                'resourceful' => array (
-                    'user-groups'       => 'User Groups',
-                    'users'             => 'User Manager',
-                    'menu-positions'    => 'Menu Positions',
-                    'menu-categories'   => 'Menu Categories',
-                    'menu-manager'      => 'Menu Manager',
-                    'languages'         => 'Languages',
-                    'slideshow'         => 'Slidehow',
-                    'pages'             => 'Pages',
-                    'page-categories'   => 'Page Categories',
-                    'posts'             => 'Posts',
-                    'post-categories'   => 'Post Categories',
-                    'media-manager'     => 'Media Manager',
-                    'form-categories'   => 'Form Categories',
-                    'form-builder'      => 'Form Builder',
-                    'module-builder'    => 'Module Builder',
-                    'report-builder'    => 'Report Builder',
-                    'report-generators' => 'Report Generators',
-                    
-                    'products'          => 'Products',
-                    'product-colors'          => 'Product Colors',
-                    'product-categories'=> 'Product Categories',
-                    'stones-icons'      => 'Stone Icons',
-                    'stones-icon-categories'   => 'Stone Icon Categories',
-                    'stones-colors'     => 'Stone Colors',
-                    'stones-fonts'      => 'Stone Fonts',
-                    'memorials'          => 'Memorials',
-                    'memorial-guestbooks'=> 'Memorial Guestbooks',
-                    'memorial-media'    => 'Memorial Media',
-                    'memorial-users'    => 'Memorial Users',
-
+            'resourceful' => array(
+                'user-groups' => 'User Groups',
+                'users' => 'User Manager',
+                'menu-positions' => 'Menu Positions',
+                'menu-categories' => 'Menu Categories',
+                'menu-manager' => 'Menu Manager',
+                'languages' => 'Languages',
+                'slideshow' => 'Slidehow',
+                'pages' => 'Pages',
+                'page-categories' => 'Page Categories',
+                'posts' => 'Posts',
+                'post-categories' => 'Post Categories',
+                'media-manager' => 'Media Manager',
+                'form-categories' => 'Form Categories',
+                'form-builder' => 'Form Builder',
+                'module-builder' => 'Module Builder',
+                'report-builder' => 'Report Builder',
+                'report-generators' => 'Report Generators',
+                'products' => 'Products',
+                'product-colors' => 'Product Colors',
+                'product-categories' => 'Product Categories',
+                'stones-icons' => 'Stone Icons',
+                'stones-icon-categories' => 'Stone Icon Categories',
+                'stones-colors' => 'Stone Colors',
+                'stones-fonts' => 'Stone Fonts',
+                'memorials' => 'Memorials',
+                'memorial-guestbooks' => 'Memorial Guestbooks',
+                'memorial-media' => 'Memorial Media',
+                'memorial-users' => 'Memorial Users',
+            ),
+            'others' => array(
+                'theme-manager' => array(
+                    'apply' => 'Apply Theme',
+                    'index' => 'List All Themes',
+                    'create' => 'Install Theme',
+                    'destroy' => 'Delete Theme'
                 ),
-                'others' => array(
-                    'theme-manager'   => array(
-                            'apply'   => 'Apply Theme',
-                            'index'   => 'List All Themes',
-                            'create'  => 'Install Theme',
-                            'destroy' => 'Delete Theme'
-                        ),
-                    'modules'   => array(
-                            'index'   => 'List All Modules',
-                            'create'  => 'Install Module',
-                            'destroy' => 'Delete Module'
-                        ),
-                    'synchronize'     => array(
-                            'index'        => 'Show Options',
-                            'local-to-web' => 'Local To Web',
-                            'web-to-local' => 'Web To Local'
-                        ),
-                    'config'          => array(
-                            'edit' => 'Edit Configuration Settings'
-                        )
+                'modules' => array(
+                    'index' => 'List All Modules',
+                    'create' => 'Install Module',
+                    'destroy' => 'Delete Module'
                 ),
-                'modules' => Module::lists('name', 'alias')
-            );
+                'synchronize' => array(
+                    'index' => 'Show Options',
+                    'local-to-web' => 'Local To Web',
+                    'web-to-local' => 'Web To Local'
+                ),
+                'config' => array(
+                    'edit' => 'Edit Configuration Settings'
+                )
+            ),
+            'modules' => Module::lists('name', 'alias')
+        );
     }
+
 }
