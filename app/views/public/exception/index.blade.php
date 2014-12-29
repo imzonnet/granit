@@ -78,7 +78,7 @@
                         <i class="fa">{{HTML::image(asset('uploads/images/icons/aa.png'))}}</i>
                         <h3><span>Over 100 years durability</span><br>Permanent text</h3>
                         <p>Proin gravida nibh vel velit auctor enean sollicitud lorem quis bibendum auctor, nisi elit consequipsum.Proin gravida nibh vel velit auctor enean sollicitud lorem quis bibendum auctor, nisi elit consequipsum.</p>
-                        <a class="more-btn" href="services.html">Read More</a>
+                        <a class="more-btn" href="#">Read More</a>
                     </div>
                 </div>
                 <div class="cell-3 service-box-1 fx" data-animate="fadeInUp" data-animation-delay="400">
@@ -86,7 +86,7 @@
                         <i class="fa">{{HTML::image(asset('uploads/images/icons/ad.png'))}}</i>
                         <h3><span>Design a headstone at home</span><br>Design a Stone</h3>
                         <p>Proin gravida nibh vel velit auctor enean sollicitud lorem quis bibendum auctor, nisi elit consequipsum.Proin gravida nibh vel velit auctor enean sollicitud lorem quis bibendum auctor, nisi elit consequipsum.</p>
-                        <a class="more-btn" href="services.html">Read More</a>
+                        <a class="more-btn" href="#">Read More</a>
                     </div>
                 </div>
                 <div class="cell-3 service-box-1 fx" data-animate="fadeInUp" data-animation-delay="600">
@@ -94,7 +94,7 @@
                         <i class="fa">{{HTML::image(asset('uploads/images/icons/acces.png'))}}</i>
                         <h3><span>Find all kinds of</span><br>Accessories</h3>
                         <p>Proin gravida nibh vel velit auctor enean sollicitud lorem quis bibendum auctor, nisi elit consequipsum.Proin gravida nibh vel velit auctor enean sollicitud lorem quis bibendum auctor, nisi elit consequipsum.</p>
-                        <a class="more-btn" href="services.html">Read More</a>
+                        <a class="more-btn" href="#">Read More</a>
                     </div>
                 </div>
                 <div class="cell-3 service-box-1 fx" data-animate="fadeInUp" data-animation-delay="800">
@@ -102,7 +102,7 @@
                         <i class="fa">{{HTML::image(asset('uploads/images/icons/about.png'))}}</i>
                         <h3><span>Always remeber you</span><br>Momorial site</h3>
                         <p>Proin gravida nibh vel velit auctor enean sollicitud lorem quis bibendum auctor, nisi elit consequipsum.Proin gravida nibh vel velit auctor enean sollicitud lorem quis bibendum auctor, nisi elit consequipsum.</p>
-                        <a class="more-btn" href="services.html">Read More</a>
+                        <a class="more-btn" href="#">Read More</a>
                     </div>
                 </div>
             </div>
@@ -118,7 +118,7 @@
                     <h3 class="block-head side-heading">Recent <span>projects</span></h3>
                     <p class="portfolio-lft-txt">Browse our recent projects and you will see how we work and what are the technologies we use to build websites with a high quality and profissional ways to present you all what you need, All we aim is to make our customers satisfied and happy with all of our services.</p>
                     <div class="viewAll">
-                        <a class="btn" href="portfolio-4-cols.html">Browse All Projects</a>
+                        <a class="btn" href="#">Browse All Projects</a>
                     </div>
                 </div>
                 <div class="cell-9">
@@ -128,7 +128,7 @@
                             <div class="portfolio-item">
                                 <div class="img-holder">
                                     <div class="img-over">
-                                        <a href="portfolio-single.html" class="fx link"><b class="fa fa-link"></b></a>
+                                        <a href="#" class="fx link"><b class="fa fa-link"></b></a>
                                         <a href="{{URL::to('assets/public/exception/images/portfolio/1.jpg')}}" class="fx zoom" data-gal="prettyPhoto[pp_gal]" title="Project Title"><b class="fa fa-search-plus"></b></a>
                                     </div>
                                     <img alt="" src="{{URL::to('assets/public/exception/images/portfolio/1.jpg')}}">
@@ -146,7 +146,7 @@
                             <div class="portfolio-item">
                                 <div class="img-holder">
                                     <div class="img-over">
-                                        <a href="portfolio-single.html" class="fx link"><b class="fa fa-link"></b></a>
+                                        <a href="#" class="fx link"><b class="fa fa-link"></b></a>
                                         <a href="{{URL::to('assets/public/exception/images/portfolio/1.jpg')}}" class="fx zoom" data-gal="prettyPhoto[pp_gal]" title="Project Title"><b class="fa fa-search-plus"></b></a>
                                     </div>
                                     <img alt="" src="{{URL::to('assets/public/exception/images/portfolio/1.jpg')}}">
@@ -164,7 +164,7 @@
                             <div class="portfolio-item">
                                 <div class="img-holder">
                                     <div class="img-over">
-                                        <a href="portfolio-single.html" class="fx link"><b class="fa fa-link"></b></a>
+                                        <a href="#" class="fx link"><b class="fa fa-link"></b></a>
                                         <a href="{{URL::to('assets/public/exception/images/portfolio/1.jpg')}}" class="fx zoom" data-gal="prettyPhoto[pp_gal]" title="Project Title"><b class="fa fa-search-plus"></b></a>
                                     </div>
                                     <img alt="" src="{{URL::to('assets/public/exception/images/portfolio/1.jpg')}}">
@@ -182,7 +182,7 @@
                             <div class="portfolio-item">
                                 <div class="img-holder">
                                     <div class="img-over">
-                                        <a href="portfolio-single.html" class="fx link"><b class="fa fa-link"></b></a>
+                                        <a href="#" class="fx link"><b class="fa fa-link"></b></a>
                                         <a href="{{URL::to('assets/public/exception/images/portfolio/1.jpg')}}" class="fx zoom" data-gal="prettyPhoto[pp_gal]" title="Project Title"><b class="fa fa-search-plus"></b></a>
                                     </div>
                                     <img alt="" src="{{URL::to('assets/public/exception/images/portfolio/1.jpg')}}">
@@ -200,7 +200,7 @@
                             <div class="portfolio-item">
                                 <div class="img-holder">
                                     <div class="img-over">
-                                        <a href="portfolio-single.html" class="fx link"><b class="fa fa-link"></b></a>
+                                        <a href="#" class="fx link"><b class="fa fa-link"></b></a>
                                         <a href="{{URL::to('assets/public/exception/images/portfolio/1.jpg')}}" class="fx zoom" data-gal="prettyPhoto[pp_gal]" title="Project Title"><b class="fa fa-search-plus"></b></a>
                                     </div>
                                     <img alt="" src="{{URL::to('assets/public/exception/images/portfolio/1.jpg')}}">
@@ -218,7 +218,7 @@
                             <div class="portfolio-item">
                                 <div class="img-holder">
                                     <div class="img-over">
-                                        <a href="portfolio-single.html" class="fx link"><b class="fa fa-link"></b></a>
+                                        <a href="#" class="fx link"><b class="fa fa-link"></b></a>
                                         <a href="{{URL::to('assets/public/exception/images/portfolio/1.jpg')}}" class="fx zoom" data-gal="prettyPhoto[pp_gal]" title="Project Title"><b class="fa fa-search-plus"></b></a>
                                     </div>
                                     <img alt="" src="{{URL::to('assets/public/exception/images/portfolio/1.jpg')}}">
