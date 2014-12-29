@@ -34,12 +34,12 @@ class CategoriesController extends \BaseController {
 
     public function show($alias) {
         if ($alias == 'all') {
-            $products = Product::paginate(15);
+            $products = Product::orderBy('id', 'desc')->paginate(15);
             $title = "Gravestones";
         } else {
             $category = Category::whereAlias($alias)->first();
             $title = $category->name;
-            $products = Product::where('cat_id', '=', $category->id)->paginate(15);
+            $products = Product::where('cat_id', '=', $category->id)->orderBy('id', 'desc')->paginate(15);
         }
         if (!$products)
             App::abort('404');

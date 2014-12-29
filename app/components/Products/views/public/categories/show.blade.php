@@ -84,7 +84,9 @@
                     </div> 
                 </div>
             </div>
+            <!-- content -->
             <div class="cell-9">
+                <!-- Sort -->
                 <div class="toolsBar">
                     <div class="cell-10 left products-filter-top">
                         <div class="left">
@@ -95,8 +97,8 @@
                                 <option value="price" data-sort-by="price">Price</option>
                             </select>
                         </div>
-                        <div class="left order-asc">
-                            <a href="#"><i class="fa fa-sort-amount-asc"></i></a>
+                        <div class="left">
+                            <a href="#" class="order-asc" data-sort="false"><i class="fa fa-sort-amount-asc"></i></a>
                         </div>
                     </div>
                     <div class="right cell-2 list-grid">
@@ -105,6 +107,7 @@
                     </div>
 
                 </div>
+                <!-- end sort -->
                 <div class="clearfix"></div>
                 <div class="products-wrap">
                     <h2 class="block-head">Gravestones</h2>
@@ -160,7 +163,10 @@ jQuery(document).ready(function ($) {
         layoutMode: 'fitRows',
         getSortData: {
             name: '.name',
-            price: '.product-price parseInt',
+            price: function (itemElem) {
+                var price = $(itemElem).find('.product-price').text();
+                return parseFloat(price.replace(/[\(\)\$]/g, ''));
+            }
         }
     });
     // bind sort button click
@@ -171,8 +177,6 @@ jQuery(document).ready(function ($) {
     $('#filter-colors').on('click', 'a', function (e) {
         e.preventDefault();
         var filterValue = $(this).attr('data-filter');
-        // use filterFn if matches value
-        console.log(filterValue);
         $container.isotope({filter: filterValue});
     });
     var filterFns = {
@@ -210,6 +214,27 @@ jQuery(document).ready(function ($) {
     //Width filter
     filter_measult($container, "#filter-width", 'width', '#width');
     filter_measult($container, "#filter-height", 'height', '#height');
+    //update istope
+    $('.change-color').click(function (e) {
+        $container.isotope('updateSortData').isotope();
+    });
+    $('.order-asc').click(function (e) {
+        e.preventDefault();
+        $(this).find('i.fa').toggleClass('fa-sort-amount-asc fa-sort-amount-desc');
+        var value = $(this).data('sort');
+        console.log(value);
+        // sort by number, highest number first
+        $container.isotope({
+            sortBy: $('#sorts').val(),
+            sortAscending: value
+        });
+        if (value == true) {
+            $(this).data('sort', false);
+        } else {
+            $(this).data('sort', true);
+        }
+
+    });
 
 });
 
