@@ -2,16 +2,31 @@
 
 // add job title or place birth
 function addJobOrPlace(elem){ 
-	var thisEl = $(elem),
-		del_el = $('<button>').addClass('design-custom-btn').attr({'type': 'button', 'onclick': 'delJobOrPlace(this)'}).html('<i class="fa fa-trash"></i>'),
-		add_job_or_place_el = $('<p class="add_job_or_place">').html('<input type="text" style="width: 270px;">').append(del_el);
+	var thisEl = $(elem);
+		//del_el = $('<button>').addClass('design-custom-btn').attr({'type': 'button', 'onclick': 'delJobOrPlace(this)'}).html('<i class="fa fa-trash"></i>'),
+		//add_job_or_place_el = $('<p class="add_job_or_place">').html('<input type="text" style="width: 255px;">').append(del_el);
 	
-	thisEl.addClass('visible-btn').after( add_job_or_place_el );
+	thisEl.addClass('visible-btn').next().css('display', 'block');
 }
 
 function delJobOrPlace(elem){
 	$(elem).parent().prev().removeClass('visible-btn');
-	$(elem).parent().remove();
+	// $(elem).parent().remove();
+	$(elem).parent().find('input').val('').trigger('input');
+	$(elem).parent().css('display', 'none');
+}
+
+// add Poem
+function addPoem(elem){
+	var thisEl = $(elem);
+	thisEl.next().css('display', 'block');
+	thisEl.css('display', 'none');
+}
+// hide Poen
+function hidePoen(elem){
+	var thisEl = $(elem);
+	thisEl.parent().parent().parent().prev().css('display', 'block');
+	thisEl.parent().parent().parent().css('display', 'none');
 }
 
 !(function($){
@@ -31,6 +46,8 @@ function delJobOrPlace(elem){
 
 				switch(keytab){
 					case 'name': addMoreTabName(thisEl); break;
+					case 'memorial_worlds': addMoreTabMemorial_worlds(thisEl); break;
+					case 'poem': addMorePoem(thisEl); break;
 				}
 			})
 		})
@@ -58,6 +75,9 @@ function delJobOrPlace(elem){
 				this_tab_name.prev().children('a').trigger('click');
 				this_tab_name.remove();
 				elem.find('[data-content-tabs="'+tab_del+'"]').remove();
+
+				var layout_id = tab_del.split('-');
+				$('.content-area-design .layout-id-'+layout_id[2]).remove();
 			})
 
 			controler_tab_name.children('li:last-child').before(name_tab_el).before(' ');
@@ -70,6 +90,111 @@ function delJobOrPlace(elem){
 					$('this').prop('checked', false);
 				}
 			})
+
+			// create layout name b-d day
+			var layer_el = $('<div>').addClass('layout-item-area text-align-center layout-name-date-area layout-id-'+rand_id),
+				html_inner = '<div class="layout-inner-area">';
+				html_inner += '<div class="nametext"></div>';
+				html_inner += '<div class="add_job_or_place"></div>';
+				html_inner += '<div class="datetext">';
+				html_inner += '<div class="birthdatetext"></div>';
+				html_inner += '<div class="deathdatetext"></div>';
+				html_inner += '</div>';
+				html_inner += '</div>';
+			layer_el.append(html_inner);
+
+
+			layoutItem.name_date.parent().append(layer_el);
+			setTextStyleEl(layer_el);
+			nameDateControl(content_tab_el, layer_el);
+		}
+
+		function addMoreTabMemorial_worlds(elem){
+			var controler_tab_mw = elem.children('.controler-tab-memorial-worlds');
+				count = controler_tab_mw.children('li').length,
+				rand_id = Math.random().toString(36).substring(7),
+				html_inner = elem.find('[data-content-tabs="tab-memorial-worlds-1"]').html(),
+				name_tab_el = $('<li>').html('<a href="javascript:" data-tabs="tab-memorial-worlds-'+rand_id+'">Line '+count+'</a>'),
+				content_tab_el = $('<div>').addClass('content-tab').attr('data-content-tabs', 'tab-memorial-worlds-'+rand_id),
+				del_tab_el = $('<span>').addClass('del-tab').attr('data-del-tabs', 'tab-memorial-worlds-'+rand_id).html('<i class="fa fa-trash"></i> Delete');
+
+			name_tab_el.children('a').click(function(){
+				var tab_name = $(this).data('tabs');
+				
+				$(this).parent().addClass('active').siblings().removeClass('active');
+				elem.find('[data-content-tabs="'+tab_name+'"]').addClass('active').siblings().removeClass('active');
+			})
+
+			del_tab_el.on('click', function(e){
+				var tab_del = $(this).data('del-tabs'),
+					this_tab_name = elem.find('[data-tabs="'+tab_del+'"]').parent();
+				
+				this_tab_name.prev().children('a').trigger('click');
+				this_tab_name.remove();
+				elem.find('[data-content-tabs="'+tab_del+'"]').remove();
+
+				var layout_id = tab_del.split('-');
+				$('.content-area-design .layout-id-'+layout_id[3]).remove();
+			})
+
+			controler_tab_mw.children('li:last-child').before(name_tab_el).before(' ');
+			elem.append(content_tab_el.html(html_inner).append(del_tab_el));
+
+			content_tab_el.find('input').each(function(){
+				if( $('this').attr('type') == "text" ){
+					$('this').val('');
+				}else if( $('this').attr('type') == "checkbox" ){
+					$('this').prop('checked', false);
+				}
+			})
+
+			/* Create layout Memorial */
+			var layer_el = $('<div>').addClass('layout-inner-area layout-id-'+rand_id);
+			lDesign.layout_memorialwords_area.append(layer_el);
+			mw_control(content_tab_el, layer_el);
+		}
+
+		function addMorePoem(elem){
+			var controler_tab_poem = elem.children('.controler-tab-poem');
+				count = controler_tab_poem.children('li').length,
+				rand_id = Math.random().toString(36).substring(7),
+				html_inner = elem.find('[data-content-tabs="tab-poem-1"]').html(),
+				name_tab_el = $('<li>').html('<a href="javascript:" data-tabs="tab-poem-'+rand_id+'">Line '+count+'</a>'),
+				content_tab_el = $('<div>').addClass('content-tab').attr('data-content-tabs', 'tab-poem-'+rand_id),
+				del_tab_el = $('<span>').addClass('del-tab').attr('data-del-tabs', 'tab-poem-'+rand_id).html('<i class="fa fa-trash"></i> Delete');
+
+			name_tab_el.children('a').click(function(){
+				var tab_name = $(this).data('tabs');
+				
+				$(this).parent().addClass('active').siblings().removeClass('active');
+				elem.find('[data-content-tabs="'+tab_name+'"]').addClass('active').siblings().removeClass('active');
+			})
+
+			del_tab_el.on('click', function(e){
+				var tab_del = $(this).data('del-tabs'),
+					this_tab_name = elem.find('[data-tabs="'+tab_del+'"]').parent();
+				
+				this_tab_name.prev().children('a').trigger('click');
+				this_tab_name.remove();
+				elem.find('[data-content-tabs="'+tab_del+'"]').remove();
+			})
+
+			controler_tab_poem.children('li:last-child').before(name_tab_el).before(' ');
+			elem.append(content_tab_el.html(html_inner).append(del_tab_el));
+
+			content_tab_el.find('button').remove();
+			content_tab_el.find('input').each(function(){
+				if( $('this').attr('type') == "text" ){
+					$('this').val('');
+				}else if( $('this').attr('type') == "checkbox" ){
+					$('this').prop('checked', false);
+				}
+			})
+
+			/* Create layout Poem */
+			var layer_el = $('<div>').addClass('layout-inner-area layout-id-'+rand_id);
+			lDesign.poem.append(layer_el);
+			poem_control(content_tab_el, layer_el);
 		}
 
 		// Select product cat, icon cat =============================================
@@ -437,11 +562,21 @@ function delJobOrPlace(elem){
 		})
 		$('.product-cat-content li:first-child a').trigger('click');
 
+		// set layout design =============================================
+		var lDesign = {};
+		function setLayoutDeisgn(){
+			var content_area_design = $('.content-area-design');
+			lDesign.layout_fitsttext_area = content_area_design.find('.layout-fitsttext-area');
+			lDesign.layout_name_date_area = content_area_design.find('.layout-name-date-area');
+			lDesign.layout_memorialwords_area = content_area_design.find('.layout-memorialwords-area');
+			lDesign.poem = content_area_design.find('.layout-poem-area');
+		}
 		// choose product =============================================
 		var layoutItem = {
 			fitsttext: '',
 			name_date: '',
-			memorialwords: ''
+			memorialwords: '',
+			poem: ''
 		}
 		$('.content-products').on('click', '.product-item', function(e){
 			var thisEl = $(this),
@@ -460,8 +595,16 @@ function delJobOrPlace(elem){
 					layoutItem.fitsttext = $('.content-area-design').find('.layout-fitsttext-area');
 					layoutItem.name_date = $('.content-area-design').find('.layout-name-date-area');
 					layoutItem.memorialwords = $('.content-area-design').find('.layout-memorialwords-area');
+					layoutItem.poem = $('.content-area-design').find('.layout-poem-area');
 
 					setTextStyle();
+					setLayoutDeisgn();
+					// Name - Date control
+					nameDateControl($('.control-name').find('[data-content-tabs="tab-name-1"]'), lDesign.layout_name_date_area.children('.layout-inner-area'));
+					// Memorial worlds control
+					mw_control($('.control-memorial-worlds').find('[data-content-tabs="tab-memorial-worlds-1"]'), lDesign.layout_memorialwords_area.children('.layout-inner-area'));
+					// Poem control
+					poem_control($('.control-poem').find('[data-content-tabs="tab-poem-1"]'), lDesign.poem.children('.layout-inner-area'));
 
 					$('.content-area-design').find('.content-product-color ul li:first-child a').trigger('click'); // active first item
 					$('.design-area.right').removeClass('loading-animate'); // add loading animate
@@ -482,6 +625,18 @@ function delJobOrPlace(elem){
 
 				buildLayout($elem, {drag: true})
 			})
+		}
+
+		function setTextStyleEl(elem){
+			var text_style = {
+				color: $('input[type="radio"][name="text-color"]:checked').val(),
+				fontFamily: $('input[type="radio"][name="font-family"]:checked').val(),
+				fontSize: '16px',
+				lineHeight: '20px'
+			}
+
+			elem.css(text_style);
+			buildLayout(elem, {drag: true})
 		}
 
 		// choose product color =============================================
@@ -566,6 +721,104 @@ function delJobOrPlace(elem){
 				
 			})
 		}
-		iniTextControl();
+		// iniTextControl();
+
+		// ===========================================================================//
+		// First text control
+		$('input[name="first_text"]').bind('input', function(){
+			if(!lDesign.layout_fitsttext_area) return;
+
+			var thisEl = $(this),
+				value = thisEl.val();
+
+			lDesign.layout_fitsttext_area.children('.layout-inner-area').html(value);
+		})
+
+		// name / date control
+		function nameDateControl(areaTextEl, areaLayoutEl){
+			if(!lDesign.layout_name_date_area){ return; }
+
+			var textEl = {
+				name: areaTextEl.find('input[name="name"]'),
+				contentBirthday: areaTextEl.find('.b-date'),
+				contentDeath: areaTextEl.find('.d-date'),
+				add_job_or_place: areaTextEl.find('input[name="add_job_or_place"]')
+			}
+			textEl.name.bind('input', function(){
+				var value = $(this).val();
+				// console.log(value);
+				areaLayoutEl.find('.nametext').html(value);
+			})
+
+			// add_job_or_place
+			textEl.add_job_or_place.bind('input', function(){
+				var thisEl = $(this),
+					value = thisEl.val();
+				
+				areaLayoutEl.find('.add_job_or_place').html(value);
+			})
+
+			// birthdate
+			textEl.contentBirthday.find('input[type="text"]').each(function(){
+				$(this).bind('input', function(){
+					var thiEl = $(this), text_date = "f";
+
+					thiEl.parent().children('input[type="text"]').each(function(){
+						var name = $(this).attr('name'),
+							value = $(this).val();
+
+						if(!value){ value = (name != 'b-y')? " 00" : " 0000"; }
+						text_date += '. '+value;
+					})
+					
+					areaLayoutEl.find('.datetext .birthdatetext').html(text_date);
+				})
+			})
+
+			// deathdate
+			textEl.contentDeath.find('input[type="text"]').each(function(){
+				$(this).bind('input', function(){
+					var thiEl = $(this), text_date = "d";
+
+					thiEl.parent().children('input[type="text"]').each(function(){
+						var name = $(this).attr('name'),
+							value = $(this).val();
+
+						if(!value){ value = (name != 'd-y')? " 00" : " 0000"; }
+						text_date += '. '+value;
+					})
+					
+					areaLayoutEl.find('.datetext .deathdatetext').html(text_date);
+				})
+			})
+		}
+
+		// Memorial worlds control
+		function mw_control(areaTextEl, areaLayoutEl){
+			if(!lDesign.layout_memorialwords_area){ return; }
+
+			var textEl = {
+				memorial_worlds: areaTextEl.find('input[name="memorial-worlds"]')
+			}
+
+			textEl.memorial_worlds.bind('input', function(){
+				var value = $(this).val();
+				areaLayoutEl.html(value);
+			})
+		}
+
+		// Poem control
+		function poem_control(areaTextEl, areaLayoutEl){
+			if(!lDesign.poem){ return; }
+
+			var textEl = {
+				poem: areaTextEl.find('input[name="poem"]')
+			}
+
+			textEl.poem.bind('input', function(){
+				var value = $(this).val();
+				areaLayoutEl.html(value);
+			})
+		}
 	})
 })(jQuery)

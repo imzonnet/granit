@@ -3,7 +3,7 @@
 	clear: both;
 }
 #design-container p{
-	margin: 0 0 10px;
+	margin: 0 0 5px;
 }
 #design-container input{
 	border-radius: 0;
@@ -39,7 +39,7 @@
 }
 .design-container{
 	width: 100%;
-	height: 650px;
+	height: 700px;
 	padding: 20px;
 	/*background: url(../images/bg_thread.gif);*/
 	background: #FFF;
@@ -138,14 +138,14 @@ input[name="color"]{
 	display: none;
 	padding: 30px;
 	color: #FFF;
-	height: 576px;
+	height: 626px;
 }
 .content-area-tool .content-tab.active{
 	display: block;
 }
 .content-area-tool .content-inner{
 	width: 100%;
-	height: 350px;
+	height: 367px;
 	overflow: auto;
 	text-align: left;
 	line-height: normal;
@@ -345,7 +345,7 @@ input[name="color"]{
 	vertical-align: bottom;
 }
 .content-products{
-	height: 350px;
+	height: 400px;
     overflow: auto;
 }
 .product-item p{
@@ -354,8 +354,8 @@ input[name="color"]{
 	margin-bottom: 0;
 }
 .content-area-design .content-inner{
-	min-height: 540px;
-	max-height: 540px;
+	min-height: 620px;
+	max-height: 620px;
 	position: relative;
 }
 .content-product-color{
@@ -461,14 +461,24 @@ input[name="text-color"]:checked ~ span{
 	width: 50%;
 	white-space: nowrap;
 }
+.datetext .birthdatetext{
+	float: left;
+	text-align: left;
+}
+.datetext .deathdatetext{
+	float: right;
+	text-align: right;
+	padding-left: 10px;
+}
 
-/***********************************/
+/******************************************************************************************/
 .design-custom-btn{
 	background: none repeat scroll 0 0 #f7674a;
     border: medium none;
     color: #fff;
     margin: 0;
 }
+
 .visible-btn{
 	pointer-events: none;
 }
@@ -479,15 +489,19 @@ input[name="text-color"]:checked ~ span{
 .content-text .control-name{}
 .content-text .control-name ul.controler-tab-name{}
 .content-text .control-name ul.controler-tab-name li,
-.content-text .control-memorial-worlds ul.controler-tab-memorial-worlds li{
+.content-text .control-memorial-worlds ul.controler-tab-memorial-worlds li,
+.content-text .control-poem ul.controler-tab-poem li{
 	display: inline-block;
 	vertical-align: top;
 }
 .control-name .content-tab,
-.control-memorial-worlds .content-tab{
+.control-memorial-worlds .content-tab,
+.control-poem .content-tab{
 	position: relative;
 }
-.control-name .content-tab .del-tab{
+.control-name .content-tab .del-tab,
+.control-memorial-worlds .content-tab .del-tab,
+.control-poem .content-tab .del-tab{
 	display: inline-block;
 	width: 100%;
 	text-align: center;
@@ -498,18 +512,21 @@ input[name="text-color"]:checked ~ span{
 	cursor: pointer;
 }
 .content-text .control-name ul.controler-tab-name li a,
-.content-text .control-memorial-worlds ul.controler-tab-memorial-worlds li a{
+.content-text .control-memorial-worlds ul.controler-tab-memorial-worlds li a,
+.content-text .control-poem ul.controler-tab-poem li a{
 	padding: 4px 10px;
 	color: #FFF;
 	background: #F99884;
 	display: inline-block;
 }
 .content-text .control-name ul.controler-tab-name li.active a,
-.content-text .control-memorial-worlds ul.controler-tab-memorial-worlds li.active a{
+.content-text .control-memorial-worlds ul.controler-tab-memorial-worlds li.active a,
+.content-text .control-poem ul.controler-tab-poem li.active a{
 	background: #FC8267;
 }
 .content-text .control-name .content-tab.active,
-.content-text .control-memorial-worlds .content-tab.active{
+.content-text .control-memorial-worlds .content-tab.active,
+.content-text .control-poem .content-tab.active{
 	height: auto;
 	background: #FC8267;
 	color: #FFF;
@@ -534,4 +551,13 @@ input[name="text-color"]:checked ~ span{
 	border: none;
 	padding: 0;
 	text-transform: none;
+}
+.btn-custom-design.btn-custom-design-bg{
+	background: #AA5542;
+	padding: 0 5px;
+}
+.layout-item-area:hover .l-del,
+.layout-item-area:hover .l-resize,
+.layout-item-area:hover .pl_rotate_control{
+	
 }

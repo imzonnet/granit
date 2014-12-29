@@ -45,18 +45,24 @@
 						<button class="btn btn-custom-design" type="button" onclick="addJobOrPlace(this)">
 							<i class="fa fa-plus-circle"></i> Add job title / place or birth
 						</button>
+						<p class="add_job_or_place" style="display: none;">
+							<input type="text" name="add_job_or_place" style="width: 255px;">
+							<button class="design-custom-btn" type="button" onclick="delJobOrPlace(this)">
+								<i class="fa fa-trash"></i>
+							</button>
+						</p>
 						<div class="b-d-date">
 							<div class="b-date">
 								<strong style="color: #333;">Birthday</strong> </br>
-								<input name="b-d" placeholder="dd" maxlength="2"> - 
-								<input name="b-m" placeholder="mm" maxlength="2"> - 
-								<input name="b-y" placeholder="yyyy" maxlength="4">
+								<input type="text" name="b-d" placeholder="dd" maxlength="2"> - 
+								<input type="text" name="b-m" placeholder="mm" maxlength="2"> - 
+								<input type="text" name="b-y" placeholder="yyyy" maxlength="4">
 							</div>
 							<div class="d-date">
 								<strong style="color: #333;">Death</strong> </br>
-								<input name="d-d" placeholder="dd" maxlength="2"> - 
-								<input name="d-m" placeholder="mm" maxlength="2"> - 
-								<input name="d-y" placeholder="yyyy" maxlength="4">
+								<input type="text" name="d-d" placeholder="dd" maxlength="2"> - 
+								<input type="text" name="d-m" placeholder="mm" maxlength="2"> - 
+								<input type="text" name="d-y" placeholder="yyyy" maxlength="4">
 							</div>
 							<p></p>
 						</div>
@@ -71,12 +77,29 @@
 			<div class="control-memorial-worlds js-tabs">
 				<strong>Memorial worlds</strong>
 				<ul class="controler-tab-memorial-worlds">
-					<li class='active'><a href="javascript:" data-tabs="tab-name-1">Line 1</a></li>
+					<li class='active'><a href="javascript:" data-tabs="tab-memorial-worlds-1">Line 1</a></li>
 					<li><a href="javascript:" data-tabs-action="newtab" data-key-tab="memorial_worlds"><i class="fa fa-plus"></i></a></li>
 				</ul>
-				<div class="content-tab active" data-content-tabs="tab-name-1">
+				<div class="content-tab active" data-content-tabs="tab-memorial-worlds-1">
 					<div class="content-tab-inner row-full-all">
 						<input name="memorial-worlds" type="text" placeholder="Memorial worlds">
+					</div>
+				</div>
+			</div>
+			<button class="btn btn-custom-design btn-custom-design-bg" type="button" onclick="addPoem(this)">
+				<i class="fa fa-plus-circle"></i> Add a poem
+			</button>
+			<div class="control-poem js-tabs" style="display: none;">
+				<p></p>
+				<strong>Poem</strong>
+				<ul class="controler-tab-poem">
+					<li class='active'><a href="javascript:" data-tabs="tab-poem-1">Line 1</a></li>
+					<li><a href="javascript:" data-tabs-action="newtab" data-key-tab="poem"><i class="fa fa-plus"></i></a></li>
+				</ul>
+				<div class="content-tab active" data-content-tabs="tab-poem-1">
+					<div class="content-tab-inner row-full-all">
+						<input name="poem" type="text" placeholder="Poem" style="width: 255px">
+						<button class="design-custom-btn" type="button" onclick="hidePoen(this)"><i class="fa fa-trash"></i></button>
 					</div>
 				</div>
 			</div>

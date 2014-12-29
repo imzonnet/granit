@@ -58,7 +58,7 @@ class DesignsController extends \BaseController {
                 break;
             case 'getProductColorByProductid':
                 $layout = View::make('Stones::public.design.layouts.productcolors')
-                ->with('productcolors', ProductColor::whereRaw("product_id = {$id} and state = 'published'")->get())
+                ->with('productcolors', ProductColor::whereRaw("product_id = {$id} and status = 'published'")->get())
                 ->render();
                 break;
         }
