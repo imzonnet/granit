@@ -342,3 +342,14 @@
     line-height: 20px;
     text-align: center;
 }
+
+.slick-button-hor .slick-prev,
+.slick-button-hor .slick-next {
+    top: 50%;
+}
+.slick-button-hor .slick-prev {
+    left: -30px;
+}
+.slick-button-hor .slick-next {
+    right: -30px
+}

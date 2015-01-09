@@ -135,7 +135,6 @@
                                 </div>
                                 <div class="name-holder">
                                     <a href="#" class="project-name">Project Title</a>
-                                    <span class="project-options">Project Category</span>
                                 </div>
                             </div>
                         </div>
@@ -153,7 +152,6 @@
                                 </div>
                                 <div class="name-holder">
                                     <a href="#" class="project-name">Project Title</a>
-                                    <span class="project-options">Project Category</span>
                                 </div>
                             </div>
                         </div>
@@ -171,7 +169,6 @@
                                 </div>
                                 <div class="name-holder">
                                     <a href="#" class="project-name">Project Title</a>
-                                    <span class="project-options">Project Category</span>
                                 </div>
                             </div>
                         </div>
@@ -189,7 +186,6 @@
                                 </div>
                                 <div class="name-holder">
                                     <a href="#" class="project-name">Project Title</a>
-                                    <span class="project-options">Project Category</span>
                                 </div>
                             </div>
                         </div>
@@ -207,7 +203,6 @@
                                 </div>
                                 <div class="name-holder">
                                     <a href="#" class="project-name">Project Title</a>
-                                    <span class="project-options">Project Category</span>
                                 </div>
                             </div>
                         </div>
@@ -225,7 +220,6 @@
                                 </div>
                                 <div class="name-holder">
                                     <a href="#" class="project-name">Project Title</a>
-                                    <span class="project-options">Project Category</span>
                                 </div>
                             </div>
                         </div>
@@ -249,11 +243,10 @@
                     <div class="fx" data-animate="fadeInLeft">
                         <h3 class="block-head">What They Said About Us</h3>
 
-                        <div class="testimonials-1">
+                        <div class="testimonials-1 slick-button-hor">
                             <!-- testimonials item start -->
                             <div>
                                 <div class="testimonials-bg">
-                                    <img alt="" src="{{URL::to('assets/public/exception/images/people/1.jpg')}}" class="testimonials-img">
                                     <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit pellentesqueLorem ipsum dolor sit amet, consectetur.</span>
                                     <div class="rating">
                                         <span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span>
@@ -266,7 +259,6 @@
                             <!-- testimonials item start -->
                             <div>
                                 <div class="testimonials-bg">
-                                    <img alt="" src="{{URL::to('assets/public/exception/images/people/1.jpg')}}" class="testimonials-img">
                                     <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit pellentesqueLorem ipsum dolor sit amet, consectetur.</span>
                                     <div class="rating">
                                         <span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>
@@ -279,7 +271,6 @@
                             <!-- testimonials item start -->
                             <div>
                                 <div class="testimonials-bg">
-                                    <img alt="" src="{{URL::to('assets/public/exception/images/people/1.jpg')}}" class="testimonials-img">
                                     <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit pellentesqueLorem ipsum dolor sit amet, consectetur.</span>
                                     <div class="rating">
                                         <span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span>
@@ -292,7 +283,6 @@
                             <!-- testimonials item start -->
                             <div>
                                 <div class="testimonials-bg">
-                                    <img alt="" src="{{URL::to('assets/public/exception/images/people/1.jpg')}}" class="testimonials-img">
                                     <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit pellentesqueLorem ipsum dolor sit amet, consectetur.</span>
                                     <div class="rating">
                                         <span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>
@@ -317,7 +307,7 @@
                     <div class="catalogue main-bg padd-vertical-10 center">
                         <h1>Catalogue</h1>
                         {{HTML::image(asset('uploads/images/news.png'))}}
-                        <p><a href="#" class="btn more-btn">Read</a></p>
+                        <p><a href="#" class="btn more-btn btn-large">Read</a></p>
                     </div>
                 </div>
                 <!-- our skills right block end -->							
