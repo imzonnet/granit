@@ -244,54 +244,20 @@
                         <h3 class="block-head">What They Said About Us</h3>
 
                         <div class="testimonials-1 slick-button-hor">
+                            @foreach($testimonials as $testimonial)
                             <!-- testimonials item start -->
                             <div>
                                 <div class="testimonials-bg">
-                                    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit pellentesqueLorem ipsum dolor sit amet, consectetur.</span>
+                                    <h3>{{$testimonial->title}}</h3>
+                                    <span>{{$testimonial->description}}</span>
                                     <div class="rating">
-                                        <span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span>
+                                        {{$testimonial->rate()}}
                                     </div>
                                 </div>
-                                <div class="testimonials-name"><strong>John Smith:</strong> ThemeForest</div>
+                                <div class="testimonials-name"><strong>{{$testimonial->name}}</strong></div>
                             </div>
                             <!-- testimonials item end -->
-
-                            <!-- testimonials item start -->
-                            <div>
-                                <div class="testimonials-bg">
-                                    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit pellentesqueLorem ipsum dolor sit amet, consectetur.</span>
-                                    <div class="rating">
-                                        <span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>
-                                    </div>
-                                </div>
-                                <div class="testimonials-name"><strong>Ellina Willaims: </strong>Envato Market</div>
-                            </div>
-                            <!-- testimonials item end -->
-
-                            <!-- testimonials item start -->
-                            <div>
-                                <div class="testimonials-bg">
-                                    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit pellentesqueLorem ipsum dolor sit amet, consectetur.</span>
-                                    <div class="rating">
-                                        <span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span>
-                                    </div>
-                                </div>
-                                <div class="testimonials-name"><strong>Joanne Alexander: </strong>Vodafone</div>
-                            </div>
-                            <!-- testimonials item end -->
-
-                            <!-- testimonials item start -->
-                            <div>
-                                <div class="testimonials-bg">
-                                    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit pellentesqueLorem ipsum dolor sit amet, consectetur.</span>
-                                    <div class="rating">
-                                        <span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>
-                                    </div>
-                                </div>
-                                <div class="testimonials-name"><strong>Danny Willaims: </strong>HSBC Bank</div>
-                            </div>
-                            <!-- testimonials item end -->
-
+                            @endforeach
                         </div>
 
                         <p class="padd-top-20">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque imperdiet purus quis metus imperdiet fermentum. Suspendisse hendrerit id lacus id lobortis. Vestibulum quam elit, dapibus ac augue ut, porttitor viverra dui. Pellentesque imperdiet purus quis metus imperdiet fermentum. Suspendisse hendrerit id lacus id lobortis. Vestibulum quam elit, apibus ac augue ut, porttitor viverra dui. Lorem ipsum dolor sit.</p>

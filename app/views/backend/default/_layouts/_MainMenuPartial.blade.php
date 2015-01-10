@@ -114,7 +114,7 @@
                 </ul>
             </li>
             @endif
-            <!-- Exp Component: Products -->
+            <!-- Begin Exp Component -->
             @if (can_access_menu($current_user, array('products')))
             <li class="has-sub {{ Request::is('backend/product*') || Request::is('backend/product-colors*') || Request::is('backend/product-categories*') ? 'active' : null }} ">
                 <a href="javascript:;">
@@ -147,6 +147,7 @@
                 </ul>
             </li>
             @endif
+            
             @if (can_access_menu($current_user, array('stones')))
             <li class="has-sub {{ Request::is('backend/stones*') || Request::is('backend/stones/icon-categories*') || Request::is('backend/stones/icons*') || Request::is('backend/stones/fonts*') || Request::is('backend/stones/colors*') ? 'active' : null }} ">
                 <a href="javascript:;">
@@ -229,7 +230,26 @@
             </li>
             @endif
             
-            <!-- Exp Component -->
+            @if (can_access_menu($current_user, array('testimonials')))
+            <li class="has-sub {{ Request::is('backend/testimonials*') ? 'active' : null }} ">
+                <a href="javascript:;">
+                    <i class="icon-cut"></i>
+                    <span class="title">{{ trans('Testimonials::cms.testimonials') }}</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub">
+                    @if (can_access_menu($current_user, array('stones-icons')))
+                        <li class="{{ Request::is('backend/testimonials*') ? 'active' : null }}">
+                           <a href="{{ URL::to('backend/testimonials') }}">
+                               {{ trans('Testimonials::cms.testimonials') }}
+                           </a>
+                        </li>
+                    @endif
+                </ul>
+            </li>
+            @endif
+            
+            <!-- End Exp Component -->
             @if (can_access_menu($current_user, array('media-manager')))
             <li class="{{ Request::is('backend/media-manager*') ? 'active' : null }}">
                <a href="{{ URL::to('backend/media-manager') }}">

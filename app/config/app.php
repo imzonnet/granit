@@ -120,6 +120,7 @@ return array(
             'App\Components\MyGalleries\ServiceProvider',
             'App\Components\Products\ProductsServiceProvider',
             'App\Components\Stones\StonesServiceProvider',
+            'App\Components\Testimonials\TestimonialsServiceProvider',
 
 	),
 

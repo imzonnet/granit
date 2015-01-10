@@ -12,6 +12,7 @@
  */
 
 use Modules\Slideshow\Models\Slideshow;
+use Components\Testimonials\Models\Testimonial;
 
 class HomeController extends BaseController {
 
@@ -22,7 +23,8 @@ class HomeController extends BaseController {
         $this->layout->title = 'Home';
         $this->layout->content = View::make('public.' . $this->current_theme . '.index')
                 ->with('page', $page)
-                ->with('slides', $slides);
+                ->with('slides', $slides)
+            ->with('testimonials',Testimonial::all());
     }
 
     public function wrapper($menu_id) {

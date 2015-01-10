@@ -60,6 +60,7 @@ class UserGroup extends Eloquent {
                 'memorial-guestbooks' => 'Memorial Guestbooks',
                 'memorial-media' => 'Memorial Media',
                 'memorial-users' => 'Memorial Users',
+                'testimonials' => 'Testimonials',
             ),
             'others' => array(
                 'theme-manager' => array(
