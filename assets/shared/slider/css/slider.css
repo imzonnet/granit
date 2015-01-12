@@ -1,0 +1,157 @@
+/* Home Slider - Revolution Slider */
+div.slider-container {
+    background: #666;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+    z-index: 1;
+    min-height: 495px;
+}
+
+div.slider-container.light {
+    background-color: #EAEAEA;
+}
+
+div.slider-container ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+div.slider {
+    max-height: 500px;
+    position: relative;
+}
+
+div.slider-container-fullscreen {
+    height: 2000px;
+}
+
+div.slider-container-fullscreen,
+div.slider-container-fullscreen div.slider {
+    max-height: none;
+}
+
+div.slider-container .tp-caption.fullscreenvideo {
+    left: 0 !important;
+}
+
+div.slider div.tp-bannertimer {
+    display: none;
+}
+
+div.slider-container {
+    background: #171717;
+}
+
+div.slider-container div.tp-caption {
+    filter: alpha(opacity=0);
+    opacity: 0;
+}
+
+div.slider-container div.tp-bannershadow {
+    filter: alpha(opacity=20);
+    opacity: 0.20;
+}
+
+div.slider-container.light div.tp-bannershadow {
+    filter: alpha(opacity=5);
+    opacity: 0.05;
+    top: 0;
+    bottom: auto;
+    z-index: 1000;
+}
+
+div.slider > ul > li > div.center-caption {
+    left: 0 !important;
+    margin-left: 0 !important;
+    text-align: center;
+    width: 100%;
+}
+
+div.slider-container div.top-label {
+    color: #FFF;
+    font-size: 24px;
+    font-weight: 300;
+}
+
+div.slider-container div.main-label {
+    color: #FFF;
+    font-size: 62px;
+    line-height: 62px;
+    font-weight: 800;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+div.slider-container div.bottom-label {
+    color: #FFF;
+    font-size: 20px;
+    font-weight: 300;
+}
+
+div.slider-container div.tp-caption a,
+div.slider-container div.tp-caption a:hover {
+    color: #FFF;
+}
+
+div.slider-container div.blackboard-text {
+    color: #BAB9BE;
+    font-size: 46px;
+    line-height: 46px;
+    font-family: "Shadows Into Light",cursive;
+    text-transform: uppercase;
+}
+
+div.slider a.main-button {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 20px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+div.slider-container.light div.top-label,
+div.slider-container.light div.main-label,
+div.slider-container.light div.bottom-label,
+div.slider-container.light div.tp-caption a,
+div.slider-container.light div.tp-caption a:hover {
+    color: #333;
+}
+.tp-caption {
+    font-size: 14px;
+}
+.white-text,
+.white {
+    color: #fff;
+}
+.big-label {
+    padding: 0px 25px 0px 15px;
+    font-size: 35px;
+    font-weight: bold;
+    background: #E8522F;
+    color: #FFF;
+}
+.medium-label {
+    padding: 0px 25px 0px 15px;
+    font-size: 25px;
+    font-weight: bold;
+    background: #E8522F;
+    color: #333332;
+}
+.big-label:after,
+.medium-label:after {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 100%;
+    background: #E8522F;
+    transform: skew(-25deg, 0);
+    top: 0px;
+    right: -18px;
+    border-radius: 0px 0px 5px 0px;
+}
+.medium-label:after {
+    background: #E8522F;
+}
