@@ -31,7 +31,12 @@
 		<div class="content-text">
 			<div class="control-row row-full-all">
 				<p><strong>First text</strong> <span style="float: right;"><input type="checkbox" name="hide_first_text"/> Hide</span></p>
-				<p><input name="first_text" type="text"></p>
+				<p class="content-content-relative content-first-text-field">
+					<input name="first_text" type="text">
+					<span class="content-font-size-control">
+						<input type="text" class="font-size-control font-size-name" name="font-size-name" />
+					</span>
+				</p>
 			</div>
 
 			<div class="control-name js-tabs">
@@ -41,17 +46,29 @@
 				</ul>
 				<div class="content-tab active" data-content-tabs="tab-name-1">
 					<div class="content-tab-inner row-full-all">
-						<input type="text" name="name" placeholder="Name">
+						<p class="content-content-relative content-name--field">
+							<input type="text" name="name" placeholder="Name">
+							<span class="content-font-size-control content-name--field">
+								<input type="text" class="font-size-control font-size--name" name="font-size--name" />
+							</span>
+						</p>
 						<button class="btn btn-custom-design" type="button" onclick="addJobOrPlace(this)">
 							<i class="fa fa-plus-circle"></i> Add job title / place or birth
 						</button>
-						<p class="add_job_or_place" style="display: none;">
-							<input type="text" name="add_job_or_place" style="width: 255px;">
-							<button class="design-custom-btn" type="button" onclick="delJobOrPlace(this)">
-								<i class="fa fa-trash"></i>
-							</button>
+
+						<p class="control_add_job_or_place content-content-relative" style="display: none;">
+							<!-- <p class="content-content-relative"> -->
+								<input type="text" name="add_job_or_place" style="width: 255px;"/>	
+								<button class="design-custom-btn" type="button" onclick="delJobOrPlace(this)">
+									<i class="fa fa-trash"></i>
+								</button>
+								<span class="content-font-size-control content-add-job-or-place-field">
+									<input type="text" class="font-size-control font-size-add-job-or-place-field" name="font-size-add-job-or-place" />
+								</span>
+							<!-- </p> -->
 						</p>
-						<div class="b-d-date">
+
+						<div class="b-d-date content-content-relative">
 							<div class="b-date">
 								<strong style="color: #333;">Birthday</strong> </br>
 								<input type="text" name="b-d" placeholder="dd" maxlength="2"> - 
@@ -64,6 +81,9 @@
 								<input type="text" name="d-m" placeholder="mm" maxlength="2"> - 
 								<input type="text" name="d-y" placeholder="yyyy" maxlength="4">
 							</div>
+							<span class="content-font-size-control content-b-d-date-field">
+								<input type="text" class="font-size-control font-size-b-d-date-field" name="font-size-b-d-date" />
+							</span>
 							<p></p>
 						</div>
 						<label>
@@ -81,8 +101,13 @@
 					<li><a href="javascript:" data-tabs-action="newtab" data-key-tab="memorial_worlds"><i class="fa fa-plus"></i></a></li>
 				</ul>
 				<div class="content-tab active" data-content-tabs="tab-memorial-worlds-1">
-					<div class="content-tab-inner row-full-all">
-						<input name="memorial-worlds" type="text" placeholder="Memorial worlds">
+					<div class="content-tab-inner row-full-all content-memorial-worlds">
+						<p class="content-content-relative">
+							<input name="memorial-worlds" type="text" placeholder="Memorial worlds">
+							<span class="content-font-size-control content-memorial-worlds-field">
+								<input type="text" class="font-size-control font-size-memorial-worlds-field" name="font-size-memorial-worlds" />
+							</span>
+						</p>
 					</div>
 				</div>
 			</div>
@@ -97,9 +122,14 @@
 					<li><a href="javascript:" data-tabs-action="newtab" data-key-tab="poem"><i class="fa fa-plus"></i></a></li>
 				</ul>
 				<div class="content-tab active" data-content-tabs="tab-poem-1">
-					<div class="content-tab-inner row-full-all">
-						<input name="poem" type="text" placeholder="Poem" style="width: 255px">
-						<button class="design-custom-btn" type="button" onclick="hidePoen(this)"><i class="fa fa-trash"></i></button>
+					<div class="content-tab-inner row-full-all ">
+						<p class="content-content-relative content-poem">
+							<input name="poem" type="text" placeholder="Poem" style="width: 252px">
+							<button class="design-custom-btn" type="button" onclick="hidePoen(this)"><i class="fa fa-trash"></i></button>
+							<span class="content-font-size-control content-poem-field">
+								<input type="text" class="font-size-control font-size-poem-field" name="font-size-poem" />
+							</span>
+						</p>
 					</div>
 				</div>
 			</div>

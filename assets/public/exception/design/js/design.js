@@ -12,7 +12,7 @@ function addJobOrPlace(elem){
 function delJobOrPlace(elem){
 	$(elem).parent().prev().removeClass('visible-btn');
 	// $(elem).parent().remove();
-	$(elem).parent().find('input').val('').trigger('input');
+	$(elem).parent().find('input[name="add_job_or_place"]').val('').trigger('input');
 	$(elem).parent().css('display', 'none');
 }
 
@@ -25,12 +25,18 @@ function addPoem(elem){
 // hide Poen
 function hidePoen(elem){
 	var thisEl = $(elem);
-	thisEl.parent().parent().parent().prev().css('display', 'block');
-	thisEl.parent().parent().parent().css('display', 'none');
+
+	thisEl.parent().parent().parent().find('.del-tab').trigger('click');
+	thisEl.parent().parent().parent().find('input[type="text"]').val('').trigger('input');
+	thisEl.parent().parent().parent().parent().prev().css('display', 'block');
+	thisEl.parent().parent().parent().parent().css('display', 'none');
 }
 
 !(function($){
 	$(function(){
+		// set default
+		$('.font-size-control').val('16');
+
 		// tool (tabs switch) =============================================
 		$('.js-tabs').each(function(){
 			var thisEl = $(this);
@@ -177,6 +183,9 @@ function hidePoen(elem){
 				this_tab_name.prev().children('a').trigger('click');
 				this_tab_name.remove();
 				elem.find('[data-content-tabs="'+tab_del+'"]').remove();
+
+				var layout_id = tab_del.split('-');
+				$('.content-area-design .layout-id-'+layout_id[2]).remove();
 			})
 
 			controler_tab_poem.children('li:last-child').before(name_tab_el).before(' ');
@@ -733,6 +742,24 @@ function hidePoen(elem){
 
 			lDesign.layout_fitsttext_area.children('.layout-inner-area').html(value);
 		})
+		$('input[name="font-size-name"]').bind('input', function(){
+			var value = $(this).val();
+			lDesign.layout_fitsttext_area.css({
+				fontSize: value + 'px',
+				lineHeight: value + 'px'
+			})
+		})
+
+		// change font size
+		function setFontSize(inputEl, elem){
+			inputEl.bind('input', function(){
+				var value = $(this).val();
+				elem.css({
+					fontSize: value + 'px',
+					lineHeight: value + 'px'
+				});
+			})
+		}
 
 		// name / date control
 		function nameDateControl(areaTextEl, areaLayoutEl){
@@ -742,8 +769,25 @@ function hidePoen(elem){
 				name: areaTextEl.find('input[name="name"]'),
 				contentBirthday: areaTextEl.find('.b-date'),
 				contentDeath: areaTextEl.find('.d-date'),
-				add_job_or_place: areaTextEl.find('input[name="add_job_or_place"]')
+				add_job_or_place: areaTextEl.find('input[name="add_job_or_place"]'),
+				font_size__name: areaTextEl.find('input[name="font-size--name"]'),
+				font_size_add_job_or_place: areaTextEl.find('input[name="font-size-add-job-or-place"]'),
+				font_size_b_d_date: areaTextEl.find('input[name="font-size-b-d-date"]'),
 			}
+
+			// textEl.font_size__name.bind('input', function(){
+			// 	var value = $(this).val();
+			// 	areaLayoutEl.find('.nametext').css({
+			// 		fontSize: value + 'px',
+			// 		lineHeight: value + 'px'
+			// 	});
+			// })
+			setFontSize(textEl.font_size__name, areaLayoutEl.find('.nametext'));
+			setFontSize(textEl.font_size_add_job_or_place, areaLayoutEl.find('.add_job_or_place'));
+			setFontSize(textEl.font_size_b_d_date, areaLayoutEl.find('.datetext'));
+
+
+
 			textEl.name.bind('input', function(){
 				var value = $(this).val();
 				// console.log(value);
@@ -798,8 +842,11 @@ function hidePoen(elem){
 			if(!lDesign.layout_memorialwords_area){ return; }
 
 			var textEl = {
-				memorial_worlds: areaTextEl.find('input[name="memorial-worlds"]')
+				memorial_worlds: areaTextEl.find('input[name="memorial-worlds"]'),
+				font_size_memorial_worlds: areaTextEl.find('input[name="font-size-memorial-worlds"]')
 			}
+
+			setFontSize(textEl.font_size_memorial_worlds, areaLayoutEl);
 
 			textEl.memorial_worlds.bind('input', function(){
 				var value = $(this).val();
@@ -812,8 +859,11 @@ function hidePoen(elem){
 			if(!lDesign.poem){ return; }
 
 			var textEl = {
-				poem: areaTextEl.find('input[name="poem"]')
+				poem: areaTextEl.find('input[name="poem"]'),
+				font_size_poem: areaTextEl.find('input[name="font-size-poem"]'),
 			}
+
+			setFontSize(textEl.font_size_poem, areaLayoutEl);
 
 			textEl.poem.bind('input', function(){
 				var value = $(this).val();

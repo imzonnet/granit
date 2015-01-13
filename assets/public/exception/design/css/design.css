@@ -561,3 +561,40 @@ input[name="text-color"]:checked ~ span{
 .layout-item-area:hover .pl_rotate_control{
 	
 }
+
+/* content-content-relative */
+.content-content-relative{
+	position: relative;
+}
+.content-font-size-control{
+	position: absolute;
+	right: 20px;
+	top: 103%;
+	width: 32px;
+	transform: scale(0.8);
+	-webkit-transform: scale(0.8);
+}
+.content-font-size-control:after{
+	content: "px";
+	position: absolute;
+	right: -18px;
+	top: 50%;
+	transform: translateY(-50%);
+	-webkit-transform: translateY(-50%);
+}
+.content-font-size-control:before{
+	content: "font size:";
+	position: absolute;
+	left: -58px;
+	top: 50%;
+	transform: translateY(-50%);
+	-webkit-transform: translateY(-50%);
+}
+.control_add_job_or_place,
+.b-d-date,
+.content-poem{
+	margin-bottom: 20px !important;
+}
+.content-memorial-worlds{
+	padding-bottom: 20px !important;
+}
