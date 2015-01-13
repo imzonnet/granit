@@ -429,7 +429,7 @@ $(window).load(function () {
 
                     <!-- testimonials start -->
                     <div class="fx" data-animate="fadeInLeft">
-                        <h3 class="block-head">What They Said About Us <a href="#"><span class="right" style="font-size: 14px; color: #333">+ Write A Review</span></a></h3>
+                        <h3 class="block-head">What They Said About Us <a href="{{URL::route('testimonial.index')}}"><span class="right" style="font-size: 14px; color: #333">+ Write A Review</span></a></h3>
 
                         <div class="testimonials-1 slick-button-hor">
                             @foreach($testimonials as $testimonial)

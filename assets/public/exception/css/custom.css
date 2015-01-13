@@ -353,3 +353,15 @@
 .slick-button-hor .slick-next {
     right: -30px
 }
+
+.exp-rate-star i,
+.exp-rate-star.active.hover-active i {
+   font-size: 18px;
+   cursor: pointer;
+   color: #777;
+}
+.exp-rate-star:hover i,
+.exp-rate-star.hover i,
+.exp-rate-star.active i{
+   color: #ffc000;
+}
