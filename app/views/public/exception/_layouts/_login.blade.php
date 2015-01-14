@@ -1,58 +1,76 @@
-﻿<!DOCTYPE HTML>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<title>{{ $title }} :: {{ trans('cms.admin_dashboard') }}</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Admin Panel Template">
-<meta name="author" content="Westilian: Kamrujaman Shohel">
-<!-- styles -->
-<link href="{{url("assets/admin/default/css/bootstrap.css")}}" rel="stylesheet">
-<link href="{{url("assets/admin/default/css/bootstrap-responsive.css")}}" rel="stylesheet">
-<link rel="stylesheet" href="{{url("assets/admin/default/css/font-awesome.css")}}">
-<!--[if IE 7]>
-            <link rel="stylesheet" href="{{url("assets/admin/default/css/font-awesome-ie7.min.css")}}">
-        <![endif]-->
-<link href="{{url("assets/admin/default/css/styles.css")}}" rel="stylesheet">
-<link href="{{url("assets/admin/default/css/theme-blue.css")}}" rel="stylesheet">
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>{{ Services\MenuManager::getTitle($title) }}</title>
+                <meta name="csrf-token" content="{{ csrf_token() }}" />
+		@section('meta_description')
+		    <!-- -->
+		@show
+		@section('meta_keywords')
+		    <!-- -->
+		@show
 
-<!--[if IE 7]>
-            <link rel="stylesheet" type="text/css" href="{{url("assets/admin/default/css/ie/ie7.css")}}" />
-        <![endif]-->
-<!--[if IE 8]>
-            <link rel="stylesheet" type="text/css" href="{{url("assets/admin/default/css/ie/ie8.css")}}" />
-        <![endif]-->
-<!--[if IE 9]>
-            <link rel="stylesheet" type="text/css" href="{{url("assets/admin/default/css/ie/ie9.css")}}" />
-        <![endif]-->
-<link href="{{url("assets/admin/default/css/aristo-ui.css")}}" rel="stylesheet">
-<link href="{{url("assets/admin/default/css/elfinder.css")}}" rel="stylesheet">
-<link href='http://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'>
-<!--fav and touch icons -->
-<link rel="shortcut icon" href="{{URL::to("assets/favicon.ico")}}">
-<!--============j avascript===========-->
-<script src="{{url("assets/admin/default/js/jquery.js")}}"></script>
-<script src="{{url("assets/admin/default/js/jquery-ui-1.10.1.custom.min.js")}}"></script>
-<script src="{{url("assets/admin/default/js/bootstrap.js")}}"></script>
-</head>
-<body>
-<div class="layout">
-    <!-- Navbar================================================== -->
-    <div class="navbar navbar-inverse top-nav">
-        <div class="navbar-inner">
-            <div class="container">
-                <span class="home-link"><a href="{{ URL::to('admin') }}" class="icon-home"></a></span><a class="brand" href="{{ URL::to('admin') }}"><img src="{{url("assets/admin/default/images/logo.png")}}" alt="Doptor"></a>
-                <div class="btn-toolbar pull-right notification-nav">
-                    <div class="btn-group">
-                        <div class="dropdown">
-                            <a class="btn btn-notification"><i class="icon-reply"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    @yield('content')
-</div>
-</body>
+		<meta name="author" content="John Nguyen">
+		
+		<!-- Mobile Meta -->
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		
+		<!-- Put favicon.ico and apple-touch-icon(s).png in the images folder -->
+	    <link rel="shortcut icon" href="{{URL::to("assets/public/exception/images/favicon.ico")}}">
+
+		<!-- CSS StyleSheets -->
+
+		@include('public.exception._layouts._StylesPartial')
+
+		
+		<!-- Skin style (** you can change the link below with the one you need from skins folder in the css folder **) -->
+
+	
+	</head>
+	<body>
+	    
+	    <!-- site preloader start -->
+	    <div class="page-loader">
+	    	<div class="loader-in"></div>
+	    </div>
+	    <!-- site preloader end -->
+	    
+	    <div class="pageWrapper">
+		    
+            <!-- Header Start -->
+            @include('public.exception._layouts._HeaderPartial')
+            <!-- Header End -->
+
+			<!-- Content Start -->
+			<div id="contentWrapper">
+
+                @section('slider')
+                    {{-- Here goes the slider --}}
+                @show
+
+                @section('heading')
+
+                @show
+
+                @section('content')
+
+                @show
+				
+
+			</div>
+			<!-- Content End -->
+			
+			<!-- Footer start -->
+            @include('public.exception._layouts._FooterPartial')
+		    <!-- Footer end -->
+		    
+		    <!-- Back to top Link -->
+	    	<div id="to-top" class="main-bg"><span class="fa fa-chevron-up"></span></div>
+	    	
+	    </div>
+
+	    @include('public.exception._layouts._ScriptsPartial')
+
+	</body>
 </html>

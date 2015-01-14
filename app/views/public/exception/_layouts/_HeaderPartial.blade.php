@@ -33,9 +33,14 @@
                     <ul class="right"> 
                         <li><a href="#">{{HTML::image(asset('uploads/images/en.png'), 'English',['width' => '30px', 'class' => 'left', 'style' => 'padding-right: 5px; margin-top: 8px;'])}} EN</a></li>
                         <li><a href="cart.html"><i class="fa fa-shopping-cart"></i>0 item(s) - $0.00</a></li> 
-                        <li><a href="#"><i class="fa fa-sitemap"></i>Site Map</a></li> 
+                        <li><a href="#"><i class="fa fa-sitemap"></i>Site Map</a></li>
+                        @if( !\Sentry::check() )
                         <li><a href="#"><i class="fa fa-user"></i>Register</a></li> 
-                        <li><a class="login-btn" href="#"><b class="tri hidden"></b><i class="fa fa-unlock-alt"></i> Login</a></li> 
+                        <li><a class="login-btn" href="{{url('login/public')}}"><b class="tri hidden"></b><i class="fa fa-unlock-alt"></i> Login</a></li> 
+                        @else
+                        <li><a href="#"><i class="fa fa-user"></i>Hi {{ $current_user->username }}</a></li> 
+                        <li><a class="login-btn" href="{{url('logout')}}"><b class="tri hidden"></b><i class="fa fa-unlock"></i> Logout</a></li> 
+                        @endif
                     </ul>
                 </div>
             </div>

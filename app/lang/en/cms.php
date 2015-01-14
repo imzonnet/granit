@@ -45,4 +45,5 @@ return array(
     'synchronize'            => 'Synchronize',
     'settings'               => 'Settings',
     
+    'alert_signup'          => 'Don\'t have an account? <a href="'.url('register').'">Sign Up</a> here',
 );

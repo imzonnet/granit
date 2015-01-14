@@ -16,5 +16,10 @@ class AdminController extends \BaseController {
     /**
      * The layout that should be used for responses.
      */
-    protected $layout = 'admin.'.$this->current_theme.'._layouts._layout';
+    protected $layout;
+    
+    public function __construct() {
+        parent::__construct();
+        $this->layout = 'admin.' . $this->current_theme . '._layouts._layout';
+    }
 }

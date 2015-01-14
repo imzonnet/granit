@@ -20,6 +20,9 @@ class TestimonialsController extends \BaseController {
     }
 
     public function index() {
+        if( !\Sentry::check()) {
+            return Redirect::guest('login/public');
+        }
         $this->layout->title = 'Write Review';
         $this->layout->content = View::make('Testimonials::public.testimonials.index');
     }

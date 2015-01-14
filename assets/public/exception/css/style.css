@@ -1397,7 +1397,7 @@ header.top-head.nav-2 .logo,header.top-head.nav-3 .logo{
     margin: auto;
 }
 input, select, textarea, button, .btn, .fun-title, .r-more {
-    text-transform: uppercase;
+
 }
 .right {
     float: right !important;
