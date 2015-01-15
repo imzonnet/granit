@@ -40,18 +40,28 @@
             <div class="cell-4"></div>
             <div class="tabs cell-4 gry-bg padd-vertical-20">
                 <ul>
-                    <li class="skew-25 active"><a class="skew25" href="#">Sign In</a></li>
-                    <li class="skew-25"><a class="skew25" href="{{url('register')}}">Sign Up</a></li>
+                    <li class="skew-25"><a class="skew25" href="{{url('login/public')}}">Sign In</a></li>
+                    <li class="skew-25 active"><a class="skew25" href="#">Sign Up</a></li>
                 </ul>
                 <div class="tabs-pane">
                     <p>{{ trans('cms.alert_signup') }}</p>
                     <div class="tab-panel contact-form">
-                        {{ Form::open(array('url'=>'login/public', 'method'=>'POST', 'class'=>'form-signin')) }}
+                        {{ Form::open(array('url'=>'register', 'method'=>'POST', 'class'=>'form-signin')) }}
                         <div class="form-input">
                             {{ Form::text('username', Input::old('username'), array('class'=>'input-block-level', 'placeholder' => 'Username')) }}
+                            {{ $errors->first('username', '<span class="red">:message</span>') }}
+                        </div>
+                        <div class="form-input">
+                            {{ Form::text('email', Input::old('email'), array('class'=>'input-block-level', 'placeholder' => 'Email')) }}
+                            {{ $errors->first('email', '<span class="red">:message</span>') }}
                         </div>
                         <div class="form-input">
                             {{ Form::password('password', array('class'=>'input-block-level', 'placeholder' => 'Password')) }}
+                            {{ $errors->first('password', '<span class="red">:message</span>') }}
+                        </div>
+                        <div class="form-input">
+                            {{ Form::password('password_confirmation', array('class'=>'input-block-level', 'placeholder' => 'Password')) }}
+                            {{ $errors->first('password_confirmation', '<span class="red">:message</span>') }}
                         </div>
                         <div class="form-input text-align-center">
                             <button class="btn btn-inverse btn-block main-bg" type="submit">Sign in</button>

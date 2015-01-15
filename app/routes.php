@@ -31,8 +31,8 @@ Route::get('/', function() {
 Route::when('*', array('csrf'));
 
 Route::get('home', 'HomeController@index');
+Route::get('public', 'HomeController@index');
 Route::get('wrapper/{id}', 'HomeController@wrapper');
-
 Route::get('login', 'AuthController@getLogin');
 Route::get('login/{target}', 'AuthController@getLogin');
 Route::post('login', 'AuthController@postLogin');
@@ -42,6 +42,9 @@ Route::post('forgot_password', 'AuthController@postForgotPassword');
 Route::get('reset_password/{id}/{token}/{target?}', 'AuthController@getResetPassword');
 Route::post('reset_password', 'AuthController@postResetPassword');
 Route::get('suspend_user/{id}/{token}', 'AuthController@suspendUser');
+
+Route::get('register', 'AuthController@getRegister');
+Route::post('register', 'AuthController@postRegister');
 
 Route::get('contact/{category}', 'Components\ContactManager\Controllers\PublicController@showCategory');
 Route::get('contact/{category}/{contact}', 'Components\ContactManager\Controllers\PublicController@showPublic');

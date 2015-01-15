@@ -1,23 +1,5 @@
 <!-- Header Start -->
 <div id="headWrapper" class="clearfix">
-    <div class="login-box"> <a href="#" class="close-login"><i class="fa fa-times"></i></a>
-        <form>
-            <div class="container">
-                <p>Hello our valued visitor, We present you the best web solutions and high quality graphic designs with a lot of features. just login to your account and enjoy ...</p>
-                <div class="login-controls">
-                    <div class="skew-25 input-box left">
-                        <input type="text" placeholder="User name Or Email" class="txt-box skew25"> </div>
-                    <div class="skew-25 input-box left">
-                        <input type="password" placeholder="Password" class="txt-box skew25"> </div>
-                    <div class="left skew-25 main-bg">
-                        <input type="submit" value="Login" class="btn skew25"> </div>
-                    <div class="check-box-box">
-                        <input type="checkbox" class="check-box">
-                        <label>Remember me !</label> <a href="#">Forgot your password ?</a> </div>
-                </div>
-            </div>
-        </form>
-    </div>
     <!-- top bar start -->
     <div class="top-bar">
         <div class="container">
@@ -35,11 +17,11 @@
                         <li><a href="cart.html"><i class="fa fa-shopping-cart"></i>0 item(s) - $0.00</a></li> 
                         <li><a href="#"><i class="fa fa-sitemap"></i>Site Map</a></li>
                         @if( !\Sentry::check() )
-                        <li><a href="#"><i class="fa fa-user"></i>Register</a></li> 
-                        <li><a class="login-btn" href="{{url('login/public')}}"><b class="tri hidden"></b><i class="fa fa-unlock-alt"></i> Login</a></li> 
+                        <li><a href="{{url('register')}}"><i class="fa fa-user"></i>Register</a></li> 
+                        <li><a href="{{url('login/public')}}"><b class="tri hidden"></b><i class="fa fa-unlock-alt"></i> Login</a></li> 
                         @else
                         <li><a href="#"><i class="fa fa-user"></i>Hi {{ $current_user->username }}</a></li> 
-                        <li><a class="login-btn" href="{{url('logout')}}"><b class="tri hidden"></b><i class="fa fa-unlock"></i> Logout</a></li> 
+                        <li><a href="{{url('logout')}}"><b class="tri hidden"></b><i class="fa fa-unlock"></i> Logout</a></li> 
                         @endif
                     </ul>
                 </div>
