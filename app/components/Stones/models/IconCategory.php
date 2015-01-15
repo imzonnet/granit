@@ -6,6 +6,7 @@ use App,
     Str;
 use Robbo\Presenter\PresentableInterface;
 use Components\Stones\Presenters\IconCategoryPresenter;
+use Components\Stones\Models\Icon;
 
 class IconCategory extends \Eloquent implements PresentableInterface {
 
@@ -15,7 +16,7 @@ class IconCategory extends \Eloquent implements PresentableInterface {
     protected $guarded = array('id');
 
     public function icon() {
-        return $this->hasMany('Icon', 'cat_id', 'id', 'granit_icon_categories');
+        return $this->hasMany('Components\Stones\Models\Icon', 'cat_id', 'id', 'granit_icon_categories');
     }
 
     /**

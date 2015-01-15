@@ -3,6 +3,7 @@
 use App, Str;
 use Robbo\Presenter\PresentableInterface;
 use Components\Stones\Presenters\IconPresenter;
+use Components\Stones\Models\IconCategory;
 
 class Icon extends \Eloquent implements PresentableInterface {
     protected $table = 'granit_icons';
@@ -13,7 +14,7 @@ class Icon extends \Eloquent implements PresentableInterface {
 
 
     public function category() {
-        return $this->belongsTo('IconCategory', 'cat_id', 'id', 'granit_icons');
+        return $this->belongsTo('Components\Stones\Models\IconCategory', 'cat_id', 'id', 'granit_icons');
     }
 
     /**
