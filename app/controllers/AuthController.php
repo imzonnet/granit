@@ -267,4 +267,108 @@ class AuthController extends BaseController {
         }
     }
 
+    public function getSocialLogin($type = "facebook") {
+        // get data from input
+        $code = NULL;
+        $prefix = '';
+        $social = '';
+        $request = NULL;
+        $token = NULL;
+        $verify = '';
+        switch ($type) {
+            case 'facebook' :
+                $social = OAuth::consumer('Facebook');
+                $prefix = 'fb_';
+                $request = '/me';
+                $code = Input::get('code');
+                break;
+            case 'google' :
+                $social = OAuth::consumer('Google');
+                $prefix = 'gg_';
+                $request = 'https://www.googleapis.com/oauth2/v1/userinfo';
+                $code = Input::get('code');
+                break;
+            case 'twitter' :
+                $token = Input::get('oauth_token');
+                $verify = Input::get('oauth_verifier');
+                $social = OAuth::consumer('Twitter');
+                $prefix = 'tw_';
+                $request = 'account/verify_credentials';
+                break;
+            default:
+                return Redirect::intended('home');
+                break;
+        }
+        // get fb service
+        if (!empty($code) || (!empty( $token ) && !empty( $verify ))) {
+            // This was a callback request from facebook, get the token
+            if ($type == 'twitter') {
+                $token = $social->requestAccessToken($token, $verify);
+            } else {
+                $token = $social->requestAccessToken($code);
+            }
+            // Send a request with it
+            $result = json_decode($social->request($request), true);
+            try {
+                if ($type == 'facebook') {
+                    $user = Sentry::createUser(array(
+                                'username' => $prefix . $result['id'],
+                                'password' => str_random(8),
+                                'email' => $result['email'],
+                                'first_name' => $result['first_name'],
+                                'last_name' => $result['last_name'],
+                                'last_pw_changed' => new DateTime,
+                                'activated' => 1,
+                    ));
+                } else if ($type == 'google') {
+                    $user = Sentry::createUser(array(
+                                'username' => $prefix . $result['id'],
+                                'password' => str_random(8),
+                                'email' => $result['email'],
+                                'first_name' => $result['given_name'],
+                                'last_name' => $result['family_name'],
+                                'last_pw_changed' => new DateTime,
+                                'photo' => $result['picture'],
+                                'activated' => 1,
+                    ));
+                } else if ($type == 'twitter') {
+                    dd($result);
+                }
+                $userGroup = Sentry::findGroupByName('Members');
+                $user->addGroup($userGroup);
+                Sentry::login($user);
+                return Redirect::intended('home');
+            } catch (Cartalyst\Sentry\Users\LoginRequiredException $e) {
+                return Redirect::to('login/public')->withErrors('Login field is required.');
+            } catch (Cartalyst\Sentry\Users\PasswordRequiredException $e) {
+                return Redirect::to('login/public')->withErrors('Password field is required.');
+            } catch (Cartalyst\Sentry\Users\UserExistsException $e) {
+                $users = User::where('username', $prefix . $result['id'])->first();
+                $user = Sentry::findUserById($users->id);
+                // Log the user in
+                Sentry::login($user);
+                return Redirect::intended('home');
+            } catch (Cartalyst\Sentry\Groups\GroupNotFoundException $e) {
+                return Redirect::to('login/public')->withErrors('Group was not found.');
+            } catch (Illuminate\Database\QueryException $e) {
+                $users = User::where('email', $result['email'])->first();
+                $user = Sentry::findUserById($users->id);
+                // Log the user in
+                Sentry::login($user);
+                return Redirect::intended('home');
+            }
+        }
+        // if not ask for permission first
+        else {
+            if ($type == "twitter") {
+                $reqToken = $social->requestRequestToken();
+                // get Authorization Uri sending the request token
+                $url = $social->getAuthorizationUri(array('oauth_token' => $reqToken->getRequestToken()));
+            } else {
+                $url = $social->getAuthorizationUri();
+            }
+            return Redirect::to((string) $url);
+        }
+    }
+
 }

@@ -114,7 +114,7 @@ return array(
 		'Menu\MenuServiceProvider',
 		'Barryvdh\DomPDF\ServiceProvider',
 		'Mews\Captcha\CaptchaServiceProvider',
-
+                'Artdarek\OAuth\OAuthServiceProvider',
 
             'App\Components\Memorials\MemorialsServiceProvider',
             'App\Components\MyGalleries\ServiceProvider',
@@ -193,6 +193,7 @@ return array(
 		'Menus'  => 'Menu\Menu',
 		'PDF'    => 'Barryvdh\DomPDF\Facade',
 		'Captcha' => 'Mews\Captcha\Facades\Captcha',
+                'OAuth' => 'Artdarek\OAuth\Facade\OAuth',
 
 	),
 

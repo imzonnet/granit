@@ -365,3 +365,30 @@
 .exp-rate-star.active i{
    color: #ffc000;
 }
+
+.social-login {
+    list-style: none inside;
+    text-align: center;
+}
+.social-login li {
+    display: inline-block;
+    width: 50px;
+    height: 45px;
+    margin-left: 30px;
+    line-height: 45px;
+}
+.social-login li a {
+    color: #fff;
+    font-size: 25px;
+    font-weight: bold;
+    display: block;
+}
+.social-login li.fb {
+    background: #3B5999;
+}
+.social-login li.tw {
+    background: #1DAEE3;
+}
+.social-login li.gg {
+    background: #D44837;
+}

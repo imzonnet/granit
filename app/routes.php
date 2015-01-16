@@ -42,7 +42,10 @@ Route::post('forgot_password', 'AuthController@postForgotPassword');
 Route::get('reset_password/{id}/{token}/{target?}', 'AuthController@getResetPassword');
 Route::post('reset_password', 'AuthController@postResetPassword');
 Route::get('suspend_user/{id}/{token}', 'AuthController@suspendUser');
-
+/**
+ * Social Login
+ */
+Route::get('social/{id}/login', 'AuthController@getSocialLogin');
 Route::get('register', 'AuthController@getRegister');
 Route::post('register', 'AuthController@postRegister');
 

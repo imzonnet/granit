@@ -58,6 +58,12 @@
                         </div>
                         {{ Form::close() }}
                     </div>
+                    <p class="center">Or sign in using</p>
+                    <ul class="social-login">
+                        <li class="fb"><a href="{{url('social/facebook/login')}}"><i class="fa fa-facebook"></i></a></li>
+                        <li class="tw"><a href="{{url('social/twitter/login')}}"><i class="fa fa-twitter"></i></a></li>
+                        <li class="gg"><a href="{{url('social/google/login')}}"><i class="fa fa-google"></i></a></li>
+                    </ul>
                 </div>
             </div>
         </div>
