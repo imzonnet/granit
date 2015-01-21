@@ -578,15 +578,17 @@ function hidePoen(elem){
 			lDesign.layout_fitsttext_area = content_area_design.find('.layout-fitsttext-area');
 			lDesign.layout_name_date_area = content_area_design.find('.layout-name-date-area');
 			lDesign.layout_memorialwords_area = content_area_design.find('.layout-memorialwords-area');
-			lDesign.poem = content_area_design.find('.layout-poem-area');
+			lDesign.poem = content_area_design.find('.layout-poem-area'),
+			lDesign.layoutAccessories = content_area_design.find('.main-layout-accessories-area');;
 		}
 		// choose product =============================================
 		var layoutItem = {
 			fitsttext: '',
 			name_date: '',
 			memorialwords: '',
-			poem: ''
+			poem: '',
 		}
+
 		$('.content-products').on('click', '.product-item', function(e){
 			var thisEl = $(this),
 				p_id = thisEl.data('product-id');
@@ -605,6 +607,7 @@ function hidePoen(elem){
 					layoutItem.name_date = $('.content-area-design').find('.layout-name-date-area');
 					layoutItem.memorialwords = $('.content-area-design').find('.layout-memorialwords-area');
 					layoutItem.poem = $('.content-area-design').find('.layout-poem-area');
+					// layoutItem.layoutAccessories = $('.content-area-design').find('.main-layout-accessories-area');
 
 					setTextStyle();
 					setLayoutDeisgn();
@@ -749,6 +752,16 @@ function hidePoen(elem){
 				lineHeight: value + 'px'
 			})
 		})
+		// Hide first text
+		$('input[name="hide_first_text"]').click(function(){
+			var thisEl = $(this);
+			if( thisEl.prop('checked') == true ){
+				lDesign.layout_fitsttext_area.css('display', 'none');
+			}else{
+				lDesign.layout_fitsttext_area.css('display', 'block');
+			}
+		})
+
 
 		// change font size
 		function setFontSize(inputEl, elem){
@@ -853,6 +866,15 @@ function hidePoen(elem){
 				areaLayoutEl.html(value);
 			})
 		}
+		// Hide menorial worlds
+		jQuery('input[name="hide_memorial_worlds"]').click(function(){
+			var thisEl = $(this);
+			if( thisEl.prop('checked') == true ){
+				layoutItem.memorialwords.css('display', 'none');
+			}else{
+				layoutItem.memorialwords.css('display', 'block');
+			}
+		})
 
 		// Poem control
 		function poem_control(areaTextEl, areaLayoutEl){
@@ -870,5 +892,147 @@ function hidePoen(elem){
 				areaLayoutEl.html(value);
 			})
 		}
+
+		/* color control */
+		$('input[name="text-color"]').each(function(){
+			$(this).bind('click', function(){
+				var thisEl = $(this),
+					value = thisEl.val();
+				$.each(layoutItem, function($k, $elem){
+					$elem.css('color', value);
+				})
+			})
+		})
+
+		/* font control */
+		$('input[name="font-family"]').each(function(){
+			$(this).bind('click', function(){
+				var thisEl = $(this),
+					value = thisEl.val();
+				$.each(layoutItem, function($k, $elem){
+					$elem.css('fontFamily', value);
+				})
+			})
+		})
+
+		/* Chose Accessories */
+		$('.accessories-cat-content .item-accessories').bind('click', function(){
+			var thisEl = $(this),
+				c_id = thisEl.data('id');
+
+			$.ajax({
+				headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },
+				type: "POST",
+				url: "design/ajax",
+				data: { handle: 'getIconsById', id: c_id },
+				success: function(data){
+					// console.log(data);
+					var obj = $.parseJSON(data);
+					$('.accessories-content')
+					.addClass('active')
+					.children('.accessories-content-inner')
+					.html(obj.layout);
+					$('.accessories-content').find('.icon-item').each(function(){
+						chooseAccessorie($(this));
+					})
+				}
+			})
+		})
+		$('#btn-accessories-back').click(function(){
+			$(this).parent().removeClass('active');
+		})
+		// choose accessories
+		function chooseAccessorie(elem){
+			elem.bind('click', function(){
+				var thisEl = $(this);
+					src = thisEl.find('img').attr('src'),
+					accessorieEl = $('<div>'),
+					htmlInner = "<img src='"+src+"'>";
+
+				accessorieEl.addClass('accessorie-item').append(htmlInner);
+				lDesign.layoutAccessories.append(accessorieEl);
+
+				buildLayout(accessorieEl, {drag: true});
+			})
+		}
+
+		//================================
+		var designParams = {}
+		function getInfoEl(elem, info){
+			elem.info = {};
+			elem.info.offset = elem.offset();
+			if(info.text == true){ elem.info.text = elem.html(); }
+			if(info.style == true){ 
+				elem.info.color = elem.css('color'); 
+				elem.info.fontFamily = elem.css('font-family'); 
+				elem.info.fontSize = elem.css('font-size'); 
+				elem.info.lineHeight = elem.css('line-height'); 
+			}
+		}
+
+		function buildCanvas(){
+			designParams.canvas = document.createElement('canvas');
+			designParams.canvas.width = designParams.main_frame_image.width();
+			designParams.canvas.height = designParams.main_frame_image.height();
+			designParams.context = designParams.canvas.getContext("2d");
+		}
+
+		function drawText(context, text, x, y, lineHeight, fitWidth) {
+			fitWidth = fitWidth || 0;
+			lineHeight = lineHeight || 20;
+			var currentLine = 0;
+			var lines = text.split(/\r\n|\r|\n/);
+			for (var line = 0; line < lines.length; line++) {
+				if (fitWidth <= 0) {
+					context.fillText(lines[line], x, y + (lineHeight * currentLine));
+				} else {
+					var words = lines[line].split(' ');
+					var idx = 1;
+					while (words.length > 0 && idx <= words.length) {
+						var str = words.slice(0, idx).join(' ');
+						var w = context.measureText(str).width;
+						if (w > fitWidth) {
+							if (idx == 1) {
+								idx = 2;
+							}
+							context.fillText(words.slice(0, idx - 1).join(' '), x, y + (lineHeight * currentLine));
+							currentLine++;
+							words = words.splice(idx - 1);
+							idx = 1;
+						}
+						else
+						{ idx++; }
+					}
+					if (idx > 0)
+						context.fillText(words.join(' '), x, y + (lineHeight * currentLine));
+				}
+				currentLine++;
+			}
+		}
+
+		function printDesign(){
+			designParams.content_inner_design_area = $('.content-inner-design-area');
+			if(designParams.content_inner_design_area.length <= 0){ return; }
+			// [set main_frame_image
+			designParams.main_frame_image = designParams.content_inner_design_area.find('img#main-frame-image');
+			getInfoEl(designParams.main_frame_image, {}); 
+
+			buildCanvas();
+			designParams.context.drawImage(designParams.main_frame_image[0], 0, 0);
+			// end]
+
+			// [set layout_fitsttext_area
+			designParams.layout_fitsttext_area = designParams.content_inner_design_area.find('.layout-fitsttext-area .layout-inner-area');
+			getInfoEl(designParams.layout_fitsttext_area, {text: true, style: true});
+			
+			drawText(designParams.context, designParams.layout_fitsttext_area.info.text, 10, 10, 10, 100);
+			// end]
+
+			
+			$('body').append(designParams.canvas);
+		}
+		$('#btn_print_design').bind('click', function(){
+			printDesign();
+		})
 	})
 })(jQuery)

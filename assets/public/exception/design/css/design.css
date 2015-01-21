@@ -279,7 +279,8 @@ input[name="color"]{
 }
 .layout-design:hover .l-del,
 .layout-design:hover .l-resize,
-.layout-design:hover .pl_rotate_control{
+.layout-design:hover .pl_rotate_control,
+.accessorie-item:hover .l-del{
 	display: block;
 }
 .layout-design.active{
@@ -597,4 +598,89 @@ input[name="text-color"]:checked ~ span{
 }
 .content-memorial-worlds{
 	padding-bottom: 20px !important;
+}
+
+.accessories-cat-content{
+	margin-top: 10px;
+	height: 516px;
+    overflow: auto;
+    width: 100%;
+}
+.accessories-cat-content > ul{
+	padding: 0;
+	margin: 0;
+	line-height: 0;
+	font-size: 0;
+}
+.accessories-cat-content ul li{
+	width: 50%;
+	display: inline-block;
+	vertical-align: top;
+	margin-top: 8px;
+	cursor: pointer;
+	padding: 0 8px;
+}
+.accessories-cat-content ul li img{
+	background: #FFF;
+	width: 100%;
+}
+.accessories-cat-content p {
+    background: none repeat scroll 0 0 #fc8267;
+    margin-bottom: 0;
+    padding: 3px;
+}
+.accessories-content{
+	background: 0 0 #e7512f;
+    height: 516px;
+    left: 30px;
+    opacity: 0;
+    overflow: auto;
+    position: absolute;
+    top: 114px;
+    width: 315px;
+    z-index: -1;
+}
+.accessories-content.active{
+	z-index: 10;
+	opacity: 1;
+}
+.accessories-content .content-inner{
+	height: auto !important;
+}
+.main-layout-accessories-area{}
+.main-layout-accessories-area .accessorie-item{
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.content-btn-control{
+	text-align: center;
+}
+.content-btn-control .btn-control{
+	width: 30%;
+	margin-right: 2%;
+	display: inline-block;
+	vertical-align: top;
+	cursor: pointer;
+}
+.content-btn-control .btn-control .icon-control{
+	width: 100%;
+	height: 90px;
+	margin-bottom: 5px;
+}
+.content-btn-control .btn-control .icon-control.icon-download-pdf{
+	background: url('../images/download.png') no-repeat center center, #ED937F;
+	background-size: 73px 64px;
+}
+.content-btn-control .btn-control .icon-control.icon-print-design{
+	background: url('../images/print.png') no-repeat center center, #ED937F;
+	background-size: 73px 64px;
+}
+.content-btn-control .btn-control .icon-control.icon-share-design{
+	background: url('../images/share.png') no-repeat center center, #ED937F;
+	background-size: 64px;
+}
+.content-btn-control .btn-control strong{
+	font-size: 12px;
 }

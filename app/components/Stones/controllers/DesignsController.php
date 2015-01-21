@@ -28,7 +28,7 @@ class DesignsController extends \BaseController {
         ->with('fonts', Font::all_fonts())
         ->with('fonts_include', Font::all())
         ->with('icons', Icon::all())
-        ->with('iconcategories', IconCategory::all_categories());
+        ->with('iconcategories', IconCategory::all());
     }
 
     public function ajax() {
@@ -61,6 +61,11 @@ class DesignsController extends \BaseController {
                 ->with('productcolors', ProductColor::whereRaw("product_id = {$id} and status = 'published'")->get())
                 ->render();
                 break;
+            // case 'getIconByCatId':
+            //     $layout = View::make('Stones::public.design.layouts.productcolors')
+            //     ->with('productcolors', ProductColor::whereRaw("product_id = {$id} and status = 'published'")->get())
+            //     ->render();
+            //     break;
         }
         echo json_encode( array('layout' => $layout) );exit;
     }

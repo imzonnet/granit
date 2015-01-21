@@ -40,6 +40,9 @@
 				</div>
 			</div>
 		</div>
+		<div class="main-layout-accessories-area">
+			
+		</div>
 	</div>
 	@if(count($productcolors) > 0)
 	<div class="content-product-color">

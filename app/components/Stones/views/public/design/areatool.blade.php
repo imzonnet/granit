@@ -95,7 +95,7 @@
 			</div>
 			<p></p>
 			<div class="control-memorial-worlds js-tabs">
-				<strong>Memorial worlds</strong>
+				<strong>Memorial worlds <span style="float: right;"><input type="checkbox" name="hide_memorial_worlds"/> Hide</span></p></strong>
 				<ul class="controler-tab-memorial-worlds">
 					<li class='active'><a href="javascript:" data-tabs="tab-memorial-worlds-1">Line 1</a></li>
 					<li><a href="javascript:" data-tabs-action="newtab" data-key-tab="memorial_worlds"><i class="fa fa-plus"></i></a></li>
@@ -154,7 +154,7 @@
 				--><div style="width: 60%;">
 					<p><strong>Font type</strong></p>
 					<ul>
-						@foreach(['Tahoma', 'Verdana'] as $k=>$f)
+						@foreach(['Tahoma', 'cursive'] as $k=>$f)
 						<?php $checked = ($k == 0)? "checked=''" : ""; ?>
 						<li style="font-family: {{ $f }}"><input type="radio" name="font-family" value="{{ $f }}" {{ $checked }}/> {{ $f }}</li>
 						@endforeach
@@ -165,6 +165,27 @@
 	</div>
 	<!-- Accessories -->
 	<div class="content-tab center" data-content-tabs="tab-accessories">
+		<div class="product-search-content">
+			<input type="text" placeholder="Search" name="accessories_search">
+		</div>
+		<div class="accessories-cat-content">
+			@if(count($iconcategories) > 0)
+				<ul>
+				@foreach($iconcategories as $item)
+				<li class="item-accessories" data-id="{{ $item->id }}">
+					<img src="{{ $item->image }}"/>
+					<p class="text-ellipsis">{{ $item->name }}</p>
+				</li>
+				@endforeach
+				</ul>
+			@endif
+		</div>
+		<div class="accessories-content">
+			<button type="button" class="btn" id="btn-accessories-back"><i class="fa fa-arrow-left"></i> Back</button>
+			<div class="accessories-content-inner">
+				<!-- content ajax -->
+			</div>
+		</div>
 	<!--
 		<div class="content-text">
 			<textarea id="text-design" class="text-design"></textarea>
@@ -212,6 +233,20 @@
 	-->
 	</div>
 	<div class="content-tab center" data-content-tabs="tab-finish">
-		
+		<h1>Finish</h1>
+		<div class="content-btn-control">
+			<div id="btn_download_pdf" class="btn-control download-pdf">
+				<div class="icon-control icon-download-pdf"></div>
+				<strong>Download PDF</strong>
+			</div>
+			<div id="btn_print_design" class="btn-control print-design">
+				<div class="icon-control icon-print-design"></div>
+				<strong>Print Design</strong>
+			</div>
+			<div class="btn-control share-design">
+				<div id="btn_share_design" class="icon-control icon-share-design"></div>
+				<strong>SHARE!</strong>
+			</div>
+		</div>
 	</div>
 </div>
