@@ -100,8 +100,8 @@ function hidePoen(elem){
 			// create layout name b-d day
 			var layer_el = $('<div>').addClass('layout-item-area text-align-center layout-name-date-area layout-id-'+rand_id),
 				html_inner = '<div class="layout-inner-area">';
-				html_inner += '<div class="nametext"></div>';
-				html_inner += '<div class="add_job_or_place"></div>';
+				html_inner += '<div class="nametext"><div class="text-inner"></div></div>';
+				html_inner += '<div class="add_job_or_place"><div class="text-inner"></div></div>';
 				html_inner += '<div class="datetext">';
 				html_inner += '<div class="birthdatetext"></div>';
 				html_inner += '<div class="deathdatetext"></div>';
@@ -319,6 +319,7 @@ function hidePoen(elem){
 
 			delLayout(ThisEl);
 		}
+
 
 		// del layout =============================================
 		function delLayout(ThisEl){
@@ -629,13 +630,15 @@ function hidePoen(elem){
 				color: $('input[type="radio"][name="text-color"]:checked').val(),
 				fontFamily: $('input[type="radio"][name="font-family"]:checked').val(),
 				fontSize: '16px',
-				lineHeight: '20px'
+				lineHeight: '20px',
+				fontWeight: 'bold',
+				fontStyle: 'italic'
 			}
 
 			$.each(layoutItem, function($k, $elem){
 				$elem.css(text_style);
 
-				buildLayout($elem, {drag: true})
+				buildLayout($elem, {drag: true, resizefont: true})
 			})
 		}
 
@@ -644,7 +647,9 @@ function hidePoen(elem){
 				color: $('input[type="radio"][name="text-color"]:checked').val(),
 				fontFamily: $('input[type="radio"][name="font-family"]:checked').val(),
 				fontSize: '16px',
-				lineHeight: '20px'
+				lineHeight: '20px',
+				fontWeight: 'bold',
+				fontStyle: 'italic'
 			}
 
 			elem.css(text_style);
@@ -745,6 +750,35 @@ function hidePoen(elem){
 
 			lDesign.layout_fitsttext_area.children('.layout-inner-area').html(value);
 		})
+
+		$('.site-control-first-text span').bind('click', function(){
+			var	currenSize = parseInt(lDesign.layout_fitsttext_area.css('font-size')),
+				new_size = currenSize;
+
+			if( $(this).hasClass('size-plus') ){ new_size = currenSize + 1; }
+			else{ new_size = currenSize - 1; }
+
+			lDesign.layout_fitsttext_area.css({
+				fontSize: new_size + 'px',
+				lineHeight: new_size + 'px',
+			})
+		})
+
+		function controlFontSize(controlEl, applyEl){
+			$(controlEl).find('span').bind('click', function(){
+				var	currenSize = parseInt(applyEl.css('font-size')),
+					new_size = currenSize;
+
+				if( $(this).hasClass('size-plus') ){ new_size = currenSize + 1; }
+				else{ new_size = currenSize - 1; }
+
+				applyEl.css({
+					fontSize: new_size + 'px',
+					lineHeight: new_size + 'px',
+				})
+			})
+		}
+
 		$('input[name="font-size-name"]').bind('input', function(){
 			var value = $(this).val();
 			lDesign.layout_fitsttext_area.css({
@@ -799,12 +833,16 @@ function hidePoen(elem){
 			setFontSize(textEl.font_size_add_job_or_place, areaLayoutEl.find('.add_job_or_place'));
 			setFontSize(textEl.font_size_b_d_date, areaLayoutEl.find('.datetext'));
 
+			/* 2 */
+			controlFontSize(areaTextEl.find('.site-control-name'), areaLayoutEl.find('.nametext'));
+			controlFontSize(areaTextEl.find('.site-control-add-job-or-place'), areaLayoutEl.find('.add_job_or_place'));
+			controlFontSize(areaTextEl.find('.site-control-b-d-date'), areaLayoutEl.find('.datetext'));
 
 
 			textEl.name.bind('input', function(){
 				var value = $(this).val();
 				// console.log(value);
-				areaLayoutEl.find('.nametext').html(value);
+				areaLayoutEl.find('.nametext').children('.text-inner').html(value);
 			})
 
 			// add_job_or_place
@@ -812,7 +850,7 @@ function hidePoen(elem){
 				var thisEl = $(this),
 					value = thisEl.val();
 				
-				areaLayoutEl.find('.add_job_or_place').html(value);
+				areaLayoutEl.find('.add_job_or_place').children('.text-inner').html(value);
 			})
 
 			// birthdate
@@ -861,6 +899,9 @@ function hidePoen(elem){
 
 			setFontSize(textEl.font_size_memorial_worlds, areaLayoutEl);
 
+			/* 2 */
+			controlFontSize(areaTextEl.find('.site-control-memorial-worlds'), areaLayoutEl);
+
 			textEl.memorial_worlds.bind('input', function(){
 				var value = $(this).val();
 				areaLayoutEl.html(value);
@@ -887,6 +928,9 @@ function hidePoen(elem){
 
 			setFontSize(textEl.font_size_poem, areaLayoutEl);
 
+			/* 2 */
+			controlFontSize(areaTextEl.find('.site-control-poem'), areaLayoutEl);
+
 			textEl.poem.bind('input', function(){
 				var value = $(this).val();
 				areaLayoutEl.html(value);
@@ -900,6 +944,9 @@ function hidePoen(elem){
 					value = thisEl.val();
 				$.each(layoutItem, function($k, $elem){
 					$elem.css('color', value);
+					if( $elem.hasClass('layout-name-date-area') ){
+						$elem.parent().find('.layout-name-date-area').css('color', value);
+					}
 				})
 			})
 		})
@@ -911,6 +958,9 @@ function hidePoen(elem){
 					value = thisEl.val();
 				$.each(layoutItem, function($k, $elem){
 					$elem.css('fontFamily', value);
+					if( $elem.hasClass('layout-name-date-area') ){
+						$elem.parent().find('.layout-name-date-area').css('fontFamily', value);
+					}
 				})
 			})
 		})
@@ -961,13 +1011,19 @@ function hidePoen(elem){
 		function getInfoEl(elem, info){
 			elem.info = {};
 			elem.info.offset = elem.offset();
-			if(info.text == true){ elem.info.text = elem.html(); }
+			if(info.text == true){ elem.info.text = elem.text(); }
 			if(info.style == true){ 
 				elem.info.color = elem.css('color'); 
 				elem.info.fontFamily = elem.css('font-family'); 
 				elem.info.fontSize = elem.css('font-size'); 
 				elem.info.lineHeight = elem.css('line-height'); 
 			}
+			if(info.position == true){
+				elem.info.top = elem.offset().top - designParams.main_frame_image.info.offset.top + parseInt(elem.info.lineHeight);
+				elem.info.left = elem.offset().left - designParams.main_frame_image.info.offset.left;
+			}
+
+			return elem;
 		}
 
 		function buildCanvas(){
@@ -1010,6 +1066,20 @@ function hidePoen(elem){
 			}
 		}
 
+		var cStyle = {
+			font: '',
+			size: '16px',
+			color: '#333'
+		}
+		function canvasStyleText(params){
+			if( params.font ){ cStyle.font = params.font; }
+			if( params.size ){ cStyle.size = params.size; }
+			if( params.color ){ cStyle.color = params.color; }
+
+			designParams.context.font = 'italic bold '+cStyle.size+' '+cStyle.font; //'40pt Calibri';
+      		designParams.context.fillStyle = cStyle.color; //'blue';
+		}
+
 		function printDesign(){
 			designParams.content_inner_design_area = $('.content-inner-design-area');
 			if(designParams.content_inner_design_area.length <= 0){ return; }
@@ -1023,13 +1093,126 @@ function hidePoen(elem){
 
 			// [set layout_fitsttext_area
 			designParams.layout_fitsttext_area = designParams.content_inner_design_area.find('.layout-fitsttext-area .layout-inner-area');
-			getInfoEl(designParams.layout_fitsttext_area, {text: true, style: true});
+			getInfoEl(designParams.layout_fitsttext_area, {text: true, style: true, position: true});
 			
-			drawText(designParams.context, designParams.layout_fitsttext_area.info.text, 10, 10, 10, 100);
+			canvasStyleText({
+					font: designParams.layout_fitsttext_area.info.fontFamily,
+					size: designParams.layout_fitsttext_area.info.fontSize,
+					color: designParams.layout_fitsttext_area.info.color
+				})
+			drawText(designParams.context, 
+				designParams.layout_fitsttext_area.info.text, 
+				designParams.layout_fitsttext_area.info.left, 
+				designParams.layout_fitsttext_area.info.top, 
+				parseInt(designParams.layout_fitsttext_area.info.lineHeight), 
+				designParams.layout_fitsttext_area.innerWidth());
 			// end]
 
+			// [set main-layout-name-date-area
+			var main_layout_name_date_area = $('.main-layout-name-date-area');
+			main_layout_name_date_area.find('.layout-inner-area').each(function(){
+				var thisEl = $(this),
+					element = {};
+				element.nametext = thisEl.find('.nametext'),
+				element.add_job_or_place = thisEl.find('.add_job_or_place'),
+				element.birthdatetext = thisEl.find('.birthdatetext'),
+				element.deathdatetext = thisEl.find('.deathdatetext');
+
+				$.each(element, function(index, elem){
+					var text = $.trim(elem.text());
+					if(text != ''){
+						getInfoEl(elem, {text: true, style: true, position: true});
+						canvasStyleText({
+							font: elem.info.fontFamily,
+							size: elem.info.fontSize,
+							color: elem.info.color
+						})
+
+						if(elem.hasClass('nametext') || elem.hasClass('add_job_or_place')){ 
+							designParams.context.textAlign = 'center';
+							elem.info.left = elem.info.left + (elem.width() / 2); 
+							elem.info.text = elem.children('.text-inner').text();
+						}
+
+						if(elem.hasClass('deathdatetext')){ 
+							elem.info.left = elem.info.left + 10; }
+
+						drawText(designParams.context, 
+							elem.info.text, 
+							elem.info.left, 
+							elem.info.top, 
+							parseInt(elem.info.lineHeight), 
+							elem.innerWidth());
+
+						// set default canvas
+						if(elem.hasClass('nametext') || elem.hasClass('add_job_or_place')){ 
+							designParams.context.textAlign = 'left'; }
+					}
+				})
+			})
+			// end]
 			
-			$('body').append(designParams.canvas);
+			// [ set layout-memorialwords-area
+			var layout_memorialwords_area = $('.layout-memorialwords-area');
+			layout_memorialwords_area.find('.layout-inner-area').each(function(){
+				var thisEl = $(this),
+					text = $.trim(thisEl.text());
+				
+				if(text != ''){
+					getInfoEl(thisEl, {text: true, style: true, position: true});
+					canvasStyleText({
+						font: thisEl.info.fontFamily,
+						size: thisEl.info.fontSize,
+						color: thisEl.info.color
+					})
+
+					designParams.context.textAlign = 'center';
+					thisEl.info.left = thisEl.info.left + (thisEl.width() / 2); 
+
+					drawText(designParams.context, 
+						thisEl.info.text, 
+						thisEl.info.left, 
+						thisEl.info.top, 
+						parseInt(thisEl.info.lineHeight), 
+						thisEl.innerWidth());
+
+					designParams.context.textAlign = 'left';
+				}
+			})
+			// end]
+
+			// [ set layout-poem-area
+			var layout_memorialwords_area = $('.layout-poem-area');
+			layout_memorialwords_area.find('.layout-inner-area').each(function(){
+				var thisEl = $(this),
+					text = $.trim(thisEl.text());
+				
+				if(text != ''){
+					getInfoEl(thisEl, {text: true, style: true, position: true});
+					canvasStyleText({
+						font: thisEl.info.fontFamily,
+						size: thisEl.info.fontSize,
+						color: thisEl.info.color
+					})
+
+					designParams.context.textAlign = 'center';
+					thisEl.info.left = thisEl.info.left + (thisEl.width() / 2); 
+
+					drawText(designParams.context, 
+						thisEl.info.text, 
+						thisEl.info.left, 
+						thisEl.info.top, 
+						parseInt(thisEl.info.lineHeight), 
+						thisEl.innerWidth());
+
+					designParams.context.textAlign = 'left';
+				}
+			})
+			// end]
+
+			//$('body').append(designParams.canvas);
+			var datImage = designParams.canvas.toDataURL("image/png");
+			window.open(datImage);
 		}
 		$('#btn_print_design').bind('click', function(){
 			printDesign();

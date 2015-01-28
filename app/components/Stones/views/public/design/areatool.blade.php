@@ -32,7 +32,11 @@
 			<div class="control-row row-full-all">
 				<p><strong>First text</strong> <span style="float: right;"><input type="checkbox" name="hide_first_text"/> Hide</span></p>
 				<p class="content-content-relative content-first-text-field">
-					<input name="first_text" type="text">
+					<input name="first_text" type="text" style="width: 300px;">
+					<span class='site-control site-control-first-text'>
+						<span class="size-plus"><i class="fa fa-plus"></i></span>
+						<span class="size-minus"><i class="fa fa-minus"></i></span>
+					</span>
 					<span class="content-font-size-control">
 						<input type="text" class="font-size-control font-size-name" name="font-size-name" />
 					</span>
@@ -47,9 +51,13 @@
 				<div class="content-tab active" data-content-tabs="tab-name-1">
 					<div class="content-tab-inner row-full-all">
 						<p class="content-content-relative content-name--field">
-							<input type="text" name="name" placeholder="Name">
+							<input type="text" name="name" placeholder="Name" style="width: 285px;" >
+							<span class='site-control site-control-name'>
+								<span class="size-plus"><i class="fa fa-plus"></i></span>
+								<span class="size-minus"><i class="fa fa-minus"></i></span>
+							</span>
 							<span class="content-font-size-control content-name--field">
-								<input type="text" class="font-size-control font-size--name" name="font-size--name" />
+								<input type="text" class="font-size-control font-size--name" style="width: 225px;" name="font-size--name" />
 							</span>
 						</p>
 						<button class="btn btn-custom-design" type="button" onclick="addJobOrPlace(this)">
@@ -58,7 +66,11 @@
 
 						<p class="control_add_job_or_place content-content-relative" style="display: none;">
 							<!-- <p class="content-content-relative"> -->
-								<input type="text" name="add_job_or_place" style="width: 255px;"/>	
+								<input type="text" name="add_job_or_place" style="width: 240px;"/>	
+								<span class='site-control site-control-add-job-or-place'>
+									<span class="size-plus"><i class="fa fa-plus"></i></span>
+									<span class="size-minus"><i class="fa fa-minus"></i></span>
+								</span>
 								<button class="design-custom-btn" type="button" onclick="delJobOrPlace(this)">
 									<i class="fa fa-trash"></i>
 								</button>
@@ -81,6 +93,10 @@
 								<input type="text" name="d-m" placeholder="mm" maxlength="2"> - 
 								<input type="text" name="d-y" placeholder="yyyy" maxlength="4">
 							</div>
+							<span class='site-control site-control-b-d-date'>
+								<span class="size-plus"><i class="fa fa-plus"></i></span>
+								<span class="size-minus"><i class="fa fa-minus"></i></span>
+							</span>
 							<span class="content-font-size-control content-b-d-date-field">
 								<input type="text" class="font-size-control font-size-b-d-date-field" name="font-size-b-d-date" />
 							</span>
@@ -103,7 +119,11 @@
 				<div class="content-tab active" data-content-tabs="tab-memorial-worlds-1">
 					<div class="content-tab-inner row-full-all content-memorial-worlds">
 						<p class="content-content-relative">
-							<input name="memorial-worlds" type="text" placeholder="Memorial worlds">
+							<input name="memorial-worlds" type="text" placeholder="Memorial worlds" style="width: 285px;">
+							<span class='site-control site-control-memorial-worlds'>
+								<span class="size-plus"><i class="fa fa-plus"></i></span>
+								<span class="size-minus"><i class="fa fa-minus"></i></span>
+							</span>
 							<span class="content-font-size-control content-memorial-worlds-field">
 								<input type="text" class="font-size-control font-size-memorial-worlds-field" name="font-size-memorial-worlds" />
 							</span>
@@ -124,7 +144,11 @@
 				<div class="content-tab active" data-content-tabs="tab-poem-1">
 					<div class="content-tab-inner row-full-all ">
 						<p class="content-content-relative content-poem">
-							<input name="poem" type="text" placeholder="Poem" style="width: 252px">
+							<input name="poem" type="text" placeholder="Poem" style="width: 245px">
+							<span class='site-control site-control-poem'>
+								<span class="size-plus"><i class="fa fa-plus"></i></span>
+								<span class="size-minus"><i class="fa fa-minus"></i></span>
+							</span>
 							<button class="design-custom-btn" type="button" onclick="hidePoen(this)"><i class="fa fa-trash"></i></button>
 							<span class="content-font-size-control content-poem-field">
 								<input type="text" class="font-size-control font-size-poem-field" name="font-size-poem" />
@@ -154,10 +178,14 @@
 				--><div style="width: 60%;">
 					<p><strong>Font type</strong></p>
 					<ul>
-						@foreach(['Tahoma', 'cursive'] as $k=>$f)
+						<!-- 
+						@foreach(['Garamond Italic Bold', 'Bookman Old Style Bold Italic'] as $k=>$f)
 						<?php $checked = ($k == 0)? "checked=''" : ""; ?>
 						<li style="font-family: {{ $f }}"><input type="radio" name="font-family" value="{{ $f }}" {{ $checked }}/> {{ $f }}</li>
-						@endforeach
+						@endforeach 
+						-->
+						<li style="font-family: Garamond Italic Bold; font-size: 18px; font-style: italic; font-weight: 700; color: #333;"><input type="radio" name="font-family" value="Garamond" checked="true"/> Garamond Italic Bold</li>
+						<li style="font-family: Bookman Old Style Bold Italic; font-size: 17px; font-style: italic; font-weight: 600; color: #333;"><input type="radio" name="font-family" value="Bookman" checked="true"/> Bookman Old Style Bold Italic</li>
 					</ul>
 				</div>
 			</div>

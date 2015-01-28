@@ -11,9 +11,11 @@
 				<div class="layout-inner-area">
 					<div class="nametext">
 						<!-- name text -->
+						<div class="text-inner"></div>
 					</div>
 					<div class="add_job_or_place">
 						<!-- add job or place -->
+						<div class="text-inner"></div>
 					</div>
 					<div class="datetext">
 						<div class="birthdatetext">
