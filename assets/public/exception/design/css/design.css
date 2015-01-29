@@ -8,6 +8,10 @@
 #design-container input{
 	border-radius: 0;
 }
+#design-container input[type="text"]{
+	height: 30px;
+	padding: 0 5px;
+}
 .loading-animate{ 
 	position: relative; 
 	width: 100%;
@@ -329,7 +333,6 @@ input[name="color"]{
     color: #333;
 }
 .product-search-content input{
-	padding: 10px;
 	width: calc(100% - 20px);
 }
 
@@ -463,12 +466,12 @@ input[name="text-color"]:checked ~ span{
 	white-space: nowrap;
 }
 .datetext .birthdatetext{
-	float: left;
-	text-align: left;
+	display: inline-block;
+	width: auto;
 }
 .datetext .deathdatetext{
-	float: right;
-	text-align: right;
+	display: inline-block;
+	width: auto;
 	padding-left: 10px;
 }
 

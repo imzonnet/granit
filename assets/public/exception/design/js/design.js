@@ -774,7 +774,7 @@ function hidePoen(elem){
 
 				applyEl.css({
 					fontSize: new_size + 'px',
-					lineHeight: new_size + 'px',
+					lineHeight: new_size + 2 + 'px',
 				})
 			})
 		}
