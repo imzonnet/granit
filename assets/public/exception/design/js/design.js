@@ -111,7 +111,8 @@ function hidePoen(elem){
 
 
 			layoutItem.name_date.parent().append(layer_el);
-			setTextStyleEl(layer_el);
+			name_tab_el.find('a').trigger('click'); // new tab active
+			setTextStyleEl(layer_el); 
 			nameDateControl(content_tab_el, layer_el);
 		}
 
@@ -157,6 +158,7 @@ function hidePoen(elem){
 			/* Create layout Memorial */
 			var layer_el = $('<div>').addClass('layout-inner-area layout-id-'+rand_id);
 			lDesign.layout_memorialwords_area.append(layer_el);
+			name_tab_el.find('a').trigger('click'); // new tab active
 			mw_control(content_tab_el, layer_el);
 		}
 
@@ -203,6 +205,7 @@ function hidePoen(elem){
 			/* Create layout Poem */
 			var layer_el = $('<div>').addClass('layout-inner-area layout-id-'+rand_id);
 			lDesign.poem.append(layer_el);
+			name_tab_el.find('a').trigger('click'); // new tab active
 			poem_control(content_tab_el, layer_el);
 		}
 
@@ -592,7 +595,11 @@ function hidePoen(elem){
 
 		$('.content-products').on('click', '.product-item', function(e){
 			var thisEl = $(this),
-				p_id = thisEl.data('product-id');
+				p_id = thisEl.data('product-id'),
+				p_name = thisEl.find('.text-ellipsis').text();
+
+				$('.design-area.right').find('.design-title-layout').addClass('has-product').html('<h3>'+p_name+'</h3>');
+
 
 			$('.design-area.right').addClass('loading-animate'); // add loading animate
 
@@ -621,6 +628,9 @@ function hidePoen(elem){
 
 					$('.content-area-design').find('.content-product-color ul li:first-child a').trigger('click'); // active first item
 					$('.design-area.right').removeClass('loading-animate'); // add loading animate
+				
+					// reset tab text
+					$('[data-content-tabs="tab-text"] input[type="text"]').val('');
 				}
 			})
 		})
@@ -657,6 +667,13 @@ function hidePoen(elem){
 		}
 
 		// choose product color =============================================
+		var price_overview = {
+			tbody_el: $('.tbody-design-overview', '.table'),
+			item_name: '',
+			item_price: 0,
+			item_characteristic_price: 0
+		}
+
 		$('.content-area-design').on('click', '.choose-pcolor-js', function(e){
 			var main_frame_image = $('.content-area-design').find('#main-frame-image'),
 				thisEl = $(this),
@@ -666,6 +683,26 @@ function hidePoen(elem){
 			thisEl.parent().addClass('active').siblings().removeClass('active');
 
 			main_frame_image.css('display', 'block').attr('src', pcolor_img);
+
+			// design price update
+			price_overview.item_name = thisEl.data('name'),
+			price_overview.item_price = thisEl.data('price'),
+			price_overview.item_characteristic_price = thisEl.data('characteristic-price');
+			var tr_frame = "<tr class='tr-frame'>";
+				tr_frame += "<td>1</td>";
+				tr_frame += "<td>"+price_overview.item_name+"</td>";
+				tr_frame += "<td class='qty'>1</td>";
+				tr_frame += "<td class='price'>"+price_overview.item_price+"</td>";
+				tr_frame += "<td class='calc-price'>"+price_overview.item_price+"</td>";
+				tr_frame += "</tr>";
+			var tr_pernament_text = "<tr class='pernament-text'>";
+				tr_pernament_text += "<td>2</td>";
+				tr_pernament_text += "<td>Pernament Text</td>";
+				tr_pernament_text += "<td class='qty'>0</td>";
+				tr_pernament_text += "<td class='price'>"+price_overview.item_characteristic_price+"</td>";
+				tr_pernament_text += "<td class='calc-price'>0</td>";
+				tr_pernament_text += "</tr>";
+			price_overview.tbody_el.html(tr_frame + tr_pernament_text);
 		})
 
 		// control tab text
@@ -1080,6 +1117,16 @@ function hidePoen(elem){
       		designParams.context.fillStyle = cStyle.color; //'blue';
 		}
 
+		function canvasBuildLayoutImg(imgEl){
+			var c = document.createElement('canvas'),
+				ctx= c.getContext("2d");
+
+			c.width = parseInt(imgEl.css('width'));
+			c.height = parseInt(imgEl.css('height'));
+			ctx.drawImage(imgEl[0], 0, 0);
+			return c;
+		}
+
 		function printDesign(){
 			designParams.content_inner_design_area = $('.content-inner-design-area');
 			if(designParams.content_inner_design_area.length <= 0){ return; }
@@ -1135,7 +1182,7 @@ function hidePoen(elem){
 						}
 
 						if(elem.hasClass('deathdatetext')){ 
-							elem.info.left = elem.info.left + 10; }
+							elem.info.left = elem.info.left + 20; }
 
 						drawText(designParams.context, 
 							elem.info.text, 
@@ -1207,6 +1254,19 @@ function hidePoen(elem){
 
 					designParams.context.textAlign = 'left';
 				}
+			})
+			// end]
+
+			// [set main-layout-accessories-area
+			var main_layout_accessories_area = $('.main-layout-accessories-area');
+			main_layout_accessories_area.find('.accessorie-item').each(function(){
+				var thisEl = $(this);
+					imgEl = thisEl.find('img'),
+					x = thisEl.offset().left - designParams.main_frame_image.info.offset.left,
+					y = thisEl.offset().top - designParams.main_frame_image.info.offset.top;
+
+				var c_img = canvasBuildLayoutImg(imgEl);
+				designParams.context.drawImage(c_img, x, y);
 			})
 			// end]
 
