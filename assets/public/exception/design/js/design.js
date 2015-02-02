@@ -259,26 +259,6 @@ function hidePoen(elem){
 			})
 		})//.trigger('change')
 
-		// choose product =============================================
-		// $('.content-products').on('click', '.product-item', function(e){
-		// 	var thisEl = $(this),
-		// 		p_id = thisEl.data('product-id');
-
-		// 	$('.design-area.right').addClass('loading-animate'); // add loading animate
-
-		// 	$.ajax({
-		// 		headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },
-		// 		type: "POST",
-		// 		url: "design/ajax",
-		// 		data: { handle: 'getLayoutProductDesign', id: p_id },
-		// 		success: function(data){
-		// 			var obj = $.parseJSON(data);
-		// 			$('.content-area-design').html(obj.layout);
-
-		// 			$('.design-area.right').removeClass('loading-animate'); // add loading animate
-		// 		}
-		// 	})
-		// })
 
 		// choose icon =============================================
 		$('.content-icons').on('click', '.icon-item', function(e){
@@ -669,6 +649,7 @@ function hidePoen(elem){
 		// choose product color =============================================
 		var price_overview = {
 			tbody_el: $('.tbody-design-overview', '.table'),
+			tfooter_content_el: $('.tfooter-tr-content', '.table'),
 			item_name: '',
 			item_price: 0,
 			item_characteristic_price: 0
@@ -703,6 +684,10 @@ function hidePoen(elem){
 				tr_pernament_text += "<td class='calc-price'>0</td>";
 				tr_pernament_text += "</tr>";
 			price_overview.tbody_el.html(tr_frame + tr_pernament_text);
+
+			//tfooter-tr-content
+			var footerContent = "<td></td><td></td><td></td><td><strong>Sub total</strong></td> <td class='sub-title-price' style='font-weight: bold;'>"+price_overview.item_price+"</td>"
+			price_overview.tfooter_content_el.html(footerContent);
 		})
 
 		// control tab text
@@ -1043,7 +1028,33 @@ function hidePoen(elem){
 			})
 		}
 
-		//================================
+		// countPernamentText ================================
+		//var inputs = data_content_tabs.find('input[name="first_text"], input[name="name"], input[name="name"], input[name="add_job_or_place"], input[name="b-m"], input[name="b-y"], input[name="d-d"], input[name="d-m"], input[name="d-y"], input[name="memorial-worlds"], input[name="poem"]');
+		function updatePernamentTextAndCalcPrice(){
+			var inputs = $('div[data-content-tabs="tab-text"]').find('input[name="first_text"], input[name="name"], input[name="name"], input[name="add_job_or_place"], input[name="b-m"], input[name="b-y"], input[name="d-d"], input[name="d-m"], input[name="d-y"], input[name="memorial-worlds"], input[name="poem"]'),
+				textLength = 0;
+			inputs.each(function(){
+				var $this = $(this),
+					text = $this.val(),
+					arr = text.split(' ');
+				
+				$.each(arr, function(index, value){
+					textLength += value.length;
+				})
+			})
+			var priceEl = $('.tbody-design-overview .pernament-text .price');
+			$('.tbody-design-overview .pernament-text .qty').html(textLength);
+			var priceCalc = textLength * parseInt(priceEl.html());
+			$('.tbody-design-overview .pernament-text .calc-price').html(priceCalc);
+			var subtotal = priceCalc + parseInt($('.tbody-design-overview .tr-frame .calc-price').html());
+			$('.tfooter-design-overview .tfooter-tr-content .sub-title-price').html(subtotal);
+		}
+		$('div[data-content-tabs="tab-text"]').on('input', 'input[name="first_text"], input[name="name"], input[name="name"], input[name="add_job_or_place"], input[name="b-m"], input[name="b-y"], input[name="d-d"], input[name="d-m"], input[name="d-y"], input[name="memorial-worlds"], input[name="poem"]', function(){
+			updatePernamentTextAndCalcPrice();
+		})
+		
+
+		// Build image canvas ================================
 		var designParams = {}
 		function getInfoEl(elem, info){
 			elem.info = {};

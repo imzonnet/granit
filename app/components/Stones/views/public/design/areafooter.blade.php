@@ -7,14 +7,19 @@
 				<tr>
 					<th>#</th>
 					<th>Item Description</th>
-					<th>Qty</th>
-					<th>Qty Price</th>
-					<th>Price</th>
+					<th style="width: 120px">Qty</th>
+					<th style="width: 120px">Qty Price</th>
+					<th style="width: 120px">Price</th>
 				</tr>
 			</thead>
 			<tbody class="tbody-design-overview">
 				
 			</tbody>
+			<tfoot class="tfooter-design-overview">
+				<tr class="tfooter-tr-content">
+					
+				</tr>
+			</tfoot>
 		</table>
 	</div>
 </div>
