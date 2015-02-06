@@ -34,6 +34,68 @@ function hidePoen(elem){
 
 !(function($){
 	$(function(){
+		var global_params = {};
+		global_params.radio = { large: 0.14, 
+			medium: 0.21, 
+			small: 0.34};
+
+		var first_text_size_real = 75;
+		var name_size_real = 100;
+		var born_size_real = 70;
+		var memorial_size_real = 75;
+		var poem_size_real = 60;
+
+		// size first text
+		global_params.first_text = {large: global_params.radio.large * first_text_size_real, 
+			medium: global_params.radio.medium * first_text_size_real, 
+			small: global_params.radio.small * first_text_size_real};
+		// size name
+		global_params.name = {large: global_params.radio.large * name_size_real, 
+			medium: global_params.radio.medium * name_size_real, 
+			small: global_params.radio.small * name_size_real};
+		// size born
+		global_params.born = {large: global_params.radio.large * born_size_real, 
+			medium: global_params.radio.medium * born_size_real, 
+			small: global_params.radio.small * born_size_real};
+		// size memorial
+		global_params.memorial = {large: global_params.radio.large * memorial_size_real, 
+			medium: global_params.radio.medium * memorial_size_real, 
+			small: global_params.radio.small * memorial_size_real};
+		// size poem
+		global_params.poem = {large: global_params.radio.large * poem_size_real, 
+			medium: global_params.radio.medium * poem_size_real, 
+			small: global_params.radio.small * poem_size_real};
+
+		var space_first_name_real = 50;
+		var space_name_born_real = 45;
+		var space_name1_name2_real = 65;
+		var space_name_memorial_real = 80;
+		var space_memorial_poem_real = 34;
+
+		// space first name
+		global_params.space_first_name = {large: global_params.radio.large * space_first_name_real,
+			medium: global_params.radio.medium * space_first_name_real,
+			small: global_params.radio.small * space_first_name_real};
+		// space name born
+		global_params.space_name_born = {large: global_params.radio.large * space_name_born_real,
+			medium: global_params.radio.medium * space_name_born_real,
+			small: global_params.radio.small * space_name_born_real};
+		// space name1 name2
+		global_params.space_name1_name2 = {large: global_params.radio.large * space_name1_name2_real,
+			medium: global_params.radio.medium * space_name1_name2_real,
+			small: global_params.radio.small * space_name1_name2_real};
+		// space name memorial
+		global_params.space_name_memorial = {large: global_params.radio.large * space_name_memorial_real,
+			medium: global_params.radio.medium * space_name_memorial_real,
+			small: global_params.radio.small * space_name_memorial_real};
+		// space memorial poem
+		global_params.space_memorial_poem = {large: global_params.radio.large * space_memorial_poem_real,
+			medium: global_params.radio.medium * space_memorial_poem_real,
+			small: global_params.radio.small * space_memorial_poem_real};
+
+		// console.log(global_params);
+
+
 		// set default
 		$('.font-size-control').val('16');
 
@@ -84,6 +146,8 @@ function hidePoen(elem){
 
 				var layout_id = tab_del.split('-');
 				$('.content-area-design .layout-id-'+layout_id[2]).remove();
+
+				updatePernamentTextAndCalcPrice();
 			})
 
 			controler_tab_name.children('li:last-child').before(name_tab_el).before(' ');
@@ -142,6 +206,7 @@ function hidePoen(elem){
 
 				var layout_id = tab_del.split('-');
 				$('.content-area-design .layout-id-'+layout_id[3]).remove();
+				updatePernamentTextAndCalcPrice();
 			})
 
 			controler_tab_mw.children('li:last-child').before(name_tab_el).before(' ');
@@ -188,6 +253,7 @@ function hidePoen(elem){
 
 				var layout_id = tab_del.split('-');
 				$('.content-area-design .layout-id-'+layout_id[2]).remove();
+				updatePernamentTextAndCalcPrice();
 			})
 
 			controler_tab_poem.children('li:last-child').before(name_tab_el).before(' ');
@@ -514,10 +580,58 @@ function hidePoen(elem){
 
 		// UPDATE =============================================
 		// Select product cat
+		var sizeDesign = {};
+		function setSizeDefault(size){
+			switch(size.toLowerCase()){
+				case 'large':
+					sizeDesign.first_text 	= global_params.first_text.large;
+					sizeDesign.name 		= global_params.name.large;
+					sizeDesign.born 		= global_params.born.large;
+					sizeDesign.memorial 	= global_params.memorial.large;
+					sizeDesign.poem 		= global_params.poem.large;
+
+					sizeDesign.space_first_name = global_params.space_first_name.large;
+					sizeDesign.space_name_born = global_params.space_name_born.large;
+					sizeDesign.space_name1_name2 = global_params.space_name1_name2.large;
+					sizeDesign.space_name_memorial = global_params.space_name_memorial.large;
+					sizeDesign.space_memorial_poem = global_params.space_memorial_poem.large;
+					break;
+				case 'medium':
+					sizeDesign.first_text 	= global_params.first_text.medium;
+					sizeDesign.name 		= global_params.name.medium;
+					sizeDesign.born 		= global_params.born.medium;
+					sizeDesign.memorial 	= global_params.memorial.medium;
+					sizeDesign.poem 		= global_params.poem.medium;
+
+					sizeDesign.space_first_name = global_params.space_first_name.medium;
+					sizeDesign.space_name_born = global_params.space_name_born.medium;
+					sizeDesign.space_name1_name2 = global_params.space_name1_name2.medium;
+					sizeDesign.space_name_memorial = global_params.space_name_memorial.medium;
+					sizeDesign.space_memorial_poem = global_params.space_memorial_poem.medium;
+					break;
+				case 'small':
+					sizeDesign.first_text 	= global_params.first_text.small;
+					sizeDesign.name 		= global_params.name.small;
+					sizeDesign.born 		= global_params.born.small;
+					sizeDesign.memorial 	= global_params.memorial.small;
+					sizeDesign.poem 		= global_params.poem.small;
+
+					sizeDesign.space_first_name = global_params.space_first_name.small;
+					sizeDesign.space_name_born = global_params.space_name_born.small;
+					sizeDesign.space_name1_name2 = global_params.space_name1_name2.small;
+					sizeDesign.space_name_memorial = global_params.space_name_memorial.small;
+					sizeDesign.space_memorial_poem = global_params.space_memorial_poem.small;
+					break;
+			}
+			// console.log(sizeDesign);
+		}
+
 		$('.product-cat-content li a').click(function(){
 			var thisEl = $(this),
-				catId = thisEl.data('cat-id');
-
+				catId = thisEl.data('cat-id'),
+				size = thisEl.children('img').attr('title');
+			
+			setSizeDefault(size); // set size
 			thisEl.parent().parent().addClass('loading-animate'); // add loading animate
 
 			$.ajax({
@@ -593,6 +707,8 @@ function hidePoen(elem){
 					$('.content-area-design').html(obj.layout);
 					layoutItem.fitsttext = $('.content-area-design').find('.layout-fitsttext-area');
 					layoutItem.name_date = $('.content-area-design').find('.layout-name-date-area');
+					layoutItem.name = $('.content-area-design').find('.layout-name-date-area .nametext');
+					layoutItem.date = $('.content-area-design').find('.layout-name-date-area .datetext');
 					layoutItem.memorialwords = $('.content-area-design').find('.layout-memorialwords-area');
 					layoutItem.poem = $('.content-area-design').find('.layout-poem-area');
 					// layoutItem.layoutAccessories = $('.content-area-design').find('.main-layout-accessories-area');
@@ -619,30 +735,47 @@ function hidePoen(elem){
 			var text_style = {
 				color: $('input[type="radio"][name="text-color"]:checked').val(),
 				fontFamily: $('input[type="radio"][name="font-family"]:checked').val(),
-				fontSize: '16px',
-				lineHeight: '20px',
 				fontWeight: 'bold',
+				lineHeight: 'normal',
 				fontStyle: 'italic'
 			}
 
-			$.each(layoutItem, function($k, $elem){
-				$elem.css(text_style);
+			// set Style
+			layoutItem.fitsttext.css(text_style).css('fontSize', sizeDesign.first_text+'pt');
+			layoutItem.name.css(text_style).css('fontSize', sizeDesign.name+'pt');
+			layoutItem.date.css(text_style).css('fontSize', sizeDesign.born+'pt');
+			layoutItem.memorialwords.css(text_style).css('fontSize', sizeDesign.memorial+'pt');
+			layoutItem.poem.css(text_style).css('fontSize', sizeDesign.poem+'pt');
+			// end set Style
 
-				buildLayout($elem, {drag: true, resizefont: true})
-			})
+
+			buildLayout(layoutItem.fitsttext, {drag: true}) // first text drag
+			buildLayout(layoutItem.name_date, {drag: true}) // name date drag
+			buildLayout(layoutItem.memorialwords, {drag: true}) // memorialwords drag
+			buildLayout(layoutItem.poem, {drag: true}) // poem drag
+
+			// $.each(layoutItem, function($k, $elem){
+			// 	buildLayout($elem, {drag: true, resizefont: true})
+			// })
 		}
 
 		function setTextStyleEl(elem){
+			console.log(elem.attr('class'));
 			var text_style = {
 				color: $('input[type="radio"][name="text-color"]:checked').val(),
 				fontFamily: $('input[type="radio"][name="font-family"]:checked').val(),
-				fontSize: '16px',
-				lineHeight: '20px',
+				//fontSize: '16px',
+				lineHeight: 'normal',
 				fontWeight: 'bold',
 				fontStyle: 'italic'
 			}
-
-			elem.css(text_style);
+			if(elem.hasClass('layout-name-date-area')){ 
+				elem.find('.nametext').css(text_style).css('fontSize', sizeDesign.name+'pt');
+				elem.find('.datetext').css(text_style).css('fontSize', sizeDesign.born+'pt');
+			}else{
+				elem.css(text_style);
+			}
+			// elem.css(text_style);
 			buildLayout(elem, {drag: true})
 		}
 
@@ -688,6 +821,9 @@ function hidePoen(elem){
 			//tfooter-tr-content
 			var footerContent = "<td></td><td></td><td></td><td><strong>Sub total</strong></td> <td class='sub-title-price' style='font-weight: bold;'>"+price_overview.item_price+"</td>"
 			price_overview.tfooter_content_el.html(footerContent);
+
+			// update price overview
+			updatePernamentTextAndCalcPrice();
 		})
 
 		// control tab text
@@ -793,6 +929,8 @@ function hidePoen(elem){
 
 				if( $(this).hasClass('size-plus') ){ new_size = currenSize + 1; }
 				else{ new_size = currenSize - 1; }
+
+				$(this).parent().find('span').attr('title', new_size+'px');
 
 				applyEl.css({
 					fontSize: new_size + 'px',

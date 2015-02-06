@@ -33,13 +33,6 @@
 				<p><strong>First text</strong> <span style="float: right;"><input type="checkbox" name="hide_first_text"/> Hide</span></p>
 				<p class="content-content-relative content-first-text-field">
 					<input name="first_text" type="text" style="width: 300px;">
-					<span class='site-control site-control-first-text'>
-						<span class="size-plus"><i class="fa fa-plus"></i></span>
-						<span class="size-minus"><i class="fa fa-minus"></i></span>
-					</span>
-					<span class="content-font-size-control">
-						<input type="text" class="font-size-control font-size-name" name="font-size-name" />
-					</span>
 				</p>
 			</div>
 
@@ -52,13 +45,6 @@
 					<div class="content-tab-inner row-full-all">
 						<p class="content-content-relative content-name--field">
 							<input type="text" name="name" placeholder="Name" style="width: 285px;" >
-							<span class='site-control site-control-name'>
-								<span class="size-plus"><i class="fa fa-plus"></i></span>
-								<span class="size-minus"><i class="fa fa-minus"></i></span>
-							</span>
-							<span class="content-font-size-control content-name--field">
-								<input type="text" class="font-size-control font-size--name" style="width: 225px;" name="font-size--name" />
-							</span>
 						</p>
 						<button class="btn btn-custom-design" type="button" onclick="addJobOrPlace(this)">
 							<i class="fa fa-plus-circle"></i> Add job title / place or birth
@@ -67,16 +53,9 @@
 						<p class="control_add_job_or_place content-content-relative" style="display: none;">
 							<!-- <p class="content-content-relative"> -->
 								<input type="text" name="add_job_or_place" style="width: 240px;"/>	
-								<span class='site-control site-control-add-job-or-place'>
-									<span class="size-plus"><i class="fa fa-plus"></i></span>
-									<span class="size-minus"><i class="fa fa-minus"></i></span>
-								</span>
 								<button class="design-custom-btn" type="button" onclick="delJobOrPlace(this)">
 									<i class="fa fa-trash"></i>
 								</button>
-								<span class="content-font-size-control content-add-job-or-place-field">
-									<input type="text" class="font-size-control font-size-add-job-or-place-field" name="font-size-add-job-or-place" />
-								</span>
 							<!-- </p> -->
 						</p>
 
@@ -93,13 +72,6 @@
 								<input type="text" name="d-m" placeholder="mm" maxlength="2"> - 
 								<input type="text" name="d-y" placeholder="yyyy" maxlength="4">
 							</div>
-							<span class='site-control site-control-b-d-date'>
-								<span class="size-plus"><i class="fa fa-plus"></i></span>
-								<span class="size-minus"><i class="fa fa-minus"></i></span>
-							</span>
-							<span class="content-font-size-control content-b-d-date-field">
-								<input type="text" class="font-size-control font-size-b-d-date-field" name="font-size-b-d-date" />
-							</span>
 							<p></p>
 						</div>
 						<label>
@@ -120,13 +92,7 @@
 					<div class="content-tab-inner row-full-all content-memorial-worlds">
 						<p class="content-content-relative">
 							<input name="memorial-worlds" type="text" placeholder="Memorial worlds" style="width: 285px;">
-							<span class='site-control site-control-memorial-worlds'>
-								<span class="size-plus"><i class="fa fa-plus"></i></span>
-								<span class="size-minus"><i class="fa fa-minus"></i></span>
-							</span>
-							<span class="content-font-size-control content-memorial-worlds-field">
-								<input type="text" class="font-size-control font-size-memorial-worlds-field" name="font-size-memorial-worlds" />
-							</span>
+							
 						</p>
 					</div>
 				</div>
@@ -145,14 +111,8 @@
 					<div class="content-tab-inner row-full-all ">
 						<p class="content-content-relative content-poem">
 							<input name="poem" type="text" placeholder="Poem" style="width: 245px">
-							<span class='site-control site-control-poem'>
-								<span class="size-plus"><i class="fa fa-plus"></i></span>
-								<span class="size-minus"><i class="fa fa-minus"></i></span>
-							</span>
 							<button class="design-custom-btn" type="button" onclick="hidePoen(this)"><i class="fa fa-trash"></i></button>
-							<span class="content-font-size-control content-poem-field">
-								<input type="text" class="font-size-control font-size-poem-field" name="font-size-poem" />
-							</span>
+							
 						</p>
 					</div>
 				</div>
@@ -214,51 +174,6 @@
 				<!-- content ajax -->
 			</div>
 		</div>
-	<!--
-		<div class="content-text">
-			<textarea id="text-design" class="text-design"></textarea>
-			<div class="control-text-format">
-				<ul>
-					<li>
-						<input class="hidden" type="checkbox" id="fontweight" name="fontweight"/>
-						<label for="fontweight"><i class="fa fa-bold"></i></label>
-					</li>
-					<li>
-						<input class="hidden" type="checkbox" id="fontitalic" name="fontitalic"/>
-						<label for="fontitalic"><i class="fa fa-italic"></i></label>
-					</li>
-					<li>
-						<input class="hidden" type="radio" id="textalignleft" name="textalign" id="textalignleft" value="left"/>
-						<label for="textalignleft"><i class="fa fa-align-left"></i></label>
-					</li>
-					<li>
-						<input class="hidden" type="radio" id="textaligncenter" name="textalign" id="textaligncenter" value="center" checked="true" />
-						<label for="textaligncenter"><i class="fa fa-align-center"></i></label>
-					</li>
-					<li>
-						<input class="hidden" type="radio" id="textalignright" name="textalign" id="textalignright" value="right"/>
-						<label for="textalignright"><i class="fa fa-align-right"></i></label>
-					</li>
-				</ul>
-			</div>
-			<div class="control-font-style">
-				<?php if(count($fonts) > 0){
-					$font_arr = array();
-					foreach($fonts as $f){
-						$font_arr[str_replace(" ", "+",$f)] = $f;
-					}
-				} ?>
-				{{ Form::select('fonts', $font_arr, '', array('style' => 'width: 70%')) }}
-				{{ Form::text('color', '#333'); }}
-			</div>
-			<div class="control-font-size">
-				<p>Font size(px): <span id="js-ranger-fontsize-value" class="num-font-size"></span></p>
-				<div id="js-font-size" data-size-default="30" data-size-start="12" data-size-end="100"></div>
-			</div>
-			<div class="line-design"></div>
-			<button class="btn btn-add-text" id="add_text"><i class="fa fa-plus"></i> Add Text</button>
-		</div>	
-	-->
 	</div>
 	<div class="content-tab center" data-content-tabs="tab-finish">
 		<h1>Finish</h1>
