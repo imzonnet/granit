@@ -2227,8 +2227,8 @@ blockquote span {
 }
 .service-box-1 .box-top img {
     height: 50px;
-    width: 50x;
-    margin-top: 20px;
+    width: 50px;
+    margin-top: 25px;
 }
 .box-top {
     z-index: 2;
@@ -2667,6 +2667,16 @@ blockquote span {
     -webkit-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;
 }
+.testimonials-bg h3 {
+    overflow: hidden;
+    white-space: nowrap;
+}
+.testimonials-bg > span {
+    display: block;
+    min-height: 75px;
+    max-height: 75px;
+    overflow: hidden;
+}
 .testimonials-bg .rating {
     position: relative;
     z-index: 1;
@@ -2885,6 +2895,9 @@ blockquote span {
 .portfolio{
     position: relative;
 }
+.homeGallery.portfolio {
+    min-height: 250px;
+} 
 .viewAll {
     padding-top: 10px;
 }

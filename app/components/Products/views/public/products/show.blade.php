@@ -47,21 +47,16 @@
             <div class="cell-3">
                 @include('Products::public._layouts.sidebar')
             </div>
-            <div class="cell-9 pdocut-detail product-item">
+            <div class="cell-9 product-detail product-item">
                 <div class="cell-4">
                     <div class="product-image">
                         <img alt="" id="img_01" src="{{url($product->productColor->first()->image)}}" />
-                        <h3>{{$product->product_code}}</h3>
+                        <h3>{{$product->name}}</h3>
                     </div>
                 </div>
                 <div class="cell-8">
-                    <div class="product-specs price-block list-item">
-                        <div class="price-box">
-                            {{$product->productColor->first()->getPrice()}}
-                        </div>
-                    </div>
                     <div class="product-specs product-block list-item">
-                        <label class="control-label"><i class="fa fa-camera"></i>Color:</label>
+                        <label class="control-label">Color:</label>
                         <div class="thumbs">
                             <ul id="gal1" class="product-colors">
                                 @foreach( $product->productColor as $index => $color )
@@ -76,7 +71,7 @@
                         </div>
                     </div>
                     <div class="product-specs product-block list-item">
-                        <label class="control-label"><i class="fa fa-camera"></i>Measurements:</label>
+                        <label class="control-label">Measurements:</label>
                         <ul class="product-size">
                             <li><i class="fa fa-arrows-v"></i> Height: {{$product->height}} cm</li>
                             <li><i class="fa fa-arrows-h"></i> Width: {{$product->width}} cm</li>
@@ -87,7 +82,7 @@
                             <div class="left add-items"><a href="#"><i class="fa fa-minus"></i></a></div>
                             <div class="left"><input id="items-num" value="1"></div>
                             <div class="left add-items"><a href="#"><i class="fa fa-plus"></i></a></div>
-                            <div class="left"><input type="submit" value="Add to cart" class="btn btn-medium add-cart main-bg"></div>
+                            <div class="left"><input type="submit" value="Design & Order" class="btn btn-medium add-cart main-bg"></div>
                         </form>
                     </div>
                     <div class="product-specs product-block list-item">
@@ -102,9 +97,17 @@
                             <li><a href="#"><i class="fa fa-reddit"></i></a></li>
                         </ul>
                     </div>
-                    <div class="list-item last-list">
-                        <label class="control-label"><i class="fa fa-align-justify"></i>Quick Overview:</label>
+                    <!--
+                    <div class="product-block list-item">
+                        <label class="control-label">Quick Overview:</label>
                         <p>{{$product->description}}</p>
+                    </div>
+                    -->
+                    <div class="product-specs price-block list-item last-list">
+                        <label class="control-label">Price:</label>
+                        <div class="price-box">
+                            {{$product->productColor->first()->getPrice()}}
+                        </div>
                     </div>
                 </div>
                 <div class="clearfix"></div>
@@ -113,7 +116,7 @@
         <div class="clearfix"></div>
         <div class="row">
             <div class="product-relateds">
-                <h2 class="block-head">Gravestones</h2>
+                <h2 class="block-head">Simular Gravestones</h2>
                 <div class="product-items grid-list">
                     <div class="row">
                         @foreach( $product_relateds as $product )

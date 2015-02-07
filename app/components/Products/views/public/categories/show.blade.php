@@ -47,7 +47,7 @@
             <div class="cell-3">
                 @include('Products::public._layouts.sidebar')
                 <!-- filter -->
-                <div id="prodduct-filter" class="widget menu-categories fx animated fadeInLeft">
+                <div id="product-filter" class="widget menu-categories fx animated fadeInLeft">
                     <h3 class="widget-head">Search Filters</h3> 
                     <div class="widget-content">
                         <div class="clearfix filter-item">
@@ -75,7 +75,7 @@
                         <div class="clearfix filter-item">
                             <h3>Colors</h3>
                             <ul id="filter-colors">
-                                <li><a class="button" href="#" data-filter="*"><span>All</span></a></li>
+                                <li><a class="button active" href="#" data-filter="*"><span>All</span></a></li>
                                 @foreach($colors as $color)
                                 <li><a class="button" href="#" data-filter=".{{\Str::slug($color->name)}}-{{$color->id}}"><img src="{{url($color->icon)}}" alt="" />{{$color->name}}</a></li>
                                 @endforeach
@@ -133,7 +133,7 @@
                                     {{$product->productColor->first()->getPrice()}}
                                 </div>
                                 <div class="btn-design">
-                                    <h3 class="btn btn-lg"><a href="{{url('design/'.$product->id .'/'.$product->productColor->first()->color_id)}}">Design & Order</a></h3>
+                                    <h3 class="btn btn-lg"><a href="{{url('design/'.$product->id .'/'.$product->productColor->first()->color_id)}}">More Details</a></h3>
                                 </div>
                             </div>
                         </div>
@@ -176,6 +176,8 @@ jQuery(document).ready(function ($) {
     });
     $('#filter-colors').on('click', 'a', function (e) {
         e.preventDefault();
+        $(this).closest('#filter-colors').find('a').removeClass('active');
+        $(this).addClass('active');
         var filterValue = $(this).attr('data-filter');
         $container.isotope({filter: filterValue});
     });

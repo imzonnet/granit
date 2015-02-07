@@ -86,16 +86,18 @@
                             </div>
                         </div>
                         <div class="clearfix"></div>
-                        @foreach( $categories as $category)
-                        <div class="cell-4 fx category-item shop-item" data-animate="fadeInUp">
-                            <div class="item-box">
-                                <h3 class="item-title"><a href="{{url('category/'.$category->alias)}}">{{$category->name}}</a></h3>
-                                <div class="item-img">
-                                    <a href="{{url('category/'.$category->alias)}}"><img alt="" src="{{url($category->image)}}"></a>
+                        <div class="row">
+                            @foreach( $categories as $category)
+                            <div class="cell-4 fx product-category category-item shop-item" data-animate="fadeInUp">
+                                <div class="item-box">
+                                    <h3 class="item-title"><a href="{{url('category/'.$category->alias)}}">{{$category->name}}</a></h3>
+                                    <div class="item-img">
+                                        <a href="{{url('category/'.$category->alias)}}"><img alt="" src="{{url($category->image)}}"></a>
+                                    </div>
                                 </div>
                             </div>
+                            @endforeach
                         </div>
-                        @endforeach
                     </div>
                 </div>
                 <div class="clearfix"></div>
@@ -104,7 +106,7 @@
                     <h2 class="block-head">Accessories</h2>
                     <div class="categories-items">
                         @foreach( $icon_categories as $category)
-                        <div class="cell-3 fx category-item shop-item" data-animate="fadeInUp">
+                        <div class="cell-3 fx accessories category-item shop-item" data-animate="fadeInUp">
                             <div class="item-box">
                                 <h3 class="item-title"><a href="{{url('categories/'.$category->alias)}}">{{$category->name}}</a></h3>
                                 <div class="item-img">
