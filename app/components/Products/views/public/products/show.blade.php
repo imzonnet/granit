@@ -50,17 +50,21 @@
             <div class="cell-9 product-detail product-item">
                 <div class="cell-4">
                     <div class="product-image">
-                        <img alt="" id="img_01" src="{{url($product->productColor->first()->image)}}" />
-                        <h3>{{$product->name}}</h3>
+                        <img alt="" id="img_01" src="{{url($productColor->first()->image)}}" />
                     </div>
                 </div>
                 <div class="cell-8">
+                    <h2 class="main-color">{{$product->name}}</h2>
                     <div class="product-specs product-block list-item">
                         <label class="control-label">Color:</label>
                         <div class="thumbs">
                             <ul id="gal1" class="product-colors">
                                 @foreach( $product->productColor as $index => $color )
-                                <li class="{{$index == 0 ? 'active' : ''}}">
+                                @if(count($productColor) > 1)
+                                    <li class="{{$index == 0 ? 'active' : ''}}">
+                                @else
+                                    <li class="{{$productColor->first()->color_id == $color->color_id ? 'active' : ''}}">
+                                @endif
                                     <a href="#" data-url="{{url('/design/'.$product->id.'/'.$color->color_id)}}" data-price='{{$color->getPrice()}}' data-image="{{url($color->image)}}" class="change-color">
                                         <img alt="" src="{{url($color->color->icon)}}">
                                     </a><br /> 
@@ -78,16 +82,17 @@
                         </ul>
                     </div>
                     <div class="list-item product-block item-add">
-                        <form class="form-design" action="{{url('/design/'.$product->id.'/'.$product->productColor->first()->color_id)}}" method="post">
+                        <form class="form-design" action="{{url('/design/'.$product->id.'/'.$productColor->first()->color_id)}}" method="post">
                             <div class="left add-items"><a href="#"><i class="fa fa-minus"></i></a></div>
                             <div class="left"><input id="items-num" value="1"></div>
                             <div class="left add-items"><a href="#"><i class="fa fa-plus"></i></a></div>
                             <div class="left"><input type="submit" value="Design & Order" class="btn btn-medium add-cart main-bg"></div>
+                            <div class="left" style="margin-left: 10px;"><input type="submit" value="Design" class="btn btn-medium main-bg"></div>
                         </form>
                     </div>
                     <div class="product-specs product-block list-item">
                         <ul class="product-social product-size">
-                            <li>SHARE</li>
+                            <li>SHARE:</li>
                             <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                             <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
                             <li><a href="#"><i class="fa fa-twitter"></i></a></li>
@@ -106,7 +111,7 @@
                     <div class="product-specs price-block list-item last-list">
                         <label class="control-label">Price:</label>
                         <div class="price-box">
-                            {{$product->productColor->first()->getPrice()}}
+                            {{$productColor->first()->getPrice()}}
                         </div>
                     </div>
                 </div>
@@ -114,6 +119,7 @@
             </div>
         </div>
         <div class="clearfix"></div>
+        <!-- Product Relateds -->
         <div class="row">
             <div class="product-relateds">
                 <h2 class="block-head">Simular Gravestones</h2>
@@ -122,14 +128,14 @@
                         @foreach( $product_relateds as $product )
                         <div class="product-item cell-3 fx"  data-animate="fadeInUp">
                             <div class="product-box">
-                                <h3 class="product-title"><a href="{{url('product/'.$product->alias)}}">{{$product->product_code}} {{$product->name}}</a></h3>
+                                <h3 class="product-title"><a class="product-url" href="{{url('product/'.$product->alias.'/'.$product->productColor->first()->color_id)}}">{{$product->product_code}} {{$product->name}}</a></h3>
                                 <div class="product-sale">
                                     @if($product->productColor->first()->sale > 0)
                                     <span class="discount">{{$product->productColor->first()->sale}}% </span>
                                     @endif
                                 </div>
                                 <div class="product-image">
-                                    <a href="{{url('product/'.$product->alias)}}"><img alt="" src="{{url($product->productColor->first()->image)}}"></a>
+                                    <a class="product-url" href="{{url('product/'.$product->alias.'/'.$product->productColor->first()->color_id)}}"><img alt="" src="{{url($product->productColor->first()->image)}}"></a>
                                 </div>
                                 <ul class="product-colors">
                                     @foreach($product->productColor as $index => $product_color)

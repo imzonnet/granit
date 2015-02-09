@@ -9,7 +9,7 @@ jQuery(document).ready(function ($) {
         $('.product-image img', $parent).attr('src', image);
         $('.price-box', $parent).html(price);
         $('.product-colors li', $parent).removeClass('active');
-        $('.btn-design a', $parent).attr('href', url);
+        $('.btn-design a, .product-url', $parent).attr('href', url);
         if (parseInt(sale) > 0) {
             $('.product-sale', $parent).html('<span class="discount">' + sale + '% </span>');
         } else {

@@ -11,4 +11,4 @@ Route::get('/categories', 'Components\Products\Controllers\CategoriesController@
 Route::get('/category/{id}', 'Components\Products\Controllers\CategoriesController@show');
 Route::get('/icon-categories', 'Components\Products\Controllers\CategoriesController@index');
 Route::get('/icon-category/{id}', 'Components\Products\Controllers\CategoriesController@showIcon');
-Route::get('/product/{id}', 'Components\Products\Controllers\ProductsController@show');
+Route::get('/product/{id}/{color}', 'Components\Products\Controllers\ProductsController@show');

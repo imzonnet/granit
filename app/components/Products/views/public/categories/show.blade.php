@@ -115,35 +115,69 @@
                         @foreach( $products as $product )
                         <div class="product-item cell-4 {{$product->getClasses()}}" data-width="{{$product->width}}" data-height="{{$product->height}}">
                             <div class="product-box">
-                                <h3 class="product-title"><a class="name" href="{{url('product/'.$product->alias)}}">{{$product->product_code}} {{$product->name}}</a></h3>
+                                <h3 class="product-title"><a class="product-url name" href="{{url('product/'.$product->alias.'/'.$product->productColor->first()->color_id)}}">{{$product->product_code}} {{$product->name}}</a></h3>
                                 <div class="product-sale">
                                     @if($product->productColor->first()->sale > 0)
                                     <span class="discount">{{$product->productColor->first()->sale}}% </span>
                                     @endif
                                 </div>
                                 <div class="product-image">
-                                    <a href="{{url('product/'.$product->alias)}}"><img alt="" src="{{url($product->productColor->first()->image)}}"></a>
+                                    <a class="product-url" href="{{url('product/'.$product->alias.'/'.$product->productColor->first()->color_id)}}"><img alt="" src="{{url($product->productColor->first()->image)}}"></a>
                                 </div>
                                 <ul class="product-colors">
                                     @foreach($product->productColor as $index => $product_color)
-                                    <li class="{{$index == 0 ? 'active' : ''}}"><a class="change-color" data-image="{{url($product_color->image)}}" data-price='{{$product_color->getPrice()}}' data-url="{{url('/design/'.$product->id.'/'.$product_color->color_id)}}" data-sale="{{$product_color->sale}}"><img src="{{url($product_color->color->icon)}}" alt="" /></a></li>
+                                    <li class="{{$index == 0 ? 'active' : ''}}"><a class="change-color" data-image="{{url($product_color->image)}}" data-price='{{$product_color->getPrice()}}' data-url="{{url('/product/'.$product->alias.'/'.$product_color->color_id)}}" data-sale="{{$product_color->sale}}"><img src="{{url($product_color->color->icon)}}" alt="" /></a></li>
                                     @endforeach
                                 </ul>
                                 <div class="price-box">
                                     {{$product->productColor->first()->getPrice()}}
                                 </div>
                                 <div class="btn-design">
-                                    <h3 class="btn btn-lg"><a href="{{url('design/'.$product->id .'/'.$product->productColor->first()->color_id)}}">More Details</a></h3>
+                                    <h3 class="btn btn-lg"><a href="{{url('product/'.$product->alias.'/'.$product->productColor->first()->color_id)}}" class="view-more">More Details</a></h3>
                                 </div>
                             </div>
                         </div>
                         @endforeach
+
                     </div>
                 </div>
                 <div class="clearfix"></div>
                 <div class="pager skew-25">
                     {{$products->links()}}
                 </div>
+                <!--modal box-->
+                <div class="cell-9 product-modal product-detail product-item">
+                    <div class="cell-4">
+                        <div class="product-image">
+                            <img alt="" id="img_01" src="" />
+                        </div>
+                    </div>
+                    <div class="cell-8">
+                        <h2 class="product-title" class="main-color"></h2>
+                        <div class="product-specs product-block list-item">
+                            <label class="control-label">Measurements:</label>
+                            <ul class="product-size">
+                                <li><i class="fa fa-arrows-v"></i> Height: <span id="height"></span> cm</li>
+                                <li><i class="fa fa-arrows-h"></i> Width: <span id="width"></span> cm</li>
+                            </ul>
+                        </div>
+                        <div class="list-item product-block item-add">
+                            <form class="form-design" action="" method="post">
+                                <div class="left add-items"><a href="#"><i class="fa fa-minus"></i></a></div>
+                                <div class="left"><input id="items-num" value="1"></div>
+                                <div class="left add-items"><a href="#"><i class="fa fa-plus"></i></a></div>
+                                <div class="left"><input type="submit" value="Design & Order" class="btn btn-medium add-cart main-bg"></div>
+                                <div class="left" style="margin-left: 10px;"><input type="submit" value="Design" class="btn btn-medium main-bg"></div>
+                            </form>
+                        </div>
+                        <div class="product-specs price-block list-item last-list">
+                            <label class="control-label">Price:</label>
+                            <div class="price-box"></div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <!--modal box-->
             </div>
         </div>
     </div>
@@ -235,11 +269,49 @@ jQuery(document).ready(function ($) {
         } else {
             $(this).data('sort', true);
         }
-
     });
 
+    /**
+    * Ajax load more details product
+    */
+    $('.view-more').click(function(e){
+        e.preventDefault();
+        var url = $(this).attr('href');
+        $.getJSON(url, function(data){
+            var $parent = $('.product-modal'),
+            product = $.parseJSON(data.product),
+            color = $.parseJSON(data.productColor),
+            base_url = "{{asset('/')}}";
+            $('.product-image #img_01',$parent).attr('src', base_url + color.image);
+            $('.product-title',$parent).text(product.name);
+            $('.product-size #height',$parent).text(product.height);
+            $('.product-size #width',$parent).text(product.width);
+            $('.form-design',$parent).attr('action', base_url + '/product/'+product.alias+'/'+color.color_id);
+            $('.price-box',$parent).html(getPrice(color.price, color.sale));
+            $('body').append('<div class="modal-overlay"></div>');
+            $parent.fadeIn('fast').click(function(e){e.stopPropagation()});
+        }) .fail(function() {
+            alert( "error" );
+        });
+    });
+    $(document).click(function () {
+        if($('.product-modal').is(':visible')){
+            $('.product-modal').fadeOut("fast");
+            $('.modal-overlay').remove();
+        }
+    });
+    
 });
-
+function getPrice(price, sale) {
+        var $html = '';
+        if( sale > 0 ) {
+            var $new = price - price * sale/100;
+            $html += '<span class="product-price">$'+ $new +'</span><span class="old-price">$'+price+'</span>';
+        } else {
+            $html += '<span class="product-price">$'+ price +'</span>';
+        }
+        return $html;
+    }
 function filter_measult($container, $e, $data, $rs) {
     var min = parseInt($($e).data('value-min'));
     var max = parseInt($($e).data('value-max'));
