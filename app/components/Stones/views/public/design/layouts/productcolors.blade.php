@@ -1,13 +1,13 @@
 <div class="content-inner">
 	<div class="content-inner-design-area">
 		<center><img id="main-frame-image" src="" style="display: none;"/></center>
-		<div class="layout-item-area text-align-center layout-fitsttext-area">
+		<div class="layout-item-area text-align-center layout-firsttext-area" data-drag-off="true">
 			<div class="layout-inner-area">
 				<!-- first text -->
 			</div>
 		</div>
 		<div class="main-layout-name-date-area">
-			<div class="layout-item-area text-align-center layout-name-date-area">
+			<div class="layout-item-area text-align-center layout-name-date-area" data-drag-off="true">
 				<div class="layout-inner-area">
 					<div class="nametext">
 						<!-- name text -->
@@ -28,14 +28,14 @@
 				</div>
 			</div>
 		</div>
-		<div class="layout-item-area text-align-center layout-memorialwords-area">
+		<div class="layout-item-area text-align-center layout-memorialwords-area" data-drag-off="true">
 			<div class="layout-inner-area">
 				<div class="layout-memorialwords-area-item">
 					<!-- memorial words -->
 				</div>
 			</div>
 		</div>
-		<div class="layout-item-area text-align-center layout-poem-area">
+		<div class="layout-item-area text-align-center layout-poem-area" data-drag-off="true">
 			<div class="layout-inner-area">
 				<div class="layout-poem-item">
 					<!-- Poem -->

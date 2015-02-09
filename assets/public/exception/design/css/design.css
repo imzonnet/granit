@@ -482,10 +482,10 @@ input[name="color"]{
 	width: auto !important;
 	height: auto !important;
 }
-.layout-item-area.layout-fitsttext-area{
-	top: 20%;
+.layout-item-area.layout-firsttext-area{
+	top: 100px;
 }
-.layout-item-area.layout-fitsttext-area .layout-inner-area{
+.layout-item-area.layout-firsttext-area .layout-inner-area{
 	white-space: nowrap;
 }
 input[name="text-color"]:checked ~ span{
@@ -532,6 +532,7 @@ input[name="text-color"]:checked ~ span{
 	display: inline-block;
 	vertical-align: top;
 }
+
 .control-name .content-tab,
 .control-memorial-worlds .content-tab,
 .control-poem .content-tab{
@@ -546,7 +547,7 @@ input[name="text-color"]:checked ~ span{
 	position: absolute;
 	left: 0;
 	bottom: 0;
-	background: #F7674A;
+	background: #F73B33;
 	cursor: pointer;
 }
 .content-text .control-name ul.controler-tab-name li a,
@@ -561,6 +562,12 @@ input[name="text-color"]:checked ~ span{
 .content-text .control-memorial-worlds ul.controler-tab-memorial-worlds li.active a,
 .content-text .control-poem ul.controler-tab-poem li.active a{
 	background: #FC8267;
+}
+.content-text .control-name ul.controler-tab-name li a{
+	color: #E8522F !important;
+}
+.content-text .control-name ul.controler-tab-name li.active a{
+	color: #FFF !important;
 }
 .content-text .control-name .content-tab.active,
 .content-text .control-memorial-worlds .content-tab.active,
@@ -591,7 +598,7 @@ input[name="text-color"]:checked ~ span{
 	text-transform: none;
 }
 .btn-custom-design.btn-custom-design-bg{
-	background: #AA5542;
+	/* background: #AA5542; */
 	padding: 0 5px;
 }
 .layout-item-area:hover .l-del,

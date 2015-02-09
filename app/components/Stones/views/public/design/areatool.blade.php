@@ -38,7 +38,7 @@
 
 			<div class="control-name js-tabs">
 				<ul class="controler-tab-name">
-					<li class='active'><a href="javascript:" data-tabs="tab-name-1">Name 1</a></li>
+					<li class='active'><a href="javascript:" data-tabs="tab-name-1"><i class='fa fa-user'></i> Name 1</a></li>
 					 <li><a href="javascript:" data-tabs-action="newtab" data-key-tab="name"><i class="fa fa-plus"></i></a></li>
 				</ul>
 				<div class="content-tab active" data-content-tabs="tab-name-1">
@@ -132,8 +132,8 @@
 						</li>
 						@endforeach
 					</ul>
-					<div><input type="checkbox" name=""/> Painted text</div>
-					<div><input type="checkbox" name=""/> Permanent text?</div>
+					<div><input type="radio" name="color_text" id="painted_text"/> Painted text</div>
+					<div><input type="radio" name="color_text" id="permanent_text" checked=""/> Permanent text?</div>
 				</div><!--
 				--><div style="width: 60%;">
 					<p><strong>Font type</strong></p>
@@ -146,6 +146,7 @@
 						-->
 						<li style="font-family: Garamond Italic Bold; font-size: 18px; font-style: italic; font-weight: 700; color: #333;"><input type="radio" name="font-family" value="Garamond" checked="true"/> Garamond Italic Bold</li>
 						<li style="font-family: Bookman Old Style Bold Italic; font-size: 17px; font-style: italic; font-weight: 600; color: #333;"><input type="radio" name="font-family" value="Bookman" checked="true"/> Bookman Old Style Bold Italic</li>
+						<li><label><input type="checkbox" id="move_all_text"> <strong>Move All Text</strong></label></li>
 					</ul>
 				</div>
 			</div>

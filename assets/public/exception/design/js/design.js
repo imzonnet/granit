@@ -125,7 +125,7 @@ function hidePoen(elem){
 				count = controler_tab_name.children('li').length,
 				rand_id = Math.random().toString(36).substring(7),
 				html_inner = elem.find('[data-content-tabs="tab-name-1"]').html(),
-				name_tab_el = $('<li>').html('<a href="javascript:" data-tabs="tab-name-'+rand_id+'">Name '+count+'</a>'),
+				name_tab_el = $('<li>').html('<a href="javascript:" data-tabs="tab-name-'+rand_id+'"><i class="fa fa-user"></i> Name '+count+'</a>'),
 				content_tab_el = $('<div>').addClass('content-tab').attr('data-content-tabs', 'tab-name-'+rand_id),
 				del_tab_el = $('<span>').addClass('del-tab').attr('data-del-tabs', 'tab-name-'+rand_id).html('<i class="fa fa-trash"></i> Delete');
 			
@@ -162,7 +162,7 @@ function hidePoen(elem){
 			})
 
 			// create layout name b-d day
-			var layer_el = $('<div>').addClass('layout-item-area text-align-center layout-name-date-area layout-id-'+rand_id),
+			var layer_el = $('<div>').attr('data-drag-off', 'true').addClass('layout-item-area text-align-center layout-name-date-area layout-id-'+rand_id),
 				html_inner = '<div class="layout-inner-area">';
 				html_inner += '<div class="nametext"><div class="text-inner"></div></div>';
 				html_inner += '<div class="add_job_or_place"><div class="text-inner"></div></div>';
@@ -173,11 +173,13 @@ function hidePoen(elem){
 				html_inner += '</div>';
 			layer_el.append(html_inner);
 
+			var lDesignTop = layoutItem.name_date.parent().find('.layout-item-area:last-child').position().top + layoutItem.name_date.parent().find('.layout-item-area:last-child').height() + PointToPixel(sizeDesign.space_name1_name2);// .layout-item-area
+			layer_el.css('top', lDesignTop+'px');
 
 			layoutItem.name_date.parent().append(layer_el);
 			name_tab_el.find('a').trigger('click'); // new tab active
 			setTextStyleEl(layer_el); 
-			nameDateControl(content_tab_el, layer_el);
+			nameDateControl(content_tab_el, layer_el.children('.layout-inner-area'));
 		}
 
 		function addMoreTabMemorial_worlds(elem){
@@ -357,8 +359,26 @@ function hidePoen(elem){
 						recoupTop = top - ui.position.top;
 					},
 					drag: function( event, ui ) {
-						ui.position.left = parseInt(recoupLeft + ui.position.left);
-						ui.position.top = parseInt(recoupTop + ui.position.top);
+						// console.log(_left - ui.position.left, _top - ui.position.top);
+						if(ThisEl.data('drag-off') == true){ ThisEl.data('drag-off', false); }
+
+						if($('#move_all_text').prop('checked') == true){
+							var addTop = $(this).position().top - ui.position.top,
+								addLeft = $(this).position().left - ui.position.left;
+							
+							$('.layout-item-area').each(function(){
+								var thisEl = $(this),
+									left =	thisEl.position().left - addLeft,
+									top = thisEl.position().top - addTop;
+								thisEl.css({
+									top: top+'px',
+									left: left+'px',
+								})
+							})
+						}else{
+							ui.position.left = parseInt(recoupLeft + ui.position.left);
+							ui.position.top = parseInt(recoupTop + ui.position.top);
+						}
 					}
 				});
 			}
@@ -673,7 +693,7 @@ function hidePoen(elem){
 		var lDesign = {};
 		function setLayoutDeisgn(){
 			var content_area_design = $('.content-area-design');
-			lDesign.layout_fitsttext_area = content_area_design.find('.layout-fitsttext-area');
+			lDesign.layout_firsttext_area = content_area_design.find('.layout-firsttext-area');
 			lDesign.layout_name_date_area = content_area_design.find('.layout-name-date-area');
 			lDesign.layout_memorialwords_area = content_area_design.find('.layout-memorialwords-area');
 			lDesign.poem = content_area_design.find('.layout-poem-area'),
@@ -681,7 +701,7 @@ function hidePoen(elem){
 		}
 		// choose product =============================================
 		var layoutItem = {
-			fitsttext: '',
+			firsttext: '',
 			name_date: '',
 			memorialwords: '',
 			poem: '',
@@ -705,7 +725,7 @@ function hidePoen(elem){
 				success: function(data){
 					var obj = $.parseJSON(data);
 					$('.content-area-design').html(obj.layout);
-					layoutItem.fitsttext = $('.content-area-design').find('.layout-fitsttext-area');
+					layoutItem.firsttext = $('.content-area-design').find('.layout-firsttext-area');
 					layoutItem.name_date = $('.content-area-design').find('.layout-name-date-area');
 					layoutItem.name = $('.content-area-design').find('.layout-name-date-area .nametext');
 					layoutItem.date = $('.content-area-design').find('.layout-name-date-area .datetext');
@@ -715,6 +735,7 @@ function hidePoen(elem){
 
 					setTextStyle();
 					setLayoutDeisgn();
+					setSpace();
 					// Name - Date control
 					nameDateControl($('.control-name').find('[data-content-tabs="tab-name-1"]'), lDesign.layout_name_date_area.children('.layout-inner-area'));
 					// Memorial worlds control
@@ -730,26 +751,70 @@ function hidePoen(elem){
 				}
 			})
 		})
+
+		function PointToPixel(point){    
+            return (point * 96 / 72);   
+        }
+
+		// set space text
+		function setSpace(){
+			var spaceFirsttext = 100;
+			// first/name
+			var first_name = spaceFirsttext+PointToPixel(sizeDesign.first_text)+PointToPixel(sizeDesign.space_first_name);
+			layoutItem.name_date.css({
+				top: first_name+'px',
+			})
+
+			// name/memory
+			var name_memory = first_name+PointToPixel(sizeDesign.name)+PointToPixel(sizeDesign.space_name_born)+PointToPixel(sizeDesign.born)+PointToPixel(sizeDesign.space_name_memorial);
+			layoutItem.memorialwords.css({
+				top: name_memory+'px',
+			})
+
+			// memory/poem
+			var memory_poem = name_memory+PointToPixel(sizeDesign.memorial)+PointToPixel(sizeDesign.space_memorial_poem);
+			layoutItem.poem.css({
+				top: memory_poem+'px',
+			})
+		}
+
 		// set text style tab text
 		function setTextStyle(){
 			var text_style = {
-				color: $('input[type="radio"][name="text-color"]:checked').val(),
+				//color: $('input[type="radio"][name="text-color"]:checked').val(),
+				color: '#FFFFFF',
 				fontFamily: $('input[type="radio"][name="font-family"]:checked').val(),
 				fontWeight: 'bold',
-				lineHeight: 'normal',
+				//lineHeight: 'normal',
 				fontStyle: 'italic'
 			}
 
 			// set Style
-			layoutItem.fitsttext.css(text_style).css('fontSize', sizeDesign.first_text+'pt');
-			layoutItem.name.css(text_style).css('fontSize', sizeDesign.name+'pt');
-			layoutItem.date.css(text_style).css('fontSize', sizeDesign.born+'pt');
-			layoutItem.memorialwords.css(text_style).css('fontSize', sizeDesign.memorial+'pt');
-			layoutItem.poem.css(text_style).css('fontSize', sizeDesign.poem+'pt');
+			layoutItem.firsttext.css(text_style).css({
+				'fontSize': sizeDesign.first_text+'pt',
+				'lineHeight': sizeDesign.first_text+'pt',
+			});
+			layoutItem.name.css(text_style).css({
+				'fontSize': sizeDesign.name+'pt',
+				'lineHeight': sizeDesign.name+'pt',
+			});
+			layoutItem.date.css(text_style).css({
+				'fontSize': sizeDesign.born+'pt',
+				'lineHeight': sizeDesign.born+'pt',
+				'marginTop': sizeDesign.space_name_born+'pt',
+			});
+			layoutItem.memorialwords.css(text_style).css({
+				'fontSize': sizeDesign.memorial+'pt',
+				'lineHeight': sizeDesign.memorial+'pt',
+			});
+			layoutItem.poem.css(text_style).css({
+				'fontSize': sizeDesign.poem+'pt',
+				'lineHeight': sizeDesign.poem+'pt',
+			});
 			// end set Style
 
 
-			buildLayout(layoutItem.fitsttext, {drag: true}) // first text drag
+			buildLayout(layoutItem.firsttext, {drag: true}) // first text drag
 			buildLayout(layoutItem.name_date, {drag: true}) // name date drag
 			buildLayout(layoutItem.memorialwords, {drag: true}) // memorialwords drag
 			buildLayout(layoutItem.poem, {drag: true}) // poem drag
@@ -760,18 +825,30 @@ function hidePoen(elem){
 		}
 
 		function setTextStyleEl(elem){
-			console.log(elem.attr('class'));
+			// console.log(elem.attr('class'));
+			if($('#permanent_text').prop('checked') == true){
+				var color = '#FFFFFF';
+			}else{
+				var color = $('input[type="radio"][name="text-color"]:checked').val();
+			}
 			var text_style = {
-				color: $('input[type="radio"][name="text-color"]:checked').val(),
+				color: color,
 				fontFamily: $('input[type="radio"][name="font-family"]:checked').val(),
 				//fontSize: '16px',
-				lineHeight: 'normal',
+				//lineHeight: 'normal',
 				fontWeight: 'bold',
 				fontStyle: 'italic'
 			}
 			if(elem.hasClass('layout-name-date-area')){ 
-				elem.find('.nametext').css(text_style).css('fontSize', sizeDesign.name+'pt');
-				elem.find('.datetext').css(text_style).css('fontSize', sizeDesign.born+'pt');
+				elem.find('.nametext').css(text_style).css({
+					'fontSize': sizeDesign.name+'pt',
+					'lineHeight': sizeDesign.name+'pt',
+				});
+				elem.find('.datetext').css(text_style).css({
+					'fontSize': sizeDesign.born+'pt',
+					'lineHeight': sizeDesign.born+'pt',
+					'margin-top': sizeDesign.space_name_born+'pt',
+				});
 			}else{
 				elem.css(text_style);
 			}
@@ -835,8 +912,8 @@ function hidePoen(elem){
 			// First text
 			textControlEl.first_text = textContent.find('input[type="text"][name="first_text"]');
 			textControlEl.first_text.bind('input', function(){
-				if(layoutItem.fitsttext.length <= 0){ return; }
-				layoutItem.fitsttext.children('.layout-inner-area').html( $(this).val() );
+				if(layoutItem.firsttext.length <= 0){ return; }
+				layoutItem.firsttext.children('.layout-inner-area').html( $(this).val() );
 			})
 
 			// Name
@@ -901,22 +978,23 @@ function hidePoen(elem){
 		// ===========================================================================//
 		// First text control
 		$('input[name="first_text"]').bind('input', function(){
-			if(!lDesign.layout_fitsttext_area) return;
+			if(!lDesign.layout_firsttext_area) return;
 
 			var thisEl = $(this),
 				value = thisEl.val();
 
-			lDesign.layout_fitsttext_area.children('.layout-inner-area').html(value);
+			lDesign.layout_firsttext_area.children('.layout-inner-area').html(value);
+			calcCenter(lDesign.layout_firsttext_area);
 		})
 
 		$('.site-control-first-text span').bind('click', function(){
-			var	currenSize = parseInt(lDesign.layout_fitsttext_area.css('font-size')),
+			var	currenSize = parseInt(lDesign.layout_firsttext_area.css('font-size')),
 				new_size = currenSize;
 
 			if( $(this).hasClass('size-plus') ){ new_size = currenSize + 1; }
 			else{ new_size = currenSize - 1; }
 
-			lDesign.layout_fitsttext_area.css({
+			lDesign.layout_firsttext_area.css({
 				fontSize: new_size + 'px',
 				lineHeight: new_size + 'px',
 			})
@@ -941,7 +1019,7 @@ function hidePoen(elem){
 
 		$('input[name="font-size-name"]').bind('input', function(){
 			var value = $(this).val();
-			lDesign.layout_fitsttext_area.css({
+			lDesign.layout_firsttext_area.css({
 				fontSize: value + 'px',
 				lineHeight: value + 'px'
 			})
@@ -950,9 +1028,9 @@ function hidePoen(elem){
 		$('input[name="hide_first_text"]').click(function(){
 			var thisEl = $(this);
 			if( thisEl.prop('checked') == true ){
-				lDesign.layout_fitsttext_area.css('display', 'none');
+				lDesign.layout_firsttext_area.css('display', 'none');
 			}else{
-				lDesign.layout_fitsttext_area.css('display', 'block');
+				lDesign.layout_firsttext_area.css('display', 'block');
 			}
 		})
 
@@ -1003,6 +1081,7 @@ function hidePoen(elem){
 				var value = $(this).val();
 				// console.log(value);
 				areaLayoutEl.find('.nametext').children('.text-inner').html(value);
+				calcCenter(areaLayoutEl.parent()); // center name
 			})
 
 			// add_job_or_place
@@ -1011,6 +1090,8 @@ function hidePoen(elem){
 					value = thisEl.val();
 				
 				areaLayoutEl.find('.add_job_or_place').children('.text-inner').html(value);
+
+				calcCenter(areaLayoutEl.parent()); // center add_job_or_place
 			})
 
 			// birthdate
@@ -1027,6 +1108,8 @@ function hidePoen(elem){
 					})
 					
 					areaLayoutEl.find('.datetext .birthdatetext').html(text_date);
+
+					calcCenter(areaLayoutEl.parent()); // center birthdatetext
 				})
 			})
 
@@ -1044,6 +1127,8 @@ function hidePoen(elem){
 					})
 					
 					areaLayoutEl.find('.datetext .deathdatetext').html(text_date);
+
+					calcCenter(areaLayoutEl.parent()); // center deathdatetext
 				})
 			})
 		}
@@ -1065,6 +1150,8 @@ function hidePoen(elem){
 			textEl.memorial_worlds.bind('input', function(){
 				var value = $(this).val();
 				areaLayoutEl.html(value);
+
+				calcCenter(areaLayoutEl.parent()); // center memorial_worlds
 			})
 		}
 		// Hide menorial worlds
@@ -1094,6 +1181,8 @@ function hidePoen(elem){
 			textEl.poem.bind('input', function(){
 				var value = $(this).val();
 				areaLayoutEl.html(value);
+
+				calcCenter(areaLayoutEl.parent()); // center poem
 			})
 		}
 
@@ -1102,10 +1191,19 @@ function hidePoen(elem){
 			$(this).bind('click', function(){
 				var thisEl = $(this),
 					value = thisEl.val();
-				$.each(layoutItem, function($k, $elem){
-					$elem.css('color', value);
-					if( $elem.hasClass('layout-name-date-area') ){
-						$elem.parent().find('.layout-name-date-area').css('color', value);
+				//console.log(layoutItem);
+				// $.each(layoutItem, function($k, $elem){
+				// 	$elem.css('color', value);
+				// 	if( $elem.hasClass('layout-name-date-area') ){
+				// 		$elem.parent().find('.layout-name-date-area').css('color', value);
+				// 	}
+				// })
+
+				$('.layout-item-area').each(function(){
+					var thisEl = $(this);
+					thisEl.css({ color: value });
+					if(thisEl.hasClass('layout-name-date-area')){
+						thisEl.find('.nametext, .datetext').css({ color: value })
 					}
 				})
 			})
@@ -1190,7 +1288,72 @@ function hidePoen(elem){
 		$('div[data-content-tabs="tab-text"]').on('input', 'input[name="first_text"], input[name="name"], input[name="name"], input[name="add_job_or_place"], input[name="b-m"], input[name="b-y"], input[name="d-d"], input[name="d-m"], input[name="d-y"], input[name="memorial-worlds"], input[name="poem"]', function(){
 			updatePernamentTextAndCalcPrice();
 		})
+
+		$('.content-color-text').css({
+			opacity: 0.4,
+			pointerEvents: 'none',
+		})
 		
+		$('#permanent_text').click(function(){
+			if($(this).prop('checked') == true){
+				$('.content-color-text').css({
+					opacity: 0.4,
+					pointerEvents: 'none',
+				})
+
+				var value = '#FFFFFF';
+				// $.each(layoutItem, function($k, $elem){
+				// 	$elem.css('color', value);
+				// 	if( $elem.hasClass('layout-name-date-area') ){
+				// 		$elem.parent().find('.layout-name-date-area').css('color', value);
+				// 	}
+				// })
+				$('.layout-item-area').each(function(){
+					var thisEl = $(this);
+					thisEl.css({ color: value });
+					if(thisEl.hasClass('layout-name-date-area')){
+						thisEl.find('.nametext, .datetext').css({ color: value })
+					}
+				})
+			}
+		})
+
+		$('#painted_text').click(function(){
+			if($(this).prop('checked') == true){
+				$('.content-color-text').css({
+					opacity: 1,
+					pointerEvents: 'auto',
+				})
+
+				var value = $('[name="text-color"]:checked').val();
+				// $.each(layoutItem, function($k, $elem){
+				// 	$elem.css('color', value);
+				// 	if( $elem.hasClass('layout-name-date-area') ){
+				// 		$elem.parent().find('.layout-name-date-area').css('color', value);
+				// 	}
+				// })
+				$('.layout-item-area').each(function(){
+					var thisEl = $(this);
+					thisEl.css({ color: value });
+					if(thisEl.hasClass('layout-name-date-area')){
+						thisEl.find('.nametext, .datetext').css({ color: value })
+					}
+				})
+			}
+		})
+
+		var content_area_design = $('.content-area-design');
+		function calcCenter($contentEl){
+			var st = $contentEl.data('drag-off');
+			if(st == false){ return; }
+
+			var content_area_design_w = content_area_design.width(),
+				contentEl_w = $contentEl.width(),
+				newX = (content_area_design_w / 2) - (contentEl_w / 2);
+			$contentEl.css({
+				left: newX+'px',
+			})
+		}
 
 		// Build image canvas ================================
 		var designParams = {}
@@ -1287,21 +1450,21 @@ function hidePoen(elem){
 			designParams.context.drawImage(designParams.main_frame_image[0], 0, 0);
 			// end]
 
-			// [set layout_fitsttext_area
-			designParams.layout_fitsttext_area = designParams.content_inner_design_area.find('.layout-fitsttext-area .layout-inner-area');
-			getInfoEl(designParams.layout_fitsttext_area, {text: true, style: true, position: true});
+			// [set layout_firsttext_area
+			designParams.layout_firsttext_area = designParams.content_inner_design_area.find('.layout-firsttext-area .layout-inner-area');
+			getInfoEl(designParams.layout_firsttext_area, {text: true, style: true, position: true});
 			
 			canvasStyleText({
-					font: designParams.layout_fitsttext_area.info.fontFamily,
-					size: designParams.layout_fitsttext_area.info.fontSize,
-					color: designParams.layout_fitsttext_area.info.color
+					font: designParams.layout_firsttext_area.info.fontFamily,
+					size: designParams.layout_firsttext_area.info.fontSize,
+					color: designParams.layout_firsttext_area.info.color
 				})
 			drawText(designParams.context, 
-				designParams.layout_fitsttext_area.info.text, 
-				designParams.layout_fitsttext_area.info.left, 
-				designParams.layout_fitsttext_area.info.top, 
-				parseInt(designParams.layout_fitsttext_area.info.lineHeight), 
-				designParams.layout_fitsttext_area.innerWidth());
+				designParams.layout_firsttext_area.info.text, 
+				designParams.layout_firsttext_area.info.left, 
+				designParams.layout_firsttext_area.info.top, 
+				parseInt(designParams.layout_firsttext_area.info.lineHeight), 
+				designParams.layout_firsttext_area.innerWidth());
 			// end]
 
 			// [set main-layout-name-date-area
