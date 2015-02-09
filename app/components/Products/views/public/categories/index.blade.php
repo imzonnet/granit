@@ -108,9 +108,9 @@
                         @foreach( $icon_categories as $category)
                         <div class="cell-3 fx accessories category-item shop-item" data-animate="fadeInUp">
                             <div class="item-box">
-                                <h3 class="item-title"><a href="{{url('categories/'.$category->alias)}}">{{$category->name}}</a></h3>
+                                <h3 class="item-title"><a href="{{url('icon-category/'.$category->alias)}}">{{$category->name}}</a></h3>
                                 <div class="item-img">
-                                    <a href="{{url('categories/'.$category->alias)}}"><img alt="" src="{{url($category->image)}}"></a>
+                                    <a href="{{url('icon-category/'.$category->alias)}}"><img alt="" src="{{url($category->image)}}"></a>
                                 </div>
                             </div>
                         </div>
