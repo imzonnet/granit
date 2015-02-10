@@ -144,8 +144,8 @@
 						<li style="font-family: {{ $f }}"><input type="radio" name="font-family" value="{{ $f }}" {{ $checked }}/> {{ $f }}</li>
 						@endforeach 
 						-->
-						<li style="font-family: Garamond Italic Bold; font-size: 18px; font-style: italic; font-weight: 700; color: #333;"><input type="radio" name="font-family" value="Garamond" checked="true"/> Garamond Italic Bold</li>
-						<li style="font-family: Bookman Old Style Bold Italic; font-size: 17px; font-style: italic; font-weight: 600; color: #333;"><input type="radio" name="font-family" value="Bookman" checked="true"/> Bookman Old Style Bold Italic</li>
+						<li style="font-family: bookosbi; font-size: 18px; font-style: italic; font-weight: 700; color: #333;"><input type="radio" name="font-family" value="bookosbi" checked="true"/> Garamond Italic Bold</li>
+						<li style="font-family: garamond; font-size: 17px; font-style: italic; font-weight: 600; color: #333;"><input type="radio" name="font-family" value="garamond" checked="true"/> Bookman Old Style Bold Italic</li>
 						<li><label><input type="checkbox" id="move_all_text"> <strong>Move All Text</strong></label></li>
 					</ul>
 				</div>

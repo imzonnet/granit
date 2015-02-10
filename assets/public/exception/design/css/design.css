@@ -1,3 +1,12 @@
+@font-face {
+    font-family: bookosbi;
+    src: url(BOOKOSBI.TTF);
+}
+@font-face {
+    font-family: garamond;
+    src: url(16342_GARAMONDMEDIUMITALIC_0.TTF);
+}
+
 /* design.css */
 .clear{
 	clear: both;
