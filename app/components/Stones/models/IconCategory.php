@@ -12,7 +12,7 @@ class IconCategory extends \Eloquent implements PresentableInterface {
 
     protected $table = 'granit_icon_categories';
     public $timestamps = false;
-    protected $fillable = array('name', 'image', 'description', 'status', 'ordering', 'created_by', 'parent_id');
+    protected $fillable = array('name', 'alias', 'image', 'description', 'status', 'ordering', 'created_by', 'parent_id');
     protected $guarded = array('id');
 
     public function icon() {
@@ -40,7 +40,19 @@ class IconCategory extends \Eloquent implements PresentableInterface {
         $attributes['created_by'] = current_user()->id;
         return parent::update($attributes);
     }
+    /**
+     * Automatically set the alias, if one is not provided
+     * @param string $alias
+     */
+    public function setAliasAttribute($alias) {
+        if ($alias == '') {
+            $this->attributes['alias'] = Str::slug($this->attributes['name'], '-');
 
+            if (IconCategory::where('alias', '=', $this->attributes['alias'])->first()) {
+                $this->attributes['alias'] = Str::slug($this->attributes['name'], '-') . '-1';
+            }
+        }
+    }
     /**
      * Get all the icon categories
      * @return array
