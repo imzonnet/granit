@@ -28,7 +28,7 @@
                                 <ul class="btn">
                                     @if ($current_user->hasAccess("product-colors.destroy"))
                                     <li>
-                                        {{ Form::open(array('route' => array($link_type . '.product.colors.destroy', 'multiple'), 'method' => 'delete', 'class'=>'inline', 'onsubmit'=>"return deleteRecords($(this), 'colors');")) }}
+                                        {{ Form::open(array('route' => array($link_type . '.product.colors.destroy', $product->id, 'multiple'), 'method' => 'delete', 'class'=>'inline', 'onsubmit'=>"return deleteRecords($(this), 'colors');")) }}
                                             {{ Form::hidden('selected_ids', '', array('id'=>'selected_ids')) }}
                                             <button type="submit" class="danger delete"><i class="icon-trash"></i> Delete</button>
                                         {{ Form::close() }}
