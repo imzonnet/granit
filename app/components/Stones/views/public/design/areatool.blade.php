@@ -83,7 +83,7 @@
 			</div>
 			<p></p>
 			<div class="control-memorial-worlds js-tabs">
-				<strong>Memorial worlds <span style="float: right;"><input type="checkbox" name="hide_memorial_worlds"/> Hide</span></p></strong>
+				<strong>Memorial words <span style="float: right;"><input type="checkbox" name="hide_memorial_worlds"/> Hide</span></p></strong>
 				<ul class="controler-tab-memorial-worlds">
 					<li class='active'><a href="javascript:" data-tabs="tab-memorial-worlds-1">Line 1</a></li>
 					<li><a href="javascript:" data-tabs-action="newtab" data-key-tab="memorial_worlds"><i class="fa fa-plus"></i></a></li>
@@ -91,7 +91,7 @@
 				<div class="content-tab active" data-content-tabs="tab-memorial-worlds-1">
 					<div class="content-tab-inner row-full-all content-memorial-worlds">
 						<p class="content-content-relative">
-							<input name="memorial-worlds" type="text" placeholder="Memorial worlds" style="width: 285px;">
+							<input name="memorial-worlds" type="text" placeholder="Memorial words" style="width: 285px;">
 							
 						</p>
 					</div>
