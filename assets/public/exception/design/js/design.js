@@ -35,9 +35,12 @@ function hidePoen(elem){
 !(function($){
 	$(function(){
 		var global_params = {};
-		global_params.radio = { large: 0.14, 
-			medium: 0.21, 
-			small: 0.34};
+		// global_params.radio = { large: 0.14, 
+		// 	medium: 0.21, 
+		// 	small: 0.34};
+		global_params.radio = { large: 0.10625, 
+			medium: 0.159375, 
+			small: 0.255};
 
 		var first_text_size_real = 75;
 		var name_size_real = 100;
