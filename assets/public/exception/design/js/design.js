@@ -1118,7 +1118,7 @@ function hidePoen(elem){
 			// deathdate
 			textEl.contentDeath.find('input[type="text"]').each(function(){
 				$(this).bind('input', function(){
-					$(this).val(parseInt($(this).val()));
+					$(this).val( (isNaN(parseInt($(this).val())) == true)? "" : parseInt($(this).val()) );
 					var thiEl = $(this), text_date = "d";
 
 					thiEl.parent().children('input[type="text"]').each(function(){
