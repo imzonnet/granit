@@ -13,7 +13,6 @@ class ProductValidator extends Validator {
         'product_code'          => 'required|unique:granit_products,product_code',
         'cat_id'		=> 'required|alpha_num',
         'image'                 => 'required',
-        'price'			=> 'required',
         'alias' 		=> 'regex:/^[a-z0-9\-]*$/|unique:granit_products,alias',
     );
 
@@ -25,7 +24,6 @@ class ProductValidator extends Validator {
         'name'     		=> 'required|regex:/^[a-zA-Z0-9\-\.\s\?\{\}\(\)ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$/',
         'product_code'          => 'required|unique:granit_products,product_code',
         'cat_id'		=> 'required|alpha_num',
-        'price'			=> 'required',
         'alias' 		=> 'regex:/^[a-z0-9\-]*$/|unique:granit_products,alias',
     );
 
