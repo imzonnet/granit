@@ -1097,6 +1097,8 @@ function hidePoen(elem){
 			// birthdate
 			textEl.contentBirthday.find('input[type="text"]').each(function(){
 				$(this).bind('input', function(){
+					// console.log(parseInt($(this).val()));
+					$(this).val( (isNaN(parseInt($(this).val())) == true)? "" : parseInt($(this).val()) );
 					var thiEl = $(this), text_date = "f";
 
 					thiEl.parent().children('input[type="text"]').each(function(){
@@ -1116,6 +1118,7 @@ function hidePoen(elem){
 			// deathdate
 			textEl.contentDeath.find('input[type="text"]').each(function(){
 				$(this).bind('input', function(){
+					$(this).val(parseInt($(this).val()));
 					var thiEl = $(this), text_date = "d";
 
 					thiEl.parent().children('input[type="text"]').each(function(){

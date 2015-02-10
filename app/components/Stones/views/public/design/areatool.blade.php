@@ -14,7 +14,7 @@
 		<ul class="product-cat-content">
 			@foreach($productCategories as $cat)
 			<li>
-				<a href="javascript:" data-cat-id="{{ $cat->id }}">
+				<a href="javascript:" data-cat-id="{{ $cat->id }}" title="{{ $cat->name }}">
 					<img src="{{ $cat->image }}" alt="{{ $cat->name }}" title="{{ $cat->name }}"/>
 				</a>
 			</li>
