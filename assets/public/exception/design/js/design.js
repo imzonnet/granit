@@ -1147,7 +1147,17 @@ function hidePoen(elem){
 			/* 2 */
 			controlFontSize(areaTextEl.find('.site-control-memorial-worlds'), areaLayoutEl);
 
-			textEl.memorial_worlds.bind('input', function(){
+			// calc Top
+			textEl.memorial_worlds.bind('focus', function(){
+				var last_name_date_el = $('.main-layout-name-date-area .layout-name-date-area:last-child'),
+					n_top = last_name_date_el.position().top + last_name_date_el.height() + PointToPixel(sizeDesign.space_name_memorial);
+				
+				if($(this).val().length > 0){ return; }
+				if(areaLayoutEl.parent().data('drag-off') == false){ return; }
+				areaLayoutEl.parent().css('top', n_top+'px');
+			})
+
+			textEl.memorial_worlds.bind('input', function(e){
 				var value = $(this).val();
 				areaLayoutEl.html(value);
 
@@ -1177,6 +1187,16 @@ function hidePoen(elem){
 
 			/* 2 */
 			controlFontSize(areaTextEl.find('.site-control-poem'), areaLayoutEl);
+
+			// calc Top
+			textEl.poem.bind('focus', function(){
+				var layout_memorialwords_area_el = $('.layout-memorialwords-area'),
+					n_top = layout_memorialwords_area_el.position().top + layout_memorialwords_area_el.height() + PointToPixel(sizeDesign.space_memorial_poem);
+				
+				if($(this).val().length > 0){ return; }
+				if(areaLayoutEl.parent().data('drag-off') == false){ return; }
+				areaLayoutEl.parent().css('top', n_top+'px');
+			})
 
 			textEl.poem.bind('input', function(){
 				var value = $(this).val();
