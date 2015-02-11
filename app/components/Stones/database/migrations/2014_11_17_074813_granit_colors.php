@@ -14,7 +14,7 @@ class GranitColors extends Migration {
         Schema::create('granit_colors', function(Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('hexcode', 6);
+            $table->string('hexcode', 7);
             $table->string('status');
             $table->integer('ordering')->default(0);
             $table->integer('created_by')->unsigned();
