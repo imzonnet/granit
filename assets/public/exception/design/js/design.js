@@ -38,9 +38,9 @@ function hidePoen(elem){
 		// global_params.radio = { large: 0.14, 
 		// 	medium: 0.21, 
 		// 	small: 0.34};
-		global_params.radio = { large: 0.10625, 
-			medium: 0.159375, 
-			small: 0.255};
+		global_params.radio = { large: 0.141666667, 
+			medium: 0.2125, 
+			small: 0.34};
 
 		var first_text_size_real = 75;
 		var name_size_real = 100;
@@ -447,7 +447,7 @@ function hidePoen(elem){
 					fontFamily: text_area.css('font-family'),
 					fontSize: parseInt(text_area.css('font-size').replace('px','')),
 					fontStyle: text_area.css('font-style'),
-					fontWeight: text_area.css('font-weight'),
+					// fontWeight: text_area.css('font-weight'),
 					lineHeight: text_area.css('line-height'),
 					textAlign: text_area.css('text-align'),
 				},
@@ -484,7 +484,7 @@ function hidePoen(elem){
 					fontFamily: layoutText.css('font-family'),
 					fontSize: parseInt(layoutText.css('font-size').replace('px','')),
 					fontStyle: layoutText.css('font-style'),
-					fontWeight: layoutText.css('font-weight'),
+					// fontWeight: layoutText.css('font-weight'),
 					lineHeight: layoutText.css('line-height'),
 					textAlign: layoutText.css('text-align'),
 				},
@@ -828,7 +828,7 @@ function hidePoen(elem){
 				//color: $('input[type="radio"][name="text-color"]:checked').val(),
 				color: '#FFFFFF',
 				fontFamily: $('input[type="radio"][name="font-family"]:checked').val(),
-				fontWeight: 'bold',
+				//fontWeight: 'bold',
 				//lineHeight: 'normal',
 				fontStyle: 'italic'
 			}
@@ -885,7 +885,7 @@ function hidePoen(elem){
 				fontFamily: $('input[type="radio"][name="font-family"]:checked').val(),
 				//fontSize: '16px',
 				//lineHeight: 'normal',
-				fontWeight: 'bold',
+				//fontWeight: 'bold',
 				fontStyle: 'italic'
 			}
 			if(elem.hasClass('layout-name-date-area')){ 
@@ -1497,7 +1497,7 @@ function hidePoen(elem){
 			if( params.size ){ cStyle.size = params.size; }
 			if( params.color ){ cStyle.color = params.color; }
 
-			designParams.context.font = 'italic bold '+cStyle.size+' '+cStyle.font; //'40pt Calibri';
+			designParams.context.font = 'italic '+cStyle.size+' '+cStyle.font; //'40pt Calibri';
       		designParams.context.fillStyle = cStyle.color; //'blue';
 		}
 
