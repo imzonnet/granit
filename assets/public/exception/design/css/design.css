@@ -3,8 +3,8 @@
     src: url(BOOKOSI.TTF);
 }
 @font-face {
-    font-family: garamond;
-    src: url(16342_GARAMONDMEDIUMITALIC_0.TTF);
+    font-family: garamonditalic;
+    src: url(GARAMONDMEDIUMITALIC.TTF);
 }
 
 /* design.css */
