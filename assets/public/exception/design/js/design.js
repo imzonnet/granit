@@ -446,7 +446,7 @@ function hidePoen(elem){
 					color: text_area.css('color'),
 					fontFamily: text_area.css('font-family'),
 					fontSize: parseInt(text_area.css('font-size').replace('px','')),
-					fontStyle: text_area.css('font-style'),
+					//fontStyle: text_area.css('font-style'),
 					// fontWeight: text_area.css('font-weight'),
 					lineHeight: text_area.css('line-height'),
 					textAlign: text_area.css('text-align'),
@@ -483,7 +483,7 @@ function hidePoen(elem){
 					color: layoutText.css('color'),
 					fontFamily: layoutText.css('font-family'),
 					fontSize: parseInt(layoutText.css('font-size').replace('px','')),
-					fontStyle: layoutText.css('font-style'),
+					//fontStyle: layoutText.css('font-style'),
 					// fontWeight: layoutText.css('font-weight'),
 					lineHeight: layoutText.css('line-height'),
 					textAlign: layoutText.css('text-align'),
@@ -830,7 +830,7 @@ function hidePoen(elem){
 				fontFamily: $('input[type="radio"][name="font-family"]:checked').val(),
 				//fontWeight: 'bold',
 				//lineHeight: 'normal',
-				fontStyle: 'italic'
+				//fontStyle: 'italic'
 			}
 
 			// set Style
@@ -886,7 +886,7 @@ function hidePoen(elem){
 				//fontSize: '16px',
 				//lineHeight: 'normal',
 				//fontWeight: 'bold',
-				fontStyle: 'italic'
+				//fontStyle: 'italic'
 			}
 			if(elem.hasClass('layout-name-date-area')){ 
 				elem.find('.nametext').css(text_style).css({
@@ -897,6 +897,11 @@ function hidePoen(elem){
 					'fontSize': sizeDesign.born+'pt',
 					'lineHeight': sizeDesign.born+'pt',
 					'margin-top': sizeDesign.space_name_born+'pt',
+				});
+				elem.find('.add_job_or_place').css(text_style).css({
+					'fontSize': sizeDesign.jobtitle+'pt',
+					'lineHeight': sizeDesign.jobtitle+'pt',
+					'marginTop': sizeDesign.space_name_job+'pt',
 				});
 			}else{
 				elem.css(text_style);
@@ -1497,7 +1502,8 @@ function hidePoen(elem){
 			if( params.size ){ cStyle.size = params.size; }
 			if( params.color ){ cStyle.color = params.color; }
 
-			designParams.context.font = 'italic '+cStyle.size+' '+cStyle.font; //'40pt Calibri';
+			//designParams.context.font = 'italic '+cStyle.size+' '+cStyle.font; //'40pt Calibri';
+			designParams.context.font = ' '+cStyle.size+' '+cStyle.font; //'40pt Calibri';
       		designParams.context.fillStyle = cStyle.color; //'blue';
 		}
 
