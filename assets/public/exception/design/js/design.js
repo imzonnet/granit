@@ -47,6 +47,7 @@ function hidePoen(elem){
 		var born_size_real = 70;
 		var memorial_size_real = 75;
 		var poem_size_real = 60;
+		var job_title_real = 75;
 
 		// size first text
 		global_params.first_text = {large: global_params.radio.large * first_text_size_real, 
@@ -68,12 +69,19 @@ function hidePoen(elem){
 		global_params.poem = {large: global_params.radio.large * poem_size_real, 
 			medium: global_params.radio.medium * poem_size_real, 
 			small: global_params.radio.small * poem_size_real};
+		// size job title
+		global_params.jobtitle = {large: global_params.radio.large * job_title_real, 
+			medium: global_params.radio.medium * job_title_real, 
+			small: global_params.radio.small * job_title_real};
 
 		var space_first_name_real = 50;
 		var space_name_born_real = 45;
 		var space_name1_name2_real = 65;
 		var space_name_memorial_real = 80;
 		var space_memorial_poem_real = 34;
+		var space_name_job_real = 30;
+		var space_poem_poem_real = 32;
+		var space_memorial_memorial_real = 32;
 
 		// space first name
 		global_params.space_first_name = {large: global_params.radio.large * space_first_name_real,
@@ -95,6 +103,18 @@ function hidePoen(elem){
 		global_params.space_memorial_poem = {large: global_params.radio.large * space_memorial_poem_real,
 			medium: global_params.radio.medium * space_memorial_poem_real,
 			small: global_params.radio.small * space_memorial_poem_real};
+		// space memorial poem
+		global_params.space_name_job = {large: global_params.radio.large * space_name_job_real,
+			medium: global_params.radio.medium * space_name_job_real,
+			small: global_params.radio.small * space_name_job_real};
+		// space poem poem
+		global_params.space_poem_poem = {large: global_params.radio.large * space_poem_poem_real,
+			medium: global_params.radio.medium * space_poem_poem_real,
+			small: global_params.radio.small * space_poem_poem_real};
+		// space memorial memorial
+		global_params.space_memorial_memorial = {large: global_params.radio.large * space_memorial_memorial_real,
+			medium: global_params.radio.medium * space_memorial_memorial_real,
+			small: global_params.radio.small * space_memorial_memorial_real};
 
 		// console.log(global_params);
 
@@ -227,6 +247,10 @@ function hidePoen(elem){
 
 			/* Create layout Memorial */
 			var layer_el = $('<div>').addClass('layout-inner-area layout-id-'+rand_id);
+
+			var lDesignTop = PointToPixel(sizeDesign.space_memorial_memorial);// .layout-item-area
+			layer_el.css('margin-top', lDesignTop+'px');
+
 			lDesign.layout_memorialwords_area.append(layer_el);
 			name_tab_el.find('a').trigger('click'); // new tab active
 			mw_control(content_tab_el, layer_el);
@@ -275,6 +299,10 @@ function hidePoen(elem){
 
 			/* Create layout Poem */
 			var layer_el = $('<div>').addClass('layout-inner-area layout-id-'+rand_id);
+
+			var lDesignTop = PointToPixel(sizeDesign.space_poem_poem);// .layout-item-area
+			layer_el.css('margin-top', lDesignTop+'px');
+
 			lDesign.poem.append(layer_el);
 			name_tab_el.find('a').trigger('click'); // new tab active
 			poem_control(content_tab_el, layer_el);
@@ -612,12 +640,16 @@ function hidePoen(elem){
 					sizeDesign.born 		= global_params.born.large;
 					sizeDesign.memorial 	= global_params.memorial.large;
 					sizeDesign.poem 		= global_params.poem.large;
+					sizeDesign.jobtitle 	= global_params.jobtitle.large;
 
 					sizeDesign.space_first_name = global_params.space_first_name.large;
 					sizeDesign.space_name_born = global_params.space_name_born.large;
 					sizeDesign.space_name1_name2 = global_params.space_name1_name2.large;
 					sizeDesign.space_name_memorial = global_params.space_name_memorial.large;
 					sizeDesign.space_memorial_poem = global_params.space_memorial_poem.large;
+					sizeDesign.space_name_job = global_params.space_name_job.large;
+					sizeDesign.space_poem_poem = global_params.space_poem_poem.large;
+					sizeDesign.space_memorial_memorial = global_params.space_memorial_memorial.large;
 					break;
 				case 'medium':
 					sizeDesign.first_text 	= global_params.first_text.medium;
@@ -625,12 +657,16 @@ function hidePoen(elem){
 					sizeDesign.born 		= global_params.born.medium;
 					sizeDesign.memorial 	= global_params.memorial.medium;
 					sizeDesign.poem 		= global_params.poem.medium;
+					sizeDesign.jobtitle 	= global_params.jobtitle.medium;
 
 					sizeDesign.space_first_name = global_params.space_first_name.medium;
 					sizeDesign.space_name_born = global_params.space_name_born.medium;
 					sizeDesign.space_name1_name2 = global_params.space_name1_name2.medium;
 					sizeDesign.space_name_memorial = global_params.space_name_memorial.medium;
 					sizeDesign.space_memorial_poem = global_params.space_memorial_poem.medium;
+					sizeDesign.space_name_job = global_params.space_name_job.medium;
+					sizeDesign.space_poem_poem = global_params.space_poem_poem.medium;
+					sizeDesign.space_memorial_memorial = global_params.space_memorial_memorial.medium;
 					break;
 				case 'small':
 					sizeDesign.first_text 	= global_params.first_text.small;
@@ -638,15 +674,19 @@ function hidePoen(elem){
 					sizeDesign.born 		= global_params.born.small;
 					sizeDesign.memorial 	= global_params.memorial.small;
 					sizeDesign.poem 		= global_params.poem.small;
+					sizeDesign.jobtitle 	= global_params.jobtitle.small;
 
 					sizeDesign.space_first_name = global_params.space_first_name.small;
 					sizeDesign.space_name_born = global_params.space_name_born.small;
 					sizeDesign.space_name1_name2 = global_params.space_name1_name2.small;
 					sizeDesign.space_name_memorial = global_params.space_name_memorial.small;
 					sizeDesign.space_memorial_poem = global_params.space_memorial_poem.small;
+					sizeDesign.space_name_job = global_params.space_name_job.small;
+					sizeDesign.space_poem_poem = global_params.space_poem_poem.small;
+					sizeDesign.space_memorial_memorial = global_params.space_memorial_memorial.small;
 					break;
 			}
-			// console.log(sizeDesign);
+			//console.log(sizeDesign);
 		}
 
 		$('.product-cat-content li a').click(function(){
@@ -731,6 +771,7 @@ function hidePoen(elem){
 					layoutItem.firsttext = $('.content-area-design').find('.layout-firsttext-area');
 					layoutItem.name_date = $('.content-area-design').find('.layout-name-date-area');
 					layoutItem.name = $('.content-area-design').find('.layout-name-date-area .nametext');
+					layoutItem.add_job_or_place = $('.content-area-design').find('.layout-name-date-area .add_job_or_place');
 					layoutItem.date = $('.content-area-design').find('.layout-name-date-area .datetext');
 					layoutItem.memorialwords = $('.content-area-design').find('.layout-memorialwords-area');
 					layoutItem.poem = $('.content-area-design').find('.layout-poem-area');
@@ -814,6 +855,11 @@ function hidePoen(elem){
 				'fontSize': sizeDesign.poem+'pt',
 				'lineHeight': sizeDesign.poem+'pt',
 			});
+			layoutItem.add_job_or_place.css(text_style).css({
+				'fontSize': sizeDesign.jobtitle+'pt',
+				'lineHeight': sizeDesign.jobtitle+'pt',
+				'marginTop': sizeDesign.space_name_job+'pt',
+			})
 			// end set Style
 
 

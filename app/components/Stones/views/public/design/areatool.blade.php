@@ -122,6 +122,12 @@
 				<div style="width: 40%;">
 					<p><strong>Color</strong></p>
 					<ul class="content-color-text">
+						<?php 
+							$_colors = array();
+							foreach($colors as $k=>$item){
+								array_push($_colors, $item->hexcode);
+							}
+						?>
 						@foreach(['#FFE100', '#333333', '#FFFFFF'] as $k=>$c)
 							<?php  $checked = ($k == 0)? "checked=''" : ""; ?>
 						<li>
@@ -144,8 +150,8 @@
 						<li style="font-family: {{ $f }}"><input type="radio" name="font-family" value="{{ $f }}" {{ $checked }}/> {{ $f }}</li>
 						@endforeach 
 						-->
-						<li style="font-family: bookosbi; font-size: 18px; font-style: italic; font-weight: 700; color: #333;"><input type="radio" name="font-family" value="bookosbi" checked="true"/> Garamond Italic Bold</li>
-						<li style="font-family: garamond; font-size: 17px; font-style: italic; font-weight: 600; color: #333;"><input type="radio" name="font-family" value="garamond" checked="true"/> Bookman Old Style Bold Italic</li>
+						<li style="font-family: garamond; font-size: 18px; font-style: italic; font-weight: 700; color: #333;"><input type="radio" name="font-family" value="garamond" checked="true"/> Garamond</li>
+						<li style="font-family: bookosbi; font-size: 17px; font-style: italic; font-weight: 600; color: #333;"><input type="radio" name="font-family" value="bookosbi" checked="true"/> Bookman</li>
 						<li><label><input type="checkbox" id="move_all_text"> <strong>Move All Text</strong></label></li>
 					</ul>
 				</div>
