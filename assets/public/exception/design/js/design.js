@@ -34,16 +34,57 @@ function hidePoen(elem){
 
 !(function($){
 	$(function(){
+		// pSearch
+		$('input[name="psearch"]').bind('input', function(){
+			var thisEl = $(this),
+				pItem = $('.content-products .content-inner .product-item');
+
+			if(thisEl.val().length > 0){
+				pItem.each(function(){
+					var thisItem = $(this),
+						pName = thisItem.find('.text-ellipsis').text().toLowerCase();
+					if ( pName.indexOf(thisEl.val().toLowerCase()) >= 0 ) {
+					  	thisItem.css('display', 'inline-block');
+					}else{
+						thisItem.css('display', 'none');
+					}
+				})
+			}else{
+				pItem.css('display', 'inline-block');
+			}
+		})
+
+		// accessories_search
+		$('input[name="accessories_search"]').bind('input', function(){
+			var thisEl = $(this),
+				item_accessories = $('.accessories-cat-content .item-accessories');
+
+			if(thisEl.val().length > 0){
+				item_accessories.each(function(){
+					var thisItem = $(this),
+						aName = thisItem.find('.text-ellipsis').text().toLowerCase();
+					if ( aName.indexOf(thisEl.val().toLowerCase()) >= 0 ){
+						thisItem.css('display', 'inline-block');
+					}else{
+						thisItem.css('display', 'none');
+					}
+				})
+			}else{
+				item_accessories.css('display', 'inline-block');
+			}
+		})
+
 		var global_params = {};
 		// global_params.radio = { large: 0.14, 
 		// 	medium: 0.21, 
 		// 	small: 0.34};
-		global_params.radio = { large: 0.108333333, 
-			medium: 0.1625, 
-			small: 0.26}; 
+		global_params.radio = { large: 0.106274306, 
+			medium: 0.159411458, 
+			small: 0.255058333}; 
 
 		var first_text_size_real = 75;
 		var name_size_real = 100;
+		var name_size_small_real = 92; // fix
 		var born_size_real = 70;
 		var memorial_size_real = 75;
 		var poem_size_real = 60;
@@ -56,7 +97,7 @@ function hidePoen(elem){
 		// size name
 		global_params.name = {large: global_params.radio.large * name_size_real, 
 			medium: global_params.radio.medium * name_size_real, 
-			small: global_params.radio.small * name_size_real};
+			small: global_params.radio.small * name_size_small_real};
 		// size born
 		global_params.born = {large: global_params.radio.large * born_size_real, 
 			medium: global_params.radio.medium * born_size_real, 

@@ -685,7 +685,7 @@ input[name="text-color"]:checked ~ span{
 }
 .accessories-content{
 	background: 0 0 #e7512f;
-    height: 670px;
+    height: 746px;
     left: 30px;
     opacity: 0;
     overflow: auto;
