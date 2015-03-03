@@ -56,6 +56,16 @@ function hidePoen(elem){
 			color: "",
 		};
 
+		/*-------Rebuild-------*/
+		if(data_designed){
+			var st_designed = {
+				handle_type: false,
+				handle_pid: false,
+				handle_cid: false,
+			};
+		}		
+		/*-------End Rebuild-------*/
+
 		// pSearch
 		$('input[name="psearch"]').bind('input', function(){
 			var thisEl = $(this),
@@ -790,10 +800,32 @@ function hidePoen(elem){
 					}else{
 						thisEl.parent().parent().removeClass('loading-animate'); // remove loading animate
 					}
+
+					/* ------ReDesigned------ */
+					if(data_designed){
+						if(st_designed.handle_pid == false){
+							$('.content-products .product-item[data-product-id="'+data_designed.pid+'"]').trigger('click');
+							st_designed.handle_pid = true;
+							console.log(st_designed);
+						}
+					}
+					/* ------End ReDesigned------ */
 				}
 			})
 		})
-		$('.product-cat-content li:first-child a').trigger('click');
+		
+		if(data_designed){
+			/* ------ReDesigned------ */
+			if(st_designed.handle_type == false){
+				$('.product-cat-content li a[title="'+data_designed.type+'"]').trigger('click');
+				st_designed.handle_type = true;
+			}
+			/* ------End ReDesigned------ */
+		}else{
+			$('.product-cat-content li:first-child a').trigger('click');
+		}
+		
+
 
 		// set layout design =============================================
 		var lDesign = {};
@@ -852,11 +884,24 @@ function hidePoen(elem){
 					// Poem control
 					poem_control($('.control-poem').find('[data-content-tabs="tab-poem-1"]'), lDesign.poem.children('.layout-inner-area'));
 
-					$('.content-area-design').find('.content-product-color ul li:first-child a').trigger('click'); // active first item
 					$('.design-area.right').removeClass('loading-animate'); // add loading animate
 				
 					// reset tab text
 					$('[data-content-tabs="tab-text"] input[type="text"]').val('');
+
+					if(data_designed){
+						/*-----ReDesigned------*/
+						if(st_designed.handle_cid == false){
+							$('.content-area-design').find('.content-product-color ul li a[data-pcolor-id="'+data_designed.cid+'"]').trigger('click'); 
+							st_designed.handle_cid = true;
+
+							$('.controler-tab li a[data-tabs="tab-text"]').trigger('click');
+							designedTextHandle();
+						}
+						/*-----End ReDesigned------*/
+					}else{
+						$('.content-area-design').find('.content-product-color ul li:first-child a').trigger('click'); // active first item
+					}
 				}
 			})
 		})
@@ -995,7 +1040,7 @@ function hidePoen(elem){
 
 			thisEl.parent().addClass('active').siblings().removeClass('active');
 
-			main_frame_image.css('display', 'block').attr('src', pcolor_img);
+			main_frame_image.css('display', 'block').attr('src', root_url+pcolor_img);
 
 			// design price update
 			price_overview.item_name = thisEl.data('name'),
@@ -1286,7 +1331,7 @@ function hidePoen(elem){
 
 			textEl.memorial_worlds.bind('input', function(e){
 				var value = $(this).val();
-				areaLayoutEl.html(value);
+				areaLayoutEl.html('<div>'+value+'</div>');
 
 				calcCenter(areaLayoutEl.parent()); // center memorial_worlds
 			})
@@ -1327,7 +1372,7 @@ function hidePoen(elem){
 
 			textEl.poem.bind('input', function(){
 				var value = $(this).val();
-				areaLayoutEl.html(value);
+				areaLayoutEl.html('<div>'+value+'</div>');
 
 				calcCenter(areaLayoutEl.parent()); // center poem
 			})
@@ -1787,7 +1832,8 @@ function hidePoen(elem){
 						d_date: "",
 						offset: [{name_x: 0, name_y: 0},
 								{add_job_or_place_x: 0, add_job_or_place_y: 0},
-								{date_x: 0, date_y: 0}]
+								{date_x: 0, date_y: 0},
+								{content_x: 0, content_y: 0}]
 						};
 
 				nameItem.name = $.trim(thisItem.find('.nametext .text-inner').text());
@@ -1810,6 +1856,10 @@ function hidePoen(elem){
 				nameItem.offset[2].date_y = thisItem.find('.datetext').offset().top - _main_frame_image_top;
 				nameItem.offset[2].date_x = thisItem.find('.datetext').offset().left - _main_frame_image_left;
 
+				// content
+				nameItem.offset[3].content_y = thisItem.offset().top - _main_frame_image_top;
+				nameItem.offset[3].content_x = thisItem.offset().left - _main_frame_image_left;
+
 				dataSave.names.push(nameItem);
 			})
 
@@ -1820,11 +1870,15 @@ function hidePoen(elem){
 				var thisItem = $(this),
 					mwordsItem = {
 						text: $.trim(thisItem.text()), 
-						y: thisItem.offset().top - designParams.main_frame_image.offset().top,
-						x: thisItem.offset().left - designParams.main_frame_image.offset().left,
+						y: thisItem.find('div').offset().top - designParams.main_frame_image.offset().top,
+						x: thisItem.find('div').offset().left - designParams.main_frame_image.offset().left,
 					};
 				dataSave.mwords.push(mwordsItem);
 			})
+			dataSave.mwords.push({
+				content_y: mwordsEl.offset().top - _main_frame_image_top,
+				content_x: mwordsEl.offset().left - _main_frame_image_left,
+			});
 
 			// Poem
 			dataSave.poem = [];
@@ -1833,11 +1887,15 @@ function hidePoen(elem){
 				var thisItem = $(this),
 					poemItem = {
 						text: $.trim(thisItem.text()),
-						y: thisItem.offset().top - designParams.main_frame_image.offset().top,
-						x: thisItem.offset().left - designParams.main_frame_image.offset().left,
+						y: thisItem.find('div').offset().top - designParams.main_frame_image.offset().top,
+						x: thisItem.find('div').offset().left - designParams.main_frame_image.offset().left,
 					};
 				dataSave.poem.push(poemItem);
 			})
+			dataSave.poem.push({
+				content_y: poemEl.offset().top - _main_frame_image_top,
+				content_x: poemEl.offset().left - _main_frame_image_left,
+			});
 
 			// accessories
 			dataSave.accessories = []
@@ -1851,7 +1909,7 @@ function hidePoen(elem){
 				dataSave.accessories.push(accessoriesItem);
 			})
 
-			//console.log(dataSave);
+			// console.log(dataSave);
 			$.ajax({
 				headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },
 				type: "POST",
@@ -1867,5 +1925,111 @@ function hidePoen(elem){
 			setDataSave();
 		})
 
+		/*-----reDesigned-----*/
+		function designedTextHandle(){
+			designParams.content_inner_design_area = $('.content-inner-design-area');
+			designParams.main_frame_image = designParams.content_inner_design_area.find('img#main-frame-image');
+			var _mLeft = (designParams.content_inner_design_area.width() - designParams.main_frame_image.width()) / 2;
+			
+			// first text
+			if(data_designed.ftest.text.length > 0){
+				$('.content-first-text-field input[name="first_text"]')
+				.val(data_designed.ftest.text)
+				.trigger('input');
+				setTimeout(function(){
+					$('.content-area-design').find('.layout-firsttext-area').css({
+						left: parseInt(data_designed.ftest.x) + _mLeft + 'px',
+						top: parseInt(data_designed.ftest.y) + 'px',
+					}) 
+				}, 200)
+			}
+
+			// name
+			$.each(data_designed.names, function(index, $item){
+				var contentTextEl = $('.content-text'),
+					nth = index + 2;
+				if(index == 0){
+					var nameControlText = contentTextEl.find('.control-name .content-tab:nth-child('+nth+')');					
+					var layoutDesign = $('.main-layout-name-date-area .layout-name-date-area:nth-child('+ index+1 +')');	
+				}else{
+					$('.controler-tab-name li:last-child a').trigger('click');
+					var nameControlText = contentTextEl.find('.control-name .content-tab:nth-child('+nth+')');					
+					var layoutDesign = $('.main-layout-name-date-area .layout-name-date-area:nth-child('+ index+1 +')');
+				}
+
+				nameControlText.find('input[name="name"]').val($item.name).trigger('input');
+				if($item.add_job_or_place != ''){
+					nameControlText.find('.btn-custom-design').click();
+					nameControlText.find('input[name="add_job_or_place"]').val($item.add_job_or_place).trigger('input');
+				}
+				if($item.b_date != ''){
+					var b_date = $item.b_date.split(". "); 
+					nameControlText.find('.b-date input[name="b-d"]').val(b_date[1]).trigger('input');
+					nameControlText.find('.b-date input[name="b-m"]').val(b_date[2]).trigger('input');
+					nameControlText.find('.b-date input[name="b-y"]').val(b_date[3]).trigger('input');
+				}
+				if($item.d_date != ''){
+					var d_date = $item.d_date.split(". "); 
+					nameControlText.find('.d-date input[name="d-d"]').val(d_date[1]).trigger('input');
+					nameControlText.find('.d-date input[name="d-m"]').val(d_date[2]).trigger('input');
+					nameControlText.find('.d-date input[name="d-y"]').val(d_date[3]).trigger('input');
+				}
+				// console.log($item);
+				setTimeout(function(){
+					layoutDesign.css({
+						left: parseInt($item.offset[3].content_x) + _mLeft + 'px',
+						top: parseInt($item.offset[3].content_y) + 'px'
+					})
+				}, 200)
+			})
+
+			// Memorial words 
+			//console.log(data_designed.mwords);
+			if(data_designed.mwords.length > 0){
+				var offsetContent = data_designed.mwords.pop(); 
+				// console.log(offsetContent);
+				$.each(data_designed.mwords, function(index, $item){
+					var contentMwEl = $('.control-memorial-worlds'),
+					nth = index + 3;
+					if(index == 0){
+						var mwControlText = contentMwEl.find('.content-tab:nth-child('+nth+')');					
+						//var layoutDesign = $('.layout-memorialwords-area .layout-inner-area:nth-child('+ index+1 +')');	
+					}else{
+						$('.controler-tab-memorial-worlds li:last-child a').trigger('click');
+						var mwControlText = contentMwEl.find('.content-tab:nth-child('+nth+')');					
+						//var layoutDesign = $('.layout-memorialwords-area .layout-inner-area:nth-child('+ index+1 +')');	
+					}
+
+					mwControlText.find('input[name="memorial-worlds"]').val($item.text).trigger('input');
+				})
+				$('.layout-memorialwords-area').css({
+					left: parseInt(offsetContent.content_x) + _mLeft + 'px',
+					top: parseInt(offsetContent.content_y) + 'px'
+				})
+			}	
+
+			// Poem
+			if(data_designed.poem.length > 0){
+				$('.btn-poem-js').trigger('click');
+
+				var offsetContent = data_designed.poem.pop(); 
+				$.each(data_designed.poem, function(index, $item){
+					var contentPoemEl = $('.control-poem'),
+					nth = index + 4;
+					if(index == 0){
+						var poemControlText = contentPoemEl.find('.content-tab:nth-child('+nth+')');					
+					}else{
+						$('.controler-tab-poem li:last-child a').trigger('click');
+						var poemControlText = contentPoemEl.find('.content-tab:nth-child('+nth+')');					
+					}
+					poemControlText.find('input[name="poem"]').val($item.text).trigger('input');
+				})
+				$('.layout-poem-area').css({
+					left: parseInt(offsetContent.content_x) + _mLeft + 'px',
+					top: parseInt(offsetContent.content_y) + 'px'
+				})
+			}
+		}
+		/*-----End reDesigned-----*/
 	})
 })(jQuery)

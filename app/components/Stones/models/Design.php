@@ -2,7 +2,7 @@
 
 use App, Str;
 use Robbo\Presenter\PresentableInterface;
-use Components\Stones\Presenters\DeisnPresenter;
+use Components\Stones\Presenters\DesignPresenter;
 
 class Design extends \Eloquent implements PresentableInterface {
     protected $table = 'granit_designs';

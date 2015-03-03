@@ -54,7 +54,7 @@
 			<li>
 				<a class="choose-pcolor-js" href="javascript:" data-pcolor-id="{{ $pcolor->id }}" data-pcolor-img="{{ $pcolor->image }}" data-price="{{ $pcolor->price }}" data-characteristic-price="{{ $pcolor->characteristic_price }}" data-name="{{ $pcolor->name }}">
 					<!-- <img src="{{ $pcolor->thumbnail }}" title="{{ $pcolor->name }}" alt="{{ $pcolor->name }}"/> -->
-					<img src="{{ $pcolor->color->icon }}" title="{{ $pcolor->name }}" alt="{{ $pcolor->name }}"/>
+					<img src="<?php echo Request::root().'/'; ?>{{ $pcolor->color->icon }}" title="{{ $pcolor->name }}" alt="{{ $pcolor->name }}"/>
 				</a>
 			</li>
 			@endforeach

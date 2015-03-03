@@ -1,8 +1,5 @@
-
 <?php namespace Components\Stones\Presenters;
-
 use Robbo\Presenter\Presenter;
-
 class DesignPresenter extends Presenter
 {
     /**

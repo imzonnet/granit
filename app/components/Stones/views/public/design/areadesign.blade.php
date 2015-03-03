@@ -7,6 +7,6 @@
 		<div class="video-content">
 		<iframe width="100%" height="353" src="https://www.youtube.com/embed/YbT0xy_Jai0" frameborder="0" allowfullscreen></iframe>
 		</div>
-		<img style="width: 100%;" src="assets/public/exception/design/images/start-design-img.png"/>
+		<img style="width: 100%;" src="<?php echo Request::root().'/'; ?>assets/public/exception/design/images/start-design-img.png"/>
 	</div>
 </div>

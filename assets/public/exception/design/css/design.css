@@ -861,3 +861,8 @@ input[name="text-color"]:checked ~ span{
 	content: "";
 	clear: both;
 }
+
+.layout-memorialwords-area .layout-inner-area div,
+.layout-poem-area .layout-inner-area div{
+	display: inline-block;
+}

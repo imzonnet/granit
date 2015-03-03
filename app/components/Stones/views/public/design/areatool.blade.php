@@ -15,7 +15,7 @@
 			@foreach($productCategories as $cat)
 			<li>
 				<a href="javascript:" data-cat-id="{{ $cat->id }}" title="{{ $cat->name }}">
-					<img src="{{ $cat->image }}" alt="{{ $cat->name }}" title="{{ $cat->name }}"/>
+					<img src="<?php echo Request::root().'/'; ?>{{ $cat->image }}" alt="{{ $cat->name }}" title="{{ $cat->name }}"/>
 				</a>
 			</li>
 			@endforeach
@@ -97,7 +97,7 @@
 					</div>
 				</div>
 			</div>
-			<button class="btn btn-custom-design btn-custom-design-bg" type="button" onclick="addPoem(this)">
+			<button class="btn btn-custom-design btn-custom-design-bg btn-poem-js" type="button" onclick="addPoem(this)">
 				<i class="fa fa-plus-circle"></i> Add a poem
 			</button>
 			<div class="control-poem js-tabs" style="display: none;">
@@ -168,7 +168,7 @@
 				<ul>
 				@foreach($iconcategories as $item)
 				<li class="item-accessories" data-id="{{ $item->id }}">
-					<img src="{{ $item->image }}"/>
+					<img src="<?php echo Request::root().'/'; ?>{{ $item->image }}"/>
 					<p class="text-ellipsis">{{ $item->name }}</p>
 				</li>
 				@endforeach

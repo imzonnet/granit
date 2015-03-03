@@ -20,7 +20,7 @@ class DesignsController extends \BaseController {
         parent::__construct();
     }
     
-    public function index($id) {
+    public function index() {
         $this->layout->title = 'Design';
         $this->layout->content = View::make('Stones::public.design.index')
         ->with('products', Product::all())
@@ -30,6 +30,25 @@ class DesignsController extends \BaseController {
         ->with('fonts_include', Font::all())
         ->with('icons', Icon::all())
         ->with('iconcategories', IconCategory::all());
+    }
+
+    public function edit($id = 0){
+        $designed = $this->getDesigned($id);
+        $this->layout->title = 'Design';
+        $this->layout->content = View::make('Stones::public.design.index')
+        ->with('designed', $designed)
+        ->with('products', Product::all())
+        ->with('productCategories', Category::all())
+        ->with('colors', Color::all())
+        ->with('fonts', Font::all_fonts())
+        ->with('fonts_include', Font::all())
+        ->with('icons', Icon::all())
+        ->with('iconcategories', IconCategory::all());
+    }
+
+    function getDesigned($id){
+       $data = Design::findOrFail($id);
+       return $data;
     }
 
     public function ajax() {

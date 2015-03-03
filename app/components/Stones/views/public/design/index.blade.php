@@ -29,6 +29,14 @@
     {{ HTML::script("assets/public/exception/design/js/rotate.js") }}  
     {{ HTML::script("assets/public/exception/design/js/dialog.js") }}  
     {{ HTML::script("assets/public/exception/design/js/design.js") }}  
+    <script type="text/javascript">
+        var root_url = "<?php echo Request::root().'/'; ?>";
+        <?php if(isset($designed)){
+            echo "var data_designed = JSON.parse('{$designed->data}');";
+        }else{
+            echo "var data_designed = ''";
+        } ?>
+    </script>
 @stop
 @section('heading')
 <!-- BEGIN PAGE HEADING -->
