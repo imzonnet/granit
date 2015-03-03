@@ -20,7 +20,7 @@ class DesignsController extends \BaseController {
         parent::__construct();
     }
     
-    public function index() {
+    public function index($id) {
         $this->layout->title = 'Design';
         $this->layout->content = View::make('Stones::public.design.index')
         ->with('products', Product::all())

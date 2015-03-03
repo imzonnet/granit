@@ -8,4 +8,5 @@ Route::resource('/backend/stones/fonts', 'Components\Stones\Controllers\Backend\
 
 //Route For Front-end
 Route::resource('/design', 'Components\Stones\Controllers\DesignsController');
+Route::get('/design/{id}', 'Components\Stones\Controllers\DesignsController@index');
 Route::post('/design/ajax', 'Components\Stones\Controllers\DesignsController@ajax');
