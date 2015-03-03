@@ -8,6 +8,7 @@ use Components\Stones\Models\Color;
 use Components\Stones\Models\Font;
 use Components\Stones\Models\Icon;
 use Components\Stones\Models\IconCategory;
+use Components\Stones\Models\Design;
 
 class DesignsController extends \BaseController {
     
@@ -60,6 +61,10 @@ class DesignsController extends \BaseController {
                 $layout = View::make('Stones::public.design.layouts.productcolors')
                 ->with('productcolors', ProductColor::whereRaw("product_id = {$id} and status = 'published'")->get())
                 ->render();
+                break;
+            case 'saveData':
+                $_data = array("data" => json_encode($data), "status" => "published");
+                Design::create($_data);
                 break;
             // case 'getIconByCatId':
             //     $layout = View::make('Stones::public.design.layouts.productcolors')

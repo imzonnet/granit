@@ -34,6 +34,28 @@ function hidePoen(elem){
 
 !(function($){
 	$(function(){
+		// data save
+		var dataSave = {
+			type: "",
+			pid: 0,
+			cid: 0,
+			ftest: {
+				text: "",
+				x: 0,
+				y: 0
+			},
+			names: [],
+			mwords: [],
+			poem: [],
+			accessories: [],
+			hide_first_text: false,
+			hide_memorial_worlds: false,
+			font_family: "",
+			painted_text: false,
+			permanent_text: false,
+			color: "",
+		};
+
 		// pSearch
 		$('input[name="psearch"]').bind('input', function(){
 			var thisEl = $(this),
@@ -402,18 +424,16 @@ function hidePoen(elem){
 
 		// choose icon =============================================
 		$('.content-icons').on('click', '.icon-item', function(e){
-
 			var content_area_design = $('.content-area-design .design-inner .image-frame');
 			if( content_area_design.length == 0 ){ 
 				$.dialog({ mess: "Please choose product." });
 				return; 
 			}
-
 			var thisEl = $(this),
 				imgEl = thisEl.children('img'),
 				imgSrc = imgEl.attr('src'),
 				layout_icon = $('<div>').addClass('layout-design').html('<img src="'+imgSrc+'"/>');
-			
+				
 			content_area_design.append(layout_icon);
 			buildLayout(layout_icon, {drag: true});
 		})
@@ -735,6 +755,8 @@ function hidePoen(elem){
 				catId = thisEl.data('cat-id'),
 				size = thisEl.children('img').attr('title');
 			
+			dataSave.type = size;
+
 			setSizeDefault(size); // set size
 			thisEl.parent().parent().addClass('loading-animate'); // add loading animate
 
@@ -789,12 +811,14 @@ function hidePoen(elem){
 			name_date: '',
 			memorialwords: '',
 			poem: '',
-		}
+		};
 
 		$('.content-products').on('click', '.product-item', function(e){
 			var thisEl = $(this),
 				p_id = thisEl.data('product-id'),
 				p_name = thisEl.find('.text-ellipsis').text();
+
+				dataSave.pid = p_id;
 
 				$('.design-area.right').find('.design-title-layout').addClass('has-product').html('<h3>'+p_name+'</h3>');
 
@@ -869,7 +893,7 @@ function hidePoen(elem){
 				//color: $('input[type="radio"][name="text-color"]:checked').val(),
 				color: '#FFFFFF',
 				fontFamily: $('input[type="radio"][name="font-family"]:checked').val(),
-				//fontWeight: 'bold',
+				fontWeight: 'bold',
 				//lineHeight: 'normal',
 				//fontStyle: 'italic'
 			}
@@ -926,7 +950,7 @@ function hidePoen(elem){
 				fontFamily: $('input[type="radio"][name="font-family"]:checked').val(),
 				//fontSize: '16px',
 				//lineHeight: 'normal',
-				//fontWeight: 'bold',
+				fontWeight: 'bold',
 				//fontStyle: 'italic'
 			}
 			if(elem.hasClass('layout-name-date-area')){ 
@@ -965,6 +989,9 @@ function hidePoen(elem){
 				thisEl = $(this),
 				pcolor_id = thisEl.data('pcolor-id'),
 				pcolor_img = thisEl.data('pcolor-img');
+
+			dataSave.cid = pcolor_id;
+			// console.log(dataSave);
 
 			thisEl.parent().addClass('active').siblings().removeClass('active');
 
@@ -1187,6 +1214,8 @@ function hidePoen(elem){
 				areaLayoutEl.find('.add_job_or_place').children('.text-inner').html(value);
 
 				calcCenter(areaLayoutEl.parent()); // center add_job_or_place
+
+				(value.length > 0)? areaLayoutEl.find('.add_job_or_place').css('display', 'block') : areaLayoutEl.find('.add_job_or_place').css('display', 'none') ;
 			})
 
 			// birthdate
@@ -1332,10 +1361,17 @@ function hidePoen(elem){
 			$(this).bind('click', function(){
 				var thisEl = $(this),
 					value = thisEl.val();
-				$.each(layoutItem, function($k, $elem){
-					$elem.css('fontFamily', value);
-					if( $elem.hasClass('layout-name-date-area') ){
-						$elem.parent().find('.layout-name-date-area').css('fontFamily', value);
+				// $.each(layoutItem, function($k, $elem){
+				// 	$elem.css('fontFamily', value);
+				// 	if( $elem.hasClass('layout-name-date-area') ){
+				// 		$elem.parent().find('.layout-name-date-area').css('fontFamily', value);
+				// 	}
+				// })
+				$('.layout-item-area').each(function(){
+					var thisEl = $(this);
+					thisEl.css('fontFamily', value);
+					if(thisEl.hasClass('layout-name-date-area')){
+						thisEl.find('.nametext, .datetext, .add_job_or_place').css('fontFamily', value);
 					}
 				})
 			})
@@ -1375,7 +1411,7 @@ function hidePoen(elem){
 					accessorieEl = $('<div>'),
 					htmlInner = "<img src='"+src+"'>";
 
-				accessorieEl.addClass('accessorie-item').append(htmlInner);
+				accessorieEl.attr('data-acc-id', thisEl.data('icon-id')).addClass('accessorie-item').append(htmlInner);
 				lDesign.layoutAccessories.append(accessorieEl);
 
 				buildLayout(accessorieEl, {drag: true});
@@ -1544,7 +1580,7 @@ function hidePoen(elem){
 			if( params.color ){ cStyle.color = params.color; }
 
 			//designParams.context.font = 'italic '+cStyle.size+' '+cStyle.font; //'40pt Calibri';
-			designParams.context.font = ' '+cStyle.size+' '+cStyle.font; //'40pt Calibri';
+			designParams.context.font = 'bold '+cStyle.size+' '+cStyle.font; //'40pt Calibri';
       		designParams.context.fillStyle = cStyle.color; //'blue';
 		}
 
@@ -1708,5 +1744,128 @@ function hidePoen(elem){
 		$('#btn_print_design').bind('click', function(){
 			printDesign();
 		})
+
+		// data Save handle
+		function setDataSave(){
+			// console.log(dataSave);
+			designParams.content_inner_design_area = $('.content-inner-design-area');
+			if(designParams.content_inner_design_area.length <= 0){ return; }
+			designParams.main_frame_image = designParams.content_inner_design_area.find('img#main-frame-image');
+			getInfoEl(designParams.main_frame_image, {}); 
+
+			// hide_first_text
+			dataSave.hide_first_text = $('input[name="hide_first_text"]').prop('checked');
+			// hide_memorial_worlds
+			dataSave.hide_memorial_worlds = $('input[name="hide_memorial_worlds"]').prop('checked');
+			// font-family
+			dataSave.font_family = $('input[name="font-family"]:checked').val();
+			// painted_text
+			dataSave.painted_text = $('input#painted_text').prop('checked');
+			// permanent_text
+			dataSave.permanent_text = $('input#permanent_text').prop('checked');
+			// color
+			(dataSave.painted_text == true)? dataSave.color = $('input[name="text-color"]:checked').val() : dataSave.color = "";		
+
+			var _main_frame_image_top = designParams.main_frame_image.offset().top,
+				_main_frame_image_left = designParams.main_frame_image.offset().left;
+
+			// First text
+			var firstEl = $('.layout-firsttext-area');
+			getInfoEl(firstEl, {text: true, position: true, style: true});
+			dataSave.ftest.text = $.trim(firstEl.info.text);
+			dataSave.ftest.x = firstEl.offset().left - _main_frame_image_left;
+			dataSave.ftest.y = firstEl.offset().top - _main_frame_image_top;
+			
+			// Name
+			dataSave.names = []; // reset names
+			var nameEl = $('.main-layout-name-date-area');
+			nameEl.find('.layout-name-date-area').each(function(){
+				var thisItem = $(this),
+					nameItem = {name: "", 
+						add_job_or_place: "", 
+						b_date: "",
+						d_date: "",
+						offset: [{name_x: 0, name_y: 0},
+								{add_job_or_place_x: 0, add_job_or_place_y: 0},
+								{date_x: 0, date_y: 0}]
+						};
+
+				nameItem.name = $.trim(thisItem.find('.nametext .text-inner').text());
+				nameItem.add_job_or_place = $.trim(thisItem.find('.add_job_or_place .text-inner').text());
+				nameItem.b_date = $.trim(thisItem.find('.datetext .birthdatetext').text());
+				nameItem.d_date = $.trim(thisItem.find('.datetext .deathdatetext').text());
+
+				// nameItem.y = thisItem.offset().top - designParams.main_frame_image.offset().top;
+				// nameItem.x = thisItem.offset().left - designParams.main_frame_image.offset().left;
+
+				// offset name
+				nameItem.offset[0].name_y = thisItem.find('.nametext .text-inner').offset().top - _main_frame_image_top;
+				nameItem.offset[0].name_x = thisItem.find('.nametext .text-inner').offset().left - _main_frame_image_left;
+
+				// offset add_job_or_place
+				nameItem.offset[1].add_job_or_place_y = thisItem.find('.add_job_or_place .text-inner').offset().top - _main_frame_image_top;
+				nameItem.offset[1].add_job_or_place_x = thisItem.find('.add_job_or_place .text-inner').offset().left - _main_frame_image_left;
+
+				// date
+				nameItem.offset[2].date_y = thisItem.find('.datetext').offset().top - _main_frame_image_top;
+				nameItem.offset[2].date_x = thisItem.find('.datetext').offset().left - _main_frame_image_left;
+
+				dataSave.names.push(nameItem);
+			})
+
+			// Memorial words
+			dataSave.mwords = [];
+			var mwordsEl = $('.layout-memorialwords-area');
+			mwordsEl.find('.layout-inner-area').each(function(){
+				var thisItem = $(this),
+					mwordsItem = {
+						text: $.trim(thisItem.text()), 
+						y: thisItem.offset().top - designParams.main_frame_image.offset().top,
+						x: thisItem.offset().left - designParams.main_frame_image.offset().left,
+					};
+				dataSave.mwords.push(mwordsItem);
+			})
+
+			// Poem
+			dataSave.poem = [];
+			var poemEl = $('.layout-poem-area');
+			poemEl.find('.layout-inner-area').each(function(){
+				var thisItem = $(this),
+					poemItem = {
+						text: $.trim(thisItem.text()),
+						y: thisItem.offset().top - designParams.main_frame_image.offset().top,
+						x: thisItem.offset().left - designParams.main_frame_image.offset().left,
+					};
+				dataSave.poem.push(poemItem);
+			})
+
+			// accessories
+			dataSave.accessories = []
+			var accessoriesEl = $('.main-layout-accessories-area');
+			accessoriesEl.find('.accessorie-item').each(function(){
+				var thisItem = $(this),
+					accessoriesItem = {id: thisItem.data('acc-id'),
+						y: thisItem.offset().top - designParams.main_frame_image.offset().top,
+						x: thisItem.offset().left - designParams.main_frame_image.offset().left
+					};
+				dataSave.accessories.push(accessoriesItem);
+			})
+
+			//console.log(dataSave);
+			$.ajax({
+				headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },
+				type: "POST",
+				url: "design/ajax",
+				data: { handle: 'saveData', data: dataSave },
+				success: function(data){
+					console.log(data)
+				}
+			})
+		}
+
+		$('#btn_download_pdf').bind('click', function(){
+			setDataSave();
+		})
+
 	})
 })(jQuery)

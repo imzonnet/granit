@@ -848,3 +848,16 @@ input[name="text-color"]:checked ~ span{
 	margin: 0;
 	font-size: 22px;
 }
+.layout-name-date-area .layout-inner-area .add_job_or_place{
+	display: none;
+}
+.layout-name-date-area .layout-inner-area .nametext .text-inner,
+.layout-name-date-area .layout-inner-area .add_job_or_place .text-inner,
+.layout-name-date-area .layout-inner-area .datetext{
+	display: inline-block;
+}
+.layout-name-date-area .layout-inner-area .nametext .text-inner:after,
+.layout-name-date-area .layout-inner-area .add_job_or_place .text-inner:after{
+	content: "";
+	clear: both;
+}
