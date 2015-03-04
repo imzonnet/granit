@@ -28,6 +28,7 @@
     {{ HTML::script("assets/public/exception/design/js/jquery.nouislider.all.min.js") }}  
     {{ HTML::script("assets/public/exception/design/js/rotate.js") }}  
     {{ HTML::script("assets/public/exception/design/js/dialog.js") }}  
+    {{ HTML::script("http://parall.ax/parallax/js/jspdf.js") }}  
     {{ HTML::script("assets/public/exception/design/js/design.js") }}  
     <script type="text/javascript">
         var root_url = "<?php echo Request::root().'/'; ?>";
@@ -71,6 +72,11 @@
 @stop
 
 @section('content')
+    <!--
+    <pre>
+        <?php //print_r(json_decode($designed->data)); ?>
+    </pre>
+    -->
     <section class="sectionWrapper">
         <div class="container">
             <div class="cell-12">

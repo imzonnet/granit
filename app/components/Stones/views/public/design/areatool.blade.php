@@ -143,7 +143,7 @@
 				</div><!--
 				--><div style="width: 60%;">
 					<p><strong>Font type</strong></p>
-					<ul>
+					<ul class="control-fonts-content">
 						<!-- 
 						@foreach(['Garamond Italic Bold', 'Bookman Old Style Bold Italic'] as $k=>$f)
 						<?php $checked = ($k == 0)? "checked=''" : ""; ?>

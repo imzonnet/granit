@@ -866,3 +866,6 @@ input[name="text-color"]:checked ~ span{
 .layout-poem-area .layout-inner-area div{
 	display: inline-block;
 }
+.content-inner-design-area{
+	letter-spacing: 0.5pt;
+}

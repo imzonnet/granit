@@ -860,6 +860,7 @@ function hidePoen(elem){
 			$.ajax({
 				headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },
 				type: "POST",
+				async: false,
 				url: "design/ajax",
 				data: { handle: 'getProductColorByProductid', id: p_id },
 				success: function(data){
@@ -901,7 +902,10 @@ function hidePoen(elem){
 							// check frame load comlepte 
 							var img = document.createElement('img');
 							$(img).load(function() {
-						      	designedTextHandle();
+								setTimeout(function(){
+									designedTextHandle();
+								}, 500)
+						      	
 						      	$(img).remove();
 						    });
 						    img.src = imgSrc;
@@ -1210,9 +1214,15 @@ function hidePoen(elem){
 		$('input[name="hide_first_text"]').click(function(){
 			var thisEl = $(this);
 			if( thisEl.prop('checked') == true ){
-				lDesign.layout_firsttext_area.css('display', 'none');
+				lDesign.layout_firsttext_area.css({
+					opacity: 0,
+					zIndex: '-1'
+				});
 			}else{
-				lDesign.layout_firsttext_area.css('display', 'block');
+				lDesign.layout_firsttext_area.css({
+					opacity: 1,
+					zIndex: 'initial'
+				});
 			}
 		})
 
@@ -1355,9 +1365,15 @@ function hidePoen(elem){
 		jQuery('input[name="hide_memorial_worlds"]').click(function(){
 			var thisEl = $(this);
 			if( thisEl.prop('checked') == true ){
-				layoutItem.memorialwords.css('display', 'none');
+				layoutItem.memorialwords.css({
+					opacity: 0,
+					zIndex: '-1'
+				});
 			}else{
-				layoutItem.memorialwords.css('display', 'block');
+				layoutItem.memorialwords.css({
+					opacity: 1,
+					zIndex: 'initial'
+				});
 			}
 		})
 
@@ -1410,7 +1426,7 @@ function hidePoen(elem){
 					var thisEl = $(this);
 					thisEl.css({ color: value });
 					if(thisEl.hasClass('layout-name-date-area')){
-						thisEl.find('.nametext, .datetext').css({ color: value })
+						thisEl.find('.nametext, .datetext, .add_job_or_place').css({ color: value })
 					}
 				})
 			})
@@ -1526,7 +1542,7 @@ function hidePoen(elem){
 					var thisEl = $(this);
 					thisEl.css({ color: value });
 					if(thisEl.hasClass('layout-name-date-area')){
-						thisEl.find('.nametext, .datetext').css({ color: value })
+						thisEl.find('.nametext, .datetext, .add_job_or_place').css({ color: value })
 					}
 				})
 			}
@@ -1538,7 +1554,6 @@ function hidePoen(elem){
 					opacity: 1,
 					pointerEvents: 'auto',
 				})
-
 				var value = $('[name="text-color"]:checked').val();
 				// $.each(layoutItem, function($k, $elem){
 				// 	$elem.css('color', value);
@@ -1550,7 +1565,7 @@ function hidePoen(elem){
 					var thisEl = $(this);
 					thisEl.css({ color: value });
 					if(thisEl.hasClass('layout-name-date-area')){
-						thisEl.find('.nametext, .datetext').css({ color: value })
+						thisEl.find('.nametext, .datetext, .add_job_or_place').css({ color: value })
 					}
 				})
 			}
@@ -1582,8 +1597,13 @@ function hidePoen(elem){
 				elem.info.lineHeight = elem.css('line-height'); 
 			}
 			if(info.position == true){
-				elem.info.top = elem.offset().top - designParams.main_frame_image.info.offset.top + parseInt(elem.info.lineHeight);
-				elem.info.left = elem.offset().left - designParams.main_frame_image.info.offset.left;
+				if(elem.children('div').length > 0){
+					elem.info.top = elem.children('div').offset().top - designParams.main_frame_image.info.offset.top + parseInt(elem.info.lineHeight);
+					elem.info.left = elem.children('div').offset().left - designParams.main_frame_image.info.offset.left;
+				}else{
+					elem.info.top = elem.offset().top - designParams.main_frame_image.info.offset.top + parseInt(elem.info.lineHeight);
+					elem.info.left = elem.offset().left - designParams.main_frame_image.info.offset.left;
+				}
 			}
 
 			return elem;
@@ -1594,39 +1614,86 @@ function hidePoen(elem){
 			designParams.canvas.width = designParams.main_frame_image.width();
 			designParams.canvas.height = designParams.main_frame_image.height();
 			designParams.context = designParams.canvas.getContext("2d");
+			designParams.context.fillStyle = "#FFFFFF";
+			designParams.context.fillRect(0, 0, designParams.main_frame_image.width(), designParams.main_frame_image.height());
 		}
 
+
+
 		function drawText(context, text, x, y, lineHeight, fitWidth) {
-			fitWidth = fitWidth || 0;
-			lineHeight = lineHeight || 20;
-			var currentLine = 0;
-			var lines = text.split(/\r\n|\r|\n/);
-			for (var line = 0; line < lines.length; line++) {
-				if (fitWidth <= 0) {
-					context.fillText(lines[line], x, y + (lineHeight * currentLine));
-				} else {
-					var words = lines[line].split(' ');
-					var idx = 1;
-					while (words.length > 0 && idx <= words.length) {
-						var str = words.slice(0, idx).join(' ');
-						var w = context.measureText(str).width;
-						if (w > fitWidth) {
-							if (idx == 1) {
-								idx = 2;
-							}
-							context.fillText(words.slice(0, idx - 1).join(' '), x, y + (lineHeight * currentLine));
-							currentLine++;
-							words = words.splice(idx - 1);
-							idx = 1;
-						}
-						else
-						{ idx++; }
-					}
-					if (idx > 0)
-						context.fillText(words.join(' '), x, y + (lineHeight * currentLine));
-				}
-				currentLine++;
+
+			if (CanvasRenderingContext2D && !CanvasRenderingContext2D.renderText) {
+			    // @param  letterSpacing  {float}  CSS letter-spacing property
+			    CanvasRenderingContext2D.prototype.renderText = function (text, x, y, letterSpacing) {
+			        if (!text || typeof text !== 'string' || text.length === 0) {
+			            return;
+			        }
+			        
+			        if (typeof letterSpacing === 'undefined') {
+			            letterSpacing = 0;
+			        }
+			        
+			        // letterSpacing of 0 means normal letter-spacing
+			        
+			        var characters = String.prototype.split.call(text, ''),
+			            index = 0,
+			            current,
+			            currentPosition = x,
+			            align = 1;
+			        
+			        if (this.textAlign === 'right') {
+			            characters = characters.reverse();
+			            align = -1;
+			        } else if (this.textAlign === 'center') {
+			            var totalWidth = 0;
+			            for (var i = 0; i < characters.length; i++) {
+			                totalWidth += (this.measureText(characters[i]).width + letterSpacing);
+			            }
+			            currentPosition = x - (totalWidth / 2);
+			        }
+			        while (index < text.length) {
+			            current = characters[index++];
+			            this.fillText(current, currentPosition, y);
+			            currentPosition += (align * (this.measureText(current).width + letterSpacing));
+			        }
+			    }
 			}
+			//context.renderText(text, x, y, 0.66667);
+			context.renderText(text, x, y, 0.66667);
+
+			// fitWidth = fitWidth || 0;
+			// lineHeight = lineHeight || 20;
+			// var currentLine = 0;
+			// var lines = text.split(/\r\n|\r|\n/);
+			// for (var line = 0; line < lines.length; line++) {
+			// 	if (fitWidth <= 0) {
+			// 		context.fillText(lines[line], x, y + (lineHeight * currentLine));
+			// 	} else {
+			// 		var words = lines[line].split(' ');
+			// 		var idx = 1;
+			// 		while (words.length > 0 && idx <= words.length) {
+			// 			var str = words.slice(0, idx).join(' ');
+			// 			var w = context.measureText(str).width;
+			// 			if (w > fitWidth) {
+			// 				if (idx == 1) {
+			// 					idx = 2;
+			// 				}
+			// 				context.fillText(words.slice(0, idx - 1).join(' '), x, y + (lineHeight * currentLine));
+			// 				currentLine++;
+			// 				words = words.splice(idx - 1);
+			// 				idx = 1;
+			// 			}
+			// 			else
+			// 			{ idx++; }
+			// 		}
+			// 		if (idx > 0){
+			// 			console.log(words);
+			// 			context.fillText(words.join(' '), x, y + (lineHeight * currentLine));
+			// 		}
+			// 	}
+			// 	currentLine++;
+			// }
+
 		}
 
 		var cStyle = {
@@ -1646,15 +1713,16 @@ function hidePoen(elem){
 
 		function canvasBuildLayoutImg(imgEl){
 			var c = document.createElement('canvas'),
-				ctx= c.getContext("2d");
+				ctx = c.getContext("2d");
 
 			c.width = parseInt(imgEl.css('width'));
 			c.height = parseInt(imgEl.css('height'));
+			
 			ctx.drawImage(imgEl[0], 0, 0);
 			return c;
 		}
 
-		function printDesign(){
+		function printDesign(opts){
 			designParams.content_inner_design_area = $('.content-inner-design-area');
 			if(designParams.content_inner_design_area.length <= 0){ return; }
 			// [set main_frame_image
@@ -1679,7 +1747,7 @@ function hidePoen(elem){
 				designParams.layout_firsttext_area.info.left, 
 				designParams.layout_firsttext_area.info.top, 
 				parseInt(designParams.layout_firsttext_area.info.lineHeight), 
-				designParams.layout_firsttext_area.innerWidth());
+				designParams.layout_firsttext_area.width());
 			// end]
 
 			// [set main-layout-name-date-area
@@ -1687,8 +1755,8 @@ function hidePoen(elem){
 			main_layout_name_date_area.find('.layout-inner-area').each(function(){
 				var thisEl = $(this),
 					element = {};
-				element.nametext = thisEl.find('.nametext'),
-				element.add_job_or_place = thisEl.find('.add_job_or_place'),
+				element.nametext = thisEl.find('.nametext div'),
+				element.add_job_or_place = thisEl.find('.add_job_or_place div'),
 				element.birthdatetext = thisEl.find('.birthdatetext'),
 				element.deathdatetext = thisEl.find('.deathdatetext');
 
@@ -1740,8 +1808,9 @@ function hidePoen(elem){
 						color: thisEl.info.color
 					})
 
-					designParams.context.textAlign = 'center';
-					thisEl.info.left = thisEl.info.left + (thisEl.width() / 2); 
+					//designParams.context.textAlign = 'center';
+					//thisEl.info.left = thisEl.info.left + (thisEl.width() / 2); 
+					thisEl.info.left = thisEl.info.left; 
 
 					drawText(designParams.context, 
 						thisEl.info.text, 
@@ -1769,8 +1838,9 @@ function hidePoen(elem){
 						color: thisEl.info.color
 					})
 
-					designParams.context.textAlign = 'center';
-					thisEl.info.left = thisEl.info.left + (thisEl.width() / 2); 
+					//designParams.context.textAlign = 'center';
+					//thisEl.info.left = thisEl.info.left + (thisEl.width() / 2); 
+					thisEl.info.left = thisEl.info.left; 
 
 					drawText(designParams.context, 
 						thisEl.info.text, 
@@ -1798,11 +1868,20 @@ function hidePoen(elem){
 			// end]
 
 			//$('body').append(designParams.canvas);
-			var datImage = designParams.canvas.toDataURL("image/png");
-			window.open(datImage);
+			if(opts.print == true){
+				var datImage = designParams.canvas.toDataURL("image/png");
+				window.open(datImage);
+			}else if(opts.pdf == true){
+				var datImage = designParams.canvas.toDataURL("image/jpeg");
+				var pdf = new jsPDF();
+		      	pdf.addImage(datImage, 'JPEG', 0, 0);
+			    pdf.save("download.pdf");
+			}
+			//var datImage = designParams.canvas.toDataURL("image/png");
+			//window.open(datImage);
 		}
 		$('#btn_print_design').bind('click', function(){
-			printDesign();
+			printDesign({print: true});
 		})
 
 		// data Save handle
@@ -1931,21 +2010,28 @@ function hidePoen(elem){
 				url: "design/ajax",
 				data: { handle: 'saveData', data: dataSave },
 				success: function(data){
-					console.log(data)
+					//console.log(data)
+					var obj = JSON.parse(data);
+					alert('link share: '+root_url+'design/edit/'+obj.layout);
 				}
 			})
 		}
 
 		$('#btn_download_pdf').bind('click', function(){
+			//setDataSave();
+			printDesign({pdf: true});
+		})
+
+		$('#btn_share_design').bind('click', function(){
 			setDataSave();
 		})
 
-		/*-----reDesigned-----*/
+		/*-----reDesigned-----*/	
 		function designedTextHandle(){
 			designParams.content_inner_design_area = $('.content-inner-design-area');
 			designParams.main_frame_image = designParams.content_inner_design_area.find('img#main-frame-image');
 			var _mLeft = (designParams.content_inner_design_area.width() - designParams.main_frame_image.width()) / 2;
-			
+
 			// first text
 			if(data_designed.ftest.text.length > 0){
 				$('.content-first-text-field input[name="first_text"]')
@@ -2044,6 +2130,28 @@ function hidePoen(elem){
 					top: parseInt(offsetContent.content_y) + 'px'
 				})
 			}
+
+			// set option text	
+			var timeout = '';
+			timeout = setTimeout(function(){
+				
+				if(data_designed.hide_first_text == 'true'){
+					$('input[name="hide_first_text"]').trigger('click'); 
+				}
+				if(data_designed.hide_memorial_worlds == 'true'){
+					$('input[name="hide_memorial_worlds"]').trigger('click'); 
+				}
+				if(data_designed.painted_text == 'true'){
+					$('input#painted_text').trigger('click'); }
+				if(data_designed.painted_text == 'true'){
+					$('.content-color-text').find('input[value="'+data_designed.color+'"]').trigger('click');
+					$('.content-color-text').css({
+						opacity: 1,
+						pointerEvents: 'auto',
+					})
+				}
+				$('.control-fonts-content').find('input[value="'+data_designed.font_family+'"]').trigger('click');
+			}, 300);
 		}
 		/*-----End reDesigned-----*/
 	})

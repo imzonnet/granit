@@ -83,7 +83,8 @@ class DesignsController extends \BaseController {
                 break;
             case 'saveData':
                 $_data = array("data" => json_encode($data), "status" => "published");
-                Design::create($_data);
+                $result = Design::create($_data);
+                $layout = $result->id;
                 break;
             // case 'getIconByCatId':
             //     $layout = View::make('Stones::public.design.layouts.productcolors')
