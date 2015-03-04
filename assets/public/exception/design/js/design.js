@@ -893,10 +893,25 @@ function hidePoen(elem){
 						/*-----ReDesigned------*/
 						if(st_designed.handle_cid == false){
 							$('.content-area-design').find('.content-product-color ul li a[data-pcolor-id="'+data_designed.cid+'"]').trigger('click'); 
+							var imgSrc = $('.content-area-design').find('.content-product-color ul li a[data-pcolor-id="'+data_designed.cid+'"] img').attr('src');
 							st_designed.handle_cid = true;
 
 							$('.controler-tab li a[data-tabs="tab-text"]').trigger('click');
-							designedTextHandle();
+							
+							// check frame load comlepte 
+							var img = document.createElement('img');
+							$(img).load(function() {
+						      	designedTextHandle();
+						      	$(img).remove();
+						    });
+						    img.src = imgSrc;
+							document.body.appendChild(img);
+							$(img).css({
+								position: 'absolute',
+								zIndex: '-10',
+								opacity: 0
+							})
+							// End check frame load comlepte
 						}
 						/*-----End ReDesigned------*/
 					}else{
