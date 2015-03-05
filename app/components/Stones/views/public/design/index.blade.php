@@ -94,4 +94,31 @@
             </div>
         </div>
     </section>
+    <div class="popup-wapper">
+        <div class="popup-content">
+            <div class="popup-content-inner">
+                <span class="close-open-popup">x</span>
+                <h4>Share</h4>
+                <div class="popup-body" style="text-align: center;">
+                    <div><a class="faceook-link-share" href="#"
+                       onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
+                       target="_blank" title="Share on Facebook">
+                       <span class="icon-link-share"><i class="fa fa-facebook-square"></i></span> Facebook
+                    </a></div>
+
+                    <div><a class="twitter-link-share" href="#"
+                       onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
+                       target="_blank" title="Share on Twitter">
+                       <span class="icon-link-share"><i class="fa fa-twitter-square"></i></span> Twitter
+                    </a></div> 
+
+                    <div><a class="google-link-share" href="#"
+                       onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=350,width=480');return false;"
+                       target="_blank" title="Share on Google+">
+                       <span class="icon-link-share"><i class="fa fa-google-plus-square"></i></span> Google+
+                    </a></div>
+                </div>
+            </div>
+        </div>
+    </div>
 @stop

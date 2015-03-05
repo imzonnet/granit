@@ -100,7 +100,7 @@ class DesignsController extends \BaseController {
                 // Save data
                 $_data = array("image" => $output_file, "data" => json_encode($data), "status" => "published");
                 $result = Design::create($_data);
-                $layout = $result->id;
+                $layout = urlencode($rooturl.$result->image);
                 break;
             // case 'getIconByCatId':
             //     $layout = View::make('Stones::public.design.layouts.productcolors')

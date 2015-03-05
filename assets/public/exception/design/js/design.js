@@ -2010,17 +2010,40 @@ function hidePoen(elem){
 			})
 
 			var imgData = printDesign({saveImg: true});
+
+			var popup = $('.popup-wapper');
+			popup.addClass('active loading');
+
 			$.ajax({
 				headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },
 				type: "POST",
 				url: "design/ajax",
-				data: { handle: 'saveData', data: dataSave, image: imgData },
+				data: { handle: 'saveData', data: dataSave, image: imgData, rooturl: root_url },
 				success: function(data){
 					//console.log(data)
 					var obj = JSON.parse(data);
-					alert('link share: '+root_url+'design/edit/'+obj.layout);
+					//console.log('link share: '+root_url+'design/edit/'+obj.layout);
+					popup.removeClass('loading');
+					var links = getLinkShare(obj.layout);
+					popup.find('a.faceook-link-share').attr('href', links.f);
+					popup.find('a.twitter-link-share').attr('href', links.t);
+					popup.find('a.google-link-share').attr('href', links.g);
 				}
 			})
+		}
+
+		// popup share
+		$('.close-open-popup').click(function(){
+			$('.popup-wapper').removeClass('active');
+		})
+
+		function getLinkShare(link){
+			var link = {
+				f: "https://www.facebook.com/sharer/sharer.php?u="+link+"&t=Granit Design",
+				t: "https://twitter.com/share?url=URLENCODED_URL&via="+link+"&text=Granit Design",
+				g: "https://plus.google.com/share?url="+link,
+			}
+			return link;
 		}
 
 		$('#btn_download_pdf').bind('click', function(){
