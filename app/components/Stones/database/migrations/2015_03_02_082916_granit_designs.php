@@ -15,6 +15,7 @@ class GranitDesigns extends Migration {
 		//
 		Schema::create('granit_designs', function(Blueprint $table) {
 			$table->increments('id');
+			$table->text('image');
 			$table->longText('data');
 			$table->string('status');
             $table->integer('ordering')->default(0);

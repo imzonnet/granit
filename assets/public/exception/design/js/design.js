@@ -1742,12 +1742,14 @@ function hidePoen(elem){
 					size: designParams.layout_firsttext_area.info.fontSize,
 					color: designParams.layout_firsttext_area.info.color
 				})
-			drawText(designParams.context, 
-				designParams.layout_firsttext_area.info.text, 
-				designParams.layout_firsttext_area.info.left, 
-				designParams.layout_firsttext_area.info.top, 
-				parseInt(designParams.layout_firsttext_area.info.lineHeight), 
-				designParams.layout_firsttext_area.width());
+			if($('input[name="hide_first_text"]').prop('checked') == false){
+				drawText(designParams.context, 
+					designParams.layout_firsttext_area.info.text, 
+					designParams.layout_firsttext_area.info.left, 
+					designParams.layout_firsttext_area.info.top, 
+					parseInt(designParams.layout_firsttext_area.info.lineHeight), 
+					designParams.layout_firsttext_area.width());
+			}
 			// end]
 
 			// [set main-layout-name-date-area
@@ -1811,14 +1813,14 @@ function hidePoen(elem){
 					//designParams.context.textAlign = 'center';
 					//thisEl.info.left = thisEl.info.left + (thisEl.width() / 2); 
 					thisEl.info.left = thisEl.info.left; 
-
-					drawText(designParams.context, 
-						thisEl.info.text, 
-						thisEl.info.left, 
-						thisEl.info.top, 
-						parseInt(thisEl.info.lineHeight), 
-						thisEl.innerWidth());
-
+					if($('input[name="hide_memorial_worlds"]').prop('checked') == false){
+						drawText(designParams.context, 
+							thisEl.info.text, 
+							thisEl.info.left, 
+							thisEl.info.top, 
+							parseInt(thisEl.info.lineHeight), 
+							thisEl.innerWidth());
+					}
 					designParams.context.textAlign = 'left';
 				}
 			})
@@ -1876,7 +1878,11 @@ function hidePoen(elem){
 				var pdf = new jsPDF();
 		      	pdf.addImage(datImage, 'JPEG', 0, 0);
 			    pdf.save("download.pdf");
+			}else if(opts.saveImg == true){
+				var datImage = designParams.canvas.toDataURL("image/jpeg");
+				return datImage;
 			}
+
 			//var datImage = designParams.canvas.toDataURL("image/png");
 			//window.open(datImage);
 		}
@@ -2003,12 +2009,12 @@ function hidePoen(elem){
 				dataSave.accessories.push(accessoriesItem);
 			})
 
-			// console.log(dataSave);
+			var imgData = printDesign({saveImg: true});
 			$.ajax({
 				headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },
 				type: "POST",
 				url: "design/ajax",
-				data: { handle: 'saveData', data: dataSave },
+				data: { handle: 'saveData', data: dataSave, image: imgData },
 				success: function(data){
 					//console.log(data)
 					var obj = JSON.parse(data);
@@ -2152,6 +2158,39 @@ function hidePoen(elem){
 				}
 				$('.control-fonts-content').find('input[value="'+data_designed.font_family+'"]').trigger('click');
 			}, 300);
+
+			designedAccessoriesHandle(_mLeft);
+		}
+
+		function designedAccessoriesHandle(_mLeft){
+			if(typeof data_designed.accessories !== "undefined" && data_designed.accessories.length > 0){
+				$.each(data_designed.accessories, function(index, item){
+					$.ajax({
+						headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },
+						type: "POST",
+						url: "design/ajax",
+						data: { handle: 'getAccessories', id: item.id, x: item.x, y: item.y},
+						success: function(data){
+							if(data){
+								var layout = JSON.parse(data);
+									obj = JSON.parse(layout.layout);
+
+								var src = obj.image,
+									accessorieEl = $('<div>'),
+									htmlInner = "<img src='"+root_url+src+"'>";
+								accessorieEl.css({
+									left: parseInt(obj.x)+_mLeft+'px',
+									top: obj.y+'px',
+								})
+								accessorieEl.attr('data-acc-id', obj.id).addClass('accessorie-item').append(htmlInner);
+								lDesign.layoutAccessories.append(accessorieEl);
+
+								buildLayout(accessorieEl, {drag: true});
+							}
+						}
+					})
+				})
+			}
 		}
 		/*-----End reDesigned-----*/
 	})

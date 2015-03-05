@@ -81,8 +81,24 @@ class DesignsController extends \BaseController {
                 ->with('productcolors', ProductColor::whereRaw("product_id = {$id} and status = 'published'")->get())
                 ->render();
                 break;
+            case 'getAccessories':
+                $_result = Icon::findOrFail($id);
+                $layout = json_encode(array("id" => $_result->id, "image" => $_result->image, "x" => $x, "y" => $y));
+                break;
             case 'saveData':
-                $_data = array("data" => json_encode($data), "status" => "published");
+                // upload image
+                $base64_string = $image;
+                $dir = 'uploads/designed/';
+                if (!is_dir($dir)) { mkdir($dir); }
+                $output_file = $dir.rand(9,999).'_'.date('ymd_his').'.jpg';
+
+                $ifp = fopen($output_file, "wb"); 
+                $dataImage = explode(',', $base64_string);
+                fwrite($ifp, base64_decode($dataImage[1])); 
+                fclose($ifp); 
+
+                // Save data
+                $_data = array("image" => $output_file, "data" => json_encode($data), "status" => "published");
                 $result = Design::create($_data);
                 $layout = $result->id;
                 break;
