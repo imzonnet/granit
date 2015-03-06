@@ -23,6 +23,13 @@
                             </div>
                         </div>
                         <div class="control-group">
+                            <label class="control-label">Price</label>
+                            <div class="controls line">
+                                {{ Str::title($category->price) }}
+                            </div>
+                        </div>
+
+                        <div class="control-group">
                             <label class="control-label">Status</label>
                             <div class="controls line">
                                 {{ Str::title($category->status) }}

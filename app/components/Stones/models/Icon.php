@@ -9,7 +9,7 @@ class Icon extends \Eloquent implements PresentableInterface {
     protected $table = 'granit_icons';
     public $timestamps = false;
 
-    protected $fillable = array('name', 'image', 'customize', 'status', 'ordering', 'created_by', 'cat_id');
+    protected $fillable = array('name', 'image', 'customize', 'price', 'status', 'ordering', 'created_by', 'cat_id');
     protected $guarded = array('id');
 
 

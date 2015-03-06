@@ -51,6 +51,7 @@
                                 <th class="span1"><input type="checkbox" class="select_all" /></th>
                                 <th>Title</th>
                                 <th>Status</th>
+                                <th>Price</th>
                                 <th>Created by</th>
                                 <th class="span2"></th>
                             </tr>
@@ -61,6 +62,7 @@
                                     <td>{{ Form::checkbox($icon->id, 'checked', false) }}</td>
                                     <td>{{ HTML::link(url($link_type . '/stones/icons/'.$icon->id), $icon->name) }}</td>
                                     <td>{{ $icon->status() }}</td>
+                                    <td>{{ $icon->price }}</td>
                                     <td>{{ $icon->author() }}</td>
                                     <td>
                                         <a href="{{ URL::to($link_type . '/stones/icons/' . $icon->id . '/edit') }}" class="btn btn-mini"><i class="icon-edit"></i></a>
