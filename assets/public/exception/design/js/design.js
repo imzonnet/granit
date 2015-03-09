@@ -47,7 +47,7 @@ function getUser() {
 function render() {
     gapi.signin.render('btn-g-login', {
       	'callback': 'signinCallback',
-      	'clientid': '841077041629.apps.googleusercontent.com',
+      	'clientid': '180955256826-gqsfj3u6er88tq2p0cvsjvs9ve1h2g8u.apps.googleusercontent.com',
       	'cookiepolicy': 'single_host_origin',
       	'requestvisibleactions': 'http://schema.org/AddAction',
       	'scope': 'https://www.googleapis.com/auth/plus.login'
