@@ -49,19 +49,31 @@ function render() {
       	'callback': 'signinCallback',
       	'clientid': '180955256826-gqsfj3u6er88tq2p0cvsjvs9ve1h2g8u.apps.googleusercontent.com',
       	'cookiepolicy': 'single_host_origin',
-      	'scope': 'email'
+      	'scope': 'https://www.googleapis.com/auth/plus.login',
+      	'requestvisibleactions' : 'http://schema.org/AddAction'
     });
 }
 
 function signinCallback(resp){
-	gapi.client.load('plus', 'v1', apiClientLoaded);
+	//gapi.client.load('plus', 'v1', apiClientLoaded);
+	//console.log(resp);
+
+	gapi.client.load('plus','v1', function(){
+	 	var request = gapi.client.plus.people.get({
+	   		'userId': 'me'
+	 	});
+	 	request.execute(function(resp) {
+	   		console.log(resp);
+	 	});
+	});
+
 }
-function apiClientLoaded() {
-    gapi.client.plus.people.get({userId: 'me'}).execute(handleEmailResponse);
-}
-function handleEmailResponse(resp) {
-	console.log(resp); 
-}
+// function apiClientLoaded() {
+//     gapi.client.plus.people.get({userId: 'me'}).execute(handleEmailResponse);
+// }
+// function handleEmailResponse(resp) {
+// 	console.log(resp); 
+// }
 
 /*================================================*/
 
