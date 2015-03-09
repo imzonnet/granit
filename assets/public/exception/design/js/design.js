@@ -43,6 +43,22 @@ function getUser() {
     });
 }
 
+// GOOGLE
+function render() {
+    gapi.signin.render('btn-g-login', {
+      	'callback': 'signinCallback',
+      	'clientid': '841077041629.apps.googleusercontent.com',
+      	'cookiepolicy': 'single_host_origin',
+      	'requestvisibleactions': 'http://schema.org/AddAction',
+      	'scope': 'https://www.googleapis.com/auth/plus.login'
+    });
+}
+
+function signinCallback(data){
+	console.log(data);
+}
+
+
 /*================================================*/
 
 /* design.js */
@@ -102,8 +118,8 @@ function hidePoen(elem){
 		}
 		$('#btn-tw-login').click(function(){
 			Digits.logIn()
-		    .done(onLogin) /*handle the response*/
-		    .fail(onLoginFailure);
+		    .done(onLogin); /*handle the response*/
+		    // .fail(onLoginFailure);
 		})
 
 		// data save
