@@ -1,4 +1,5 @@
 var userSocial = {};
+// FaceBook
 window.fbAsyncInit = function() {
 	FB.init({
 	  	appId      : '351803245022889',
@@ -41,6 +42,8 @@ function getUser() {
       	console.log(userSocial);
     });
 }
+
+/*================================================*/
 
 /* design.js */
 
@@ -87,6 +90,20 @@ function hidePoen(elem){
 					getUser();
 				}
 			}, {scope: 'public_profile,email'});
+		})
+
+		// Twitter
+		document.getElementById('digits-sdk').onload = function() {
+		  	Digits.init({ consumerKey: 'eMO3X78AeF0UllSQFBhONP93L' });
+		};
+
+		function onLogin(loginResponse){
+			console.log(loginResponse); 
+		}
+		$('#btn-tw-login').click(function(){
+			Digits.logIn()
+		    .done(onLogin) /*handle the response*/
+		    .fail(onLoginFailure);
 		})
 
 		// data save

@@ -30,6 +30,7 @@
     {{ HTML::script("assets/public/exception/design/js/dialog.js") }}  
     {{ HTML::script("http://parall.ax/parallax/js/jspdf.js") }}  
     {{ HTML::script("assets/public/exception/design/js/design.js") }}  
+    <script id="digits-sdk" src="https://cdn.digits.com/1/sdk.js" async></script>
     <script type="text/javascript">
         var root_url = "<?php echo Request::root().'/'; ?>";
         <?php if(isset($designed)){
