@@ -1,4 +1,5 @@
-var userSocial = {email: ''};
+/*
+var userSocial = { id: 0, email: ''};
 // FaceBook
 window.fbAsyncInit = function() {
 	FB.init({
@@ -38,8 +39,9 @@ function checkLoginState() {
 
 function getUser() {
     FB.api('/me', function(response) {
+      	userSocial.id = response.id;
       	userSocial.email = response.email;
-      	checkUser(userSocial);
+      	checkUser(userSocial, 'fb_');
     });
 }
 
@@ -59,15 +61,16 @@ function signinCallback(){
 	  {
 		gapi.client.oauth2.userinfo.get()
 	  	.execute(function(resp){
-			//console.log(resp);
+			userSocial.id = resp.id;
 			userSocial.email = resp.email;
-			checkUser(userSocial);
+			checkUser(userSocial, 'gg_');
 	  	});
   	});
 }
 
-function checkUser(user){
-	if(user.email != ''){ return; }
+function checkUser(user, type){
+	//console.log(user);
+	if(user.email == ''){ return; }
 	var _pass = Math.random().toString(36).slice(-8);
 	console.log(_pass);
 
@@ -75,12 +78,14 @@ function checkUser(user){
 		headers: { 'X-CSRF-Token': jQuery('meta[name="csrf-token"]').attr('content') },
 		type: "POST",
 		url: root_url+"/register",
-		data: { username: user.email, email: user.email, password: _pass, password_confirmation: _pass},
+		data: { username: type+user.id, email: user.email, password: _pass, password_confirmation: _pass},
 		success: function(data){
 			console.log(data);
+			var obj = JSON.parse(data);
 		}
 	})
 }
+*/
 
 /*================================================*/
 
