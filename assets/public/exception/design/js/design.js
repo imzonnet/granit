@@ -49,15 +49,19 @@ function render() {
       	'callback': 'signinCallback',
       	'clientid': '180955256826-gqsfj3u6er88tq2p0cvsjvs9ve1h2g8u.apps.googleusercontent.com',
       	'cookiepolicy': 'single_host_origin',
-      	'requestvisibleactions': 'http://schema.org/AddAction',
-      	'scope': 'https://www.googleapis.com/auth/plus.login'
+      	'scope': 'email'
     });
 }
 
-function signinCallback(data){
-	console.log(data);
+function signinCallback(resp){
+	gapi.client.load('plus', 'v1', apiClientLoaded);
 }
-
+function apiClientLoaded() {
+    gapi.client.plus.people.get({userId: 'me'}).execute(handleEmailResponse);
+}
+function handleEmailResponse(resp) {
+	console.log(resp); 
+}
 
 /*================================================*/
 
