@@ -49,7 +49,7 @@ function render() {
       	'callback': 'signinCallback',
       	'clientid': '180955256826-gqsfj3u6er88tq2p0cvsjvs9ve1h2g8u.apps.googleusercontent.com',
       	'cookiepolicy': 'single_host_origin',
-      	'scope': 'email',
+      	'scope': 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email',
       	'requestvisibleactions' : 'http://schema.org/AddAction'
     });
 }
