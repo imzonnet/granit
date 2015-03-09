@@ -42,6 +42,9 @@ Route::post('forgot_password', 'AuthController@postForgotPassword');
 Route::get('reset_password/{id}/{token}/{target?}', 'AuthController@getResetPassword');
 Route::post('reset_password', 'AuthController@postResetPassword');
 Route::get('suspend_user/{id}/{token}', 'AuthController@suspendUser');
+
+//@TODO this is test, remove this later
+Route::get('registerAjax', 'AuthController@registerAjax');
 /**
  * Social Login
  */

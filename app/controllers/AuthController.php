@@ -252,6 +252,10 @@ class AuthController extends BaseController {
         );
         $v = Validator::make(Input::all(), $rules);
         if ($v->fails()) {
+            if( Request::ajax()) {
+                //print_r($v);
+                return Response::json(['status' => 0, 'data' => $v->errors()->toArray()]);
+            }
             return Redirect::back()->withInput()->withErrors($v);
         } else {
             $user = Sentry::createUser([
@@ -263,8 +267,16 @@ class AuthController extends BaseController {
 
             $userGroup = Sentry::findGroupByName('Members');
             $user->addGroup($userGroup);
+            if( Request::ajax() ) {
+                return Response::json(['status' => 1, 'data' => $user->toArray()]);
+            }
             return Redirect::to('login/public')->with('success_message', 'Congratulations your account registration has been successful');
         }
+    }
+
+    public function registerAjax() {
+        $this->layout->title = 'Register';
+        $this->layout->content = View::make('public.' . $this->current_theme . '.registerajax');
     }
 
     public function getSocialLogin($type = "facebook") {
