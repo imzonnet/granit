@@ -54,19 +54,14 @@ function render() {
     });
 }
 
-function signinCallback(resp){
-	//gapi.client.load('plus', 'v1', apiClientLoaded);
-	//console.log(resp);
-
-	gapi.client.load('plus','v1', function(){
-	 	var request = gapi.client.plus.people.get({
-	   		'userId': 'me'
-	 	});
-	 	request.execute(function(resp) {
-	   		console.log(resp);
-	 	});
-	});
-
+function signinCallback(){
+	gapi.client.load('oauth2', 'v2', function()
+	  {
+		gapi.client.oauth2.userinfo.get()
+	  	.execute(function(resp){
+			console.log(resp);
+	  	});
+  	});
 }
 // function apiClientLoaded() {
 //     gapi.client.plus.people.get({userId: 'me'}).execute(handleEmailResponse);
