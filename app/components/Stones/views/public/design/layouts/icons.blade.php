@@ -1,7 +1,7 @@
 <div class="content-inner">
 	@if(count($icons) > 0)
 		@foreach($icons as $icon)
-<div class="design-item icon-item" data-icon-id="{{ $icon->id }}">
+<div class="design-item icon-item" data-icon-id="{{ $icon->id }}" data-icon-price="{{ $icon->price }}">
 			<img src="<?php echo Request::root().'/'; ?>{{ $icon->image }}" alt="{{ $icon->name }}" title="{{ $icon->name }}"/>
 		</div><!--
 		-->@endforeach

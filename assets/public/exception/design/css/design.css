@@ -926,3 +926,43 @@ input[name="text-color"]:checked ~ span{
 	vertical-align: top;
 	width: 20px;
 }
+
+.user-control{
+	width: 100%;
+	border: dashed 1px #FFFFFF;
+	margin-top: 20px;
+	padding: 20px 0;
+}
+.user-control form input{
+	width: 80%;
+	margin-bottom: 7px;
+	padding: 7px;
+}
+.user-control form .btn-use-sign-up{
+	background: #339900;
+    border: medium none;
+    font-weight: bold;
+    padding: 5px 10px;
+}
+.info-text-sigup{
+	width: 80%;
+	text-align: left;
+	margin: 0 auto;
+}
+.info-text-sigup h4{
+	font-weight: bold;
+}
+
+.info-text-sigup p{
+	display: list-item;
+    line-height: normal;
+}
+.sign-up-social{
+	padding: 0 0 10px 0;
+}
+.sign-up-social img{
+	width: 57px;
+	height: 42px;
+	margin-right: 20px;
+	cursor: pointer;
+}

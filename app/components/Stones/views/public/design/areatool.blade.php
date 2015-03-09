@@ -198,5 +198,33 @@
 				<strong>SHARE!</strong>
 			</div>
 		</div>
+		<div class="user-control">
+			<h1>Sign Up</h1>
+			<p>Already a member? <a href="#">Sign in >></a></p>
+			<form action="" method="POST">
+				<p><input type="email" name="email" placeholder="E-mail" required></p>
+				<p><input type="password" name="pass1" placeholder="Select Password" required></p>
+				<p><input type="password" name="pass2" placeholder="Re-type Password" required></p>
+				<p><button id="btn-use-sign-up" class="btn-use-sign-up" type="submid">Sign up</button></p>
+			</form>
+			<p>·  Or sign up using  ·</p>
+			<div class="sign-up-social">
+				<span id="btn-fb-login">
+					<img src="<?php echo Request::root(); ?>/assets/public/exception/design/images/u155.png">
+				</span>
+				<span id="btn-tw-login">
+					<img src="<?php echo Request::root(); ?>/assets/public/exception/design/images/u159.png">
+				</span>
+				<span id="btn-g-login">
+					<img src="<?php echo Request::root(); ?>/assets/public/exception/design/images/u157.png">
+				</span>
+			</div>
+			<div class="info-text-sigup">
+				<h4>Why Sign Up?</h4>
+				<p>Save Stone Designs & edit whenever you want!</p>
+				<p>Invite friends & family to join Stone design with a private forum.</p>
+				<p>Discuss with friends & family about design and give them opportunity to edit and comment all stone designs.</p>
+			</div>
+		</div>
 	</div>
 </div>

@@ -1,3 +1,47 @@
+var userSocial = {};
+window.fbAsyncInit = function() {
+	FB.init({
+	  	appId      : '351803245022889',
+	  	xfbml      : true,
+	  	version    : 'v2.2'
+	});
+
+	FB.getLoginStatus(function(response) {
+	    statusChangeCallback(response);
+	});
+  };
+
+(function(d, s, id){
+	var js, fjs = d.getElementsByTagName(s)[0];
+	if (d.getElementById(id)) {return;}
+	js = d.createElement(s); js.id = id;
+	js.src = "//connect.facebook.net/en_US/sdk.js";
+	fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+
+function statusChangeCallback(response) {
+    if (response.status === 'connected') {
+      	getUser();
+    } else if (response.status === 'not_authorized') {
+      	console.log('Please log into this app.');
+    } else {
+      	console.log('Please log into Facebook.');
+    }
+}
+
+function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      	statusChangeCallback(response);
+    });
+}
+
+function getUser() {
+    FB.api('/me', function(response) {
+      	userSocial = response;
+      	console.log(userSocial);
+    });
+}
+
 /* design.js */
 
 // add job title or place birth
@@ -34,6 +78,17 @@ function hidePoen(elem){
 
 !(function($){
 	$(function(){
+		
+
+		/* Login Social */
+		$('#btn-fb-login').click(function(){
+			FB.login(function(response) {
+			   if (response.authResponse) {
+					getUser();
+				}
+			}, {scope: 'public_profile,email'});
+		})
+
 		// data save
 		var dataSave = {
 			type: "",
@@ -499,6 +554,7 @@ function hidePoen(elem){
 
 			delEl.on('click', function(e){
 				ThisEl.remove();
+				updatePernamentTextAndCalcPrice();
 			})
 		}
 
@@ -1487,10 +1543,38 @@ function hidePoen(elem){
 					accessorieEl = $('<div>'),
 					htmlInner = "<img src='"+src+"'>";
 
-				accessorieEl.attr('data-acc-id', thisEl.data('icon-id')).addClass('accessorie-item').append(htmlInner);
+				accessorieEl.attr({
+					'data-acc-id': thisEl.data('icon-id'),
+					'data-price': thisEl.data('icon-price'),
+				}).addClass('accessorie-item').append(htmlInner);
 				lDesign.layoutAccessories.append(accessorieEl);
 
 				buildLayout(accessorieEl, {drag: true});
+
+				var tr_el = buildRowPriceOverview(accessorieEl, thisEl.children('img').attr('title'), thisEl.data('icon-price'));
+				
+				updatePernamentTextAndCalcPrice();
+
+				accessorieEl.find('.l-del').bind('click', function(){
+					tr_el.remove();
+					resetAutoNum();
+				})
+			})
+		}
+
+		function buildRowPriceOverview(elemDesign, title, price){
+			var tr_el = $('<tr>');
+			tr_el.addClass('accessorie-row-price');
+			tr_el.html("<td></td> <td>"+title+"</td> <td>1</td> <td>"+price+"</td> <td>"+price+"</td>")
+			$('.tbody-design-overview').append(tr_el);
+
+			resetAutoNum();
+			return tr_el;
+		}
+
+		function resetAutoNum(){
+			$('.tbody-design-overview > tr').each(function(index){
+				$(this).children('td').first().html(index+1); 
 			})
 		}
 
@@ -1513,7 +1597,13 @@ function hidePoen(elem){
 			var priceCalc = textLength * parseInt(priceEl.html());
 			$('.tbody-design-overview .pernament-text .calc-price').html(priceCalc);
 			var subtotal = priceCalc + parseInt($('.tbody-design-overview .tr-frame .calc-price').html());
-			$('.tfooter-design-overview .tfooter-tr-content .sub-title-price').html(subtotal);
+			if($('.main-layout-accessories-area .accessorie-item').length > 0){
+				$('.main-layout-accessories-area .accessorie-item').each(function(){
+					subtotal += parseFloat($(this).data('price'));
+				})
+			}
+
+			$('.tfooter-design-overview .tfooter-tr-content .sub-title-price').html(subtotal.toFixed(2));
 		}
 		$('div[data-content-tabs="tab-text"]').on('input', 'input[name="first_text"], input[name="name"], input[name="name"], input[name="add_job_or_place"], input[name="b-m"], input[name="b-y"], input[name="d-d"], input[name="d-m"], input[name="d-y"], input[name="memorial-worlds"], input[name="poem"]', function(){
 			updatePernamentTextAndCalcPrice();
@@ -2205,10 +2295,22 @@ function hidePoen(elem){
 									left: parseInt(obj.x)+_mLeft+'px',
 									top: obj.y+'px',
 								})
-								accessorieEl.attr('data-acc-id', obj.id).addClass('accessorie-item').append(htmlInner);
+								accessorieEl.attr({
+									'data-acc-id': obj.id,
+									'data-price': obj.price,
+								}).addClass('accessorie-item').append(htmlInner);
 								lDesign.layoutAccessories.append(accessorieEl);
 
 								buildLayout(accessorieEl, {drag: true});
+								
+								var tr_el = buildRowPriceOverview(accessorieEl, obj.title, obj.price);
+
+								updatePernamentTextAndCalcPrice();
+
+								accessorieEl.find('.l-del').bind('click', function(){
+									tr_el.remove();
+									resetAutoNum();
+								})
 							}
 						}
 					})
