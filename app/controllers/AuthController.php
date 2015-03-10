@@ -279,7 +279,12 @@ class AuthController extends BaseController {
         $this->layout->content = View::make('public.' . $this->current_theme . '.registerajax');
     }
 
-    public function getSocialLogin($type = "facebook") {
+    public function getSocialLogin($type = "facebook", $return_url = "") {
+        if($return_url == ""){
+            $return_url = "home";
+        }else{
+            $return_url = base64_decode($return_url);
+        }
         // get data from input
         $code = NULL;
         $prefix = '';
@@ -349,7 +354,8 @@ class AuthController extends BaseController {
                 $userGroup = Sentry::findGroupByName('Members');
                 $user->addGroup($userGroup);
                 Sentry::login($user);
-                return Redirect::intended('home');
+                //return Redirect::intended('home');
+                return Redirect::intended($return_url);
             } catch (Cartalyst\Sentry\Users\LoginRequiredException $e) {
                 return Redirect::to('login/public')->withErrors('Login field is required.');
             } catch (Cartalyst\Sentry\Users\PasswordRequiredException $e) {
@@ -359,7 +365,8 @@ class AuthController extends BaseController {
                 $user = Sentry::findUserById($users->id);
                 // Log the user in
                 Sentry::login($user);
-                return Redirect::intended('home');
+                //return Redirect::intended('home');
+                return Redirect::intended($return_url);
             } catch (Cartalyst\Sentry\Groups\GroupNotFoundException $e) {
                 return Redirect::to('login/public')->withErrors('Group was not found.');
             } catch (Illuminate\Database\QueryException $e) {
@@ -367,7 +374,8 @@ class AuthController extends BaseController {
                 $user = Sentry::findUserById($users->id);
                 // Log the user in
                 Sentry::login($user);
-                return Redirect::intended('home');
+                //return Redirect::intended('home');
+                return Redirect::intended($return_url);
             }
         }
         // if not ask for permission first

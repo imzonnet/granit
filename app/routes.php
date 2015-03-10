@@ -48,7 +48,7 @@ Route::get('registerAjax', 'AuthController@registerAjax');
 /**
  * Social Login
  */
-Route::get('social/{id}/login', 'AuthController@getSocialLogin');
+Route::get('social/{id}/login/{return_url}', 'AuthController@getSocialLogin');
 Route::get('register', 'AuthController@getRegister');
 Route::post('register', 'AuthController@postRegister');
 

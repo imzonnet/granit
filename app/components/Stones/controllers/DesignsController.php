@@ -103,11 +103,12 @@ class DesignsController extends \BaseController {
                 $result = Design::create($_data);
                 
                 if(isset($link) && $afterFunc == 'login'){
-                    Session::flash('return_url', $rooturl.'design/edit/'.$result->id);
+                    // Session::flash('return_url', $rooturl.'design/edit/'.$result->id);
                     //echo Session::get('return_url');
                                     
                     //\Redirect::to('home');
-                    $layout = $link;
+                    $return_url = base64_encode('/design/edit/1');
+                    $layout = $link.'/'.$return_url;
                 }else{
                     $layout = urlencode($rooturl.$result->image);
                 }
