@@ -125,31 +125,13 @@ function hidePoen(elem){
 
 !(function($){
 	$(function(){
-		
-
 		/* Login Social */
-		$('#btn-fb-login').click(function(){
-			FB.login(function(response) {
-			   if (response.authResponse) {
-					getUser();
-				}
-			}, {scope: 'public_profile,email'});
+		$('.sign-up-social').find('span a').bind('click', function(){
+			var thisEl = $(this),
+				linkLogin = thisEl.data('href');
+				setDataSave({handle: 'login', link: linkLogin});
 		})
-
-		// Twitter
-		document.getElementById('digits-sdk').onload = function() {
-		  	Digits.init({ consumerKey: 'eMO3X78AeF0UllSQFBhONP93L' });
-		};
-
-		function onLogin(loginResponse){
-			console.log(loginResponse); 
-		}
-		$('#btn-tw-login').click(function(){
-			Digits.logIn()
-		    .done(onLogin); /*handle the response*/
-		    // .fail(onLoginFailure);
-		})
-
+		
 		// data save
 		var dataSave = {
 			type: "",
@@ -2042,7 +2024,7 @@ function hidePoen(elem){
 		})
 
 		// data Save handle
-		function setDataSave(){
+		function setDataSave(handle){
 			// console.log(dataSave);
 			designParams.content_inner_design_area = $('.content-inner-design-area');
 			if(designParams.content_inner_design_area.length <= 0){ return; }
@@ -2161,24 +2143,34 @@ function hidePoen(elem){
 			})
 
 			var imgData = printDesign({saveImg: true});
-
-			var popup = $('.popup-wapper');
-			popup.addClass('active loading');
-
+			
+			if(!handle.handle){
+				var popup = $('.popup-wapper');
+				popup.addClass('active loading');
+				$_data = { handle: 'saveData', data: dataSave, image: imgData, rooturl: root_url };
+			}else{
+				$_data = { handle: 'saveData', data: dataSave, image: imgData, rooturl: root_url, afterFunc: handle.handle, link: handle.link };
+			}
+			// console.log($_data);
 			$.ajax({
 				headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },
 				type: "POST",
 				url: "design/ajax",
-				data: { handle: 'saveData', data: dataSave, image: imgData, rooturl: root_url },
+				data: $_data,
 				success: function(data){
 					//console.log(data)
 					var obj = JSON.parse(data);
 					//console.log('link share: '+root_url+'design/edit/'+obj.layout);
-					popup.removeClass('loading');
-					var links = getLinkShare(obj.layout);
-					popup.find('a.faceook-link-share').attr('href', links.f);
-					popup.find('a.twitter-link-share').attr('href', links.t);
-					popup.find('a.google-link-share').attr('href', links.g);
+					if(!handle.handle){
+						popup.removeClass('loading');
+						var links = getLinkShare(obj.layout);
+						popup.find('a.faceook-link-share').attr('href', links.f);
+						popup.find('a.twitter-link-share').attr('href', links.t);
+						popup.find('a.google-link-share').attr('href', links.g);
+					}else{
+						//alert(obj.layout);
+						 window.location.href = obj.layout;
+					}
 				}
 			})
 		}
@@ -2203,7 +2195,7 @@ function hidePoen(elem){
 		})
 
 		$('#btn_share_design').bind('click', function(){
-			setDataSave();
+			setDataSave({});
 		})
 
 		/*-----reDesigned-----*/	

@@ -1,3 +1,7 @@
+<?php
+	$user = \Sentry::getUser();
+	// print_r($user['id']);
+?>
 <div class="content-area-tool js-tabs">
 	<ul class="controler-tab">
 		<li class='active'><a href="javascript:" data-tabs="tab-gravestones">1.Gravestones</a></li>
@@ -198,6 +202,7 @@
 				<strong>SHARE!</strong>
 			</div>
 		</div>
+		<?php if(!isset($user['id'])){ ?>
 		<div class="user-control">
 			<h1>Sign Up</h1>
 			<p>Already a member? <a href="#">Sign in >></a></p>
@@ -232,5 +237,8 @@
 				<p>Discuss with friends & family about design and give them opportunity to edit and comment all stone designs.</p>
 			</div>
 		</div>
+		<?php }else{
+		echo "<div class='' style='margin-top: 30px;'><strong>Hi, ". $user['username'] ."</strong></div>";
+		}?>
 	</div>
 </div>

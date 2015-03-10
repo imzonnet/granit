@@ -1,5 +1,6 @@
 <?php namespace Components\Stones\Controllers;
 
+use Session;
 use View, App, Str;
 use Components\Products\Models\Category;
 use Components\Products\Models\Product;
@@ -100,7 +101,16 @@ class DesignsController extends \BaseController {
                 // Save data
                 $_data = array("image" => $output_file, "data" => json_encode($data), "status" => "published");
                 $result = Design::create($_data);
-                $layout = urlencode($rooturl.$result->image);
+                
+                if(isset($link) && $afterFunc == 'login'){
+                    Session::flash('return_url', $rooturl.'design/edit/'.$result->id);
+                    //echo Session::get('return_url');
+                                    
+                    //\Redirect::to('home');
+                    $layout = $link;
+                }else{
+                    $layout = urlencode($rooturl.$result->image);
+                }
                 break;
             // case 'getIconByCatId':
             //     $layout = View::make('Stones::public.design.layouts.productcolors')
