@@ -210,17 +210,17 @@
 			<p>·  Or sign up using  ·</p>
 			<div class="sign-up-social">
 				<span id="btn-fb-login">
-					<a href="<?php echo Request::root(); ?>/social/facebook/login">
+					<a data-href="<?php echo Request::root(); ?>/social/facebook/login">
 						<img src="<?php echo Request::root(); ?>/assets/public/exception/design/images/u155.png">
 					</a>
 				</span>
 				<span id="btn-tw-login">
-					<a href="<?php echo Request::root(); ?>/social/twitter/login">
+					<a data-href="<?php echo Request::root(); ?>/social/twitter/login">
 						<img src="<?php echo Request::root(); ?>/assets/public/exception/design/images/u159.png">
 					</a>
 				</span>
 				<span id="btn-g-login">
-					<a href="<?php echo Request::root(); ?>/social/google/login">
+					<a data-href="<?php echo Request::root(); ?>/social/google/login">
 						<img src="<?php echo Request::root(); ?>/assets/public/exception/design/images/u157.png">
 					</a>
 				</span>
