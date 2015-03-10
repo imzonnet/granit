@@ -107,7 +107,7 @@ class DesignsController extends \BaseController {
                     //echo Session::get('return_url');
                                     
                     //\Redirect::to('home');
-                    $return_url = base64_encode('/design/edit/1');
+                    $return_url = base64_encode('/design/edit/'.$result->id);
                     $layout = $link.'/'.$return_url;
                 }else{
                     $layout = urlencode($rooturl.$result->image);
