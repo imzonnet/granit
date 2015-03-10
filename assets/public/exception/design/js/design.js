@@ -123,8 +123,20 @@ function hidePoen(elem){
 	thisEl.parent().parent().parent().parent().css('display', 'none');
 }
 
+
 !(function($){
 	$(function(){
+		$('#designform_email').bind('input', function(){
+			var thisEl = $(this);
+
+			$('#designform_username').val(thisEl.val());
+		})
+
+		$('#btn-use-sign-up').click(function(){
+			//btn-use-sign-up-submit
+			setDataSave({handle: 'formRegister'});
+		})
+
 		/* Login Social */
 		$('.sign-up-social').find('span a').bind('click', function(){
 			var thisEl = $(this),
@@ -2167,7 +2179,10 @@ function hidePoen(elem){
 						popup.find('a.faceook-link-share').attr('href', links.f);
 						popup.find('a.twitter-link-share').attr('href', links.t);
 						popup.find('a.google-link-share').attr('href', links.g);
-					}else{
+					}else if(handle.handle == 'formRegister'){
+						$('#design-form-signup').find('input[name="return_url"]').val(obj.layout);
+						$('#design-form-signup').find('#btn-use-sign-up-submit').click();
+					}else if(handle.handle == 'login'){
 						//alert(obj.layout);
 						 window.location.href = obj.layout;
 					}
@@ -2183,7 +2198,7 @@ function hidePoen(elem){
 		function getLinkShare(link){
 			var link = {
 				f: "https://www.facebook.com/sharer/sharer.php?u="+link+"&t=Granit Design",
-				t: "https://twitter.com/share?url=URLENCODED_URL&via="+link+"&text=Granit Design",
+				t: "https://twitter.com/share?url="+link+"&text=Granit Design",
 				g: "https://plus.google.com/share?url="+link,
 			}
 			return link;

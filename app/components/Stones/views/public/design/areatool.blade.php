@@ -206,11 +206,17 @@
 		<div class="user-control">
 			<h1>Sign Up</h1>
 			<p>Already a member? <a href="#">Sign in >></a></p>
-			<form action="" method="POST">
-				<p><input type="email" name="email" placeholder="E-mail" required></p>
-				<p><input type="password" name="pass1" placeholder="Select Password" required></p>
-				<p><input type="password" name="pass2" placeholder="Re-type Password" required></p>
-				<p><button id="btn-use-sign-up" class="btn-use-sign-up" type="submid">Sign up</button></p>
+			<form action="<?php echo Request::root(); ?>/register" method="POST" id="design-form-signup">
+				<?php echo Form::token(); ?>
+				<input id="designform_username" type="hidden" name="username" value="">
+				<p><input id="designform_email" type="email" name="email" placeholder="E-mail" required></p>
+				<p><input type="password" name="password" placeholder="Select Password" required></p>
+				<p><input type="password" name="password_confirmation" placeholder="Re-type Password" required></p>
+				<input type="hidden" name="return_url" value="">
+				<p>
+					<button id="btn-use-sign-up" class="btn-use-sign-up" type="button">Sign up</button>
+					<button id="btn-use-sign-up-submit" class="btn-use-sign-up" type="submit" style="display:none;"></button>
+				</p>
 			</form>
 			<p>·  Or sign up using  ·</p>
 			<div class="sign-up-social">

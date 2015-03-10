@@ -270,7 +270,17 @@ class AuthController extends BaseController {
             if( Request::ajax() ) {
                 return Response::json(['status' => 1, 'data' => $user->toArray()]);
             }
-            return Redirect::to('login/public')->with('success_message', 'Congratulations your account registration has been successful');
+            
+            if(isset($_POST['return_url'])){
+                $return_url = base64_decode($_POST['return_url']);
+                $user = Sentry::findUserById($user->id);
+                // Log the user in
+                Sentry::login($user);
+
+                return Redirect::to($return_url)->with('success_message', 'Congratulations your account registration has been successful');
+            }else{
+                return Redirect::to('login/public')->with('success_message', 'Congratulations your account registration has been successful');
+            }
         }
     }
 
