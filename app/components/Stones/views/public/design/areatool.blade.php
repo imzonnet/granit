@@ -204,43 +204,59 @@
 		</div>
 		<?php if(!isset($user['id'])){ ?>
 		<div class="user-control">
-			<h1>Sign Up</h1>
-			<p>Already a member? <a href="#">Sign in >></a></p>
-			<form action="<?php echo Request::root(); ?>/register" method="POST" id="design-form-signup">
-				<?php echo Form::token(); ?>
-				<input id="designform_username" type="hidden" name="username" value="">
-				<p><input id="designform_email" type="email" name="email" placeholder="E-mail" required></p>
-				<p><input type="password" name="password" placeholder="Select Password" required></p>
-				<p><input type="password" name="password_confirmation" placeholder="Re-type Password" required></p>
-				<input type="hidden" name="return_url" value="">
-				<p>
-					<button id="btn-use-sign-up" class="btn-use-sign-up" type="button">Sign up</button>
-					<button id="btn-use-sign-up-submit" class="btn-use-sign-up" type="submit" style="display:none;"></button>
-				</p>
-			</form>
-			<p>·  Or sign up using  ·</p>
-			<div class="sign-up-social">
-				<span id="btn-fb-login">
-					<a data-href="<?php echo Request::root(); ?>/social/facebook/login">
-						<img src="<?php echo Request::root(); ?>/assets/public/exception/design/images/u155.png">
-					</a>
-				</span>
-				<span id="btn-tw-login">
-					<a data-href="<?php echo Request::root(); ?>/social/twitter/login">
-						<img src="<?php echo Request::root(); ?>/assets/public/exception/design/images/u159.png">
-					</a>
-				</span>
-				<span id="btn-g-login">
-					<a data-href="<?php echo Request::root(); ?>/social/google/login">
-						<img src="<?php echo Request::root(); ?>/assets/public/exception/design/images/u157.png">
-					</a>
-				</span>
+			<div class="content-form-signup">
+				<h1>Sign Up</h1>
+				<p>Already a member? <a href="javascript:void(0)" onClick="switchForm(this, 'signin')">Sign in >></a></p>
+				<form action="<?php echo Request::root(); ?>/register" method="POST" id="design-form-signup">
+					<?php echo Form::token(); ?>
+					<input id="designform_username" type="hidden" name="username" value="">
+					<p><input id="designform_email" type="email" name="email" placeholder="E-mail" required></p>
+					<p><input type="password" name="password" placeholder="Select Password" required></p>
+					<p><input type="password" name="password_confirmation" placeholder="Re-type Password" required></p>
+					<input type="hidden" name="return_url" value="">
+					<p>
+						<button id="btn-use-sign-up" class="btn-use-sign-up" type="button">Sign up</button>
+						<button id="btn-use-sign-up-submit" class="btn-use-sign-up" type="submit" style="display:none;"></button>
+					</p>
+				</form>
+				<p>·  Or sign up using  ·</p>
+				<div class="sign-up-social">
+					<span id="btn-fb-login">
+						<a data-href="<?php echo Request::root(); ?>/social/facebook/login">
+							<img src="<?php echo Request::root(); ?>/assets/public/exception/design/images/u155.png">
+						</a>
+					</span>
+					<span id="btn-tw-login">
+						<a data-href="<?php echo Request::root(); ?>/social/twitter/login">
+							<img src="<?php echo Request::root(); ?>/assets/public/exception/design/images/u159.png">
+						</a>
+					</span>
+					<span id="btn-g-login">
+						<a data-href="<?php echo Request::root(); ?>/social/google/login">
+							<img src="<?php echo Request::root(); ?>/assets/public/exception/design/images/u157.png">
+						</a>
+					</span>
+				</div>
+				<div class="info-text-sigup">
+					<h4>Why Sign Up?</h4>
+					<p>Save Stone Designs & edit whenever you want!</p>
+					<p>Invite friends & family to join Stone design with a private forum.</p>
+					<p>Discuss with friends & family about design and give them opportunity to edit and comment all stone designs.</p>
+				</div>
 			</div>
-			<div class="info-text-sigup">
-				<h4>Why Sign Up?</h4>
-				<p>Save Stone Designs & edit whenever you want!</p>
-				<p>Invite friends & family to join Stone design with a private forum.</p>
-				<p>Discuss with friends & family about design and give them opportunity to edit and comment all stone designs.</p>
+			<div class="content-form-signin" style="display: none;">
+				<h1>Sign In</h1>
+				<p>Already a login? <a href="javascript:void(0)" onClick="switchForm(this, 'signup')">Sign up >></a></p>
+				<form class="form-signin" id="design-form-signin" accept-charset="UTF-8" action="<?php echo Request::root(); ?>/login/design" method="POST">
+					<?php echo Form::token(); ?>
+					<p><input class="input-block-level" type="text" name="username" placeholder="Username"></p>
+					<p><input class="input-block-level" type="password" value="" name="password" placeholder="Password"></p>
+					<input type="hidden" name="return_url" value="">
+					<p>
+						<button id="btn-use-sign-in" class="btn-use-sign-in" type="button">Login</button>
+						<button id="btn-use-sign-in-submit" class="btn-use-sign-in" type="submit" style="display:none;"></button>
+					</p>
+				</form>
 			</div>
 		</div>
 		<?php }else{

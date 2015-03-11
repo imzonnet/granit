@@ -60,7 +60,12 @@ class AuthController extends BaseController {
                 if (isset($input['api'])) {
                     return Response::json(array(), 200);
                 } else {
-                    return Redirect::intended($target);
+                    if(isset($_POST['return_url'])){
+                        $return = $_POST['return_url'];
+                        return Redirect::intended(base64_decode($return));
+                    }else{
+                        return Redirect::intended($target);
+                    }
                 }
             }
         } catch (Cartalyst\Sentry\Users\UserNotActivatedException $e) {

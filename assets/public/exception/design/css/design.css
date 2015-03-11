@@ -938,7 +938,8 @@ input[name="text-color"]:checked ~ span{
 	margin-bottom: 7px;
 	padding: 7px;
 }
-.user-control form .btn-use-sign-up{
+.user-control form .btn-use-sign-up,
+.user-control form .btn-use-sign-in{
 	background: #339900;
     border: medium none;
     font-weight: bold;

@@ -108,6 +108,9 @@ class DesignsController extends \BaseController {
                 }elseif(isset($afterFunc) && $afterFunc == 'formRegister'){
                     $return_url = base64_encode('/design/edit/'.$result->id);
                     $layout = $return_url;
+                }elseif(isset($afterFunc) && $afterFunc == 'formLogin'){
+                    $return_url = base64_encode('/design/edit/'.$result->id);
+                    $layout = $return_url;
                 }else{
                     $layout = urlencode($rooturl.$result->image);
                 }

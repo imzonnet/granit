@@ -123,6 +123,16 @@ function hidePoen(elem){
 	thisEl.parent().parent().parent().parent().css('display', 'none');
 }
 
+function switchForm(elem, type){
+	if(type == "signup"){
+		$('.content-form-signin').css('display', 'none');	
+		$('.content-form-signup').css('display', 'block');	
+	}else if(type == "signin"){
+		$('.content-form-signin').css('display', 'block');	
+		$('.content-form-signup').css('display', 'none');	
+	}
+}
+
 
 !(function($){
 	$(function(){
@@ -136,6 +146,13 @@ function hidePoen(elem){
 			//btn-use-sign-up-submit
 			setDataSave({handle: 'formRegister'});
 		})
+
+		$('#btn-use-sign-in').click(function(){
+			//btn-use-sign-up-submit
+			setDataSave({handle: 'formLogin'});
+		})
+
+
 
 		/* Login Social */
 		$('.sign-up-social').find('span a').bind('click', function(){
@@ -2182,6 +2199,9 @@ function hidePoen(elem){
 					}else if(handle.handle == 'formRegister'){
 						$('#design-form-signup').find('input[name="return_url"]').val(obj.layout);
 						$('#design-form-signup').find('#btn-use-sign-up-submit').click();
+					}else if(handle.handle == 'formLogin'){
+						$('#design-form-signin').find('input[name="return_url"]').val(obj.layout);
+						$('#design-form-signin').find('#btn-use-sign-in-submit').click();
 					}else if(handle.handle == 'login'){
 						//alert(obj.layout);
 						 window.location.href = obj.layout;
