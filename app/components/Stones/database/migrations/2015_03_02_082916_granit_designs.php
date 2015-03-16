@@ -20,6 +20,7 @@ class GranitDesigns extends Migration {
 			$table->string('status');
             $table->integer('ordering')->default(0);
             $table->integer('created_by')->default(0);
+            
 		});
 	}
 
