@@ -160,6 +160,14 @@ function switchForm(elem, type){
 				linkLogin = thisEl.data('href');
 				setDataSave({handle: 'login', link: linkLogin});
 		})
+
+		/* save desigl */
+		if($('#save_design').length > 0){
+			$('#save_design').bind('click', function(){
+				setDataSave({handle: 'userSaveDesign'});
+				$(this).addClass('btn-save-design-loading')
+			})
+		}
 		
 		// data save
 		var dataSave = {
@@ -1675,7 +1683,7 @@ function switchForm(elem, type){
 				})
 			}
 
-			$('.tfooter-design-overview .tfooter-tr-content .sub-title-price').html(subtotal.toFixed(2));
+			$('.tfooter-design-overview .tfooter-tr-content .sub-title-price, .total-price-content-layout .price-inner-num').html(subtotal.toFixed(2));
 		}
 		$('div[data-content-tabs="tab-text"]').on('input', 'input[name="first_text"], input[name="name"], input[name="name"], input[name="add_job_or_place"], input[name="b-m"], input[name="b-y"], input[name="d-d"], input[name="d-m"], input[name="d-y"], input[name="memorial-worlds"], input[name="poem"]', function(){
 			updatePernamentTextAndCalcPrice();
@@ -2205,6 +2213,8 @@ function switchForm(elem, type){
 					}else if(handle.handle == 'login'){
 						//alert(obj.layout);
 						 window.location.href = obj.layout;
+					}else if(handle.handle == 'userSaveDesign'){
+						window.location.href = obj.layout
 					}
 				}
 			})

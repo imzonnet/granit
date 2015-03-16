@@ -99,7 +99,12 @@ class DesignsController extends \BaseController {
                 fclose($ifp); 
 
                 // Save data
-                $_data = array("image" => $output_file, "data" => json_encode($data), "status" => "published");
+                $user = \Sentry::getUser();
+                if($user['id']){
+                    $_data = array("image" => $output_file, "data" => json_encode($data), "status" => "published", "created_by" => $user['id']);
+                }else{
+                    $_data = array("image" => $output_file, "data" => json_encode($data), "status" => "published");
+                }
                 $result = Design::create($_data);
                 
                 if(isset($link) && $afterFunc == 'login'){
@@ -111,6 +116,9 @@ class DesignsController extends \BaseController {
                 }elseif(isset($afterFunc) && $afterFunc == 'formLogin'){
                     $return_url = base64_encode('/design/edit/'.$result->id);
                     $layout = $return_url;
+                }elseif(isset($afterFunc) && $afterFunc == 'userSaveDesign'){
+                    $return_url = '/design/edit/'.$result->id;
+                    $layout = $rooturl.$return_url;
                 }else{
                     $layout = urlencode($rooturl.$result->image);
                 }

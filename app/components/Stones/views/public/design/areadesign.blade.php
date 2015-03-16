@@ -10,3 +10,7 @@
 		<img style="width: 100%;" src="<?php echo Request::root().'/'; ?>assets/public/exception/design/images/start-design-img.png"/>
 	</div>
 </div>
+<div class="total-price-content-layout">
+	<p>Total Price:</p>
+	<h4>Kr. <span class="price-inner-num"></span></h4>
+</div>

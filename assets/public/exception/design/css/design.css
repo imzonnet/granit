@@ -939,7 +939,8 @@ input[name="text-color"]:checked ~ span{
 	padding: 7px;
 }
 .user-control form .btn-use-sign-up,
-.user-control form .btn-use-sign-in{
+.user-control form .btn-use-sign-in,
+#save_design{
 	background: #339900;
     border: medium none;
     font-weight: bold;
@@ -966,4 +967,31 @@ input[name="text-color"]:checked ~ span{
 	height: 42px;
 	margin-right: 20px;
 	cursor: pointer;
+}
+.btn-save-design-loading{
+	opacity: .6;
+	pointer-events: none;
+}
+.total-price-content-layout{
+	position: absolute;
+	left: 10px;
+	bottom: -10px;
+}
+.total-price-content-layout p,
+.total-price-content-layout h4{
+	background: #E7512F;
+	color: #FFF;
+	margin: 0 !important;
+	display: block;
+}
+.total-price-content-layout p{
+	font-size: 11px;
+    padding: 3px 5px 6px;
+    width: 69px;
+}
+.total-price-content-layout h4{
+	display: initial;
+    font-size: 23px;
+    font-weight: bold;
+    padding: 6px;
 }

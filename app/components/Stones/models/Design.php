@@ -7,7 +7,7 @@ use Components\Stones\Presenters\DesignPresenter;
 class Design extends \Eloquent implements PresentableInterface {
     protected $table = 'granit_designs';
     public $timestamps = false;
-    protected $fillable = array('image', 'data', 'status', 'ordering');
+    protected $fillable = array('image', 'data', 'status', 'ordering', 'created_by');
     protected $guarded = array('id');
 
 

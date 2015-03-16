@@ -19,8 +19,7 @@ class GranitDesigns extends Migration {
 			$table->longText('data');
 			$table->string('status');
             $table->integer('ordering')->default(0);
-            // $table->integer('created_by')->unsigned();
-            // $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->integer('created_by')->default(0);
 		});
 	}
 
