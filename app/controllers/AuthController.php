@@ -13,6 +13,7 @@
 
 use Services\UserManager;
 use Services\UserGroupManager;
+use Components\Stones\Models\Design;
 
 class AuthController extends BaseController {
 
@@ -61,8 +62,11 @@ class AuthController extends BaseController {
                     return Response::json(array(), 200);
                 } else {
                     if(isset($_POST['return_url'])){
-                        $return = $_POST['return_url'];
-                        return Redirect::intended(base64_decode($return));
+                        $return = base64_decode($_POST['return_url']);
+                        $arg = explode('/', $return);
+                        Design::findOrFail(end($arg))->update(array("created_by" => $user->id));
+                        
+                        return Redirect::intended($return);
                     }else{
                         return Redirect::intended($target);
                     }
@@ -74,8 +78,13 @@ class AuthController extends BaseController {
                             'error' => trans('cms.check_activation_email')
                                 ), 200);
             } else {
-                return Redirect::back()
-                                ->withErrors(trans('cms.check_activation_email'));
+                //return Redirect::back()->withErrors(trans('cms.check_activation_email'));
+                if(isset($_POST['return_url'])){
+                    $return = $_POST['return_url'];
+                    return Redirect::intended(base64_decode($return))->withErrors(trans('cms.check_activation_email'));
+                }else{
+                    return Redirect::back()->withErrors(trans('cms.check_activation_email'));
+                }
             }
         } catch (Cartalyst\Sentry\Throttling\UserSuspendedException $e) {
             if (isset($input['api'])) {
@@ -83,8 +92,13 @@ class AuthController extends BaseController {
                             'error' => trans('cms.account_suspended', array('minutes' => 10))
                                 ), 200);
             } else {
-                return Redirect::back()
-                                ->withErrors(trans('cms.account_suspended', array('minutes' => 10)));
+                //return Redirect::back()->withErrors(trans('cms.account_suspended', array('minutes' => 10)));
+                if(isset($_POST['return_url'])){
+                    $return = $_POST['return_url'];
+                    return Redirect::intended(base64_decode($return))->withErrors(trans('cms.account_suspended', array('minutes' => 10)));
+                }else{
+                    return Redirect::back()->withErrors(trans('cms.account_suspended', array('minutes' => 10)));
+                }
             }
         } catch (Exception $e) {
             if (isset($input['api'])) {
@@ -92,8 +106,13 @@ class AuthController extends BaseController {
                             'error' => trans('cms.invalid_username_pw')
                                 ), 200);
             } else {
-                return Redirect::back()
-                                ->withErrors(trans('cms.invalid_username_pw'));
+                //return Redirect::back()->withErrors(trans('cms.invalid_username_pw'));
+                if(isset($_POST['return_url'])){
+                    $return = $_POST['return_url'];
+                    return Redirect::intended(base64_decode($return))->withErrors(trans('cms.invalid_username_pw'));
+                }else{
+                    return Redirect::back()->withErrors(trans('cms.invalid_username_pw'));
+                }
             }
         }
     }
@@ -282,6 +301,10 @@ class AuthController extends BaseController {
                 // Log the user in
                 Sentry::login($user);
 
+                $return = base64_decode($_POST['return_url']);
+                $arg = explode('/', $return);
+                Design::findOrFail(end($arg))->update(array("created_by" => $user->id));
+
                 return Redirect::to($return_url)->with('success_message', 'Congratulations your account registration has been successful');
             }else{
                 return Redirect::to('login/public')->with('success_message', 'Congratulations your account registration has been successful');
@@ -369,6 +392,13 @@ class AuthController extends BaseController {
                 $userGroup = Sentry::findGroupByName('Members');
                 $user->addGroup($userGroup);
                 Sentry::login($user);
+
+                if($return_url != ""){
+                    $return = base64_decode($return_url);
+                    $arg = explode('/', $return);
+                    Design::findOrFail(end($arg))->update(array("created_by" => $user->id));
+                }
+
                 //return Redirect::intended('home');
                 return Redirect::intended($return_url);
             } catch (Cartalyst\Sentry\Users\LoginRequiredException $e) {
@@ -380,6 +410,13 @@ class AuthController extends BaseController {
                 $user = Sentry::findUserById($users->id);
                 // Log the user in
                 Sentry::login($user);
+
+                if($return_url != ""){
+                    $return = base64_decode($return_url);
+                    $arg = explode('/', $return);
+                    Design::findOrFail(end($arg))->update(array("created_by" => $user->id));
+                }
+
                 //return Redirect::intended('home');
                 return Redirect::intended($return_url);
             } catch (Cartalyst\Sentry\Groups\GroupNotFoundException $e) {
@@ -389,6 +426,13 @@ class AuthController extends BaseController {
                 $user = Sentry::findUserById($users->id);
                 // Log the user in
                 Sentry::login($user);
+
+                if($return_url != ""){
+                    $return = base64_decode($return_url);
+                    $arg = explode('/', $return);
+                    Design::findOrFail(end($arg))->update(array("created_by" => $user->id));
+                }
+
                 //return Redirect::intended('home');
                 return Redirect::intended($return_url);
             }

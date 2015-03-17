@@ -261,7 +261,7 @@
 		</div>
 		<?php }else{
 		echo "<div class='' style='margin-top: 30px;'><strong>Hi, ". $user['username'] ."</strong></div>";
-		echo "<br/><button id='save_design'>Save Design</button>";
+		echo "<br/><button style='padding: 16px 20px;text-transform: uppercase;' id='save_design'>Save Design</button>";
 		}?>
 
 	</div>

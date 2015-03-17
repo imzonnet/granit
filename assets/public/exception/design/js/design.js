@@ -2368,6 +2368,8 @@ function switchForm(elem, type){
 					})
 				}
 				$('.control-fonts-content').find('input[value="'+data_designed.font_family+'"]').trigger('click');
+			
+				$('.controler-tab li:last-child a').trigger('click');
 			}, 300);
 
 			designedAccessoriesHandle(_mLeft);

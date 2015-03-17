@@ -79,6 +79,25 @@
         <?php //print_r(json_decode($designed->data)); ?>
     </pre>
     -->
+    
+    <div class="padd-vertical-20">
+        <div class="container">
+            <div class="row">
+                @if (Session::has('success_message'))
+                <div class="box success-box center"> 
+                    <a href="#" class="close-box"><i class="fa fa-times"></i></a>
+                    <strong>Success!</strong> {{ Session::get('success_message') }}
+                </div>
+                @endif
+                @if ($errors->has())
+                <div class="box warning-box center"> 
+                    <a href="#" class="close-box"><i class="fa fa-times"></i></a>
+                    {{$errors->first()}}
+                </div>
+                @endif
+            </div>
+        </div>
+    </div>
     <section class="sectionWrapper">
         <div class="container">
             <div class="cell-12">

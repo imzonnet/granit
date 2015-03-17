@@ -35,6 +35,13 @@ class DesignsController extends \BaseController {
 
     public function edit($id = 0){
         $designed = $this->getDesigned($id);
+        $user = \Sentry::getUser();
+        if($designed->created_by != 0){
+            if(empty($user->id) || ($user->id != $designed->created_by)){
+                return \Redirect::to('design');
+            }
+        }
+
         $this->layout->title = 'Design';
         $this->layout->content = View::make('Stones::public.design.index')
         ->with('designed', $designed)
@@ -45,6 +52,8 @@ class DesignsController extends \BaseController {
         ->with('fonts_include', Font::all())
         ->with('icons', Icon::all())
         ->with('iconcategories', IconCategory::all());
+
+        
     }
 
     function getDesigned($id){
