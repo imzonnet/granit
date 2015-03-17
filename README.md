@@ -5,7 +5,7 @@ Customise from Doptor CMS (https://github.com/Doptor/Doptor)
 
 Requirements
 --------------
-- PHP 5.4 and above
+- PHP 5.4 and above;
 - MCrypt PHP Extension
 - `mod_rewrite` module enabled, if serving the CMS on an Apache server
 - `php_fileinfo` plugin enabled
