@@ -974,7 +974,7 @@ input[name="text-color"]:checked ~ span{
 }
 .total-price-content-layout{
 	position: absolute;
-	left: 10px; 
+	left: 20px; 
 	bottom: -10px;
 }
 .total-price-content-layout p,

@@ -62,3 +62,8 @@
 	</div>
 	@endif
 </div>
+
+<div class="total-price-content-layout">
+	<p>Total Price:</p>
+	<h4>Kr. <span class="price-inner-num"></span></h4>
+</div>
