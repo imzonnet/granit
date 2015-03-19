@@ -392,6 +392,13 @@ class AuthController extends BaseController {
                 $userGroup = Sentry::findGroupByName('Members');
                 $user->addGroup($userGroup);
                 Sentry::login($user);
+
+                if(empty($return_url)){
+                    $return = $return_url;
+                    $arg = explode('/', $return);
+                    Design::findOrFail(end($arg))->update(array("created_by" => $user->id));
+                }
+
                 //return Redirect::intended('home');
                 return Redirect::intended($return_url);
             } catch (Cartalyst\Sentry\Users\LoginRequiredException $e) {
