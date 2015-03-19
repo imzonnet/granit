@@ -393,7 +393,7 @@ class AuthController extends BaseController {
                 $user->addGroup($userGroup);
                 Sentry::login($user);
 
-                if(empty($return_url)){
+                if(!empty($return_url)){
                     $return = $return_url;
                     $arg = explode('/', $return);
                     Design::findOrFail(end($arg))->update(array("created_by" => $user->id));
@@ -411,7 +411,7 @@ class AuthController extends BaseController {
                 // Log the user in
                 Sentry::login($user);
 
-                if(empty($return_url)){
+                if(!empty($return_url)){
                     $return = $return_url;
                     $arg = explode('/', $return);
                     Design::findOrFail(end($arg))->update(array("created_by" => $user->id));
@@ -427,7 +427,7 @@ class AuthController extends BaseController {
                 // Log the user in
                 Sentry::login($user);
 
-                if(empty($return_url)){
+                if(!empty($return_url)){
                     $return = $return_url;
                     $arg = explode('/', $return);
                     Design::findOrFail(end($arg))->update(array("created_by" => $user->id));
