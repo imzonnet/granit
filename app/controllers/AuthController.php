@@ -403,6 +403,13 @@ class AuthController extends BaseController {
                 $user = Sentry::findUserById($users->id);
                 // Log the user in
                 Sentry::login($user);
+
+                if(empty($return_url)){
+                    $return = $return_url;
+                    $arg = explode('/', $return);
+                    Design::findOrFail(end($arg))->update(array("created_by" => $user->id));
+                }
+
                 //return Redirect::intended('home');
                 return Redirect::intended($return_url);
             } catch (Cartalyst\Sentry\Groups\GroupNotFoundException $e) {
@@ -412,6 +419,13 @@ class AuthController extends BaseController {
                 $user = Sentry::findUserById($users->id);
                 // Log the user in
                 Sentry::login($user);
+
+                if(empty($return_url)){
+                    $return = $return_url;
+                    $arg = explode('/', $return);
+                    Design::findOrFail(end($arg))->update(array("created_by" => $user->id));
+                }
+
                 //return Redirect::intended('home');
                 return Redirect::intended($return_url);
             }
