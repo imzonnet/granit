@@ -1036,21 +1036,15 @@ function switchForm(elem, type){
 							$('.controler-tab li a[data-tabs="tab-text"]').trigger('click');
 							
 							// check frame load comlepte 
-							var img = document.createElement('img');
-							$(img).load(function() {
+							//var img = document.createElement('img');
+							var img = new Image();
+							img.src = imgSrc;
+							img.onload = function() {
 								setTimeout(function(){
 									designedTextHandle();
-								}, 500)
+								}, 100)
 						      	
-						      	$(img).remove();
-						    });
-						    img.src = imgSrc;
-							document.body.appendChild(img);
-							$(img).css({
-								position: 'absolute',
-								zIndex: '-10',
-								opacity: 0
-							})
+						    };
 							// End check frame load comlepte
 						}
 						/*-----End ReDesigned------*/
