@@ -65,6 +65,21 @@
                                     </div>
                                 </div>
 
+                                <div class="control-group {{{ $errors->has('filter_image') ? 'error' : '' }}}">
+                                    <label class="control-label">Filter Image</label>
+
+                                    <div class="controls">
+                                        {{-- Form::file('filter_image', array('class' => 'input-xlarge')) --}}
+                                        {{ Form::hidden('filter_image', (!isset($icon)) ? Input::old('filter_image') : $icon->filter_image) }}
+                                        <a class="btn btn-primary insert-media" id="insert-main-filter-image" href="#"> Select
+                                            filter image</a>
+                                            <span class="file-name">
+                                                {{ $icon->filter_image or '' }}
+                                            </span>
+                                        {{ $errors->first('filter_image', '<span class="help-inline">:message</span>') }}
+                                    </div>
+                                </div>
+
                                 <div class="control-group {{{ $errors->has('customize') ? 'error' : '' }}}">
                                     <label class="control-label">Customize <span class="red">*</span></label>
 
@@ -102,7 +117,15 @@
                                         {{ $errors->first('status', '<span class="help-inline">:message</span>') }}
                                     </div>
                                 </div>
+                                    
+                                <div class="control-group {{{ $errors->has('Type') ? 'error' : '' }}}">
+                                    <label class="control-label">Type <span class="red">*</span></label>
 
+                                    <div class="controls line">
+                                        {{ Form::select('type', $type, (!isset($icon)) ? Input::old('type') : $icon->type, array('class'=>'chosen span6 m-wrap', 'style'=>'width:285px')) }}
+                                        {{ $errors->first('type', '<span class="help-inline">:message</span>') }}
+                                    </div>
+                                </div>
 
                                 <div class="control-group">
                                     <label class="control-label">Order</label>
@@ -111,6 +134,8 @@
                                         {{Form::text('ordering', (!isset($icon)) ? Input::old('ordering') : $icon->ordering, array('class' => 'input-xlarge', 'placeholder' => '0'))}}
                                     </div>
                                 </div>
+
+                                
 
                                 <div class="form-actions">
                                     <button type="submit" class="btn btn-primary" name="form_save">Save</button>
@@ -152,6 +177,8 @@
             });
         });
 
-        MediaSelection.init('image');
+        //MediaSelection.init('image');
+        //MediaSelection.init('filter_image');
+        MediaExp.init();
     </script>
 @stop

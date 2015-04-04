@@ -95,6 +95,19 @@ class DesignsController extends \BaseController {
                 $_result = Icon::findOrFail($id);
                 $layout = json_encode(array("id" => $_result->id, "image" => $_result->image, "x" => $x, "y" => $y, "title" => $_result->name, "price" => $_result->price));
                 break;
+            case 'uploadImageAccessories':
+                $base64_string = $data;
+                $dir = 'uploads/designed/';
+                if (!is_dir($dir)) { mkdir($dir); }
+                $output_file = $dir.rand(9,999).'_'.date('ymd_his').'.png';
+
+                $ifp = fopen($output_file, "wb"); 
+                $dataImage = explode(',', $base64_string);
+                fwrite($ifp, base64_decode($dataImage[1])); 
+                fclose($ifp); 
+
+                $layout = $rooturl.$output_file;
+                break;
             case 'saveData':
                 // upload image
                 $base64_string = $image;

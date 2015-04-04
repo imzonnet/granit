@@ -34,6 +34,7 @@ class IconsController extends \BaseController {
         $this->layout->title = 'New Icon';
         $this->layout->content = View::make('Stones::backend.icons.create')
                                 ->with('status', Icon::all_status())
+                                ->with('type', Icon::all_type())
                                 ->with('categories', IconCategory::all_categories());
     }
 
@@ -89,6 +90,7 @@ class IconsController extends \BaseController {
         $this->layout->title = 'Edit ' . $icon->name;
         $this->layout->content = View::make('Stones::backend.icons.create')
                                 ->with('status', Icon::all_status())
+                                ->with('type', Icon::all_type())
                                 ->with('icon', $icon)
                                 ->with('categories', IconCategory::all_categories());
     }

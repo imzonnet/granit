@@ -136,6 +136,25 @@ function switchForm(elem, type){
 
 !(function($){
 	$(function(){
+		// btn next step control
+		var stepName = ["", "Add Text >>", "Add Accessories >>", "Finish", "Get a Bid"];
+		$('.content-area-design').on('click', '#btn-next-step-control-js', function(){
+			var $this = $(this),
+				tab_active = $('.content-area-tool .controler-tab').find('.active'),
+				index_num = tab_active.index() + 2;
+
+			tab_active.next().find('a').trigger('click');
+			$this.find('span').html(stepName[index_num]);
+
+			$this.trigger('stepChange');
+		})
+
+		$('.content-area-design').on('stepChange', '#btn-next-step-control-js', function(){
+			var $this = $(this);
+				htmlInner = $this.find('span').html();
+			(htmlInner == 'Get a Bid')? $this.addClass('getABid') : $this.removeClass('getABid');
+		})
+
 		$('#designform_email').bind('input', function(){
 			var thisEl = $(this);
 
@@ -255,7 +274,7 @@ function switchForm(elem, type){
 		var born_size_real = 70;
 		var memorial_size_real = 75;
 		var poem_size_real = 60;
-		var job_title_real = 75;
+		var job_title_real = 60;
 
 		// size first text
 		global_params.first_text = {large: global_params.radio.large * first_text_size_real, 
@@ -287,7 +306,7 @@ function switchForm(elem, type){
 		var space_name1_name2_real = 65;
 		var space_name_memorial_real = 80;
 		var space_memorial_poem_real = 34;
-		var space_name_job_real = 30;
+		var space_name_job_real = 32;
 		var space_poem_poem_real = 32;
 		var space_memorial_memorial_real = 32;
 
@@ -334,6 +353,10 @@ function switchForm(elem, type){
 		$('.js-tabs').each(function(){
 			var thisEl = $(this);
 			thisEl.find('[data-tabs]').on('click', function(e){
+				var index_num = $(this).parent('li').index() + 1;
+				$('#btn-next-step-control-js').find('span').html(stepName[index_num]);
+				$('#btn-next-step-control-js').trigger('stepChange');
+
 				var tab_name = $(this).data('tabs');
 
 				$(this).parent('li').addClass('active').siblings().removeClass('active');
@@ -508,8 +531,8 @@ function switchForm(elem, type){
 			/* Create layout Poem */
 			var layer_el = $('<div>').addClass('layout-inner-area layout-id-'+rand_id);
 
-			var lDesignTop = PointToPixel(sizeDesign.space_poem_poem);// .layout-item-area
-			layer_el.css('margin-top', lDesignTop+'px');
+			var lDesignTop = sizeDesign.space_poem_poem;//PointToPixel(sizeDesign.space_poem_poem);// .layout-item-area
+			layer_el.css('margin-top', lDesignTop+'pt');
 
 			lDesign.poem.append(layer_el);
 			name_tab_el.find('a').trigger('click'); // new tab active
@@ -583,8 +606,58 @@ function switchForm(elem, type){
 			buildLayout(layout_icon, {drag: true});
 		})
 
+		//
+		function canvasOverlayFrame(params){
+			var c = document.createElement('canvas'),
+				ctx = c.getContext('2d'),
+				imgFrame = new Image(); // image frame
+			imgFrame.src = params.frame;
+			imgFrame.onload = function(){
+				var $thisF = this,
+					fW = this.naturalWidth,
+					fH = this.naturalHeight;
+				c.width = fW;
+				c.height = fH;
+				var imgI = new Image();
+				imgI.src = params.image;
+				imgI.onload = function(){
+					var $thisI = $(this),
+						newH = this.naturalHeight/this.naturalWidth*fW;
+					
+					ctx.drawImage(this, 0, 0, fW, newH);
+					if(!params.filter){
+						ctx.drawImage($thisF, 0, 0, fW, fH);
+						var result = c.toDataURL("image/png");
+						params.afterHandle.call(this, result);
+					}
+					var imgFil = new Image();
+					imgFil.src = params.filter;
+					imgFil.onload = function(){
+						ctx.drawImage(this, 0, 0, fW, fH);
+						var imageData = ctx.getImageData(0, 0, fW, fH);
+						var pixel = imageData.data;
+						var r = 0, g = 1, b = 2, a = 3;
+						for (var p = 0; p<pixel.length; p+=4)
+						{
+							if (
+								pixel[p+r] == 255 &&
+								pixel[p+g] == 0 &&
+								pixel[p+b] == 222) // if #FF00DE then change alpha to 0
+							{pixel[p+a] = 0;}
+						}
+						ctx.putImageData(imageData, 0, 0);
+						ctx.drawImage($thisF, 0, 0, fW, fH);
+						var result = c.toDataURL("image/png");
+						params.afterHandle.call(this, result);
+					}
+				}
+			}
+		}
+
 		// build layout =============================================
+		var elementCurrentUpload;
 		function buildLayout(ThisEl, params){
+			console.log(params);
 			if( params.drag == true ){
 				ThisEl.addClass('l-move').draggable({
 					start: function (event, ui) {
@@ -620,12 +693,61 @@ function switchForm(elem, type){
 				});
 			}
 
+			if( params.resize == true ){
+				ThisEl
+				.addClass('l-resize')
+				.resizable({
+					resize: function( event, ui ) {
+						ui.element.css('height', 'auto');
+					}
+				});
+			}
+
+			if( params.upload == true ){
+				var lUpload = $('<label>').addClass('l-upload')
+				.attr({'for': 'upload-field-area', 'title': 'upload image'});
+				ThisEl.append(lUpload)
+
+				lUpload.bind('click', function(){ elementCurrentUpload = ThisEl })
+			}
+
 			if( params.rotate == true )
 				ThisEl.rotate();
 
 			delLayout(ThisEl);
 		}
 
+		$('#upload-field-area').on('change', function(e){
+			var file = this,
+				frameImgUrl = elementCurrentUpload.data('icon-image'),
+				filterImgUrl = elementCurrentUpload.data('filter-image');
+
+			var reader = new FileReader();
+		    reader.onload = function(){
+		      	var dataURL = reader.result;
+	      		$.ajax({
+	      			headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },
+					type: "POST",
+					url: "design/ajax",
+					data: { handle: 'uploadImageAccessories', data: dataURL, rooturl: root_url },
+					success: function(data){
+						var obj = JSON.parse(data);
+						var params = {
+							frame: frameImgUrl,
+							image: obj.layout,
+							filter: filterImgUrl,
+							afterHandle: function(data){
+								//window.open(data);
+								elementCurrentUpload.attr('data-image-upload', obj.layout);
+								elementCurrentUpload.find('img').attr('src', data);
+							}
+						};
+				      	canvasOverlayFrame(params);
+					}
+	      		})
+		    };
+		    reader.readAsDataURL(file.files[0]);
+		})
 
 		// del layout =============================================
 		function delLayout(ThisEl){
@@ -857,6 +979,7 @@ function switchForm(elem, type){
 					sizeDesign.space_name_job = global_params.space_name_job.large;
 					sizeDesign.space_poem_poem = global_params.space_poem_poem.large;
 					sizeDesign.space_memorial_memorial = global_params.space_memorial_memorial.large;
+					
 					break;
 				case 'medium':
 					sizeDesign.first_text 	= global_params.first_text.medium;
@@ -891,9 +1014,19 @@ function switchForm(elem, type){
 					sizeDesign.space_name_job = global_params.space_name_job.small;
 					sizeDesign.space_poem_poem = global_params.space_poem_poem.small;
 					sizeDesign.space_memorial_memorial = global_params.space_memorial_memorial.small;
+
 					break;
 			}
 			//console.log(sizeDesign);
+
+			//update born font size - reduction 22.40430527%
+			sizeDesign.born = sizeDesign.born - (sizeDesign.born * 22.40430527 / 100);
+			//update space name/job - reduction 49.00676316%
+			sizeDesign.space_name_job = sizeDesign.space_name_job - (sizeDesign.space_name_job * 49.00676316 / 100);
+			//update space name/born - reduction 17.42194052%
+			sizeDesign.space_name_born = sizeDesign.space_name_born - (sizeDesign.space_name_born * 17.42194052 / 100);
+			//update space poem/poem - reduction 36.75466397%
+			sizeDesign.space_poem_poem = sizeDesign.space_poem_poem - (sizeDesign.space_poem_poem * 36.75466397 / 100);
 		}
 
 		$('.product-cat-content li a').click(function(){
@@ -904,6 +1037,7 @@ function switchForm(elem, type){
 			dataSave.type = size;
 
 			setSizeDefault(size); // set size
+			thisEl.parent('li').addClass('current').siblings().removeClass('current');
 			thisEl.parent().parent().addClass('loading-animate'); // add loading animate
 
 			$.ajax({
@@ -980,8 +1114,10 @@ function switchForm(elem, type){
 			memorialwords: '',
 			poem: '',
 		};
-
+		var reset_items_price = true;
 		$('.content-products').on('click', '.product-item', function(e){
+			reset_items_price = true;
+
 			var thisEl = $(this),
 				p_id = thisEl.data('product-id'),
 				p_name = thisEl.find('.text-ellipsis').text();
@@ -1209,11 +1345,21 @@ function switchForm(elem, type){
 				tr_pernament_text += "<td class='price'>"+price_overview.item_characteristic_price+"</td>";
 				tr_pernament_text += "<td class='calc-price'>0</td>";
 				tr_pernament_text += "</tr>";
-			price_overview.tbody_el.html(tr_frame + tr_pernament_text);
 
 			//tfooter-tr-content
 			var footerContent = "<td></td><td></td><td></td><td><strong>Sub total</strong></td> <td class='sub-title-price' style='font-weight: bold;'>"+price_overview.item_price+"</td>"
-			price_overview.tfooter_content_el.html(footerContent);
+			
+			
+			if(reset_items_price == true){
+				price_overview.tbody_el.html(tr_frame + tr_pernament_text);
+				price_overview.tfooter_content_el.html(footerContent);
+				reset_items_price = false;
+			}else{
+				$('.tbody-design-overview .tr-frame').find('td').eq(1).html(price_overview.item_name);
+				$('.tbody-design-overview .tr-frame').find('.price').html(price_overview.item_price);
+				$('.tbody-design-overview .tr-frame').find('.calc-price').html(price_overview.item_price);
+				$('.tbody-design-overview .pernament-text').find('.price').html(price_overview.item_characteristic_price);
+			}
 
 			// update price overview
 			updatePernamentTextAndCalcPrice();
@@ -1614,16 +1760,25 @@ function switchForm(elem, type){
 			elem.bind('click', function(){
 				var thisEl = $(this);
 					src = thisEl.find('img').attr('src'),
+					filter_image = thisEl.data('filter-image'),
+					icon_image = thisEl.data('icon-image'),
 					accessorieEl = $('<div>'),
-					htmlInner = "<img src='"+src+"'>";
+					htmlInner = "<img src='"+src+"'>",
+					icon_type = thisEl.data('icon-type');
 
 				accessorieEl.attr({
 					'data-acc-id': thisEl.data('icon-id'),
 					'data-price': thisEl.data('icon-price'),
+					'data-filter-image': filter_image,
+					'data-icon-image': icon_image,
 				}).addClass('accessorie-item').append(htmlInner);
 				lDesign.layoutAccessories.append(accessorieEl);
 
-				buildLayout(accessorieEl, {drag: true});
+				var params = {drag: true};
+				(icon_type == 'engraved')? params.resize = true : "";
+				(icon_type == 'ceramic')? params.upload = true : "";
+
+				buildLayout(accessorieEl, params);
 
 				var tr_el = buildRowPriceOverview(accessorieEl, thisEl.children('img').attr('title'), thisEl.data('icon-price'));
 				
@@ -1877,12 +2032,14 @@ function switchForm(elem, type){
 
 		function canvasBuildLayoutImg(imgEl){
 			var c = document.createElement('canvas'),
-				ctx = c.getContext("2d");
+				ctx = c.getContext("2d"),
+				w = parseInt(imgEl.css('width')),
+				h = parseInt(imgEl.css('height'));
 
-			c.width = parseInt(imgEl.css('width'));
-			c.height = parseInt(imgEl.css('height'));
+			c.width = w;
+			c.height = h;
 			
-			ctx.drawImage(imgEl[0], 0, 0);
+			ctx.drawImage(imgEl[0], 0, 0, w, h);
 			return c;
 		}
 
@@ -2026,8 +2183,9 @@ function switchForm(elem, type){
 				var thisEl = $(this);
 					imgEl = thisEl.find('img'),
 					x = thisEl.offset().left - designParams.main_frame_image.info.offset.left,
-					y = thisEl.offset().top - designParams.main_frame_image.info.offset.top;
-
+					y = thisEl.offset().top - designParams.main_frame_image.info.offset.top,
+					w = parseInt(imgEl.css('width')),
+					h = parseInt(imgEl.css('height'));
 				var c_img = canvasBuildLayoutImg(imgEl);
 				designParams.context.drawImage(c_img, x, y);
 			})
@@ -2036,7 +2194,7 @@ function switchForm(elem, type){
 			//$('body').append(designParams.canvas);
 			if(opts.print == true){
 				var datImage = designParams.canvas.toDataURL("image/png");
-				window.open(datImage);
+				var myWindow = window.open(datImage);
 			}else if(opts.pdf == true){
 				var datImage = designParams.canvas.toDataURL("image/jpeg");
 				var pdf = new jsPDF();

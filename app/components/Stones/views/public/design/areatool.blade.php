@@ -20,6 +20,7 @@
 			<li>
 				<a href="javascript:" data-cat-id="{{ $cat->id }}" title="{{ $cat->name }}">
 					<img src="<?php echo Request::root().'/'; ?>{{ $cat->image }}" alt="{{ $cat->name }}" title="{{ $cat->name }}"/>
+					<p>{{ $cat->name }}</p>
 				</a>
 			</li>
 			@endforeach
@@ -132,7 +133,7 @@
 								array_push($_colors, $item->hexcode);
 							}
 						?>
-						@foreach(['#FFE100', '#333333', '#FFFFFF'] as $k=>$c)
+						@foreach(['#000000', '#FFFFFF', '#C0C0C0', '#FFD700', '#CD7F32'] as $k=>$c)
 							<?php  $checked = ($k == 0)? "checked=''" : ""; ?>
 						<li>
 							<label>

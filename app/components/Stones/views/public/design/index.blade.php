@@ -79,7 +79,7 @@
         <?php //print_r(json_decode($designed->data)); ?>
     </pre>
     -->
-    
+    <input type="file" id="upload-field-area" style="display: none;">
     <div class="padd-vertical-20">
         <div class="container">
             <div class="row">

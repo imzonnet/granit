@@ -15,7 +15,10 @@ class GranitIcons extends Migration {
             $table->increments('id');
             $table->string('name');
             $table->string('image');
+            $table->string('filter_image');
             $table->tinyInteger('customize');
+            $table->decimal('price',10,2);
+            $table->string('type')->default('default');
             $table->integer('cat_id')->unsigned();
             $table->foreign('cat_id')->references('id')->on('granit_icon_categories')->onDelete('cascade')->onUpdate('cascade');
             $table->string('status');

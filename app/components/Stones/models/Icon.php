@@ -9,7 +9,7 @@ class Icon extends \Eloquent implements PresentableInterface {
     protected $table = 'granit_icons';
     public $timestamps = false;
 
-    protected $fillable = array('name', 'image', 'customize', 'price', 'status', 'ordering', 'created_by', 'cat_id');
+    protected $fillable = array('name', 'type','image', 'filter_image', 'customize', 'price', 'status', 'ordering', 'created_by', 'cat_id');
     protected $guarded = array('id');
 
 
@@ -54,6 +54,16 @@ class Icon extends \Eloquent implements PresentableInterface {
                 'archived'    => 'Archive'
             );
     }
+
+    public static function all_type()
+    {
+        return array(
+                'default'   => 'Default',
+                'engraved' => 'Engraved',
+                'ceramic'     => 'Ceramic',
+            );
+    }
+
     /**
      * Get thumbnail image
      * @return string

@@ -24,6 +24,12 @@ class IconPresenter extends Presenter
         return \Str::title($this->status);
     }
     
+    public function type()
+    {
+        return \Str::title($this->type);
+    }
+    
+
     /**
      * Get the parent category
      * @return string

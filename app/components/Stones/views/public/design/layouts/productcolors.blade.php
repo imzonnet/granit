@@ -67,3 +67,6 @@
 	<p>Total Price:</p>
 	<h4>Kr. <span class="price-inner-num"></span></h4>
 </div>
+<div class="btn-next-step-control" id="btn-next-step-control-js">
+	<span>Add Text >></span>
+</div>
