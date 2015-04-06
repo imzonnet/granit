@@ -1107,3 +1107,16 @@ input[name="text-color"]:checked ~ span{
     transform: translate3d(-50%, -50%, 0);
     -webkit-transform: translate3d(-50%, -50%, 0);
 }
+.ajaxhandle:after{
+	content: attr(percent);
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate3d(-50%, -50%, 0);
+	-webkit-transform: translate3d(-50%, -50%, 0);
+	padding: 5px;
+	font-size: 10px;
+	background: rgba(255,255,255,.9);
+	color: #333;
+	border-radius: 3px;
+};

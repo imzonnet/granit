@@ -730,8 +730,8 @@ function switchForm(elem, type){
 						var xhr = new window.XMLHttpRequest();
 						xhr.upload.addEventListener("progress", function(evt){
 					      	if (evt.lengthComputable) {  
-					        	var percentComplete = evt.loaded / evt.total;
-					        	console.log(percentComplete);
+					        	var percentComplete = parseInt(evt.loaded / evt.total * 100);
+					        	elementCurrentUpload.attr('percent', percentComplete+'%').addClass('ajaxhandle')				        	
 					      	}
 					    }, false); 
 					    return xhr;
@@ -742,14 +742,22 @@ function switchForm(elem, type){
 					data: { handle: 'uploadImageAccessories', data: dataURL, rooturl: root_url },
 					success: function(data){
 						var obj = JSON.parse(data);
+						elementCurrentUpload.attr('percent', 'loading.');
 						var params = {
 							frame: frameImgUrl,
 							image: obj.layout,
 							filter: filterImgUrl,
 							afterHandle: function(data){
 								//window.open(data);
-								elementCurrentUpload.attr('data-image-upload', obj.layout);
-								elementCurrentUpload.find('img').attr('src', data);
+								var img = new Image();
+								img.src = obj.layout;
+								img.onload = function(){
+									elementCurrentUpload
+									.removeAttr('percent')
+									.removeClass('ajaxhandle');
+									elementCurrentUpload.attr('data-image-upload', obj.layout);
+									elementCurrentUpload.find('img').attr('src', data);
+								}
 							}
 						};
 				      	canvasOverlayFrame(params);
