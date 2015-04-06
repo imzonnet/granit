@@ -93,7 +93,14 @@ class DesignsController extends \BaseController {
                 break;
             case 'getAccessories':
                 $_result = Icon::findOrFail($id);
-                $layout = json_encode(array("id" => $_result->id, "image" => $_result->image, "x" => $x, "y" => $y, "title" => $_result->name, "price" => $_result->price));
+                $layout = json_encode(array("id" => $_result->id, 
+                    "image" => $_result->image, 
+                    "filter_image" => $_result->filter_image,
+                    "x" => $x, 
+                    "y" => $y, 
+                    "title" => $_result->name, 
+                    "price" => $_result->price, 
+                    "itemData" => $itemData));
                 break;
             case 'uploadImageAccessories':
                 $base64_string = $data;

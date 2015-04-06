@@ -1795,6 +1795,7 @@ function switchForm(elem, type){
 					'data-price': thisEl.data('icon-price'),
 					'data-filter-image': filter_image,
 					'data-icon-image': icon_image,
+					'data-icon-type': icon_type,
 				}).addClass('accessorie-item').append(htmlInner);
 				lDesign.layoutAccessories.append(accessorieEl);
 
@@ -2344,14 +2345,27 @@ function switchForm(elem, type){
 			});
 
 			// accessories
-			dataSave.accessories = []
+			dataSave.accessories = [];
 			var accessoriesEl = $('.main-layout-accessories-area');
 			accessoriesEl.find('.accessorie-item').each(function(){
 				var thisItem = $(this),
+					type = thisItem.data('icon-type'),
 					accessoriesItem = {id: thisItem.data('acc-id'),
+						icon_type: type,
 						y: thisItem.offset().top - designParams.main_frame_image.offset().top,
 						x: thisItem.offset().left - designParams.main_frame_image.offset().left
 					};
+
+				switch(type){
+					case 'ceramic':
+						var image_upload = thisItem.data('image-upload');
+						accessoriesItem.imageUpload = image_upload;
+						break;
+					case 'engraved':
+						width = thisItem.width();
+						accessoriesItem.width = width;
+						break;
+				}
 				dataSave.accessories.push(accessoriesItem);
 			})
 
@@ -2558,12 +2572,12 @@ function switchForm(elem, type){
 						headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },
 						type: "POST",
 						url: "design/ajax",
-						data: { handle: 'getAccessories', id: item.id, x: item.x, y: item.y},
+						data: { handle: 'getAccessories', id: item.id, x: item.x, y: item.y, itemData: item},
 						success: function(data){
 							if(data){
 								var layout = JSON.parse(data);
 									obj = JSON.parse(layout.layout);
-
+								
 								var src = obj.image,
 									accessorieEl = $('<div>'),
 									htmlInner = "<img src='"+root_url+src+"'>";
@@ -2574,15 +2588,37 @@ function switchForm(elem, type){
 								accessorieEl.attr({
 									'data-acc-id': obj.id,
 									'data-price': obj.price,
+									'data-icon-image': root_url+'/'+obj.image,
+									'data-filter-image': '',
+									'data-icon-type': obj.itemData.icon_type,
 								}).addClass('accessorie-item').append(htmlInner);
 								lDesign.layoutAccessories.append(accessorieEl);
+								var buildLayoutParams = {drag: true};
 
-								buildLayout(accessorieEl, {drag: true});
+								switch(obj.itemData.icon_type){
+									case 'engraved':
+										accessorieEl.css('width', obj.itemData.width+'px');
+										buildLayoutParams.resize = true;
+										break;
+									case 'ceramic':
+										accessorieEl.attr('data-filter-image', root_url+'/'+obj.filter_image);
+										accessorieEl.attr('data-image-upload', obj.itemData.imageUpload);
+										var params = {
+											frame: root_url+'/'+obj.image,
+											image: obj.itemData.imageUpload,
+											filter: root_url+'/'+obj.filter_image,
+											afterHandle: function(data){
+												accessorieEl.find('img').attr('src', data);
+											}
+										};
+								      	canvasOverlayFrame(params);
+										buildLayoutParams.upload = true;
+										break;
+								}
+								buildLayout(accessorieEl, buildLayoutParams);
 								
 								var tr_el = buildRowPriceOverview(accessorieEl, obj.title, obj.price);
-
 								updatePernamentTextAndCalcPrice();
-
 								accessorieEl.find('.l-del').bind('click', function(){
 									tr_el.remove();
 									resetAutoNum();

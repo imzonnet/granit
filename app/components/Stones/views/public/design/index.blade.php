@@ -36,6 +36,7 @@
         var root_url = "<?php echo Request::root().'/'; ?>";
         <?php if(isset($designed)){
             echo "var data_designed = JSON.parse('{$designed->data}');";
+            echo "console.log(data_designed)";
         }else{
             echo "var data_designed = ''";
         } ?>
