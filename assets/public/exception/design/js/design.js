@@ -719,9 +719,15 @@ function switchForm(elem, type){
 
 		$('#upload-field-area').on('change', function(e){
 			var file = this,
+				type = file.files[0].type,
+				vali_types = [ "image/jpeg", "image/png" ];
 				frameImgUrl = elementCurrentUpload.data('icon-image'),
 				filterImgUrl = elementCurrentUpload.data('filter-image');
 
+			if($.inArray( type, vali_types ) < 0){
+				console.log('Not support file type: '+type); return;
+			}
+			elementCurrentUpload.attr('percent', '0%').addClass('ajaxhandle');
 			var reader = new FileReader();
 		    reader.onload = function(){
 		      	var dataURL = reader.result;
@@ -731,7 +737,7 @@ function switchForm(elem, type){
 						xhr.upload.addEventListener("progress", function(evt){
 					      	if (evt.lengthComputable) {  
 					        	var percentComplete = parseInt(evt.loaded / evt.total * 100);
-					        	elementCurrentUpload.attr('percent', percentComplete+'%').addClass('ajaxhandle')				        	
+					        	elementCurrentUpload.attr('percent', percentComplete+'%');				        	
 					      	}
 					    }, false); 
 					    return xhr;
@@ -742,7 +748,7 @@ function switchForm(elem, type){
 					data: { handle: 'uploadImageAccessories', data: dataURL, rooturl: root_url },
 					success: function(data){
 						var obj = JSON.parse(data);
-						elementCurrentUpload.attr('percent', 'loading.');
+						elementCurrentUpload.attr('percent', 'load...');
 						var params = {
 							frame: frameImgUrl,
 							image: obj.layout,
