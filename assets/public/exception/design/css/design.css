@@ -197,7 +197,7 @@ input[name="color"]{
     margin-right: 4px;
     text-align: center;
     vertical-align: middle;
-    width: calc(100% / 2 - 4px);
+    width: calc(100% / 2 - 10px);
     overflow: hidden;
     padding: 10px
 }

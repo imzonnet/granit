@@ -657,7 +657,7 @@ function switchForm(elem, type){
 		// build layout =============================================
 		var elementCurrentUpload;
 		function buildLayout(ThisEl, params){
-			console.log(params);
+			// console.log(params);
 			if( params.drag == true ){
 				ThisEl.addClass('l-move').draggable({
 					start: function (event, ui) {
@@ -726,6 +726,16 @@ function switchForm(elem, type){
 		    reader.onload = function(){
 		      	var dataURL = reader.result;
 	      		$.ajax({
+	      			xhr: function(){
+						var xhr = new window.XMLHttpRequest();
+						xhr.upload.addEventListener("progress", function(evt){
+					      	if (evt.lengthComputable) {  
+					        	var percentComplete = evt.loaded / evt.total;
+					        	console.log(percentComplete);
+					      	}
+					    }, false); 
+					    return xhr;
+					},
 	      			headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },
 					type: "POST",
 					url: "design/ajax",
