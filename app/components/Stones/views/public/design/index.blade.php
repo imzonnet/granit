@@ -143,4 +143,5 @@
             </div>
         </div>
     </div>
+    <img style="position: absolute; opacity: 0; z-index: -10;" src="<?php echo Request::root() . '/assets/public/exception/design/images/logo-white-bg.jpg'; ?>"
 @stop

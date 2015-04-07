@@ -1120,3 +1120,15 @@ input[name="text-color"]:checked ~ span{
 	color: #333;
 	border-radius: 3px;
 };
+.expect_to_add_another_namelater{
+	position: relative;
+}
+.expect_to_add_another_namelater:after{
+	background: rgba(255,255,255,.9);
+    bottom: -49pt;
+    content: "";
+    height: 50px;
+    left: 5%;
+    position: absolute;
+    width: 90%;
+}

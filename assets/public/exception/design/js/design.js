@@ -1202,7 +1202,7 @@ function switchForm(elem, type){
 							img.onload = function() {
 								setTimeout(function(){
 									designedTextHandle();
-								}, 100)
+								}, 500)
 						      	
 						    };
 							// End check frame load comlepte
@@ -1550,6 +1550,7 @@ function switchForm(elem, type){
 				font_size__name: areaTextEl.find('input[name="font-size--name"]'),
 				font_size_add_job_or_place: areaTextEl.find('input[name="font-size-add-job-or-place"]'),
 				font_size_b_d_date: areaTextEl.find('input[name="font-size-b-d-date"]'),
+				expect_to_add_another_namelater: areaTextEl.find('input[name="expect_to_add_another_namelater"]'),
 			}
 
 			// textEl.font_size__name.bind('input', function(){
@@ -1568,6 +1569,14 @@ function switchForm(elem, type){
 			controlFontSize(areaTextEl.find('.site-control-add-job-or-place'), areaLayoutEl.find('.add_job_or_place'));
 			controlFontSize(areaTextEl.find('.site-control-b-d-date'), areaLayoutEl.find('.datetext'));
 
+			textEl.expect_to_add_another_namelater.bind('change', function(){
+				var $this = $(this);
+				if($this.prop('checked') == true){
+					areaLayoutEl.addClass('expect_to_add_another_namelater');
+				}else{
+					areaLayoutEl.removeClass('expect_to_add_another_namelater');
+				}
+			})
 
 			textEl.name.bind('input', function(){
 				var value = $(this).val();
@@ -1709,11 +1718,74 @@ function switchForm(elem, type){
 			})
 		}
 
+		function hexToRgb(hex) {
+			var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+			return result ? {
+				r: parseInt(result[1], 16),
+				g: parseInt(result[2], 16),
+				b: parseInt(result[3], 16)
+			} : null;
+		}
+
+		// change color acc
+		function filterImageColor(params){
+			var rgb = hexToRgb(params.color),	
+				canvas = document.createElement('canvas'),
+				ctx = canvas.getContext('2d'),
+				img = new Image();
+			img.src = params.imgUrl;
+			img.onload = function(){
+				var imgW = this.naturalWidth,
+					imgH = this.naturalHeight;
+				canvas.width = imgW;
+				canvas.height = imgH;
+				ctx.drawImage(this, 0, 0);
+				
+				var imageData = ctx.getImageData(0, 0, imgW, imgH),
+					pixel = imageData.data, 
+					r = 0, g = 1, b = 2, a = 3;
+				
+				for (var p = 0; p < pixel.length; p+=4){
+					if (pixel[p+r] == 255 && pixel[p+g] == 255 && pixel[p+b] == 255){
+						pixel[p+r] = rgb.r;
+						pixel[p+g] = rgb.g;
+						pixel[p+b] = rgb.b;
+					}
+				}
+				ctx.putImageData(imageData, 0, 0);
+				var baseUrl = canvas.toDataURL("image/png");
+				params.afterHandle.call(this, baseUrl);
+			}
+		}
+
+		function changeColorEngraved(color){
+			if(color == ''){
+				color = ($('#permanent_text').prop('checked') == true)? '#FFFFFF' : $('input[name="text-color"]:checked').val();
+			}
+			var $accessorieItem = $('.accessorie-item[data-icon-type="engraved"]');
+			if($accessorieItem.length <= 0){ return; }
+			$accessorieItem.each(function(){
+				var $this = $(this),
+					iconImage = $this.data('icon-image');
+				var params = {
+					color: color,
+					imgUrl: iconImage,
+					afterHandle: function(data){
+						$this.find('img').attr('src', data);
+					}
+								
+				}
+				filterImageColor(params);
+			})
+		}
+
 		/* color control */
 		$('input[name="text-color"]').each(function(){
 			$(this).bind('click', function(){
 				var thisEl = $(this),
 					value = thisEl.val();
+
+				changeColorEngraved(value);
 				//console.log(layoutItem);
 				// $.each(layoutItem, function($k, $elem){
 				// 	$elem.css('color', value);
@@ -1800,7 +1872,10 @@ function switchForm(elem, type){
 				lDesign.layoutAccessories.append(accessorieEl);
 
 				var params = {drag: true};
-				(icon_type == 'engraved')? params.resize = true : "";
+				if(icon_type == 'engraved'){ 
+					params.resize = true; 
+					changeColorEngraved('');
+				}
 				(icon_type == 'ceramic')? params.upload = true : "";
 
 				buildLayout(accessorieEl, params);
@@ -1876,6 +1951,7 @@ function switchForm(elem, type){
 				})
 
 				var value = '#FFFFFF';
+				changeColorEngraved(value);
 				// $.each(layoutItem, function($k, $elem){
 				// 	$elem.css('color', value);
 				// 	if( $elem.hasClass('layout-name-date-area') ){
@@ -1899,6 +1975,7 @@ function switchForm(elem, type){
 					pointerEvents: 'auto',
 				})
 				var value = $('[name="text-color"]:checked').val();
+				changeColorEngraved(value);
 				// $.each(layoutItem, function($k, $elem){
 				// 	$elem.css('color', value);
 				// 	if( $elem.hasClass('layout-name-date-area') ){
@@ -2219,12 +2296,38 @@ function switchForm(elem, type){
 			//$('body').append(designParams.canvas);
 			if(opts.print == true){
 				var datImage = designParams.canvas.toDataURL("image/png");
-				var myWindow = window.open(datImage);
+				//var myWindow = window.open(datImage);
+				var html = "<div class''>";
+					html += "<center><img style=' padding: 10px;' src='"+datImage+"'></center>";
+					html += "<div style='position: relative; margin: 30px auto; width: 70%;'><div class='logo' style='float: left;'><img src='"+root_url+"/assets/public/exception/design/images/logo.png'></div>";
+					html += "<div class='info' style='float: right; font-weight: bold;'><p>Baejarhraun 26,</p><p>220 Hafnarfjordur</p><p>S. 555-3888</p><p>www.granithollin.is</p></div></div>";
+					html += "</div>";
+				var myWindow = window.open();
+				$(myWindow.document.body).html(html);
+				myWindow.print();
 			}else if(opts.pdf == true){
 				var datImage = designParams.canvas.toDataURL("image/jpeg");
-				var pdf = new jsPDF();
-		      	pdf.addImage(datImage, 'JPEG', 0, 0);
-			    pdf.save("download.pdf");
+		      	var logo_base = root_url+"/assets/public/exception/design/images/logo-white-bg.jpg";
+		      	var img = new Image();
+		      	img.src = logo_base;
+		      	img.onload = function(){
+		      		var $this = $(this),
+		      			c = document.createElement('canvas'),
+		      			ctx = c.getContext('2d');
+	      			c.width = this.naturalWidth;
+	      			c.height = this.naturalHeight;
+	      			ctx.drawImage(this, 0, 0);
+	      			var logoBase = c.toDataURL("image/jpeg");
+
+	      			var pdf = new jsPDF();
+			      	pdf.addImage(datImage, 'JPEG', 45, 10);
+			      	pdf.addImage(logoBase, 'JPEG', 15, 160);
+			      	pdf.text(155, 165, "Baejarhraun 26,");
+			      	pdf.text(155, 172, "220 Hafnarfjordur");
+			      	pdf.text(155, 179, "S. 555-3888");
+			      	pdf.text(155, 186, "www.granithollin.is");
+				    pdf.save("download.pdf");
+		      	}
 			}else if(opts.saveImg == true){
 				var datImage = designParams.canvas.toDataURL("image/jpeg");
 				return datImage;
@@ -2599,6 +2702,7 @@ function switchForm(elem, type){
 									case 'engraved':
 										accessorieEl.css('width', obj.itemData.width+'px');
 										buildLayoutParams.resize = true;
+										setTimeout(changeColorEngraved(''), 500);
 										break;
 									case 'ceramic':
 										accessorieEl.attr('data-filter-image', root_url+'/'+obj.filter_image);
