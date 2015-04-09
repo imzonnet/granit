@@ -1,92 +1,3 @@
-/*
-var userSocial = { id: 0, email: ''};
-// FaceBook
-window.fbAsyncInit = function() {
-	FB.init({
-	  	appId      : '351803245022889',
-	  	xfbml      : true,
-	  	version    : 'v2.2'
-	});
-
-	FB.getLoginStatus(function(response) {
-	    statusChangeCallback(response);
-	});
-  };
-
-(function(d, s, id){
-	var js, fjs = d.getElementsByTagName(s)[0];
-	if (d.getElementById(id)) {return;}
-	js = d.createElement(s); js.id = id;
-	js.src = "//connect.facebook.net/en_US/sdk.js";
-	fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-
-function statusChangeCallback(response) {
-    if (response.status === 'connected') {
-      	getUser();
-    } else if (response.status === 'not_authorized') {
-      	console.log('Please log into this app.');
-    } else {
-      	console.log('Please log into Facebook.');
-    }
-}
-
-function checkLoginState() {
-    FB.getLoginStatus(function(response) {
-      	statusChangeCallback(response);
-    });
-}
-
-function getUser() {
-    FB.api('/me', function(response) {
-      	userSocial.id = response.id;
-      	userSocial.email = response.email;
-      	checkUser(userSocial, 'fb_');
-    });
-}
-
-// GOOGLE
-function render() {
-    gapi.signin.render('btn-g-login', {
-      	'callback': 'signinCallback',
-      	'clientid': '180955256826-gqsfj3u6er88tq2p0cvsjvs9ve1h2g8u.apps.googleusercontent.com',
-      	'cookiepolicy': 'single_host_origin',
-      	'scope': 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email',
-      	'requestvisibleactions' : 'http://schema.org/AddAction'
-    });
-}
-
-function signinCallback(){
-	gapi.client.load('oauth2', 'v2', function()
-	  {
-		gapi.client.oauth2.userinfo.get()
-	  	.execute(function(resp){
-			userSocial.id = resp.id;
-			userSocial.email = resp.email;
-			checkUser(userSocial, 'gg_');
-	  	});
-  	});
-}
-
-function checkUser(user, type){
-	//console.log(user);
-	if(user.email == ''){ return; }
-	var _pass = Math.random().toString(36).slice(-8);
-	console.log(_pass);
-
-	jQuery.ajax({
-		headers: { 'X-CSRF-Token': jQuery('meta[name="csrf-token"]').attr('content') },
-		type: "POST",
-		url: root_url+"/register",
-		data: { username: type+user.id, email: user.email, password: _pass, password_confirmation: _pass},
-		success: function(data){
-			console.log(data);
-			var obj = JSON.parse(data);
-		}
-	})
-}
-*/
-
 /*================================================*/
 
 /* design.js */
@@ -988,12 +899,12 @@ function switchForm(elem, type){
 		function setSizeDefault(size){
 			switch(size.toLowerCase()){
 				case 'large':
-					sizeDesign.first_text 	= global_params.first_text.large;
-					sizeDesign.name 		= global_params.name.large;
-					sizeDesign.born 		= global_params.born.large;
-					sizeDesign.memorial 	= global_params.memorial.large;
-					sizeDesign.poem 		= global_params.poem.large;
-					sizeDesign.jobtitle 	= global_params.jobtitle.large;
+					sizeDesign._first_text 	= global_params.first_text.large;
+					sizeDesign._name 		= global_params.name.large;
+					sizeDesign._born 		= global_params.born.large;
+					sizeDesign._memorial 	= global_params.memorial.large;
+					sizeDesign._poem 		= global_params.poem.large;
+					sizeDesign._jobtitle 	= global_params.jobtitle.large;
 
 					sizeDesign.space_first_name = global_params.space_first_name.large;
 					sizeDesign.space_name_born = global_params.space_name_born.large;
@@ -1006,12 +917,12 @@ function switchForm(elem, type){
 					
 					break;
 				case 'medium':
-					sizeDesign.first_text 	= global_params.first_text.medium;
-					sizeDesign.name 		= global_params.name.medium;
-					sizeDesign.born 		= global_params.born.medium;
-					sizeDesign.memorial 	= global_params.memorial.medium;
-					sizeDesign.poem 		= global_params.poem.medium;
-					sizeDesign.jobtitle 	= global_params.jobtitle.medium;
+					sizeDesign._first_text 	= global_params.first_text.medium;
+					sizeDesign._name 		= global_params.name.medium;
+					sizeDesign._born 		= global_params.born.medium;
+					sizeDesign._memorial 	= global_params.memorial.medium;
+					sizeDesign._poem 		= global_params.poem.medium;
+					sizeDesign._jobtitle 	= global_params.jobtitle.medium;
 
 					sizeDesign.space_first_name = global_params.space_first_name.medium;
 					sizeDesign.space_name_born = global_params.space_name_born.medium;
@@ -1023,12 +934,12 @@ function switchForm(elem, type){
 					sizeDesign.space_memorial_memorial = global_params.space_memorial_memorial.medium;
 					break;
 				case 'small':
-					sizeDesign.first_text 	= global_params.first_text.small;
-					sizeDesign.name 		= global_params.name.small;
-					sizeDesign.born 		= global_params.born.small;
-					sizeDesign.memorial 	= global_params.memorial.small;
-					sizeDesign.poem 		= global_params.poem.small;
-					sizeDesign.jobtitle 	= global_params.jobtitle.small;
+					sizeDesign._first_text 	= global_params.first_text.small;
+					sizeDesign._name 		= global_params.name.small;
+					sizeDesign._born 		= global_params.born.small;
+					sizeDesign._memorial 	= global_params.memorial.small;
+					sizeDesign._poem 		= global_params.poem.small;
+					sizeDesign._jobtitle 	= global_params.jobtitle.small;
 
 					sizeDesign.space_first_name = global_params.space_first_name.small;
 					sizeDesign.space_name_born = global_params.space_name_born.small;
@@ -1038,19 +949,54 @@ function switchForm(elem, type){
 					sizeDesign.space_name_job = global_params.space_name_job.small;
 					sizeDesign.space_poem_poem = global_params.space_poem_poem.small;
 					sizeDesign.space_memorial_memorial = global_params.space_memorial_memorial.small;
-
 					break;
 			}
 			//console.log(sizeDesign);
 
 			//update born font size - reduction 22.40430527%
-			sizeDesign.born = sizeDesign.born - (sizeDesign.born * 22.40430527 / 100);
+			sizeDesign._born = sizeDesign._born - (sizeDesign._born * 22.40430527 / 100);
 			//update space name/job - reduction 49.00676316%
 			sizeDesign.space_name_job = sizeDesign.space_name_job - (sizeDesign.space_name_job * 49.00676316 / 100);
 			//update space name/born - reduction 17.42194052%
 			sizeDesign.space_name_born = sizeDesign.space_name_born - (sizeDesign.space_name_born * 17.42194052 / 100);
 			//update space poem/poem - reduction 36.75466397%
 			sizeDesign.space_poem_poem = sizeDesign.space_poem_poem - (sizeDesign.space_poem_poem * 36.75466397 / 100);
+			
+			setSizeBookmanGaramond('garamond');
+		}
+
+		function setSizeBookmanGaramond(font){
+			if(font == 'garamond'){
+				sizeDesign.first_text 	= sizeDesign._first_text;
+				sizeDesign.name 		= sizeDesign._name;
+				sizeDesign.born 		= sizeDesign._born;
+				sizeDesign.memorial 	= sizeDesign._memorial;
+				sizeDesign.poem 		= sizeDesign._poem;
+				sizeDesign.jobtitle 	= sizeDesign._jobtitle;
+			}else if(font == 'bookman'){
+				sizeDesign.first_text 	= sizeDesign._first_text - (sizeDesign._first_text * 10 / 100); // reduce 10%
+				sizeDesign.name 		= sizeDesign._name - (sizeDesign._name * 10 / 100); // reduce 10%
+				sizeDesign.born 		= sizeDesign._born - (sizeDesign._born * 10 / 100); // reduce 10%
+				sizeDesign.memorial 	= sizeDesign._memorial - (sizeDesign._memorial * 10 / 100); // reduce 10%
+				sizeDesign.poem 		= sizeDesign._poem - (sizeDesign._poem * 10 /100); // reduce 10%
+				sizeDesign.jobtitle 	= sizeDesign._jobtitle - (sizeDesign._jobtitle * 10 / 100); // reduce 10%
+			} 
+
+			var elemChangeSize = {
+				layout_firsttext_area: $('.content-area-design').find('.layout-firsttext-area'),
+				layout_name_area_nametext: $('.content-area-design .layout-name-date-area').find('.nametext'),
+				layout_name_area_add_job_or_place: $('.content-area-design .layout-name-date-area').find('.add_job_or_place'),
+				layout_name_area_datetext: $('.content-area-design .layout-name-date-area').find('.datetext'),
+				layout_layout_memorialwords_area: $('.content-area-design').find('.layout-memorialwords-area'),
+				layout_layout_poem_area: $('.content-area-design').find('.layout-poem-area'),
+			}
+
+			elemChangeSize.layout_firsttext_area.css({ fontSize: sizeDesign.first_text+'pt' });
+			elemChangeSize.layout_name_area_nametext.css({ fontSize: sizeDesign.name+'pt' });
+			elemChangeSize.layout_name_area_add_job_or_place.css({ fontSize: sizeDesign.jobtitle+'pt' });
+			elemChangeSize.layout_name_area_datetext.css({ fontSize: sizeDesign.born+'pt' });
+			elemChangeSize.layout_layout_memorialwords_area.css({ fontSize: sizeDesign.memorial+'pt' });
+			elemChangeSize.layout_layout_poem_area.css({ fontSize: sizeDesign.poem+'pt' });
 		}
 
 		$('.product-cat-content li a').click(function(){
@@ -1061,6 +1007,7 @@ function switchForm(elem, type){
 			dataSave.type = size;
 
 			setSizeDefault(size); // set size
+			
 			thisEl.parent('li').addClass('current').siblings().removeClass('current');
 			thisEl.parent().parent().addClass('loading-animate'); // add loading animate
 
@@ -1088,6 +1035,9 @@ function switchForm(elem, type){
 								img_complete += 1;
 								if( img_complete == count_images ){
 									thisEl.parent().parent().removeClass('loading-animate'); // remove loading animate
+									if($('.content-area-design #main-frame-image').length > 0){
+										$('.content-products').find('.product-item').eq(0).trigger('click');
+									}
 								}
 							})
 						})
@@ -1809,12 +1759,7 @@ function switchForm(elem, type){
 			$(this).bind('click', function(){
 				var thisEl = $(this),
 					value = thisEl.val();
-				// $.each(layoutItem, function($k, $elem){
-				// 	$elem.css('fontFamily', value);
-				// 	if( $elem.hasClass('layout-name-date-area') ){
-				// 		$elem.parent().find('.layout-name-date-area').css('fontFamily', value);
-				// 	}
-				// })
+
 				$('.layout-item-area').each(function(){
 					var thisEl = $(this);
 					thisEl.css('fontFamily', value);
@@ -1822,6 +1767,12 @@ function switchForm(elem, type){
 						thisEl.find('.nametext, .datetext, .add_job_or_place').css('fontFamily', value);
 					}
 				})
+
+				if(value == 'garamonditalic'){
+					setSizeBookmanGaramond('garamond');
+				}else if(value == 'bookosbi'){
+					setSizeBookmanGaramond('bookman');
+				}
 			})
 		})
 
