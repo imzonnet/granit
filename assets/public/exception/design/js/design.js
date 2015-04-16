@@ -581,9 +581,14 @@ function switchForm(elem, type){
 					},
 					drag: function( event, ui ) {
 						// console.log(_left - ui.position.left, _top - ui.position.top);
-						if(ThisEl.data('drag-off') == true){ ThisEl.data('drag-off', false); }
 
 						if($('#move_all_text').prop('checked') == true){
+							if($(this).hasClass('accessorie-item')){
+								ui.position.left = parseInt(recoupLeft + ui.position.left);
+								ui.position.top = parseInt(recoupTop + ui.position.top);
+								return;
+							}
+
 							var addTop = $(this).position().top - ui.position.top,
 								addLeft = $(this).position().left - ui.position.left;
 							
@@ -599,6 +604,7 @@ function switchForm(elem, type){
 						}else{
 							ui.position.left = parseInt(recoupLeft + ui.position.left);
 							ui.position.top = parseInt(recoupTop + ui.position.top);
+							if(ThisEl.data('drag-off') == true){ ThisEl.data('drag-off', false); }
 						}
 					}
 				});
@@ -660,29 +666,61 @@ function switchForm(elem, type){
 					success: function(data){
 						var obj = JSON.parse(data);
 						elementCurrentUpload.attr('percent', 'load...');
-						var params = {
-							frame: frameImgUrl,
-							image: obj.layout,
-							filter: filterImgUrl,
-							afterHandle: function(data){
-								//window.open(data);
-								var img = new Image();
-								img.src = obj.layout;
-								img.onload = function(){
-									elementCurrentUpload
-									.removeAttr('percent')
-									.removeClass('ajaxhandle');
-									elementCurrentUpload.attr('data-image-upload', obj.layout);
-									elementCurrentUpload.find('img').attr('src', data);
-								}
-							}
-						};
-				      	canvasOverlayFrame(params);
+						// var params = {
+						// 	frame: frameImgUrl,
+						// 	image: obj.layout,
+						// 	filter: filterImgUrl,
+						// 	afterHandle: function(data){
+						// 		//window.open(data);
+						// 		var img = new Image();
+						// 		img.src = obj.layout;
+						// 		img.onload = function(){
+						// 			elementCurrentUpload
+						// 			.removeAttr('percent')
+						// 			.removeClass('ajaxhandle');
+						// 			elementCurrentUpload.attr('data-image-upload', obj.layout);
+						// 			elementCurrentUpload.find('img').attr('src', data);
+						// 		}
+						// 	}
+						// };
+				  //     	canvasOverlayFrame(params);
+
+				  		designCeramic({frame: frameImgUrl, photo: obj.layout, filter: filterImgUrl});
 					}
 	      		})
 		    };
 		    reader.readAsDataURL(file.files[0]);
 		})
+
+		function designCeramic(params){
+			// params: frame || photo || filter
+			var _body = $('body');
+			var popup = $("<div>",{ class: 'popup_design_ceramic' }),
+				popup_inner = $("<div>", { class: 'popup_design_ceramic_inner' }),
+				img_frame = $("<img>",{ src: params.frame, class: 'l_ceramic_frame' }),
+				img_photo = $("<div>",{ class: 'l_ceramic_photo', html: '<img src="'+params.photo+'"/>' });
+
+			popup.append(popup_inner.append(img_photo).append(img_frame));
+			_body.append(popup);
+			
+			var img = new Image();
+			img.src = params.photo;
+			img.onload = function(){
+				var iw = this.naturalWidth,
+					ih = this.naturalHeight;
+					newW = iw/ih*350;
+
+				img_photo
+				.css({ width: newW, height: 350 })
+				.draggable()
+				.resizable({
+					resize: function( event, ui ) {
+					   ui.element.css('height', 'auto');
+				  	}
+				});
+			}
+			
+		}
 
 		// del layout =============================================
 		function delLayout(ThisEl){
@@ -953,19 +991,37 @@ function switchForm(elem, type){
 			}
 			//console.log(sizeDesign);
 
-			//update born font size - reduction 22.40430527%
-			sizeDesign._born = sizeDesign._born - (sizeDesign._born * 22.40430527 / 100);
-			//update space name/job - reduction 49.00676316%
-			sizeDesign.space_name_job = sizeDesign.space_name_job - (sizeDesign.space_name_job * 49.00676316 / 100);
+			//update first text font size - reduce 15.68464731%
+			sizeDesign._first_text = sizeDesign._first_text - (sizeDesign._first_text * 15.68464731 / 100);
+			//update jobtitle font size - reduce 13.06563858%
+			sizeDesign._jobtitle = sizeDesign._jobtitle - (sizeDesign._jobtitle * 13.06563858 / 100);
+			//update born font size - reduction 16.80334564%
+			sizeDesign._born = sizeDesign._born - (sizeDesign._born * 16.80334564 / 100);
+			//update memorial font size - reduction 10.45708498%
+			sizeDesign._memorial = sizeDesign._memorial - (sizeDesign._memorial * 10.45708498 / 100);
+			
+			//update first/name space
+			sizeDesign.space_first_name = sizeDesign.space_first_name - (sizeDesign.space_first_name * 15 / 100);
+			//update space name/job - reduction 61.25886235%
+			sizeDesign.space_name_job = sizeDesign.space_name_job - (sizeDesign.space_name_job * 61.25886235 / 100);
+			
 			//update space name/born - reduction 17.42194052%
-			sizeDesign.space_name_born = sizeDesign.space_name_born - (sizeDesign.space_name_born * 17.42194052 / 100);
+			//sizeDesign.space_name_born = sizeDesign.space_name_born - (sizeDesign.space_name_born * 17.42194052 / 100);
+			
+			//update space name/borm - increase -8.709336647%
+			sizeDesign.space_name_born = sizeDesign.space_name_born + (sizeDesign.space_name_born * -8.709336647 / 100);
+
 			//update space poem/poem - reduction 36.75466397%
 			sizeDesign.space_poem_poem = sizeDesign.space_poem_poem - (sizeDesign.space_poem_poem * 36.75466397 / 100);
-			
+			//update space name/memorial - increase 79%
+			sizeDesign.space_name_memorial = sizeDesign.space_name_memorial + (sizeDesign.space_name_memorial * 79 / 100);
+
+
 			setSizeBookmanGaramond('garamond');
 		}
 
 		function setSizeBookmanGaramond(font){
+			console.log(font);
 			if(font == 'garamond'){
 				sizeDesign.first_text 	= sizeDesign._first_text;
 				sizeDesign.name 		= sizeDesign._name;
@@ -1768,11 +1824,15 @@ function switchForm(elem, type){
 					}
 				})
 
-				if(value == 'garamonditalic'){
+				if(value == 'garamondmi'){
 					setSizeBookmanGaramond('garamond');
 				}else if(value == 'bookosbi'){
 					setSizeBookmanGaramond('bookman');
 				}
+
+				$('.content-area-design').find('[data-drag-off]').each(function(){
+					calcCenter($(this));
+				})
 			})
 		})
 
@@ -2271,12 +2331,12 @@ function switchForm(elem, type){
 	      			var logoBase = c.toDataURL("image/jpeg");
 
 	      			var pdf = new jsPDF();
-			      	pdf.addImage(datImage, 'JPEG', 45, 10);
-			      	pdf.addImage(logoBase, 'JPEG', 15, 160);
-			      	pdf.text(155, 165, "Baejarhraun 26,");
-			      	pdf.text(155, 172, "220 Hafnarfjordur");
-			      	pdf.text(155, 179, "S. 555-3888");
-			      	pdf.text(155, 186, "www.granithollin.is");
+			      	pdf.addImage(datImage, 'JPEG', 45, 50);
+			      	pdf.addImage(logoBase, 'JPEG', 15, 240);
+			      	pdf.text(155, 245, "Bæjarhraun 26,");
+			      	pdf.text(155, 252, "220 Hafnarfirð");
+			      	pdf.text(155, 259, "S. 555-3888");
+			      	pdf.text(155, 266, "www.granithollin.is");
 				    pdf.save("download.pdf");
 		      	}
 			}else if(opts.saveImg == true){

@@ -3,8 +3,9 @@
     src: url(BOOKOSBI.TTF);
 }
 @font-face {
-    font-family: garamonditalic;
-    src: url(GARAMONDMEDIUMITALIC.TTF);
+    font-family: 'garamondmi';
+    src: url('garait_0.ttf') format('truetype');
+    /*src: url('16342_garamondmediumitalic_0.ttf') format('truetype');*/
 }
 
 /* design.css */
@@ -53,6 +54,7 @@
 .design-container{
 	width: 100%;
 	height: 920px;
+	min-width: 1092px;
 	padding: 20px;
 	/*background: url(../images/bg_thread.gif);*/
 	background: #FFF;
@@ -288,6 +290,8 @@ input[name="color"]{
 	background: url("../images/logo.png") no-repeat;
 	background-position: 100% 20px;
 	padding-top: 95px;
+	min-width: 642px;
+	max-width: 642px;
 }
 .content-area-design .design-inner{}
 .content-area-design .design-inner .image-frame{
@@ -1131,4 +1135,40 @@ input[name="text-color"]:checked ~ span{
     left: 5%;
     position: absolute;
     width: 90%;
+}
+.popup_design_ceramic{
+	width: 680px;
+	height: 450px;
+	position: fixed;
+	left: 50%;
+	top: 8%;
+	transform: translateX(-50%);
+	-webkit-transform: translateX(-50%);
+	background: #FFF;
+	z-index: 9999;
+	box-shadow: 0 0 17px -2px rgba(0, 0, 0, 0.4);
+	padding: 20px 20px 40px 20px;
+	background: #222;
+}
+.popup_design_ceramic_inner{
+	overflow: auto;
+	width: 100%;
+	height: 100%;
+	position: relative;
+	background: #FFF;
+}
+.l_ceramic_frame{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate3d(-50%, -50%, 0);
+	-webkit-transform: translate3d(-50%, -50%, 0);
+	z-index: 2;
+}
+.l_ceramic_photo{
+	max-width: 90%;
+	height: 300px;
+}
+.l_ceramic_photo img{
+	width: 100%;
 }
