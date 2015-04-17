@@ -785,6 +785,7 @@ function switchForm(elem, type){
 				});
 
 				btn_apply.on('click', function(){
+					$(this).html('waiting...');
 					var c = document.createElement('canvas'),
 						ctx = c.getContext('2d');
 

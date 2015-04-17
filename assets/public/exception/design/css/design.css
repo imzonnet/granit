@@ -1179,7 +1179,7 @@ input[name="text-color"]:checked ~ span{
 	padding: 5px 10px;
 	letter-spacing: 3px;
 }
-.popup_design_ceramic_inner.loading-photo.img{
+.popup_design_ceramic_inner.loading-photo img{
 	opacity: 0;
 }
 .l_ceramic_frame{
