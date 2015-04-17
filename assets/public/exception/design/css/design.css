@@ -757,6 +757,7 @@ input[name="text-color"]:checked ~ span{
 .accessories-content .content-inner{
 	height: auto !important;
 }
+
 .main-layout-accessories-area{}
 .main-layout-accessories-area .accessorie-item{
 	position: absolute;
@@ -1167,6 +1168,19 @@ input[name="text-color"]:checked ~ span{
 	position: relative;
 	background: #FFF;
 	box-shadow: 0 0 64px -35px inset;
+}
+.popup_design_ceramic_inner.loading-photo:after{
+	content: "Loading...";
+	position: absolute;
+	left: 0;
+	top: 0;
+	background: #111;
+	color: #FFF;
+	padding: 5px 10px;
+	letter-spacing: 3px;
+}
+.popup_design_ceramic_inner.loading-photo.img{
+	opacity: 0;
 }
 .l_ceramic_frame{
 	position: absolute;

@@ -733,7 +733,7 @@ function switchForm(elem, type){
 			// params: frame || photo || filter
 			var _body = $('body');
 			var popup = $("<div>",{ class: 'popup_design_ceramic' }),
-				popup_inner = $("<div>", { class: 'popup_design_ceramic_inner' }),
+				popup_inner = $("<div>", { class: 'popup_design_ceramic_inner loading-photo' }),
 				img_frame = $("<img>",{ src: params.frame, class: 'l_ceramic_frame' }),
 				img_photo = $("<div>",{ class: 'l_ceramic_photo', html: '<img src="'+params.photo+'"/>' }),
 				img_photo_overlay = $("<div>",{ class: 'l_ceramic_photo _overlay', html: '<img src="'+params.photo+'"/>' }),
@@ -741,10 +741,12 @@ function switchForm(elem, type){
 			
 			popup.append(popup_inner.append(img_photo).append(img_frame).append(img_photo_overlay).append(btn_apply));
 			_body.append(popup);
-			
+
 			var img = new Image();
 			img.src = params.photo;
 			img.onload = function(){
+				popup_inner.removeClass('loading-photo');
+
 				var iw = this.naturalWidth,
 					ih = this.naturalHeight,
 					defaultH = 350,
