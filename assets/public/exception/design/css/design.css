@@ -7,6 +7,8 @@
     src: url('garait_0.ttf') format('truetype');
     /*src: url('16342_garamondmediumitalic_0.ttf') format('truetype');*/
 }
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css")
+
 
 /* design.css */
 .clear{
@@ -761,7 +763,15 @@ input[name="text-color"]:checked ~ span{
 	top: 50%;
 	left: 50%;
 }
-
+.main-layout-accessories-area .accessorie-item:before{
+	content: "";
+	position: absolute;
+	width: calc(100% + 30px);
+	height: calc(100% + 15px);
+	left: -15px;
+	top: -15px;
+	background: transparent;
+}
 .content-btn-control{
 	text-align: center;
 }
@@ -1144,11 +1154,11 @@ input[name="text-color"]:checked ~ span{
 	top: 8%;
 	transform: translateX(-50%);
 	-webkit-transform: translateX(-50%);
-	background: #FFF;
+	background: rgba(255,255,255,.1);
 	z-index: 9999;
 	box-shadow: 0 0 17px -2px rgba(0, 0, 0, 0.4);
-	padding: 20px 20px 40px 20px;
-	background: #222;
+	padding: 10px 10px 10px 10px;
+	border-radius: 3px;
 }
 .popup_design_ceramic_inner{
 	overflow: auto;
@@ -1156,6 +1166,7 @@ input[name="text-color"]:checked ~ span{
 	height: 100%;
 	position: relative;
 	background: #FFF;
+	box-shadow: 0 0 64px -35px inset;
 }
 .l_ceramic_frame{
 	position: absolute;
@@ -1168,7 +1179,70 @@ input[name="text-color"]:checked ~ span{
 .l_ceramic_photo{
 	max-width: 90%;
 	height: 300px;
+	cursor: move;
+	position: absolute !important;
+}
+.l_ceramic_photo._overlay{
+	z-index: 3;
+}
+.l_ceramic_photo._overlay img{
+	opacity: 0;
 }
 .l_ceramic_photo img{
 	width: 100%;
+}
+.popup_design_ceramic .ui-resizable-e, .popup_design_ceramic .ui-resizable-s{
+	display: none !important;
+}
+.popup_design_ceramic .ui-resizable-handle.ui-icon{
+	transform: rotate(0);
+	-webkit-transform: rotate(0);
+}
+.popup_design_ceramic .ui-resizable-handle.ui-icon::after{
+	content: "\f065";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    border-color: transparent;
+}
+.popup_design_ceramic .btn-apply-ceramic{
+	background: none repeat scroll 0 0 #e7512f;
+    border: medium none;
+    bottom: 0;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px 30px;
+    position: absolute;
+    right: 0;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    transition: .3s;
+    -webkit-transition: .3s;
+}
+.popup_design_ceramic .btn-apply-ceramic:hover{
+	background: #d84220
+}
+.js_custom_contextmenu{
+	background: #FFF;
+	display: inline-block;
+	padding: 5px 0;
+	box-shadow: 0 0 17px -2px rgba(0, 0, 0, 0.4);
+	border-radius: 1px;
+	z-index: 999;
+}
+.js_custom_contextmenu li{
+	color: #111;
+    cursor: pointer;
+    letter-spacing: 2px;
+    min-width: 100px;
+    padding: 3px 10px;
+    text-transform: uppercase;
+}
+.js_custom_contextmenu li i{
+	margin-right: 5px;
+}
+.js_custom_contextmenu li:hover{
+	background: #111;
+	color: #FFF;
 }
