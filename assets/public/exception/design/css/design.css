@@ -7,9 +7,11 @@
     src: url('garait_0.ttf') format('truetype');
     /*src: url('16342_garamondmediumitalic_0.ttf') format('truetype');*/
 }
-@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css")
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css");
 
-
+.sectionWrapper{
+	padding: 10px 0;
+}
 /* design.css */
 .clear{
 	clear: both;
