@@ -747,7 +747,7 @@ input[name="text-color"]:checked ~ span{
     overflow: auto;
     position: absolute;
     top: 104px;
-    width: 368px;
+    width: 396px;
     z-index: -1;
 }
 .accessories-content.active{
