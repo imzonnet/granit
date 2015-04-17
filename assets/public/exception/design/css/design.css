@@ -773,6 +773,9 @@ input[name="text-color"]:checked ~ span{
 	top: -15px;
 	background: transparent;
 }
+.main-layout-accessories-area .accessorie-item:hover:before{
+	background: rgba(255,255,255,.1);
+}
 .content-btn-control{
 	text-align: center;
 }
