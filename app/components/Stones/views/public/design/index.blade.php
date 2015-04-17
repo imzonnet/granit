@@ -101,7 +101,7 @@
     </div>
     <section class="sectionWrapper">
         <div class="container">
-            <div class="cell-12">
+            <div class="">
                 <div id="design-container" class="design-container">
                     <div class="design-area left">
                         @include('Stones::public.design.areatool', array("product_cat" => $productCategories, "icon_cat" => $iconcategories, "fonts" => $fonts))
