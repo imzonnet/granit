@@ -2237,7 +2237,7 @@ function switchForm(elem, type){
 			    }
 			}
 			//context.renderText(text, x, y, 0.66667);
-			context.renderText(text, x, y, 0.66667);
+			context.renderText(text, x, y, 1.15555);
 
 			// fitWidth = fitWidth || 0;
 			// lineHeight = lineHeight || 20;

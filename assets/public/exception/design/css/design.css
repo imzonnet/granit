@@ -937,7 +937,7 @@ input[name="text-color"]:checked ~ span{
 	display: inline-block;
 }
 .content-inner-design-area{
-	letter-spacing: 0.5pt;
+	letter-spacing: 1pt;
 }
 .popup-wapper{
 	position: fixed;
