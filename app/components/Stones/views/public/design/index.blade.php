@@ -120,24 +120,24 @@
         <div class="popup-content">
             <div class="popup-content-inner">
                 <span class="close-open-popup">x</span>
-                <h4>Share</h4>
+                <h4>{{trans('Stones::design.stones.design.share2')}}</h4>
                 <div class="popup-body" style="text-align: center;">
                     <div><a class="faceook-link-share" href="#"
                        onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
                        target="_blank" title="Share on Facebook">
-                       <span class="icon-link-share"><i class="fa fa-facebook-square"></i></span> Facebook
+                       <span class="icon-link-share"><i class="fa fa-facebook-square"></i></span> {{trans('Stones::design.stones.design.facebook')}}
                     </a></div>
 
                     <div><a class="twitter-link-share" href="#"
                        onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
                        target="_blank" title="Share on Twitter">
-                       <span class="icon-link-share"><i class="fa fa-twitter-square"></i></span> Twitter
+                       <span class="icon-link-share"><i class="fa fa-twitter-square"></i></span> {{trans('Stones::design.stones.design.twitter')}}
                     </a></div> 
 
                     <div><a class="google-link-share" href="#"
                        onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=350,width=480');return false;"
                        target="_blank" title="Share on Google+">
-                       <span class="icon-link-share"><i class="fa fa-google-plus-square"></i></span> Google+
+                       <span class="icon-link-share"><i class="fa fa-google-plus-square"></i></span> {{trans('Stones::design.stones.design.google+')}}
                     </a></div>
                 </div>
             </div>

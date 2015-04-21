@@ -937,7 +937,7 @@ input[name="text-color"]:checked ~ span{
 	display: inline-block;
 }
 .content-inner-design-area{
-	letter-spacing: 1pt;
+	letter-spacing: 1.5pt;
 }
 .popup-wapper{
 	position: fixed;
@@ -1264,4 +1264,7 @@ input[name="text-color"]:checked ~ span{
 .js_custom_contextmenu li:hover{
 	background: #111;
 	color: #FFF;
+}
+.layout-name-date-area .datetext{
+	letter-spacing: 0;
 }

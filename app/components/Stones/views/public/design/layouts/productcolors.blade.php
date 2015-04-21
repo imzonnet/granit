@@ -64,9 +64,9 @@
 </div>
 
 <div class="total-price-content-layout">
-	<p>Total Price:</p>
+	<p>{{trans('Stones::design.stones.design.total_price')}}</p>
 	<h4>Kr. <span class="price-inner-num"></span></h4>
 </div>
 <div class="btn-next-step-control" id="btn-next-step-control-js">
-	<span>Add Text >></span>
+	<span>{{trans('Stones::design.stones.design.add_text')}} >></span>
 </div>

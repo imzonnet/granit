@@ -1,5 +1,5 @@
 <div class="design-title-layout">
-	Choose a Gravestone
+	{{trans('Stones::design.stones.design.choose_a_gravestone')}}
 </div>
 <div class="content-area-design">
 	<!-- Load ajax content -->

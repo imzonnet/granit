@@ -9,7 +9,7 @@
 		</div><!--
 		-->@endforeach
 	@elseif
-	Not item.
+	{{trans('Stones::design.stones.design.not_item')}}
 	@endif
 	<div class="clear"></div>
 </div>

@@ -1148,19 +1148,19 @@ function switchForm(elem, type){
 			
 			//update first/name space
 			sizeDesign.space_first_name = sizeDesign.space_first_name - (sizeDesign.space_first_name * 15 / 100);
-			//update space name/job - reduction 61.25886235%
-			sizeDesign.space_name_job = sizeDesign.space_name_job - (sizeDesign.space_name_job * 61.25886235 / 100);
+			//update space name/job - reduction 36.75466397%
+			sizeDesign.space_name_job = sizeDesign.space_name_job - (sizeDesign.space_name_job * 36.75466397 / 100);
 			
 			//update space name/born - reduction 17.42194052%
 			//sizeDesign.space_name_born = sizeDesign.space_name_born - (sizeDesign.space_name_born * 17.42194052 / 100);
 			
-			//update space name/borm - increase -8.709336647%
-			sizeDesign.space_name_born = sizeDesign.space_name_born + (sizeDesign.space_name_born * -8.709336647 / 100);
+			//update space name/borm - increase 17.42847496%
+			sizeDesign.space_name_born = sizeDesign.space_name_born + (sizeDesign.space_name_born * 17.42847496 / 100);
 
 			//update space poem/poem - reduction 36.75466397%
 			sizeDesign.space_poem_poem = sizeDesign.space_poem_poem - (sizeDesign.space_poem_poem * 36.75466397 / 100);
-			//update space name/memorial - increase 79%
-			sizeDesign.space_name_memorial = sizeDesign.space_name_memorial + (sizeDesign.space_name_memorial * 79 / 100);
+			//update space name/memorial - increase 76%
+			sizeDesign.space_name_memorial = sizeDesign.space_name_memorial + (sizeDesign.space_name_memorial * 76 / 100);
 
 
 			setSizeBookmanGaramond('garamond');
@@ -2198,7 +2198,7 @@ function switchForm(elem, type){
 
 
 
-		function drawText(context, text, x, y, lineHeight, fitWidth) {
+		function drawText(context, text, x, y, lineHeight, fitWidth, space) {
 
 			if (CanvasRenderingContext2D && !CanvasRenderingContext2D.renderText) {
 			    // @param  letterSpacing  {float}  CSS letter-spacing property
@@ -2237,7 +2237,8 @@ function switchForm(elem, type){
 			    }
 			}
 			//context.renderText(text, x, y, 0.66667);
-			context.renderText(text, x, y, 1.15555);
+			space = (space === 0)? space : 1.65555;
+			context.renderText(text, x, y, space);
 
 			// fitWidth = fitWidth || 0;
 			// lineHeight = lineHeight || 20;
@@ -2359,14 +2360,25 @@ function switchForm(elem, type){
 						}
 
 						if(elem.hasClass('deathdatetext')){ 
-							elem.info.left = elem.info.left + 20; }
+							elem.info.left = elem.info.left + 20; 
+						}
 
-						drawText(designParams.context, 
-							elem.info.text, 
-							elem.info.left, 
-							elem.info.top, 
-							parseInt(elem.info.lineHeight), 
-							elem.innerWidth());
+						if(elem.hasClass('birthdatetext') || elem.hasClass('deathdatetext')){
+							drawText(designParams.context, 
+								elem.info.text, 
+								elem.info.left, 
+								elem.info.top, 
+								parseInt(elem.info.lineHeight), 
+								elem.innerWidth(), 0);
+						}else{
+
+							drawText(designParams.context, 
+								elem.info.text, 
+								elem.info.left, 
+								elem.info.top, 
+								parseInt(elem.info.lineHeight), 
+								elem.innerWidth());
+						}
 
 						// set default canvas
 						if(elem.hasClass('nametext') || elem.hasClass('add_job_or_place')){ 
@@ -2457,7 +2469,7 @@ function switchForm(elem, type){
 				var html = "<div class''>";
 					html += "<center><img style=' padding: 10px;' src='"+datImage+"'></center>";
 					html += "<div style='position: relative; margin: 30px auto; width: 70%;'><div class='logo' style='float: left;'><img src='"+root_url+"/assets/public/exception/design/images/logo.png'></div>";
-					html += "<div class='info' style='float: right; font-weight: bold;'><p>Baejarhraun 26,</p><p>220 Hafnarfjordur</p><p>S. 555-3888</p><p>www.granithollin.is</p></div></div>";
+					html += "<div class='info' style='float: right; font-weight: bold;'><p>Bæjarhraun 26,</p><p>220 Hafnarfirð</p><p>S. 555-3888</p><p>www.granithollin.is</p></div></div>";
 					html += "</div>";
 				var myWindow = window.open();
 				$(myWindow.document.body).html(html);
