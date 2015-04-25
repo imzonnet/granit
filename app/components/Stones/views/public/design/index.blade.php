@@ -81,6 +81,7 @@
     </pre>
     -->
     <input type="file" id="upload-field-area" style="display: none;">
+    <input type="file" id="upload-field-area2" style="display: none;">
     <div class="padd-vertical-20">
         <div class="container">
             <div class="row">

@@ -693,35 +693,63 @@ function switchForm(elem, type){
 		})
 		
 		function editDesignCeramic(elem){
-			elem.unbind('contextmenu').bind('contextmenu', function(e){
+			// elem.unbind('contextmenu').bind('contextmenu', function(e){
+			// 	e.preventDefault();
+				
+			// 	var $this = $(this),
+			// 		elementCurrentUpload = $this,
+			// 		pMouse = { x: e.pageX, y: e.pageY },
+			// 		data_edit_photo = $this.attr('data-photo-edit-info').split("|"),
+			// 		params = {
+			// 			frame: $this.data('icon-image'),
+			// 			photo: $this.attr('data-image-upload'),
+			// 			filter: $this.data('filter-image'),
+			// 			edit: {
+			// 				w: data_edit_photo[0],
+			// 				h: data_edit_photo[1],
+			// 				l: data_edit_photo[2],
+			// 				t: data_edit_photo[3],
+			// 				s: data_edit_photo[4],
+			// 				hv: data_edit_photo[5],
+			// 			}
+			// 		};
+
+			// 	var _contextmenu = $('<ul>', { class: 'js_custom_contextmenu' }).css({ position: 'absolute', left: pMouse.x, top: pMouse.y }),
+			// 		_edit_layout = $('<li>', { html: '<i class="fa fa-edit"></i> Edit' });
+
+			// 	$('body').append(_contextmenu.append(_edit_layout));
+			// 	_edit_layout.on('click', function(e){
+			// 		e.preventDefault();
+			// 		designCeramic(params);
+			// 		_contextmenu.remove();
+			// 	})
+				
+			// })
+			var l_upload = elem.find('.l-upload');
+			l_upload.addClass('edit-lupload').attr('title', 'Edit photo');
+			l_upload.unbind('click').bind('click', function(e){
 				e.preventDefault();
 				
-				var $this = $(this),
-					elementCurrentUpload = $this,
-					pMouse = { x: e.pageX, y: e.pageY },
-					data_edit_photo = $this.attr('data-photo-edit-info').split("|"),
-					params = {
-						frame: $this.data('icon-image'),
-						photo: $this.data('image-upload'),
-						filter: $this.data('filter-image'),
-						edit: {
-							w: data_edit_photo[0],
-							h: data_edit_photo[1],
-							l: data_edit_photo[2],
-							t: data_edit_photo[3],
-						}
-					};
+				var $this = elem,
+				elementCurrentUpload = $this,
+				pMouse = { x: e.pageX, y: e.pageY },
+				data_edit_photo = $this.attr('data-photo-edit-info').split("|"),
+				params = {
+					frame: $this.data('icon-image'),
+					photo: $this.attr('data-image-upload'),
+					filter: $this.data('filter-image'),
+					edit: {
+						w: data_edit_photo[0],
+						h: data_edit_photo[1],
+						l: data_edit_photo[2],
+						t: data_edit_photo[3],
+						s: data_edit_photo[4],
+						hv: data_edit_photo[5],
+					}
+				};
 
-				var _contextmenu = $('<ul>', { class: 'js_custom_contextmenu' }).css({ position: 'absolute', left: pMouse.x, top: pMouse.y }),
-					_edit_layout = $('<li>', { html: '<i class="fa fa-edit"></i> Edit' });
-
-				$('body').append(_contextmenu.append(_edit_layout));
-				_edit_layout.on('click', function(e){
-					e.preventDefault();
-					designCeramic(params);
-					_contextmenu.remove();
-				})
-				
+				e.preventDefault();
+				designCeramic(params);
 			})
 		}
 
@@ -729,18 +757,67 @@ function switchForm(elem, type){
 			$('ul.js_custom_contextmenu').remove();
 		})
 
+		function uploadField(opts){
+			$('#upload-field-area2').unbind('change').bind('change', function(e){
+				var $this = this;
+				opts.callback(this, $this);
+			})
+		}
+
+		function photoFilterBW(context, w, h){
+			var imgd = context.getImageData(0, 0, w, h);
+			var pix = imgd.data;
+			for (var i = 0, n = pix.length; i < n; i += 4) {
+				var grayscale = pix[i  ] * .3 + pix[i+1] * .59 + pix[i+2] * .11;
+				pix[i  ] = grayscale; 	// red
+				pix[i+1] = grayscale; 	// green
+				pix[i+2] = grayscale; 	// blue
+				// alpha
+			}
+			context.putImageData(imgd, 0, 0);
+			return context;
+		}
+
 		function designCeramic(params){
 			// params: frame || photo || filter
 			var _body = $('body');
 			var popup = $("<div>",{ class: 'popup_design_ceramic' }),
+				popup_tool = $("<div>",{ class: 'popup_design_ceramic_tool' }),
 				popup_inner = $("<div>", { class: 'popup_design_ceramic_inner loading-photo' }),
 				img_frame = $("<img>",{ src: params.frame, class: 'l_ceramic_frame' }),
 				img_photo = $("<div>",{ class: 'l_ceramic_photo', html: '<img src="'+params.photo+'"/>' }),
 				img_photo_overlay = $("<div>",{ class: 'l_ceramic_photo _overlay', html: '<img src="'+params.photo+'"/>' }),
-				btn_apply = $("<button>", { type: "button", class: "btn-apply-ceramic", html: "Apply" });
+				btn_apply = $("<button>", { type: "button", class: "btn-apply-ceramic", html: "SAVE" }),
+				btn_close = $('<span>', { class: 'popup_design_ceramic_close', html: "<i class='fa fa-close'></i>", title: 'close'});
 			
-			popup.append(popup_inner.append(img_photo).append(img_frame).append(img_photo_overlay).append(btn_apply));
+			var html_tool = "<div class='popup_design_ceramic_tool_inner'>";
+				html_tool +=	"<div class='photo-frame-size'>";
+				html_tool +=		"<div class='photo-frame-size8-10 current'><img src='"+params.frame+"'><p>8x10</p></div>";
+				html_tool +=		"<div class='photo-frame-size9-12'><img src='"+params.frame+"'><p>9x12</p></div>";
+				html_tool +=	"</div>";
+				html_tool +=	"<div class='photo-frame-v-h'>";
+				html_tool +=		"<div class='photo-frame-v current'><img src='"+root_url+"assets/public/exception/design/images/f-v.jpg'/><p>Vertical</p></div>";
+				html_tool +=		"<div class='photo-frame-h'><img src='"+root_url+"assets/public/exception/design/images/f-h.jpg'/><p>Horrizontal</p></div>";
+				html_tool +=	"</div>";
+				html_tool +=	"<div class='upload-frame-tool-control-image'>";
+				html_tool +=		"<label for='upload-field-area2' class='upload--photo'><span class='ajax-upload-loader'></span> Upload Image <i class='fa fa-upload'></i></label>";
+				html_tool +=		"<div class='tool-design-image'><span class='tool-black-white' title='black/white'><img src='"+ root_url+'/assets/public/exception/design/images/bw-icon.jpg' +"'/></span> </div>";
+				html_tool +=	"</div>";
+				html_tool +="</div>";
+
+			popup_tool.html(html_tool);
+
+			popup.append(btn_close).append(html_tool).append(popup_inner.append(img_photo).append(img_frame).append(img_photo_overlay).append(btn_apply));
 			_body.append(popup);
+
+			btn_close.on('click', function(){
+				popup.remove();
+			})
+
+			var $photo_frame_size = popup.find('.photo-frame-size'),
+				$photo_frame_v_h = popup.find('.photo-frame-v-h'),
+				$ajax_upload_loader = popup.find('.ajax-upload-loader'),
+				$tool_black_white = popup.find('.tool-black-white');
 
 			var img = new Image();
 			img.src = params.photo;
@@ -754,12 +831,88 @@ function switchForm(elem, type){
 					newW = iw/ih*defaultH,
 					newL = (popup_inner.width() / 2) - (newW / 2);
 
+				// upload photo
+				uploadField({
+					callback: function(elem){
+						var file = elem.files[0];
+						var reader = new FileReader();
+						reader.onload = function(e){
+							var dataURL = this.result;
+							$ajax_upload_loader.addClass('show').html('0%');
+							$.ajax({
+								xhr: function(){
+									var xhr = new window.XMLHttpRequest();
+									xhr.upload.addEventListener("progress", function(evt){
+								      	if (evt.lengthComputable) {  
+								        	var percentComplete = parseInt(evt.loaded / evt.total * 100);
+								        	$ajax_upload_loader.html(percentComplete+'%');				        	
+								      	}
+								    }, false); 
+								    return xhr;
+								},
+				      			headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },
+								type: "POST",
+								url: "design/ajax",
+								data: { handle: 'uploadImageAccessories', data: dataURL, rooturl: root_url },
+								success: function(data){
+									$ajax_upload_loader.removeClass('show');
+									var obj = JSON.parse(data);
+									params.photo = obj.layout;
+									img_photo.find('img').attr('src', params.photo);
+									img_photo_overlay.find('img').attr('src', params.photo);
+									console.log(obj);
+
+						 			var i_result = new Image();
+						 			i_result.src = params.photo;
+						 			i_result.onload = function(e){
+						 				var $__this = this;
+						 				img_photo_overlay.css({
+						 					height: parseInt(img_photo_overlay.find('img').css('height')),
+						 				})
+						 			}
+								}
+							})
+						}
+						reader.readAsDataURL(file)
+					}
+				})
+
+				$tool_black_white.bind('click', function(){
+					var filter_wb = $(this).data('filter-bw');
+					if(filter_wb && filter_wb == true){
+						img_photo.find('img').attr('src', params.photo);
+						$(this).data('filter-bw', false);
+						return;
+					}
+
+					var _filter_photo_bw = new Image(),
+						_f_canvas = document.createElement('canvas'),
+						_f_ctx = _f_canvas.getContext('2d');
+
+					_filter_photo_bw.src = params.photo;
+
+					_filter_photo_bw.onload = function(){
+						var _w = parseInt(img_photo.find('img').css('width'));//this.naturalWidth,
+							_h = parseInt(img_photo.find('img').css('height'));//this.naturalHeight;
+
+						_f_canvas.width = _w;
+						_f_canvas.height = _h;
+						_f_ctx.drawImage(this, 0, 0, _w, _h);
+						photoFilterBW(_f_ctx, _w, _h);
+
+						var _dataURL = _f_canvas.toDataURL('image/png');
+						img_photo.find('img').attr('src', _dataURL);
+					}
+					
+					$(this).data('filter-bw', true);
+				})
+
 				if(params.edit){
 					defaultH = params.edit.h;
 					defaultT = parseInt(params.edit.t);
 					newW = params.edit.w;
 					newL = parseInt(params.edit.l);
-					console.log(params.edit);
+					//console.log(params.edit);
 				}
 
 				img_photo.css({ width: newW, height: defaultH, left: newL, top: defaultT });
@@ -783,6 +936,54 @@ function switchForm(elem, type){
 					   })
 				  	}
 				});
+
+				// $photo_frame_size
+				$photo_frame_size.on('click', '> div', function(e){
+					var $_this = $(this);
+					$_this.addClass('current').siblings().removeClass('current');
+				})
+
+				// $photo_frame_v_h
+				$photo_frame_v_h.on('click', '> div', function(e){
+					var $_this = $(this);
+					$_this.addClass('current').siblings().removeClass('current');
+					if($_this.hasClass('photo-frame-v')){
+						//img_frame
+						img_frame[0].src = params.frame;
+					}
+
+					if($_this.hasClass('photo-frame-h')){
+						//img_frame
+						var _c = document.createElement('canvas'),
+							_ctx = _c.getContext('2d'),
+							_img = new Image();
+
+						_img.src = params.frame;
+						_img.onload = function(){
+							var __w = this.naturalWidth,
+								__h = this.naturalHeight; 
+
+							_c.width = __h;
+							_c.height = __w;
+							
+							_ctx.translate(__h/2, __w/2);
+							_ctx.rotate(90 * (Math.PI/180));
+							_ctx.drawImage(this, -__w/2, -__h/2);
+							var dataURL = _c.toDataURL('image/png');
+							img_frame[0].src = dataURL;
+						}
+					}
+				})
+
+				if(params.edit){
+					if(params.edit.s == '9x12'){
+						$photo_frame_size.find('.photo-frame-size9-12').trigger('click');
+					}
+
+					if(params.edit.hv == 'h'){
+						$photo_frame_v_h.find('.photo-frame-h').trigger('click');
+					}
+				}
 
 				btn_apply.on('click', function(){
 					$(this).html('waiting...');
@@ -813,6 +1014,9 @@ function switchForm(elem, type){
 
 					ctx.drawImage(img_photo.find('img')[0], newPhotoX, newPhotoY, photo_info.w, photo_info.h);
 
+					var framesize = ($photo_frame_size.find('.photo-frame-size8-10').hasClass('current'))? '8x10' : '9x12';
+					var framehv = ($photo_frame_v_h.find('.photo-frame-v').hasClass('current'))? 'v' : 'h';
+
 					if(!params.filter){
 						ctx.drawImage(img_frame[0], 0, 0, frame_info.w, frame_info.h);
 						var result = c.toDataURL('image/png');
@@ -820,9 +1024,11 @@ function switchForm(elem, type){
 						elementCurrentUpload
 			 			.removeAttr('percent')
 			 			.removeClass('ajaxhandle');
+
+
 			 			elementCurrentUpload.attr({
 			 				'data-image-upload': params.photo,
-			 				'data-photo-edit-info': photo_info.w+'|'+photo_info.h+'|'+photo_info.pL+'|'+photo_info.pT,
+			 				'data-photo-edit-info': photo_info.w+'|'+photo_info.h+'|'+photo_info.pL+'|'+photo_info.pT+'|'+framesize+'|'+framehv,
 			 			});
 			 			elementCurrentUpload.find('img').attr('src', result);
 
@@ -831,37 +1037,88 @@ function switchForm(elem, type){
 						return;
 					}
 
-					var filter_img = new Image();
-					filter_img.src = params.filter;
-					filter_img.onload = function(){
-						ctx.drawImage(this, 0, 0);
-						var imageData = ctx.getImageData(0, 0, frame_info.w, frame_info.h);
-						var pixel = imageData.data;
-						var r = 0, g = 1, b = 2, a = 3;
-						for (var p = 0; p<pixel.length; p+=4)
-						{
-							if (
-								pixel[p+r] == 255 &&
-								pixel[p+g] == 0 &&
-								pixel[p+b] == 222) // if #FF00DE then change alpha to 0
-							{pixel[p+a] = 0;}
-						}
-						ctx.putImageData(imageData, 0, 0);
-						ctx.drawImage(img_frame[0], 0, 0, frame_info.w, frame_info.h);
-						var result = c.toDataURL("image/png");
-						//window.open(result);
-						elementCurrentUpload
-			 			.removeAttr('percent')
-			 			.removeClass('ajaxhandle');
-			 			elementCurrentUpload.attr({
-			 				'data-image-upload': params.photo,
-			 				'data-photo-edit-info': photo_info.w+'|'+photo_info.h+'|'+photo_info.pL+'|'+photo_info.pT,
-			 			});
-			 			elementCurrentUpload.find('img').attr('src', result);
+					if($photo_frame_v_h.find('.photo-frame-v').hasClass('current')){
+						var filter_img = new Image();
+						filter_img.src = params.filter;
+						filter_img.onload = function(){
+							ctx.drawImage(this, 0, 0);
+							var imageData = ctx.getImageData(0, 0, frame_info.w, frame_info.h);
+							var pixel = imageData.data;
+							var r = 0, g = 1, b = 2, a = 3;
+							for (var p = 0; p<pixel.length; p+=4)
+							{
+								if (
+									pixel[p+r] == 255 &&
+									pixel[p+g] == 0 &&
+									pixel[p+b] == 222) // if #FF00DE then change alpha to 0
+								{pixel[p+a] = 0;}
+							}
+							ctx.putImageData(imageData, 0, 0);
+							ctx.drawImage(img_frame[0], 0, 0, frame_info.w, frame_info.h);
+							var result = c.toDataURL("image/png");
+							//window.open(result);
+							elementCurrentUpload
+							.css({width: 'auto', height: 'auto'})
+				 			.removeAttr('percent')
+				 			.removeClass('ajaxhandle');
+				 			elementCurrentUpload.attr({
+				 				'data-image-upload': params.photo,
+				 				'data-photo-edit-info': photo_info.w+'|'+photo_info.h+'|'+photo_info.pL+'|'+photo_info.pT+'|'+framesize+'|'+framehv,
+				 			});
+				 			elementCurrentUpload.find('img').attr('src', result);
 
-			 			editDesignCeramic(elementCurrentUpload);
-			 			popup.fadeOut(500, function(){ popup.remove(); });
-						return;
+				 			editDesignCeramic(elementCurrentUpload);
+				 			popup.fadeOut(500, function(){ popup.remove(); });
+							return;
+						}
+					}else{
+						
+						var _cf = document.createElement('canvas'),
+							_fctx = _cf.getContext('2d'),
+							_filter = new Image();
+
+						_filter.src = params.filter;
+						_filter.onload = function(){
+							var __w = this.naturalWidth,
+								__h = this.naturalHeight; 
+
+							_cf.width = __h;
+							_cf.height = __w;
+
+							_fctx.translate(__h/2, __w/2);
+							_fctx.rotate(90 * (Math.PI/180));
+							_fctx.drawImage(this, -__w/2, -__h/2);
+
+							ctx.drawImage(_cf, 0, 0);
+							var imageData = ctx.getImageData(0, 0, frame_info.w, frame_info.h);
+							var pixel = imageData.data;
+							var r = 0, g = 1, b = 2, a = 3;
+							for (var p = 0; p<pixel.length; p+=4)
+							{
+								if (
+									pixel[p+r] == 255 &&
+									pixel[p+g] == 0 &&
+									pixel[p+b] == 222) // if #FF00DE then change alpha to 0
+								{pixel[p+a] = 0;}
+							}
+							ctx.putImageData(imageData, 0, 0);
+							ctx.drawImage(img_frame[0], 0, 0, frame_info.w, frame_info.h);
+							var result = c.toDataURL("image/png");
+							//window.open(result);
+							elementCurrentUpload
+							.css({width: 'auto', height: 'auto'})
+				 			.removeAttr('percent')
+				 			.removeClass('ajaxhandle');
+				 			elementCurrentUpload.attr({
+				 				'data-image-upload': params.photo,
+				 				'data-photo-edit-info': photo_info.w+'|'+photo_info.h+'|'+photo_info.pL+'|'+photo_info.pT+'|'+framesize+'|'+framehv,
+				 			});
+				 			elementCurrentUpload.find('img').attr('src', result);
+
+				 			editDesignCeramic(elementCurrentUpload);
+				 			popup.fadeOut(500, function(){ popup.remove(); });
+							return;
+						}
 					}
 				})
 			}
@@ -1154,14 +1411,15 @@ function switchForm(elem, type){
 			//update space name/born - reduction 17.42194052%
 			//sizeDesign.space_name_born = sizeDesign.space_name_born - (sizeDesign.space_name_born * 17.42194052 / 100);
 			
-			//update space name/borm - increase 17.42847496%
-			sizeDesign.space_name_born = sizeDesign.space_name_born + (sizeDesign.space_name_born * 17.42847496 / 100);
+			//update space name/borm - increase -8.709336647%
+			sizeDesign.space_name_born = sizeDesign.space_name_born + (sizeDesign.space_name_born * -8.709336647 / 100);
 
 			//update space poem/poem - reduction 36.75466397%
 			sizeDesign.space_poem_poem = sizeDesign.space_poem_poem - (sizeDesign.space_poem_poem * 36.75466397 / 100);
-			//update space name/memorial - increase 76%
-			sizeDesign.space_name_memorial = sizeDesign.space_name_memorial + (sizeDesign.space_name_memorial * 76 / 100);
-
+			//update space name/memorial - increase 70%
+			sizeDesign.space_name_memorial = sizeDesign.space_name_memorial + (sizeDesign.space_name_memorial * 70 / 100);
+			//space_memorial_poem - increase 70%
+			sizeDesign.space_memorial_poem = sizeDesign.space_memorial_poem + (sizeDesign.space_memorial_poem * 200 / 100);
 
 			setSizeBookmanGaramond('garamond');
 		}
@@ -1399,7 +1657,7 @@ function switchForm(elem, type){
 				//color: $('input[type="radio"][name="text-color"]:checked').val(),
 				color: '#FFFFFF',
 				fontFamily: $('input[type="radio"][name="font-family"]:checked').val(),
-				fontWeight: 'bold',
+				//fontWeight: 'bold',
 				//lineHeight: 'normal',
 				//fontStyle: 'italic'
 			}
@@ -1456,7 +1714,7 @@ function switchForm(elem, type){
 				fontFamily: $('input[type="radio"][name="font-family"]:checked').val(),
 				//fontSize: '16px',
 				//lineHeight: 'normal',
-				fontWeight: 'bold',
+				//fontWeight: 'bold',
 				//fontStyle: 'italic'
 			}
 			if(elem.hasClass('layout-name-date-area')){ 
@@ -2237,7 +2495,8 @@ function switchForm(elem, type){
 			    }
 			}
 			//context.renderText(text, x, y, 0.66667);
-			space = (space === 0)? space : 1.65555;
+			//space = (space === 0)? space : 1.65555;
+			space = 0.85555;
 			context.renderText(text, x, y, space);
 
 			// fitWidth = fitWidth || 0;
@@ -2286,7 +2545,8 @@ function switchForm(elem, type){
 			if( params.color ){ cStyle.color = params.color; }
 
 			//designParams.context.font = 'italic '+cStyle.size+' '+cStyle.font; //'40pt Calibri';
-			designParams.context.font = 'bold '+cStyle.size+' '+cStyle.font; //'40pt Calibri';
+			//designParams.context.font = 'bold '+cStyle.size+' '+cStyle.font; //'40pt Calibri';
+			designParams.context.font = cStyle.size+' '+cStyle.font;
       		designParams.context.fillStyle = cStyle.color; //'blue';
 		}
 
