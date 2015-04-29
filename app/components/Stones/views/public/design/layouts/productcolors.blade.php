@@ -51,8 +51,16 @@
 		<h4>Color</h4>
 		<ul>
 			@foreach($productcolors as $pcolor)
+			<?php 
+				if($pcolor->extra_field){
+					$extra_field = json_decode($pcolor->extra_field);
+					if(isset($extra_field->lineOne) && isset($extra_field->lineTwo)){
+						$attr = "data-border-line='{$pcolor->extra_field}'";
+					}
+				}
+			?>
 			<li>
-				<a class="choose-pcolor-js" href="javascript:" data-pcolor-id="{{ $pcolor->id }}" data-pcolor-img="{{ $pcolor->image }}" data-price="{{ $pcolor->price }}" data-characteristic-price="{{ $pcolor->characteristic_price }}" data-name="{{ $pcolor->name }}">
+				<a class="choose-pcolor-js" href="javascript:" <?php echo (isset($attr))? $attr : ""; ?> data-pcolor-id="{{ $pcolor->id }}" data-pcolor-img="{{ $pcolor->image }}" data-price="{{ $pcolor->price }}" data-characteristic-price="{{ $pcolor->characteristic_price }}" data-name="{{ $pcolor->name }}">
 					<!-- <img src="{{ $pcolor->thumbnail }}" title="{{ $pcolor->name }}" alt="{{ $pcolor->name }}"/> -->
 					<img src="<?php echo Request::root().'/'; ?>{{ $pcolor->color->icon }}" title="{{ $pcolor->name }}" alt="{{ $pcolor->name }}"/>
 				</a>

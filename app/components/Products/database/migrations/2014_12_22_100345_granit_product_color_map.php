@@ -27,6 +27,7 @@ class GranitProductColorMap extends Migration {
 			$table->integer('ordering')->default(0);
 			$table->integer('created_by')->unsigned();
 			$table->foreign('created_by')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+			$table->string('extra_field');
 			$table->timestamps();
 		});
 	}

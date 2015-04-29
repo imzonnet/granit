@@ -115,6 +115,20 @@
                                     {{Form::text('ordering', (!isset($color)) ? Input::old('alias') : $color->ordering, array('class' => 'input-xlarge', 'placeholder' => '0'))}}
                                 </div>
                             </div>
+                            
+                            <!-- #1 params Large -->    
+                            <div class="control-group">
+                                <label class="control-label">Frame(large) border line</label>            
+                                <div class="controls line">
+                                    <?php if($color && $color->extra_field){
+                                        $extra_field = json_decode($color->extra_field);
+                                    } ?>
+                                    {{ Form::checkbox('frame_line_border', 1, (isset($extra_field->lineOne))? true: "" ) }}
+                                    {{ Form::textarea('extra_field', (!isset($color)) ? "" : $color->extra_field, array('style' => 'display: none')) }}
+                                </div>
+                            </div>
+                            <div id="area-control-line-border"></div>
+                            <!-- End #1 -->
 
                             <div class="form-actions">
                                 <button type="submit" class="btn btn-primary" name="form_save">Save</button>
@@ -142,7 +156,48 @@
 {{ HTML::script("assets/backend/default/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js") }}
 {{ HTML::script("assets/backend/default/scripts/media-selection.js") }}
 @parent
+<style type="text/css">
+    #area-control-line-border{
+        width: 100%;
+        text-align: center;
+    }
+    #area-control-line-border .area-control-line{
+        display: inline-block;
+        position: relative;
+    }
+    #area-control-line-border .area-control-line .line-one,
+    #area-control-line-border .area-control-line .line-two{
+        position: absolute;
+        top: 0;
+        border-left: 1px solid #D315B0;
+        padding-right: 3px; 
+        height: 100%;
+        cursor: w-resize;
+    }
+    #area-control-line-border .area-control-line .line-one{ left: 20%; }
+    #area-control-line-border .area-control-line .line-one:before{
+        content: "Border left";
+        position: absolute;
+        top: -50px;
+        left: calc(50% - 2px);
+        font-size: 10px;
+        transform: translateX(-50%);
+        -webkit-transform: translateX(-50%);
+    }
+    #area-control-line-border .area-control-line .line-two{ left: 80%; }
+    #area-control-line-border .area-control-line .line-two:before{
+        content: "Border right";
+        position: absolute;
+        top: -50px;
+        left: calc(50% - 2px);
+        font-size: 10px;
+        transform: translateX(-50%);
+        -webkit-transform: translateX(-50%);
+    }
+</style>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script>
+    var ROOT_PATH = "<?php echo url('/'); ?>";
     jQuery(document).ready(function () {
         $('#datetimepicker_start').datetimepicker({
             language: 'en',
@@ -152,7 +207,68 @@
             language: 'en',
             pick12HourFormat: false
         });
+
+        // js line border
+        var $area_control_line_border = $('#area-control-line-border'),
+            $frame_line_border = $('input[name="frame_line_border"]'),
+            $extra_field = $('textarea[name="extra_field"]'); 
+       
+        var lineBorderHandle = function(elem){
+            var $this = $(this),
+                params = JSON.parse( ($extra_field.val() ? $extra_field.val() : "{}") );
+
+            if($this.prop('checked') == false){
+                delete params.lineOne;
+                delete params.lineTwo;
+                updateExtraField(params);
+                $area_control_line_border.html('');
+                return;
+            }
+
+            var img_url = ROOT_PATH + '/' + $('input[name="image"]').val(),
+                area_control = "<div class='area-control-line'><span class='line-one'></span><span class='line-two'></span><img src='"+img_url+"'/></div>";              
+            
+            $area_control_line_border.html(area_control);
+
+            var $line_one = $area_control_line_border.find('.line-one'),
+                $line_two = $area_control_line_border.find('.line-two');
+
+            if(params.lineOne){
+                $line_one.css('left', params.lineOne);
+                $line_two.css('left', params.lineTwo);
+            }
+
+            params.lineOne = parseInt($line_one.position().left);
+            params.lineTwo = parseInt($line_two.position().left);
+            updateExtraField(params);
+
+            $line_one.draggable({
+                axis: "x",
+                containment: "parent",
+                drag: function( event, ui ) {
+                   params.lineOne = parseInt(ui.position.left);
+                   updateExtraField(params);
+                }
+            });
+            $line_two.draggable({
+                axis: "x",
+                containment: "parent",
+                drag: function( event, ui ) {
+                    params.lineTwo = parseInt(ui.position.left);
+                    updateExtraField(params);
+                }
+            });
+        }
+
+        var updateExtraField = function(params){
+            $extra_field.val(JSON.stringify(params));
+            //console.log($extra_field.val());
+        }
+
+        $frame_line_border.on('change', lineBorderHandle).trigger('change');
     });
+
+    
     MediaExp.init();
 </script>
 @stop

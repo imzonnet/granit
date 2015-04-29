@@ -1754,6 +1754,7 @@ function switchForm(elem, type){
 				pcolor_id = thisEl.data('pcolor-id'),
 				pcolor_img = thisEl.data('pcolor-img');
 
+			//console.log(thisEl.data('border-line'));
 			dataSave.cid = pcolor_id;
 			// console.log(dataSave);
 

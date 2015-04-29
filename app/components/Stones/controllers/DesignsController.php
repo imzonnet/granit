@@ -83,8 +83,9 @@ class DesignsController extends \BaseController {
                 break;
             case 'getProductByCatId':
                 $layout = View::make('Stones::public.design.layouts.products')
-                ->with('products', Product::whereRaw("cat_id = {$id} and status = 'published'")->get())
-                ->render();
+                ->with('products', Product::whereRaw("cat_id = {$id} and status = 'published'")
+                ->get())->render();
+     
                 break;
             case 'getProductColorByProductid':
                 $layout = View::make('Stones::public.design.layouts.productcolors')
