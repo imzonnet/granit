@@ -120,7 +120,7 @@
                             <div class="control-group">
                                 <label class="control-label">Frame(large) border line</label>            
                                 <div class="controls line">
-                                    <?php if($color && $color->extra_field){
+                                    <?php if(isset($color) && isset($color->extra_field)){
                                         $extra_field = json_decode($color->extra_field);
                                     } ?>
                                     {{ Form::checkbox('frame_line_border', 1, (isset($extra_field->lineOne))? true: "" ) }}
