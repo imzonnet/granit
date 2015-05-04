@@ -317,7 +317,7 @@ function switchForm(elem, type){
 
 			controler_tab_name.children('li:last-child').before(name_tab_el).before(' ');
 			elem.append(content_tab_el.html(html_inner).append(del_tab_el));
-			
+
 			content_tab_el.find('input').each(function(){
 				if( $('this').attr('type') == "text" ){
 					$('this').val('');
@@ -341,6 +341,14 @@ function switchForm(elem, type){
 			var lDesignTop = layoutItem.name_date.parent().find('.layout-item-area:last-child').position().top + layoutItem.name_date.parent().find('.layout-item-area:last-child').height() + PointToPixel(sizeDesign.space_name1_name2);// .layout-item-area
 			layer_el.css('top', lDesignTop+'px');
 
+			if(_bigSize.status == true && content_tab_el.index() == 2){
+				var lDesignTop = layoutItem.name_date.parent().find('.layout-item-area:last-child').position().top;// .layout-item-area
+				layer_el.css('top', lDesignTop+'px');
+			}
+			if(_bigSize.status == true && content_tab_el.index() == 4){
+				var lDesignTop = layoutItem.name_date.parent().find('.layout-item-area:last-child').position().top;// .layout-item-area
+				layer_el.css('top', lDesignTop+'px');
+			}
 			layoutItem.name_date.parent().append(layer_el);
 			name_tab_el.find('a').trigger('click'); // new tab active
 			setTextStyleEl(layer_el); 
@@ -583,7 +591,7 @@ function switchForm(elem, type){
 						// console.log(_left - ui.position.left, _top - ui.position.top);
 
 						if($('#move_all_text').prop('checked') == true){
-							if($(this).hasClass('accessorie-item')){
+							if($(this).hasClass('accessorie-item') || $(this).hasClass('layout-poem-area')){
 								ui.position.left = parseInt(recoupLeft + ui.position.left);
 								ui.position.top = parseInt(recoupTop + ui.position.top);
 								return;
@@ -593,6 +601,7 @@ function switchForm(elem, type){
 								addLeft = $(this).position().left - ui.position.left;
 							
 							$('.layout-item-area').each(function(){
+								if($(this).hasClass('layout-poem-area')){ return; }
 								var thisEl = $(this),
 									left =	thisEl.position().left - addLeft,
 									top = thisEl.position().top - addTop;
@@ -1341,16 +1350,16 @@ function switchForm(elem, type){
 			switch(size.toLowerCase()){
 				case 'large':
 					sizeDesign._first_text 	= global_params.first_text.large;
-					sizeDesign._name 		= global_params.name.large;
+					sizeDesign._name 		= 9;//global_params.name.large;
 					sizeDesign._born 		= global_params.born.large;
 					sizeDesign._memorial 	= global_params.memorial.large;
 					sizeDesign._poem 		= global_params.poem.large;
 					sizeDesign._jobtitle 	= global_params.jobtitle.large;
 
-					sizeDesign.space_first_name = global_params.space_first_name.large;
+					sizeDesign.space_first_name = global_params.space_first_name.large + 4;
 					sizeDesign.space_name_born = global_params.space_name_born.large;
 					sizeDesign.space_name1_name2 = global_params.space_name1_name2.large;
-					sizeDesign.space_name_memorial = global_params.space_name_memorial.large;
+					sizeDesign.space_name_memorial = global_params.space_name_memorial.large + 3;
 					sizeDesign.space_memorial_poem = global_params.space_memorial_poem.large;
 					sizeDesign.space_name_job = global_params.space_name_job.large;
 					sizeDesign.space_poem_poem = global_params.space_poem_poem.large;
@@ -1425,7 +1434,6 @@ function switchForm(elem, type){
 		}
 
 		function setSizeBookmanGaramond(font){
-			console.log(font);
 			if(font == 'garamond'){
 				sizeDesign.first_text 	= sizeDesign._first_text;
 				sizeDesign.name 		= sizeDesign._name;
@@ -1747,12 +1755,24 @@ function switchForm(elem, type){
 			item_price: 0,
 			item_characteristic_price: 0
 		}
-
+		var _bigSize = {
+			status: false,
+			size: {},
+		};
 		$('.content-area-design').on('click', '.choose-pcolor-js', function(e){
 			var main_frame_image = $('.content-area-design').find('#main-frame-image'),
 				thisEl = $(this),
 				pcolor_id = thisEl.data('pcolor-id'),
 				pcolor_img = thisEl.data('pcolor-img');
+
+			var borderLine = thisEl.data('border-line');
+			if(borderLine && Object.keys(borderLine).length > 0){
+				_bigSize.status = true;
+				_bigSize.size = borderLine;
+			}else{
+				_bigSize.status = false;
+				_bigSize.size = {};
+			}
 
 			//console.log(thisEl.data('border-line'));
 			dataSave.cid = pcolor_id;
@@ -2409,16 +2429,57 @@ function switchForm(elem, type){
 		})
 
 		var content_area_design = $('.content-area-design');
-		function calcCenter($contentEl){
+		function calcCenter($contentEl, position){
 			var st = $contentEl.data('drag-off');
 			if(st == false){ return; }
 
 			var content_area_design_w = content_area_design.width(),
 				contentEl_w = $contentEl.width(),
-				newX = (content_area_design_w / 2) - (contentEl_w / 2);
+				img_frame_w = content_area_design.find('#main-frame-image').width();
+
+			var newX = (content_area_design_w / 2) - (contentEl_w / 2);
 			$contentEl.css({
 				left: newX+'px',
 			})
+
+			if(_bigSize.status == true){
+				var $layout_name_date_area = $('.main-layout-name-date-area').find('.layout-name-date-area'),
+					count = $layout_name_date_area.length;
+				
+				$('.deathdatetext').css('paddingLeft', '10px');
+
+				if(count >= 2){
+					var x0 = ((content_area_design_w - img_frame_w) / 2) + _bigSize.size.lineOne;
+					$layout_name_date_area.eq(0).css({ left: x0+'px' });
+
+					var x1 = ((content_area_design_w - img_frame_w) / 2) + _bigSize.size.lineTwo - $layout_name_date_area.eq(1).width();
+					$layout_name_date_area.eq(1).css({ left: x1+'px' });
+				}
+				if(count >= 4){ 
+					var x3 = $layout_name_date_area.eq(0).position().left + ($layout_name_date_area.eq(0).width() / 2) - ($layout_name_date_area.eq(2).width() / 2);
+					$layout_name_date_area.eq(2).css({ left: x3+'px' });
+					
+					var x4 = $layout_name_date_area.eq(1).position().left + ($layout_name_date_area.eq(1).width() / 2) - ($layout_name_date_area.eq(3).width() / 2);
+					$layout_name_date_area.eq(3).css({ left: x4+'px' });
+				}
+			}else{
+				$('.deathdatetext').removeAttr('style');
+			}
+
+			// if(_bigSize.status == true && $contentEl.hasClass('layout-name-date-area') && $contentEl.index() == 0){
+			// 	var newX = ((content_area_design_w - img_frame_w) / 2) + _bigSize.size.lineOne;
+			// 	$contentEl.css({
+			// 		left: newX+'px',
+			// 	})
+			// 	return;
+			// }else if(_bigSize.status == true && $contentEl.hasClass('layout-name-date-area') && $contentEl.index() == 1){
+			// 	var newX = ((content_area_design_w - img_frame_w) / 2) + _bigSize.size.lineTwo - contentEl_w;
+			// 	$contentEl.css({
+			// 		left: newX+'px',
+			// 	})
+			// 	return;
+			// }
+			
 		}
 
 		// Build image canvas ================================
