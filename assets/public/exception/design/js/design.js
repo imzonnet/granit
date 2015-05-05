@@ -47,6 +47,43 @@ function switchForm(elem, type){
 
 !(function($){
 	$(function(){
+		// unlock test
+		$('.content-area-design')
+		.on({
+			'mouseover': function(e){ 
+				this._elem = $('<span>', {class: 'unlock-text-box', html: '<input type="checkbox" checked="true"/> Unlock text'});
+				var move_all_text = $('#move_all_text'),
+					$this = $(this);
+				if($this.find('.unlock-text-box').length > 0){ return; }
+				if(move_all_text.prop('checked') == false){ return; }
+				$this.append(this._elem);
+				this._elem.find('input').on('change', function(){
+					if($(this).prop('checked') == true){
+						$('#move_all_text').prop('checked', true);
+					}else{
+						$('#move_all_text').prop('checked', false);
+					}
+				})
+				$('.content-area-design').find('.layout-firsttext-area, .main-layout-name-date-area .layout-name-date-area, .layout-memorialwords-area')
+				.css('background', 'rgba(255,255,255,.1)');
+			},
+			'mouseout': function(e){
+				var $relatedTarget = $(e.relatedTarget);
+				if($relatedTarget.hasClass('unlock-text-box')){
+					$relatedTarget.hover(function(){
+						
+					}, function(){
+						$relatedTarget.remove();
+					})
+					return;
+				}
+
+				this._elem.remove();
+				$('.content-area-design').find('.layout-firsttext-area, .main-layout-name-date-area .layout-name-date-area, .layout-memorialwords-area')
+				.css('background', 'transparent');
+			}
+		}, '.layout-firsttext-area, .main-layout-name-date-area .layout-name-date-area, .layout-memorialwords-area')
+
 		// btn next step control
 		var stepName = ["", "Add Text >>", "Add Accessories >>", "Finish", "Get a Bid"];
 		$('.content-area-design').on('click', '#btn-next-step-control-js', function(){
@@ -1443,11 +1480,11 @@ function switchForm(elem, type){
 				sizeDesign.jobtitle 	= sizeDesign._jobtitle;
 			}else if(font == 'bookman'){
 				sizeDesign.first_text 	= sizeDesign._first_text - (sizeDesign._first_text * 10 / 100); // reduce 10%
-				sizeDesign.name 		= sizeDesign._name - (sizeDesign._name * 10 / 100); // reduce 10%
-				sizeDesign.born 		= sizeDesign._born - (sizeDesign._born * 10 / 100); // reduce 10%
-				sizeDesign.memorial 	= sizeDesign._memorial - (sizeDesign._memorial * 10 / 100); // reduce 10%
-				sizeDesign.poem 		= sizeDesign._poem - (sizeDesign._poem * 10 /100); // reduce 10%
-				sizeDesign.jobtitle 	= sizeDesign._jobtitle - (sizeDesign._jobtitle * 10 / 100); // reduce 10%
+				sizeDesign.name 		= sizeDesign._name - (sizeDesign._name * 15 / 100); // reduce 10%
+				sizeDesign.born 		= sizeDesign._born - (sizeDesign._born * 15 / 100); // reduce 10%
+				sizeDesign.memorial 	= sizeDesign._memorial - (sizeDesign._memorial * 18 / 100); // reduce 10%
+				sizeDesign.poem 		= sizeDesign._poem - (sizeDesign._poem * 15 /100); // reduce 10%
+				sizeDesign.jobtitle 	= sizeDesign._jobtitle - (sizeDesign._jobtitle * 15 / 100); // reduce 10%
 			} 
 
 			var elemChangeSize = {

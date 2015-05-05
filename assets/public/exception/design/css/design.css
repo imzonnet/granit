@@ -1438,3 +1438,16 @@ input[name="text-color"]:checked ~ span{
 .layout-poem-area{
 	letter-spacing: .6px;
 }
+.unlock-text-box{
+	position: absolute;
+	right: 0;
+	top: 0;
+	background: rgba(255,255,255,.1);
+	transform: translateY(-99%);
+	-webkit-transform: translateY(-99%);
+	font-family: arial;
+	font-size: 10px;
+	letter-spacing: 0;
+	color: #FFF;
+	z-index: 99;
+}
