@@ -1442,12 +1442,19 @@ input[name="text-color"]:checked ~ span{
 	position: absolute;
 	right: 0;
 	top: 0;
-	background: rgba(255,255,255,.1);
+	background: #FD6A24;
 	transform: translateY(-99%);
 	-webkit-transform: translateY(-99%);
 	font-family: arial;
 	font-size: 10px;
 	letter-spacing: 0;
-	color: #FFF;
+	color: #111;
 	z-index: 99;
+	padding: 2px;
+	line-height: 0;
+	white-space: nowrap;
+}
+.unlock-text-box input{
+	margin: 0; padding: 0;
+	vertical-align: text-top;
 }

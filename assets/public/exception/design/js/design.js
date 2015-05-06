@@ -71,8 +71,9 @@ function switchForm(elem, type){
 				var $relatedTarget = $(e.relatedTarget);
 				if($relatedTarget.hasClass('unlock-text-box')){
 					$relatedTarget.hover(function(){
-						
+						// on hover
 					}, function(){
+						// out hover
 						$relatedTarget.remove();
 					})
 					return;
@@ -2991,6 +2992,8 @@ function switchForm(elem, type){
 					case 'ceramic':
 						var image_upload = thisItem.data('image-upload');
 						accessoriesItem.imageUpload = image_upload;
+						accessoriesItem.imageRender = thisItem.find('img').attr('src');
+						accessoriesItem.photoEditInfo = thisItem.data('photo-edit-info');
 						break;
 					case 'engraved':
 						width = thisItem.width();
@@ -3199,6 +3202,7 @@ function switchForm(elem, type){
 		function designedAccessoriesHandle(_mLeft){
 			if(typeof data_designed.accessories !== "undefined" && data_designed.accessories.length > 0){
 				$.each(data_designed.accessories, function(index, item){
+					console.log(item);
 					$.ajax({
 						headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },
 						type: "POST",
@@ -3233,18 +3237,22 @@ function switchForm(elem, type){
 										setTimeout(changeColorEngraved(''), 500);
 										break;
 									case 'ceramic':
+
 										accessorieEl.attr('data-filter-image', root_url+'/'+obj.filter_image);
 										accessorieEl.attr('data-image-upload', obj.itemData.imageUpload);
-										var params = {
-											frame: root_url+'/'+obj.image,
-											image: obj.itemData.imageUpload,
-											filter: root_url+'/'+obj.filter_image,
-											afterHandle: function(data){
-												accessorieEl.find('img').attr('src', data);
-											}
-										};
-								      	canvasOverlayFrame(params);
+										accessorieEl.attr('data-photo-edit-info', obj.itemData.photoEditInfo);
+										accessorieEl.find('img').attr('src', obj.itemData.imageRender);
+										// var params = {
+										// 	frame: root_url+'/'+obj.image,
+										// 	image: obj.itemData.imageUpload,
+										// 	filter: root_url+'/'+obj.filter_image,
+										// 	afterHandle: function(data){
+										// 		accessorieEl.find('img').attr('src', data);
+										// 	}
+										// };
+								  //     	canvasOverlayFrame(params);
 										buildLayoutParams.upload = true;
+
 										break;
 								}
 								buildLayout(accessorieEl, buildLayoutParams);
