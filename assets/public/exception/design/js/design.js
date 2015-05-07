@@ -2720,7 +2720,8 @@ function switchForm(elem, type){
 						}
 
 						if(elem.hasClass('deathdatetext')){ 
-							elem.info.left = elem.info.left + 20; 
+							var between_space = (_bigSize.status == false)? 20 : 10;
+							elem.info.left = elem.info.left + between_space; 
 						}
 
 						if(elem.hasClass('birthdatetext') || elem.hasClass('deathdatetext')){
