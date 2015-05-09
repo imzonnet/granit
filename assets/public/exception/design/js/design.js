@@ -1388,13 +1388,13 @@ function switchForm(elem, type){
 			switch(size.toLowerCase()){
 				case 'large':
 					sizeDesign._first_text 	= global_params.first_text.large;
-					sizeDesign._name 		= 9;//global_params.name.large;
+					sizeDesign._name 		= global_params.name.large;
 					sizeDesign._born 		= global_params.born.large;
 					sizeDesign._memorial 	= global_params.memorial.large;
 					sizeDesign._poem 		= global_params.poem.large;
 					sizeDesign._jobtitle 	= global_params.jobtitle.large;
 
-					sizeDesign.space_first_name = global_params.space_first_name.large + 4;
+					sizeDesign.space_first_name = global_params.space_first_name.large;
 					sizeDesign.space_name_born = global_params.space_name_born.large;
 					sizeDesign.space_name1_name2 = global_params.space_name1_name2.large;
 					sizeDesign.space_name_memorial = global_params.space_name_memorial.large + 3;
@@ -1441,32 +1441,36 @@ function switchForm(elem, type){
 			}
 			//console.log(sizeDesign);
 
+			// update name - reduce 4.114006318%
+			sizeDesign._name = sizeDesign._name - (sizeDesign._name * 4.114006318 / 100);
 			//update first text font size - reduce 15.68464731%
 			sizeDesign._first_text = sizeDesign._first_text - (sizeDesign._first_text * 15.68464731 / 100);
 			//update jobtitle font size - reduce 13.06563858%
-			sizeDesign._jobtitle = sizeDesign._jobtitle - (sizeDesign._jobtitle * 13.06563858 / 100);
-			//update born font size - reduction 16.80334564%
-			sizeDesign._born = sizeDesign._born - (sizeDesign._born * 16.80334564 / 100);
+			//sizeDesign._jobtitle = sizeDesign._jobtitle - (sizeDesign._jobtitle * 13.06563858 / 100);
+			//update born font size - reduction 11.20238601%
+			sizeDesign._born = sizeDesign._born - (sizeDesign._born * 11.20238601 / 100);
 			//update memorial font size - reduction 10.45708498%
 			sizeDesign._memorial = sizeDesign._memorial - (sizeDesign._memorial * 10.45708498 / 100);
+			//update poem font size - reduction 15%
+			sizeDesign._poem = sizeDesign._poem - (sizeDesign._poem * 15 / 100);
 			
 			//update first/name space
 			sizeDesign.space_first_name = sizeDesign.space_first_name - (sizeDesign.space_first_name * 15 / 100);
-			//update space name/job - reduction 36.75466397%
-			sizeDesign.space_name_job = sizeDesign.space_name_job - (sizeDesign.space_name_job * 36.75466397 / 100);
+			//update space name/job - reduction 61.25886235%
+			sizeDesign.space_name_job = sizeDesign.space_name_job - (sizeDesign.space_name_job * 61.25886235 / 100);
 			
 			//update space name/born - reduction 17.42194052%
 			//sizeDesign.space_name_born = sizeDesign.space_name_born - (sizeDesign.space_name_born * 17.42194052 / 100);
 			
 			//update space name/borm - increase -8.709336647%
-			sizeDesign.space_name_born = sizeDesign.space_name_born + (sizeDesign.space_name_born * -8.709336647 / 100);
+			//sizeDesign.space_name_born = sizeDesign.space_name_born + (sizeDesign.space_name_born * -8.709336647 / 100);
 
 			//update space poem/poem - reduction 36.75466397%
-			sizeDesign.space_poem_poem = sizeDesign.space_poem_poem - (sizeDesign.space_poem_poem * 36.75466397 / 100);
+			//sizeDesign.space_poem_poem = sizeDesign.space_poem_poem - (sizeDesign.space_poem_poem * 36.75466397 / 100);
 			//update space name/memorial - increase 70%
 			sizeDesign.space_name_memorial = sizeDesign.space_name_memorial + (sizeDesign.space_name_memorial * 70 / 100);
 			//space_memorial_poem - increase 70%
-			sizeDesign.space_memorial_poem = sizeDesign.space_memorial_poem + (sizeDesign.space_memorial_poem * 200 / 100);
+			sizeDesign.space_memorial_poem = sizeDesign.space_memorial_poem + (sizeDesign.space_memorial_poem * 230 / 100);
 
 			setSizeBookmanGaramond('garamond');
 		}
@@ -1479,13 +1483,15 @@ function switchForm(elem, type){
 				sizeDesign.memorial 	= sizeDesign._memorial;
 				sizeDesign.poem 		= sizeDesign._poem;
 				sizeDesign.jobtitle 	= sizeDesign._jobtitle;
+				$('.content-inner-design-area').css('letterSpacing', 0);
 			}else if(font == 'bookman'){
 				sizeDesign.first_text 	= sizeDesign._first_text - (sizeDesign._first_text * 10 / 100); // reduce 10%
-				sizeDesign.name 		= sizeDesign._name - (sizeDesign._name * 15 / 100); // reduce 10%
+				sizeDesign.name 		= sizeDesign._name - (sizeDesign._name * 13 / 100); // reduce 10%
 				sizeDesign.born 		= sizeDesign._born - (sizeDesign._born * 15 / 100); // reduce 10%
 				sizeDesign.memorial 	= sizeDesign._memorial - (sizeDesign._memorial * 18 / 100); // reduce 10%
 				sizeDesign.poem 		= sizeDesign._poem - (sizeDesign._poem * 15 /100); // reduce 10%
 				sizeDesign.jobtitle 	= sizeDesign._jobtitle - (sizeDesign._jobtitle * 15 / 100); // reduce 10%
+				$('.content-inner-design-area').css('letterSpacing', '0.4pt');
 			} 
 
 			var elemChangeSize = {
@@ -2596,7 +2602,10 @@ function switchForm(elem, type){
 			}
 			//context.renderText(text, x, y, 0.66667);
 			//space = (space === 0)? space : 1.65555;
-			space = 0.85555;
+			space = 0; //0.85555;
+			if($('input[name="font-family"]:checked').val() == 'bookosbi'){
+				space = 0.85555;
+			}
 			context.renderText(text, x, y, space);
 
 			// fitWidth = fitWidth || 0;
@@ -2789,10 +2798,10 @@ function switchForm(elem, type){
 					getInfoEl(thisEl, {text: true, style: true, position: true});
 					canvasStyleText({
 						font: thisEl.info.fontFamily,
-						size: thisEl.info.fontSize,
+						size: parseInt(thisEl.info.fontSize) + 0.5 + 'px',
 						color: thisEl.info.color
 					})
-
+					//console.log(thisEl.info);
 					//designParams.context.textAlign = 'center';
 					//thisEl.info.left = thisEl.info.left + (thisEl.width() / 2); 
 					thisEl.info.left = thisEl.info.left; 

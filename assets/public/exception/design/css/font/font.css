@@ -1,0 +1,12 @@
+@font-face {
+  font-family: 'garamondmi';
+  src: url('Garamond-MediumItalic.eot');
+  src: url('Garamond-MediumItalic.eot?#iefix') format('embedded-opentype'),
+       url('Garamond-MediumItalic.woff2') format('woff2'),
+       url('Garamond-MediumItalic.woff') format('woff'),
+       url('Garamond-MediumItalic.ttf') format('truetype'),
+       url('Garamond-MediumItalic.svg#Garamond-MediumItalic') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+

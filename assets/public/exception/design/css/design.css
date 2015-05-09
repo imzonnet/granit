@@ -1,13 +1,12 @@
+@import url("font/font.css");
 @font-face {
     font-family: bookosbi;
     src: url(BOOKOSBI.TTF);
 }
-@font-face {
+/*@font-face {
     font-family: 'garamondmi';
     src: url('Garamond-Premier-Pro-Medium-Italic_19583.ttf') format('truetype');
-    /*src: url('garait_0.ttf') format('truetype');*/
-    /*src: url('16342_garamondmediumitalic_0.ttf') format('truetype');*/
-}
+}*/
 @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css");
 
 .sectionWrapper{
@@ -948,8 +947,9 @@ input[name="text-color"]:checked ~ span{
 	display: inline-block;
 }
 .content-inner-design-area{
-	letter-spacing: .7pt;
+	/*letter-spacing: .7pt;*/
 	/*letter-spacing: initial;*/
+	letter-spacing: 0;
 }
 .popup-wapper{
 	position: fixed;
