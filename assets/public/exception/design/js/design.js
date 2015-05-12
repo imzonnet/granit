@@ -873,8 +873,8 @@ function switchForm(elem, type){
 
 				var iw = this.naturalWidth,
 					ih = this.naturalHeight,
-					defaultH = 350,
-					defaultT = 20,
+					defaultH = 150,
+					defaultT = 130,
 					newW = iw/ih*defaultH,
 					newL = (popup_inner.width() / 2) - (newW / 2);
 
@@ -973,6 +973,7 @@ function switchForm(elem, type){
 					}
 				})
 				.resizable({
+		            'handles': "ne, se, nw, sw",
 					resize: function( event, ui ) {
 					   ui.element.css('height', 'auto');
 					   img_photo.css({

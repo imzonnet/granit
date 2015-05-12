@@ -1458,3 +1458,14 @@ input[name="text-color"]:checked ~ span{
 	margin: 0; padding: 0;
 	vertical-align: text-top;
 }
+.ui-resizable-handle.ui-resizable-ne, .ui-resizable-handle.ui-resizable-se,
+.ui-resizable-handle.ui-resizable-nw, .ui-resizable-handle.ui-resizable-sw{
+	background: #333;
+}
+.l_ceramic_photo .ui-resizable-handle.ui-resizable-se{
+	height: 9px;
+    transform: translate3d(50%, 50%, 0px);
+    -webkit-transform: translate3d(50%, 50%, 0px);
+    width: 9px;
+    z-index: 90;
+}
