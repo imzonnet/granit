@@ -9,6 +9,7 @@ function addJobOrPlace(elem){
 		//add_job_or_place_el = $('<p class="add_job_or_place">').html('<input type="text" style="width: 255px;">').append(del_el);
 	
 	thisEl.addClass('visible-btn').next().css('display', 'block');
+	update_position_mw();
 }
 
 function delJobOrPlace(elem){
@@ -351,6 +352,9 @@ function switchForm(elem, type){
 				$('.content-area-design .layout-id-'+layout_id[2]).remove();
 
 				updatePernamentTextAndCalcPrice();
+
+				/* call func update position mw */
+				update_position_mw();
 			})
 
 			controler_tab_name.children('li:last-child').before(name_tab_el).before(' ');
@@ -2014,6 +2018,20 @@ function switchForm(elem, type){
 			})
 		}
 
+		/**
+		* Update position mw when input text nameDate
+		*/
+		function update_position_mw() {
+			var mw_content_el = $('.layout-memorialwords-area', '.content-inner-design-area'),
+				last_name_date_el = $('.main-layout-name-date-area .layout-name-date-area:last-child'),
+				n_top = last_name_date_el.position().top + last_name_date_el.height() + PointToPixel(sizeDesign.space_name_memorial);
+			
+			if(mw_content_el.data('drag-off') == false) 
+				return;
+
+			mw_content_el.css('top', n_top+'px');
+		}
+
 		// name / date control
 		function nameDateControl(areaTextEl, areaLayoutEl){
 			if(!lDesign.layout_name_date_area){ return; }
@@ -2059,6 +2077,9 @@ function switchForm(elem, type){
 				// console.log(value);
 				areaLayoutEl.find('.nametext').children('.text-inner').html(value);
 				calcCenter(areaLayoutEl.parent()); // center name
+
+				/* call func update position mw */
+				update_position_mw();
 			})
 
 			// add_job_or_place
@@ -2071,6 +2092,9 @@ function switchForm(elem, type){
 				calcCenter(areaLayoutEl.parent()); // center add_job_or_place
 
 				(value.length > 0)? areaLayoutEl.find('.add_job_or_place').css('display', 'block') : areaLayoutEl.find('.add_job_or_place').css('display', 'none') ;
+			
+				/* call func update position mw */
+				update_position_mw();
 			})
 
 			// birthdate
@@ -2091,6 +2115,9 @@ function switchForm(elem, type){
 					areaLayoutEl.find('.datetext .birthdatetext').html(text_date);
 
 					calcCenter(areaLayoutEl.parent()); // center birthdatetext
+
+					/* call func update position mw */
+					update_position_mw();
 				})
 			})
 
