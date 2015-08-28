@@ -9,7 +9,12 @@ function addJobOrPlace(elem){
 		//add_job_or_place_el = $('<p class="add_job_or_place">').html('<input type="text" style="width: 255px;">').append(del_el);
 	
 	thisEl.addClass('visible-btn').next().css('display', 'block');
-	update_position_mw();
+	try{
+		update_position_mw();
+	}catch(err) {
+		console.log(err);
+	}
+	
 }
 
 function delJobOrPlace(elem){
@@ -293,7 +298,7 @@ function switchForm(elem, type){
 			medium: global_params.radio.medium * space_memorial_memorial_real,
 			small: global_params.radio.small * space_memorial_memorial_real};
 
-		// console.log(global_params);
+		// console.log(global_ceramic_photo);
 
 
 		// set default
@@ -562,7 +567,7 @@ function switchForm(elem, type){
 				imgEl = thisEl.children('img'),
 				imgSrc = imgEl.attr('src'),
 				layout_icon = $('<div>').addClass('layout-design').html('<img src="'+imgSrc+'"/>');
-				
+
 			content_area_design.append(layout_icon);
 			buildLayout(layout_icon, {drag: true});
 		})
@@ -829,13 +834,59 @@ function switchForm(elem, type){
 			return context;
 		}
 
+		function resize_frame_ceramic( img_frame, size, align ) {
+			if( ! size ) return;
+			var f_src = img_frame.data('src'),
+				_c = document.createElement('canvas'),
+				_ctx = _c.getContext('2d');
+
+			var _img_frame = new Image();
+			_img_frame.src = f_src;
+			_img_frame.onload = function() {
+				var i_h = this.naturalHeight,
+					i_w = this.naturalWidth,
+					radio = i_w / i_h;
+
+				switch(size) {
+					case '8x10':
+						var width = global_ceramic_photo.small.s8_10,
+							height =  width / radio;
+						break;
+					case '9x12':
+						var width = global_ceramic_photo.small.s9_12,
+							height =  width / radio;
+						break;
+				}
+
+				if( align == 'h' ) {
+					_c.width = height;
+					_c.height = width;
+
+					_ctx.translate( height / 2, width / 2 );
+					_ctx.rotate(90 * (Math.PI/180));
+					_ctx.drawImage(_img_frame, -width / 2, -height / 2, width, height);
+					var frame_img_string = _c.toDataURL('image/png');
+
+				}else {
+					_c.width = width;
+					_c.height = height;
+
+					_ctx.drawImage(_img_frame, 0, 0, width, height);
+					var frame_img_string = _c.toDataURL("image/png");
+				}
+
+				img_frame.attr('src', frame_img_string);
+			}
+			
+		}
+
 		function designCeramic(params){
 			// params: frame || photo || filter
 			var _body = $('body');
 			var popup = $("<div>",{ class: 'popup_design_ceramic' }),
 				popup_tool = $("<div>",{ class: 'popup_design_ceramic_tool' }),
 				popup_inner = $("<div>", { class: 'popup_design_ceramic_inner loading-photo' }),
-				img_frame = $("<img>",{ src: params.frame, class: 'l_ceramic_frame' }),
+				img_frame = $("<img>",{ src: params.frame, class: 'l_ceramic_frame', 'data-src': params.frame }),
 				img_photo = $("<div>",{ class: 'l_ceramic_photo', html: '<img src="'+params.photo+'"/>' }),
 				img_photo_overlay = $("<div>",{ class: 'l_ceramic_photo _overlay', html: '<img src="'+params.photo+'"/>' }),
 				btn_apply = $("<button>", { type: "button", class: "btn-apply-ceramic", html: "SAVE" }),
@@ -993,38 +1044,44 @@ function switchForm(elem, type){
 				$photo_frame_size.on('click', '> div', function(e){
 					var $_this = $(this);
 					$_this.addClass('current').siblings().removeClass('current');
-				})
+					var _vh = $photo_frame_v_h.find('.current');
+
+					if( $_this.hasClass('photo-frame-size8-10') ) {
+						var _size = '8x10';
+					}else if( $_this.hasClass('photo-frame-size9-12') ) {
+						var _size = '9x12';
+					}
+
+					if( _vh.hasClass('photo-frame-v') ) {
+						var _align = 'v';
+					}else if( _vh.hasClass('photo-frame-h') ) {
+						var _align = 'h';
+					}
+
+					resize_frame_ceramic( img_frame, _size, _align );
+				}).find('.current').trigger('click');
 
 				// $photo_frame_v_h
 				$photo_frame_v_h.on('click', '> div', function(e){
 					var $_this = $(this);
 					$_this.addClass('current').siblings().removeClass('current');
-					if($_this.hasClass('photo-frame-v')){
-						//img_frame
-						img_frame[0].src = params.frame;
+
+					var _s = $photo_frame_size.find('.current');
+					var _vh = $photo_frame_v_h.find('.current');
+
+					if( _s.hasClass('photo-frame-size8-10') ) {
+						var _size = '8x10';
+					}else if( _s.hasClass('photo-frame-size9-12') ) {
+						var _size = '9x12';
 					}
 
-					if($_this.hasClass('photo-frame-h')){
-						//img_frame
-						var _c = document.createElement('canvas'),
-							_ctx = _c.getContext('2d'),
-							_img = new Image();
-
-						_img.src = params.frame;
-						_img.onload = function(){
-							var __w = this.naturalWidth,
-								__h = this.naturalHeight; 
-
-							_c.width = __h;
-							_c.height = __w;
-							
-							_ctx.translate(__h/2, __w/2);
-							_ctx.rotate(90 * (Math.PI/180));
-							_ctx.drawImage(this, -__w/2, -__h/2);
-							var dataURL = _c.toDataURL('image/png');
-							img_frame[0].src = dataURL;
-						}
+					if( _vh.hasClass('photo-frame-v') ) {
+						var _align = 'v';
+					}else if( _vh.hasClass('photo-frame-h') ) {
+						var _align = 'h';
 					}
+
+					resize_frame_ceramic( img_frame, _size, _align );
 				})
 
 				if(params.edit){
@@ -1043,8 +1100,10 @@ function switchForm(elem, type){
 						ctx = c.getContext('2d');
 
 					var frame_info = {
-						w: img_frame.width(),
-						h: img_frame.height(),
+						//w: img_frame.width(),
+						//h: img_frame.height(),
+						w: parseInt(img_frame.css('width')),
+						h: parseInt(img_frame.css('height')),
 						l: img_frame.offset().left,
 						t: img_frame.offset().top,
 					};
@@ -1093,7 +1152,7 @@ function switchForm(elem, type){
 						var filter_img = new Image();
 						filter_img.src = params.filter;
 						filter_img.onload = function(){
-							ctx.drawImage(this, 0, 0);
+							ctx.drawImage(this, 0, 0, frame_info.w, frame_info.h);
 							var imageData = ctx.getImageData(0, 0, frame_info.w, frame_info.h);
 							var pixel = imageData.data;
 							var r = 0, g = 1, b = 2, a = 3;
@@ -1107,7 +1166,31 @@ function switchForm(elem, type){
 							}
 							ctx.putImageData(imageData, 0, 0);
 							ctx.drawImage(img_frame[0], 0, 0, frame_info.w, frame_info.h);
-							var result = c.toDataURL("image/png");
+
+							
+
+							/****/
+							var _s = $photo_frame_size.find('.current');
+							var r_c = document.createElement('canvas'),
+								r_ctx = r_c.getContext('2d');
+
+							var radio = frame_info.w / frame_info.h;
+							if( _s.hasClass('photo-frame-size8-10') ) {
+								//var _size = '8x10';
+								r_c.width = sizeDesign.ceramic_photo_8_10;
+								r_c.height = r_c.width / radio;
+								r_ctx.drawImage(c, 0, 0, r_c.width, r_c.height);
+							}else if( _s.hasClass('photo-frame-size9-12') ) {
+								//var _size = '9x12';
+								r_c.width = sizeDesign.ceramic_photo_9_12;
+								r_c.height = r_c.width / radio;
+								console.log( r_c.width,'-', r_c.height );
+								r_ctx.drawImage(c, 0, 0, r_c.width, r_c.height);
+							}
+
+							//var result = c.toDataURL("image/png");
+							var result = r_c.toDataURL("image/png");
+
 							//window.open(result);
 							elementCurrentUpload
 							.css({width: 'auto', height: 'auto'})
@@ -1117,7 +1200,9 @@ function switchForm(elem, type){
 				 				'data-image-upload': params.photo,
 				 				'data-photo-edit-info': photo_info.w+'|'+photo_info.h+'|'+photo_info.pL+'|'+photo_info.pT+'|'+framesize+'|'+framehv,
 				 			});
-				 			elementCurrentUpload.find('img').attr('src', result);
+				 			elementCurrentUpload.find('img').attr('src', result).css({
+				 				'width': 'auto',
+				 			});
 
 				 			editDesignCeramic(elementCurrentUpload);
 				 			popup.fadeOut(500, function(){ popup.remove(); });
@@ -1131,15 +1216,18 @@ function switchForm(elem, type){
 
 						_filter.src = params.filter;
 						_filter.onload = function(){
-							var __w = this.naturalWidth,
-								__h = this.naturalHeight; 
+							// var __w = this.naturalWidth,
+							// 	__h = this.naturalHeight;
+							// frame_info.w, frame_info.h 
+							var __w = frame_info.w,
+								__h = frame_info.h;
 
-							_cf.width = __h;
-							_cf.height = __w;
+							_cf.width = __w;
+							_cf.height = __h;
 
-							_fctx.translate(__h/2, __w/2);
+							_fctx.translate(__w/2, __h/2);
 							_fctx.rotate(90 * (Math.PI/180));
-							_fctx.drawImage(this, -__w/2, -__h/2);
+							_fctx.drawImage(this, -__h/2, -__w/2, __h, __w);
 
 							ctx.drawImage(_cf, 0, 0);
 							var imageData = ctx.getImageData(0, 0, frame_info.w, frame_info.h);
@@ -1155,7 +1243,28 @@ function switchForm(elem, type){
 							}
 							ctx.putImageData(imageData, 0, 0);
 							ctx.drawImage(img_frame[0], 0, 0, frame_info.w, frame_info.h);
-							var result = c.toDataURL("image/png");
+
+							/****/
+							var _s = $photo_frame_size.find('.current');
+							var r_c = document.createElement('canvas'),
+								r_ctx = r_c.getContext('2d');
+
+							var radio = frame_info.w / frame_info.h;
+							if( _s.hasClass('photo-frame-size8-10') ) {
+								//var _size = '8x10';
+								r_c.height = sizeDesign.ceramic_photo_8_10;
+								r_c.width = sizeDesign.ceramic_photo_8_10 * radio;
+								r_ctx.drawImage(c, 0, 0, r_c.width, r_c.height);
+							}else if( _s.hasClass('photo-frame-size9-12') ) {
+								//var _size = '9x12';
+								r_c.height = sizeDesign.ceramic_photo_9_12;
+								r_c.width = sizeDesign.ceramic_photo_9_12 * radio;
+								r_ctx.drawImage(c, 0, 0, r_c.width, r_c.height);
+							}
+
+							//var result = c.toDataURL("image/png");
+							var result = r_c.toDataURL("image/png");
+
 							//window.open(result);
 							elementCurrentUpload
 							.css({width: 'auto', height: 'auto'})
@@ -1165,7 +1274,7 @@ function switchForm(elem, type){
 				 				'data-image-upload': params.photo,
 				 				'data-photo-edit-info': photo_info.w+'|'+photo_info.h+'|'+photo_info.pL+'|'+photo_info.pT+'|'+framesize+'|'+framehv,
 				 			});
-				 			elementCurrentUpload.find('img').attr('src', result);
+				 			elementCurrentUpload.find('img').attr('src', result).css('width', 'auto');
 
 				 			editDesignCeramic(elementCurrentUpload);
 				 			popup.fadeOut(500, function(){ popup.remove(); });
@@ -1389,6 +1498,25 @@ function switchForm(elem, type){
 		// UPDATE =============================================
 		// Select product cat
 		var sizeDesign = {};
+		var global_ceramic_photo = {
+			large: {
+				s8_10: 32.13333347,
+				s9_12: 36.15000015
+			},
+			medium: {
+				s8_10: 48.1999999,
+				s9_12: 54.22499989
+			},
+			small: {
+				s8_10: 77.1199999,
+				s9_12: 86.75999989
+			}
+		};
+		var global_accessories = {
+			large: 76,
+			medium: 129,
+			small: 129
+		}
 		function setSizeDefault(size){
 			switch(size.toLowerCase()){
 				case 'large':
@@ -1408,6 +1536,10 @@ function switchForm(elem, type){
 					sizeDesign.space_poem_poem = global_params.space_poem_poem.large;
 					sizeDesign.space_memorial_memorial = global_params.space_memorial_memorial.large;
 					
+					sizeDesign.ceramic_photo_8_10 = global_ceramic_photo.large.s8_10;
+					sizeDesign.ceramic_photo_9_12 = global_ceramic_photo.large.s9_12;
+
+					sizeDesign.height_accessories = global_accessories.large;
 					break;
 				case 'medium':
 					sizeDesign._first_text 	= global_params.first_text.medium;
@@ -1425,6 +1557,11 @@ function switchForm(elem, type){
 					sizeDesign.space_name_job = global_params.space_name_job.medium;
 					sizeDesign.space_poem_poem = global_params.space_poem_poem.medium;
 					sizeDesign.space_memorial_memorial = global_params.space_memorial_memorial.medium;
+
+					sizeDesign.ceramic_photo_8_10 = global_ceramic_photo.medium.s8_10;
+					sizeDesign.ceramic_photo_9_12 = global_ceramic_photo.medium.s9_12;
+
+					sizeDesign.height_accessories = global_accessories.medium;
 					break;
 				case 'small':
 					sizeDesign._first_text 	= global_params.first_text.small;
@@ -1442,6 +1579,11 @@ function switchForm(elem, type){
 					sizeDesign.space_name_job = global_params.space_name_job.small;
 					sizeDesign.space_poem_poem = global_params.space_poem_poem.small;
 					sizeDesign.space_memorial_memorial = global_params.space_memorial_memorial.small;
+
+					sizeDesign.ceramic_photo_8_10 = global_ceramic_photo.small.s8_10;
+					sizeDesign.ceramic_photo_9_12 = global_ceramic_photo.small.s9_12;
+
+					sizeDesign.height_accessories = global_accessories.small;
 					break;
 			}
 			//console.log(sizeDesign);
@@ -2063,15 +2205,6 @@ function switchForm(elem, type){
 			controlFontSize(areaTextEl.find('.site-control-add-job-or-place'), areaLayoutEl.find('.add_job_or_place'));
 			controlFontSize(areaTextEl.find('.site-control-b-d-date'), areaLayoutEl.find('.datetext'));
 
-			textEl.expect_to_add_another_namelater.bind('change', function(){
-				var $this = $(this);
-				if($this.prop('checked') == true){
-					areaLayoutEl.addClass('expect_to_add_another_namelater');
-				}else{
-					areaLayoutEl.removeClass('expect_to_add_another_namelater');
-				}
-			})
-
 			textEl.name.bind('input', function(){
 				var value = $(this).val();
 				// console.log(value);
@@ -2080,6 +2213,17 @@ function switchForm(elem, type){
 
 				/* call func update position mw */
 				update_position_mw();
+			})
+
+			textEl.expect_to_add_another_namelater.bind('change', function(){
+				var $this = $(this);
+				if($this.prop('checked') == true){
+					areaLayoutEl.addClass('expect_to_add_another_namelater');
+				}else{
+					areaLayoutEl.removeClass('expect_to_add_another_namelater');
+				}
+
+				textEl.name.trigger('input');
 			})
 
 			// add_job_or_place
@@ -2367,7 +2511,7 @@ function switchForm(elem, type){
 					filter_image = thisEl.data('filter-image'),
 					icon_image = thisEl.data('icon-image'),
 					accessorieEl = $('<div>'),
-					htmlInner = "<img src='"+src+"'>",
+					htmlInner = $("<img src='"+src+"'>"),
 					icon_type = thisEl.data('icon-type');
 
 				accessorieEl.attr({
@@ -2384,7 +2528,16 @@ function switchForm(elem, type){
 					params.resize = true; 
 					changeColorEngraved('');
 				}
-				(icon_type == 'ceramic')? params.upload = true : "";
+				if(icon_type == 'ceramic'){ 
+					params.upload = true;
+					htmlInner.css({
+						width: sizeDesign.ceramic_photo_8_10
+					})
+				}
+
+				if(icon_type == 'default') {
+					htmlInner.css({ width: 'auto', height: sizeDesign.height_accessories });
+				}
 
 				buildLayout(accessorieEl, params);
 
@@ -2447,8 +2600,8 @@ function switchForm(elem, type){
 		})
 
 		$('.content-color-text').css({
-			opacity: 0.4,
-			pointerEvents: 'none',
+			//opacity: 0.4,
+			//pointerEvents: 'none',
 		})
 		
 		$('#permanent_text').click(function(){
@@ -3291,6 +3444,9 @@ function switchForm(elem, type){
 								  //     	canvasOverlayFrame(params);
 										buildLayoutParams.upload = true;
 
+										break;
+									case 'default':
+										accessorieEl.find('img').css({ width: 'auto', height: sizeDesign.height_accessories });
 										break;
 								}
 								buildLayout(accessorieEl, buildLayoutParams);

@@ -143,8 +143,8 @@
 						</li>
 						@endforeach
 					</ul>
-					<div><input type="radio" name="color_text" id="painted_text"/> {{trans('Stones::design.stones.design.painted_text')}}</div>
-					<div><input type="radio" name="color_text" id="permanent_text" checked=""/> {{trans('Stones::design.stones.design.permanent_text?')}}</div>
+					<div style="display: none;"><input type="radio" name="color_text" id="painted_text" checked=""/> {{trans('Stones::design.stones.design.painted_text')}}</div>
+					<div style="display: none;"><input type="radio" name="color_text" id="permanent_text"/> {{trans('Stones::design.stones.design.permanent_text?')}}</div>
 				</div><!--
 				--><div style="width: 60%;">
 					<p><strong>{{trans('Stones::design.stones.design.font_type')}}</strong></p>

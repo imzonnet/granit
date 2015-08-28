@@ -1158,15 +1158,10 @@ input[name="text-color"]:checked ~ span{
 };
 .expect_to_add_another_namelater{
 	position: relative;
+	
 }
-.expect_to_add_another_namelater:after{
-	background: rgba(255,255,255,.9);
-    bottom: -49pt;
-    content: "";
-    height: 50px;
-    left: 5%;
-    position: absolute;
-    width: 90%;
+.expect_to_add_another_namelater{
+	padding-bottom: 40px;
 }
 .popup_design_ceramic{
 	width: 500px;
