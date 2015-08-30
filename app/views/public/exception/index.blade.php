@@ -251,8 +251,7 @@ $(window).load(function () {
     <!-- Welcome Box start -->
     <div class="welcome">
         <div class="container">
-            <h3 class="center block-head"><span class="main-color">Welcome to our website</span></h3>
-            <p class="margin-bottom-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque imperdiet purus quis metus imperdiet fermentum. Suspendisse hendrerit id lacus id lobortis. Vestibulum quam elit, dapibus hendrerit id lacus id lobortis. Vestibulum quam elit, dapibus ac augue ut.</p>
+            {{ region_render('introduce') }}
         </div>
     </div>
     <!-- Welcome Box end -->

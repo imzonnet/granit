@@ -13,8 +13,9 @@
                 <div class="cell-7 right-bar">
                     {{Services\MenuManager::generate('public-small-menu-right', 'right')}}
                     <ul class="right"> 
-                        <li><a href="#">{{HTML::image(asset('uploads/images/en.png'), 'English',['width' => '30px', 'class' => 'left', 'style' => 'padding-right: 5px; margin-top: 8px;'])}} EN</a></li>
-                        <li><a href="cart.html"><i class="fa fa-shopping-cart"></i>0 item(s) - $0.00</a></li> 
+                        <li><a href="{{ URL::route('language.switch', 'en') }}">{{HTML::image(asset('uploads/images/en.png'), 'English',['width' => '30px', 'class' => 'left', 'style' => 'padding-right: 5px; margin-top: 8px;'])}} EN</a></li>
+                        <li><a href="{{ URL::route('language.switch', 'vi') }}">{{HTML::image(asset('uploads/images/en.png'), 'English',['width' => '30px', 'class' => 'left', 'style' => 'padding-right: 5px; margin-top: 8px;'])}} VI</a></li>
+                        <li><a href="cart.html"><i class="fa fa-shopping-cart"></i>0 item(s) - $0.00</a></li>
                         <li><a href="#"><i class="fa fa-sitemap"></i>Site Map</a></li>
                         @if( !\Sentry::check() )
                         <li><a href="{{url('register')}}"><i class="fa fa-user"></i>Register</a></li> 

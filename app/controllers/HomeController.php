@@ -96,4 +96,18 @@ class HomeController extends BaseController {
         $this->layout->content = View::make('public.' . $this->current_theme . '.about')->with('users', $users);
     }
 
+    /**
+     * Switch Language
+     * @param null $lang
+     * @return
+     */
+
+    public function language($lang = null)
+    {
+        if( $lang == null ) {
+            \Session::put('language', \Config::get('app.locale'));
+        }
+        \Session::put('language', $lang);
+        return \Redirect::back();
+    }
 }

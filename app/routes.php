@@ -286,3 +286,8 @@ if (!Config::get('app.debug')) {
     // Display error pages only if debug mode is disabled
     require_once(__DIR__ . '/errors.php');
 }
+
+/**
+ * Switch Language
+ */
+Route::get('language/{lang?}', ['as' => 'language.switch', 'uses' => 'HomeController@language']);

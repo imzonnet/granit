@@ -61,6 +61,7 @@ class UserGroup extends Eloquent {
                 'memorial-media' => 'Memorial Media',
                 'memorial-users' => 'Memorial Users',
                 'testimonials' => 'Testimonials',
+                'blocks' => 'Blocks',
             ),
             'others' => array(
                 'theme-manager' => array(

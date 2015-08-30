@@ -15,7 +15,7 @@ class BaseController extends Controller {
      * The layout that should be used for responses.
      */
     protected $layout;
-
+    public $language;
     /**
      * Initializer.
      *
@@ -36,6 +36,8 @@ class BaseController extends Controller {
         $this->user = current_user();
 
         View::share('current_user', $this->user);
+
+        $this->language = \Session::get('language');
     }
 
 	/**
@@ -50,5 +52,4 @@ class BaseController extends Controller {
 			$this->layout = View::make($this->layout);
 		}
 	}
-
 }
