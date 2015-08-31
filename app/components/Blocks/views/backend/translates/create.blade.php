@@ -59,10 +59,11 @@
                             <div class="control-group">
                                 <label class="control-label">Language</label>
                                 <div class="controls line">
-                                    @if($block)
+                                    @if( isset($block) )
                                     <input type="text" disabled="disabled" value="{{ isset($block) ? $block->language : current_language() }}" />
                                     @else
-                                        {{ Form::select('region', $regions, Input::old('status'), array('class'=>'chosen span6 m-wrap')) }}
+                                        {{ Form::select('language', $languages, Input::old('language'), array('class'=>'chosen span6 m-wrap')) }}
+                                        {{ $errors->first() }}
                                     @endif
                                 </div>
                             </div>
@@ -74,6 +75,7 @@
                             </div>
                             {{ Form::close() }}
                             <!-- END FORM-->
+                            <br /><br /><br />
                         </div>
                     </div>
                 </div>

@@ -16,7 +16,6 @@ class BlocksServiceProvider extends ServiceProvider {
     public function boot()
     {
         parent::boot('Blocks');
-
     }
 
 }

@@ -39,8 +39,11 @@
                     </div>
                     @if ($current_user->hasAccess("blocks.create"))
                     <div class="btn-group pull-right">
+                        <button data-href="{{ URL::route($link_type . '.block.edit', $block->id) }}" class="btn btn-info">
+                            Block Edit <i class="icon-pencil"></i>
+                        </button>
                         <button data-href="{{ URL::route($link_type . '.block.translate.create', $block->id) }}" class="btn btn-success">
-                            Add New <i class="icon-plus"></i>
+                            New Translate <i class="icon-plus"></i>
                         </button>
                     </div>
                     @endif
@@ -69,7 +72,7 @@
                                     <ul class="btn btn-mini">
                                         @if ($current_user->hasAccess("blocks.destroy"))
                                         <li>
-                                            {{ Form::open(array('route' => array($link_type . '.block.destroy', $block->id), 'method' => 'delete', 'class'=>'inline', 'onsubmit'=>"return deleteRecord($(this), 'product product');")) }}
+                                            {{ Form::open(array('route' => array($link_type . '.block.translate.destroy', $block->block_id, $block->id), 'method' => 'delete', 'class'=>'inline', 'onsubmit'=>"return deleteRecord($(this), 'Block');")) }}
                                             <button type="submit" class="danger delete"><i class="icon-trash"></i> Delete</button>
                                             {{ Form::close() }}
                                         </li>

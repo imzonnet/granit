@@ -260,37 +260,17 @@ $(window).load(function () {
     <div class="gry-bg">
         <div class="container">
             <div class="row">
-                <div class="cell-3 service-box-1 fx" data-animate="fadeInUp" data-animation-delay="200">
-                    <div class="box-top">
-                        <i class="fa">{{HTML::image(asset('uploads/images/icons/aa.png'))}}</i>
-                        <h3><span>Over 100 years durability</span><br>Permanent text</h3>
-                        <p>Proin gravida nibh vel velit auctor enean sollicitud lorem quis bibendum auctor, nisi elit consequipsum.Proin gravida nibh vel velit auctor enean sollicitud lorem quis bibendum auctor, nisi elit consequipsum.</p>
-                        <a class="more-btn" href="#">Read More</a>
-                    </div>
+                <div class="cell-3 fx" data-animate="fadeInUp" data-animation-delay="200">
+                    {{ region_render('feature_first') }}
                 </div>
-                <div class="cell-3 service-box-1 fx" data-animate="fadeInUp" data-animation-delay="400">
-                    <div class="box-top">
-                        <i class="fa">{{HTML::image(asset('uploads/images/icons/ad.png'))}}</i>
-                        <h3><span>Design a headstone at home</span><br>Design a Stone</h3>
-                        <p>Proin gravida nibh vel velit auctor enean sollicitud lorem quis bibendum auctor, nisi elit consequipsum.Proin gravida nibh vel velit auctor enean sollicitud lorem quis bibendum auctor, nisi elit consequipsum.</p>
-                        <a class="more-btn" href="#">Read More</a>
-                    </div>
+                <div class="cell-3 fx" data-animate="fadeInUp" data-animation-delay="200">
+                    {{ region_render('feature_second') }}
                 </div>
-                <div class="cell-3 service-box-1 fx" data-animate="fadeInUp" data-animation-delay="600">
-                    <div class="box-top">
-                        <i class="fa">{{HTML::image(asset('uploads/images/icons/acces.png'))}}</i>
-                        <h3><span>Find all kinds of</span><br>Accessories</h3>
-                        <p>Proin gravida nibh vel velit auctor enean sollicitud lorem quis bibendum auctor, nisi elit consequipsum.Proin gravida nibh vel velit auctor enean sollicitud lorem quis bibendum auctor, nisi elit consequipsum.</p>
-                        <a class="more-btn" href="#">Read More</a>
-                    </div>
+                <div class="cell-3 fx" data-animate="fadeInUp" data-animation-delay="200">
+                    {{ region_render('feature_third') }}
                 </div>
-                <div class="cell-3 service-box-1 fx" data-animate="fadeInUp" data-animation-delay="800">
-                    <div class="box-top">
-                        <i class="fa">{{HTML::image(asset('uploads/images/icons/about.png'))}}</i>
-                        <h3><span>Always remeber you</span><br>Momorial site</h3>
-                        <p>Proin gravida nibh vel velit auctor enean sollicitud lorem quis bibendum auctor, nisi elit consequipsum.Proin gravida nibh vel velit auctor enean sollicitud lorem quis bibendum auctor, nisi elit consequipsum.</p>
-                        <a class="more-btn" href="#">Read More</a>
-                    </div>
+                <div class="cell-3 fx" data-animate="fadeInUp" data-animation-delay="200">
+                    {{ region_render('feature_fourth') }}
                 </div>
             </div>
         </div>

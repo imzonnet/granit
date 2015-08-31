@@ -67,7 +67,7 @@
             @if (can_access_menu($current_user, array('blocks')))
                 <li class="{{ Request::is('backend/block') ? 'active' : null }}">
                    <a href="{{ URL::to('backend/block') }}">
-                       <i class="icon-file"></i>
+                       <i class="icon-th"></i>
                        <span class="title">{{ trans('Blocks::cms.block') }}</span>
                    </a>
                 </li>

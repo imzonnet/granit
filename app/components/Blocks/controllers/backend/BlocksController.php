@@ -120,8 +120,7 @@ class BlocksController extends \BaseController {
             $blockTranslate = BlockTranslate::findOrFail($input['translate_id']);
             $blockTranslate->update($input);
 
-            return Redirect::to("backend/block")
-                            ->with('success_message', 'The block was updated.');
+            return Redirect::back()->with('success_message', 'The block was updated.');
         } catch (ValidationException $e) {
             return Redirect::back()->withInput()->withErrors($e->getErrors());
         }

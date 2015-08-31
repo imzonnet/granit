@@ -105,9 +105,9 @@ class HomeController extends BaseController {
     public function language($lang = null)
     {
         if( $lang == null ) {
-            \Session::put('language', \Config::get('app.locale'));
+            \Session::put('lang', \Config::get('app.locale'));
         }
-        \Session::put('language', $lang);
+        \Session::put('lang', $lang);
         return \Redirect::back();
     }
 }

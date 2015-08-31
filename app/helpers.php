@@ -117,6 +117,7 @@ function current_user()
 
 function can_access_menu($user, $menus=array())
 {
+    if(!$user) return false;
     $menus = (array)$menus;
 
     // Get the user permissions

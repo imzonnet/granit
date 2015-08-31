@@ -32,31 +32,6 @@ class Block extends \Eloquent {
     }
 
     /**
-     * Get all the statuses available for a post
-     * @return array
-     */
-    public static function all_status() {
-        return array(
-            '1' => 'Publish',
-            '0' => 'Unpublish',
-            '-1' => 'Draft',
-        );
-    }
-
-    public static function regions() {
-        return [
-            'introduce' => 'Introduce',
-            'feature_first' => 'Feature First',
-            'feature_second' => 'Feature Second',
-            'feature_third' => 'Feature Third',
-            'feature_fourth' => 'Feature Fourth',
-            'portfolio' => 'Portfolio',
-            'testimonials'  =>  'Testimonials',
-            'advertisement' => 'Advertisement'
-        ];
-    }
-
-    /**
      * Relationship
      * @param null $language
      * @return
@@ -69,5 +44,44 @@ class Block extends \Eloquent {
             $language = current_language();
         }
         return $this->hasMany('Components\Blocks\Models\BlockTranslate', 'block_id', 'id')->where('language', '=', $language);
+    }
+
+    /**
+     * Get all the statuses available for a post
+     * @return array
+     */
+    public static function all_status() {
+        return array(
+            '1' => 'Publish',
+            '0' => 'Unpublish',
+            '-1' => 'Draft',
+        );
+    }
+
+    /**
+     * Register Regions Block for Theme
+     * @return array
+     */
+    public static function regions() {
+        return [
+            'introduce' => 'Introduce',
+            'feature_first' => 'Feature First',
+            'feature_second' => 'Feature Second',
+            'feature_third' => 'Feature Third',
+            'feature_fourth' => 'Feature Fourth',
+            'portfolio' => 'Portfolio',
+            'testimonials'  =>  'Testimonials',
+            'advertisement' => 'Advertisement'
+        ];
+    }
+    /**
+     * Register Languages use
+     * @return array
+     */
+    public static function languages() {
+        return [
+            'en' => 'English',
+            'icl' => 'IceLand'
+        ];
     }
 }
