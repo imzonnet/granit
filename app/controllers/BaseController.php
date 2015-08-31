@@ -37,7 +37,7 @@ class BaseController extends Controller {
 
         View::share('current_user', $this->user);
 
-        $this->language = \Session::get('language');
+        $this->language = current_language();
     }
 
 	/**
