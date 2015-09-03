@@ -602,7 +602,17 @@
 				return false;
 			}
 		});
-	}
+        tabsPane.find('.tab-panel').find('a[data-index]').click(function(e){
+            e.preventDefault();
+            var index = $(this).data('index') || -1;
+            if( index != -1 ) {
+                tabsUl.find('li').removeClass('active');
+                tabsUl.find('li').eq(index).addClass('active');
+                tabsPane.find('.tab-panel').fadeOut(0).removeClass('active');
+                tabsPane.find('.tab-panel').eq(index).fadeIn(350).addClass('active');
+            }
+        });
+	};
 	
 	/* ================ Accordions. ================ */
 	$.fn.accordion = function(options) {

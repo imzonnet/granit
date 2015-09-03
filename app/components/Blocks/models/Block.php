@@ -71,7 +71,9 @@ class Block extends \Eloquent {
             'feature_fourth' => 'Feature Fourth',
             'portfolio' => 'Portfolio',
             'testimonials'  =>  'Testimonials',
-            'advertisement' => 'Advertisement'
+            'testimonial_quotes'  =>  'Testimonial Quotes',
+            'advertisement' => 'Advertisement',
+            'team' => 'Teams'
         ];
     }
     /**

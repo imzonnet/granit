@@ -282,11 +282,7 @@ $(window).load(function () {
         <div class="container">
             <div class="row">
                 <div class="cell-3">
-                    <h3 class="block-head side-heading">Recent <span>projects</span></h3>
-                    <p class="portfolio-lft-txt">Browse our recent projects and you will see how we work and what are the technologies we use to build websites with a high quality and profissional ways to present you all what you need, All we aim is to make our customers satisfied and happy with all of our services.</p>
-                    <div class="viewAll">
-                        <a class="btn" href="#">Browse All Projects</a>
-                    </div>
+                    {{ region_render('portfolio') }}
                 </div>
                 <div class="cell-9">
                     <div class="homeGallery portfolio">
@@ -301,7 +297,7 @@ $(window).load(function () {
                                     <img alt="" src="{{URL::to('assets/public/exception/images/portfolio/1.jpg')}}">
                                 </div>
                                 <div class="name-holder">
-                                    <a href="#" class="project-name">Project Title</a>
+                                    <a href="#" class="project-name">{{ trans('Project Title') }}</a>
                                 </div>
                             </div>
                         </div>
@@ -318,7 +314,7 @@ $(window).load(function () {
                                     <img alt="" src="{{URL::to('assets/public/exception/images/portfolio/1.jpg')}}">
                                 </div>
                                 <div class="name-holder">
-                                    <a href="#" class="project-name">Project Title</a>
+                                    <a href="#" class="project-name">{{ trans('Project Title') }}</a>
                                 </div>
                             </div>
                         </div>
@@ -335,7 +331,7 @@ $(window).load(function () {
                                     <img alt="" src="{{URL::to('assets/public/exception/images/portfolio/1.jpg')}}">
                                 </div>
                                 <div class="name-holder">
-                                    <a href="#" class="project-name">Project Title</a>
+                                    <a href="#" class="project-name">{{ trans('Project Title') }}</a>
                                 </div>
                             </div>
                         </div>
@@ -352,7 +348,7 @@ $(window).load(function () {
                                     <img alt="" src="{{URL::to('assets/public/exception/images/portfolio/1.jpg')}}">
                                 </div>
                                 <div class="name-holder">
-                                    <a href="#" class="project-name">Project Title</a>
+                                    <a href="#" class="project-name">{{ trans('Project Title') }}</a>
                                 </div>
                             </div>
                         </div>
@@ -369,7 +365,7 @@ $(window).load(function () {
                                     <img alt="" src="{{URL::to('assets/public/exception/images/portfolio/1.jpg')}}">
                                 </div>
                                 <div class="name-holder">
-                                    <a href="#" class="project-name">Project Title</a>
+                                    <a href="#" class="project-name">{{ trans('Project Title') }}</a>
                                 </div>
                             </div>
                         </div>
@@ -386,7 +382,7 @@ $(window).load(function () {
                                     <img alt="" src="{{URL::to('assets/public/exception/images/portfolio/1.jpg')}}">
                                 </div>
                                 <div class="name-holder">
-                                    <a href="#" class="project-name">Project Title</a>
+                                    <a href="#" class="project-name">{{ trans('Project Title') }}</a>
                                 </div>
                             </div>
                         </div>
@@ -408,7 +404,8 @@ $(window).load(function () {
 
                     <!-- testimonials start -->
                     <div class="fx" data-animate="fadeInLeft">
-                        <h3 class="block-head">What They Said About Us <a href="{{URL::route('testimonial.index')}}"><span class="right" style="font-size: 14px; color: #333">+ Write A Review</span></a></h3>
+
+                        {{ region_render('testimonials') }}
 
                         <div class="testimonials-1 slick-button-hor">
                             @foreach($testimonials as $testimonial)
@@ -427,7 +424,7 @@ $(window).load(function () {
                             @endforeach
                         </div>
 
-                        <p class="padd-top-20">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque imperdiet purus quis metus imperdiet fermentum. Suspendisse hendrerit id lacus id lobortis. Vestibulum quam elit, dapibus ac augue ut, porttitor viverra dui. Pellentesque imperdiet purus quis metus imperdiet fermentum. Suspendisse hendrerit id lacus id lobortis. Vestibulum quam elit, apibus ac augue ut, porttitor viverra dui. Lorem ipsum dolor sit.</p>
+                        {{ region_render('testimonial_quotes') }}
 
                     </div>
                     <!-- testimonials end -->

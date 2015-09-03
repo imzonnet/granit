@@ -26,7 +26,7 @@ if( !function_exists('region_render') ) {
             $title = $translate->title;
             $description = $translate->description;
             ?>
-            <div class="block">
+            <div id="block-<?php echo $translate->id; ?>" class="block <?php echo block_class($translate);?>">
                 <?php
                 if (can_access_menu($user, ['blocks'])) :
                     ?>
@@ -87,5 +87,20 @@ if( !function_exists('check_visibility') ) {
             return true;
         }
         return false;
+    }
+}
+
+if( !function_exists('block_class') ) {
+    /**
+     * Block Class Render
+     * @param $class
+     * @return string
+     */
+    function block_class($class) {
+        $classes = [
+            'block-' .$class->id,
+            str_replace('_', '-', trim(strtolower($class->region)))
+        ];
+        return implode(' ', $classes);
     }
 }

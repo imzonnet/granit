@@ -41,7 +41,7 @@
                             @endif
 
                             <div class="control-group {{{ $errors->has('title') ? 'error' : '' }}}">
-                                <label class="control-label">Block Title<span class="red">*</span></label>
+                                <label class="control-label">Block Title</label>
                                 <div class="controls">
                                     {{ Form::text('title', (!isset($block)) ? Input::old('title') : $block->title, array('class' => 'input-xlarge'))}}
                                     {{ $errors->first('title', '<span class="help-inline">:message</span>') }}
@@ -63,7 +63,7 @@
                                     <input type="text" disabled="disabled" value="{{ isset($block) ? $block->language : current_language() }}" />
                                     @else
                                         {{ Form::select('language', $languages, Input::old('language'), array('class'=>'chosen span6 m-wrap')) }}
-                                        {{ $errors->first() }}
+                                        <span class="help-inline">{{ $errors->first() }}</span>
                                     @endif
                                 </div>
                             </div>
