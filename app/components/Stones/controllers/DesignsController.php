@@ -117,6 +117,10 @@ class DesignsController extends \BaseController {
 
                 $layout = $rooturl.$output_file;
                 break;
+            case 'deleteDesignById':
+                $Design = Design::findOrFail($id);
+                echo $Design->delete(); die;
+                break;
             case 'saveData':
                 // upload image
                 $base64_string = $image;

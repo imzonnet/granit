@@ -1502,3 +1502,6 @@ input[name="text-color"]:checked ~ span{
 .stone-design-item .stone-design-social li a.share-g{
 	background: #DA4835;
 }
+.stone-design-item .stone-design-social li a.design-del-item{
+	background: #333;
+}

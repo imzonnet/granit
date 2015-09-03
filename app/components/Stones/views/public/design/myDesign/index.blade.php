@@ -16,7 +16,7 @@
 @section('scripts')
     {{ HTML::script("http://code.jquery.com/ui/1.11.2/jquery-ui.js") }}
     <script type="text/javascript">
-        function socialHandle(el) {
+        function socialHandle( el ) {
             var self = $( el );
                 data = self.data('social'),
                 url = '';
@@ -35,6 +35,25 @@
             }
 
             window.open( url, '', 'left=10, top=10, width=500, height=300' );
+        }
+
+        function designDelHandle( el ) {
+            var self = $( el ),
+                id = self.data('id');
+            
+            var result = confirm("Are you sure Delete this item?");
+            if (result) {
+                $.ajax({
+                    headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },
+                    type: "POST",
+                    async: false,
+                    url: '<?php echo Request::root(); ?>/design/ajax',
+                    data: { handle: 'deleteDesignById', id: id },
+                    success: function( result ) {
+                        console.log( result );
+                    }
+                })
+            }
         }
     </script>
 @stop
@@ -99,11 +118,14 @@
                                             <li><a onclick="socialHandle(this)" href="javascript:" data-social='{"type": "facebook", "url": "{{ $root_url }}design/edit/{{ $d_item->id }}"}' class="share-f"><i class="fa fa-facebook"></i></a></li>
                                             <li><a onclick="socialHandle(this)" href="javascript:" data-social='{"type": "twitter", "url": "{{ $root_url }}design/edit/{{ $d_item->id }}"}' class="share-t"><i class="fa fa-twitter"></i></a></li>
                                             <li><a onclick="socialHandle(this)" href="javascript:" data-social='{"type": "google", "url": "{{ $root_url }}design/edit/{{ $d_item->id }}"}' class="share-g"><i class="fa fa-google-plus"></i></a></li>
+                                            <li><a onclick="designDelHandle(this)" href="javascript:" class="design-del-item" data-id="{{ $d_item->id }}" title="delete"><i class="fa fa-trash-o"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
                             @endforeach
                             </div>
+                        @else
+                            {{trans('Stones::design.stones.design.not_item')}}
                         @endif
                     <?php } ?>
                 </div>
