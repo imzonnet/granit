@@ -38,12 +38,13 @@ class DesignsController extends \BaseController {
         $user = \Sentry::getUser();
         if($designed->created_by != 0){
             if(empty($user->id) || ($user->id != $designed->created_by)){
-                return \Redirect::to('design');
+                //return \Redirect::to('design');
             }
         }
 
         $this->layout->title = 'Design';
         $this->layout->content = View::make('Stones::public.design.index')
+        ->with('d_id', $id)
         ->with('designed', $designed)
         ->with('products', Product::all())
         ->with('productCategories', Category::all())
@@ -130,12 +131,29 @@ class DesignsController extends \BaseController {
 
                 // Save data
                 $user = \Sentry::getUser();
+                $_handle_data = 'create';
+
                 if($user['id']){
-                    $_data = array("image" => $output_file, "data" => json_encode($data), "status" => "published", "created_by" => $user['id']);
+                    $_data = array("image" => $output_file, "data" => json_encode($data), "status" => "published", "created_by" => $user['id']);        
+                    if( isset($d_id) && $d_id != 0 ) {
+                        $designed = $this->getDesigned($d_id);
+                        if( $designed->created_by == $user['id'] ) {
+                            $_data['id'] = $d_id;
+                            $_handle_data = 'update';
+                            //Design::findOrFail($d_id)->update($_data);
+                        }
+                    }
                 }else{
                     $_data = array("image" => $output_file, "data" => json_encode($data), "status" => "published");
                 }
-                $result = Design::create($_data);
+
+                if( $_handle_data == 'update' ) {
+                    Design::findOrFail($d_id)->update($_data);
+                    $result = $this->getDesigned($d_id);
+                }else {
+                    $result = Design::create($_data);
+                }
+                
                 
                 if(isset($link) && $afterFunc == 'login'){
                     $return_url = base64_encode('/design/edit/'.$result->id);
@@ -160,6 +178,19 @@ class DesignsController extends \BaseController {
             //     break;
         }
         echo json_encode( array('layout' => $layout) );exit;
+    }
+
+    public function myDesign() {
+        $user = \Sentry::getUser();
+
+        if( isset( $user->id ) ) {
+            $this->layout->title = 'My Design';
+            $this->layout->content = View::make('Stones::public.design.myDesign.index')
+            ->with('design_items', Design::whereRaw("created_by = $user->id")->get());
+        }else {
+            $this->layout->title = 'My Design';
+            $this->layout->content = View::make('Stones::public.design.myDesign.index');
+        }
     }
 
     public function store(){
