@@ -6,13 +6,13 @@
 {{-- Update the Meta Keywords --}}
 @section('meta_keywords')
     @if( isset( $designed ) )
-        <meta property="og:url" content="<?php echo Request::root().'/'; ?>" />
+        <meta property="og:url" content="<?php echo Request::root(); ?>" />
         <meta property="og:image" content="<?php echo Request::root().'/'; ?>{{ $designed->image }}"/>
+        <meta property="og:image:secure_url" content="<?php echo Request::root().'/'; ?>{{ $designed->image }}" />
         <meta property="og:image:type" content="image/jpeg">
         <meta property="og:title" content="Granithollin Design Stone"/>
         <meta property="og:type" content="website"/>
         <meta property="og:description" content="My website is displaying all kinds of cool stuff">
-        <link rel="canonical" href=".." />
     @endif
 @stop
 
