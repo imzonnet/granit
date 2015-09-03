@@ -53,4 +53,6 @@ return array(
     'stones.design.not_item' => 'Not item.',
     'stones.design.total_price' => 'Total Price:',
     'stones.design.add_text' => 'Add Text',
+    'stones.design.you_need_login_to_show_your_design' => 'you need login to show your design',
+    'stones.design.my_design' => 'My design',
 );

@@ -11,3 +11,6 @@ Route::resource('/design', 'Components\Stones\Controllers\DesignsController');
 Route::get('/design/edit/{id}', 'Components\Stones\Controllers\DesignsController@edit');
 Route::post('/design/ajax', 'Components\Stones\Controllers\DesignsController@ajax');
 Route::post('/design/edit/design/ajax', 'Components\Stones\Controllers\DesignsController@ajax');
+
+// my design
+Route::get('/my-design', 'Components\Stones\Controllers\DesignsController@myDesign');

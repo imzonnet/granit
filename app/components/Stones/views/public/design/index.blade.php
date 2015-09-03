@@ -1,11 +1,17 @@
 {{-- Update the Meta Description --}}
 @section('meta_description')
-
+    @if( isset( $designed ) ) 
+        <meta property="og:image" content="<?php echo Request::root().'/'; ?>{{ $designed->image }}"/>
+        <meta property="og:image:secure_url" content="<?php echo Request::root().'/'; ?>{{ $designed->image }}" />
+        <meta property="og:image:type" content="image/jpeg">
+        <meta property="og:title" content="Granithollin Design Stone"/>
+        <meta property="og:description" content="My website is displaying all kinds of cool stuff">
+    @endif
 @stop
 
 {{-- Update the Meta Keywords --}}
 @section('meta_keywords')
-
+    
 @stop
 
 @section('styles')
@@ -36,6 +42,7 @@
     <script src = "https://plus.google.com/js/client:plusone.js?onload=render"></script>
     <script type="text/javascript">
         var root_url = "<?php echo Request::root().'/'; ?>";
+        var d_id = '<?php echo isset($d_id) ? $d_id : ""; ?>';
         <?php if(isset($designed)){
             echo "var data_designed = JSON.parse('{$designed->data}');";
             echo "console.log(data_designed)";
