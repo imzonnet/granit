@@ -29,7 +29,7 @@
                 case 'twitter':
                     url = 'http://twitter.com/share?url='+data.url;
                     break;
-                case 'google':
+                case 'mailto':
                     url = 'https://plus.google.com/share?url='+data.url;
                     break;
             }
@@ -39,10 +39,17 @@
 
         function designDelHandle( el ) {
             var self = $( el ),
+                item_el = self.parents('.stone-design-item').parent(),
                 id = self.data('id');
             
             var result = confirm("Are you sure Delete this item?");
             if (result) {
+
+                item_el.css({
+                    'opacity': '0.5',
+                    'pointer-events': 'none',
+                });
+
                 $.ajax({
                     headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },
                     type: "POST",
@@ -50,7 +57,12 @@
                     url: '<?php echo Request::root(); ?>/design/ajax',
                     data: { handle: 'deleteDesignById', id: id },
                     success: function( result ) {
-                        console.log( result );
+                        //console.log( result );
+                        if( result == 1 ) {
+                            item_el.remove();
+                        }else {
+                            alert('error: couldn\'t delete item');
+                        }
                     }
                 })
             }
@@ -117,7 +129,7 @@
                                             <?php $root_url = Request::root().'/'; ?>
                                             <li><a onclick="socialHandle(this)" href="javascript:" data-social='{"type": "facebook", "url": "{{ $root_url }}design/edit/{{ $d_item->id }}"}' class="share-f"><i class="fa fa-facebook"></i></a></li>
                                             <li><a onclick="socialHandle(this)" href="javascript:" data-social='{"type": "twitter", "url": "{{ $root_url }}design/edit/{{ $d_item->id }}"}' class="share-t"><i class="fa fa-twitter"></i></a></li>
-                                            <li><a onclick="socialHandle(this)" href="javascript:" data-social='{"type": "google", "url": "{{ $root_url }}design/edit/{{ $d_item->id }}"}' class="share-g"><i class="fa fa-google-plus"></i></a></li>
+                                            <li><a href="mailto:someone@example.com?Subject=Design%20Stone&body={{ $root_url }}design/edit/{{ $d_item->id }}" data-social='{"type": "mailto", "url": "{{ $root_url }}design/edit/{{ $d_item->id }}"}' class="share-g"><i class="fa fa-envelope"></i></a></li>
                                             <li><a onclick="designDelHandle(this)" href="javascript:" class="design-del-item" data-id="{{ $d_item->id }}" title="delete"><i class="fa fa-trash-o"></i></a></li>
                                         </ul>
                                     </div>
