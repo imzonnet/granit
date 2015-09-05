@@ -79,6 +79,7 @@ if( !function_exists('check_visibility') ) {
      */
     function check_visibility($block) {
         $pages = array_map('trim', explode("\n", $block->pages));
+        if( $block->status != 1 ) return false;
         if( trim($block->pages) == '' ) return true;
         if( $block->visibility == 0 && !in_array(\Request::path(), $pages) ) {
             return true;
