@@ -65,19 +65,19 @@
                                 </div>
                             </div>
 
-                            <div class="control-group {{{ $errors->has('status') ? 'error' : '' }}}">
+                            <div class="control-group {{{ $errors->has('region') ? 'error' : '' }}}">
                                 <label class="control-label">Region <span class="red">*</span></label>
                                 <div class="controls line">
-                                    {{ Form::select('region', $regions, (!isset($block)) ? Input::old('status') : $block->region, array('class'=>'chosen span6 m-wrap', 'style'=>'width:285px')) }}
-                                    {{ $errors->first('status', '<span class="help-inline">:message</span>') }}
+                                    {{ Form::select('region', $regions, (!isset($block)) ? Input::old('region') : $block->region, array('class'=>'chosen span6 m-wrap', 'style'=>'width:285px')) }}
+                                    {{ $errors->first('region', '<span class="help-inline">:message</span>') }}
                                 </div>
                             </div>
 
-                            <div class="control-group {{{ $errors->has('status') ? 'error' : '' }}}">
+                            <div class="control-group {{{ $errors->has('visibility') ? 'error' : '' }}}">
                                 <label class="control-label">Visibility <span class="red">*</span></label>
                                 <div class="controls line">
-                                    {{ Form::select('visibility', ['All pages except those listed', 'Only the listed pages'], (!isset($block)) ? Input::old('status') : $block->region, array('class'=>'chosen span6 m-wrap', 'style'=>'width:285px')) }}
-                                    {{ $errors->first('status', '<span class="help-inline">:message</span>') }}
+                                    {{ Form::select('visibility', ['All pages except those listed', 'Only the listed pages'], (!isset($block)) ? Input::old('visibility') : $block->visibility, array('class'=>'chosen span6 m-wrap', 'style'=>'width:285px')) }}
+                                    {{ $errors->first('visibility', '<span class="help-inline">:message</span>') }}
                                 </div>
                                 <div class="controls line">
                                     <textarea class="span12 m-wrap" id="pages" name="pages" rows="6">{{ (!isset($block)) ? Input::old('pages') : $block->pages }}</textarea>
@@ -96,7 +96,7 @@
                             <div class="control-group">
                                 <label class="control-label">Order</label>
                                 <div class="controls line">
-                                    {{Form::text('ordering', !isset($block) ? Input::old('alias') : $block->ordering, array('class' => 'input-xlarge', 'placeholder' => '0'))}}
+                                    {{Form::text('order', !isset($block) ? Input::old('order') : $block->order, array('class' => 'input-xlarge', 'placeholder' => '0'))}}
                                 </div>
                             </div>
                             <div class="control-group">
