@@ -3,6 +3,7 @@
     @if( isset( $designed ) ) 
         <meta property="og:url" content='<?php echo "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']; ?>'/>
         <meta property="og:image" content="<?php echo Request::root().'/'; ?>{{ $designed->image }}"/>
+        <meta property="og:image:width" content="300"/>
         <meta property="og:image:type" content="image/jpeg">
         <meta property="og:title" content="Granithollin Design Stone"/>
     @endif
