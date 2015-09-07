@@ -1,6 +1,7 @@
 {{-- Update the Meta Description --}}
 @section('meta_description')
     @if( isset( $designed ) ) 
+        <meta property="og:url" content='<?php echo "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']; ?>'/>
         <meta property="og:image" content="<?php echo Request::root().'/'; ?>{{ $designed->image }}"/>
         <meta property="og:image:secure_url" content="<?php echo Request::root().'/'; ?>{{ $designed->image }}" />
         <meta property="og:image:type" content="image/jpeg">
