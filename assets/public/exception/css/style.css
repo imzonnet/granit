@@ -3784,8 +3784,11 @@ button.skew-25 i {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+.team-img .email {
+    display: block;
+    text-align: center;
+}
 .team-box:hover .team-img {
-    opacity: .3;
 }
 .team-box:hover .team-details {
     opacity: 1;

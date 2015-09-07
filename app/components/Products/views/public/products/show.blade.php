@@ -93,13 +93,10 @@
                     <div class="product-specs product-block list-item">
                         <ul class="product-social product-size">
                             <li>SHARE:</li>
-                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                            <li><a href="#"><i class="fa fa-envelope"></i></a></li>
-                            <li><a href="#"><i class="fa fa-google"></i></a></li>
-                            <li><a href="#"><i class="fa fa-reddit"></i></a></li>
+                            <li><a href="https://www.facebook.com/sharer/sharer.php?u={{url('product/'.$product->alias.'/'.$product->productColor->first()->color_id)}}" onclick="javascript:void window.open(this.href,'','width=600,height=300,resizable=true,left=200px,top=200px');return false;"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="https://twitter.com/intent/tweet?text={{ $product->name }}&url={{url('product/'.$product->alias.'/'.$product->productColor->first()->color_id)}}" onclick="javascript:void window.open(this.href,'','width=600,height=300,resizable=true,left=200px,top=200px');return false;"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="https://www.linkedin.com/cws/share?url={{url('product/'.$product->alias.'/'.$product->productColor->first()->color_id)}}" onclick="javascript:void window.open(this.href,'','width=600,height=300,resizable=true,left=200px,top=200px');return false;"><i class="fa fa-linkedin"></i></a></li>
+                            <li><a href="https://plus.google.com/share?url={{url('product/'.$product->alias.'/'.$product->productColor->first()->color_id)}}" onclick="javascript:void window.open(this.href,'','width=600,height=300,resizable=true,left=200px,top=200px');return false;"><i class="fa fa-google-plus"></i></a></li>
                         </ul>
                     </div>
                     <!--

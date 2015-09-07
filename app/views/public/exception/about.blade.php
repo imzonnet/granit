@@ -57,20 +57,7 @@
                 <div class="team-img">
                     <img alt="" src="{{URL::to($team->photo)}}">
                     <h3>{{$team->first_name}} {{$team->last_name}}</h3>
-                </div>
-                <div class="team-details">
-                    <h3 class="gry-bg">{{$team->first_name}} {{$team->last_name}}</h3>
-                    <div class="t-position">...</div>
-                    <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolre eu feugiat nula faciisis at vero eros.</p>
-                    <div class="team-socials">
-                        <ul>
-                            <li><a href="#" title="facebook"><span class="fa fa-facebook"></span></a></li>
-                            <li><a href="#" title="linkedin"><span class="fa fa-linkedin"></span></a></li>
-                            <li><a href="#" title="skype"><span class="fa fa-skype"></span></a></li>
-                            <li><a href="#" title="twitter"><span class="fa fa-twitter"></span></a></li>
-                            <li><a href="#" title="vimeo"><span class="fa fa-google-plus"></span></a></li>
-                        </ul>
-                    </div>
+                    <span class="email"><a href="mailto:{{ $team->email }}" title="envelope"><span class="fa fa-envelope"></span> {{ $team->email }}</a></span>
                 </div>
             </div>
         </div>

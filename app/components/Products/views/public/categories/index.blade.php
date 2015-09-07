@@ -91,7 +91,7 @@
                             <div class="cell-4 fx product-category category-item shop-item" data-animate="fadeInUp">
                                 <div class="item-box">
                                     <h3 class="item-title"><a href="{{url('category/'.$category->alias)}}">{{$category->name}}</a></h3>
-                                    <div class="item-img">
+                                    <div class="item-img {{ \Str::slug(strtolower($category->name)) }}">
                                         <a href="{{url('category/'.$category->alias)}}"><img alt="" src="{{url($category->image)}}"></a>
                                     </div>
                                 </div>
@@ -109,7 +109,7 @@
                         <div class="cell-3 fx accessories category-item shop-item" data-animate="fadeInUp">
                             <div class="item-box">
                                 <h3 class="item-title"><a href="{{url('icon-category/'.$category->alias)}}">{{$category->name}}</a></h3>
-                                <div class="item-img">
+                                <div class="item-img {{ \Str::slug(strtolower($category->name)) }}">
                                     <a href="{{url('icon-category/'.$category->alias)}}"><img alt="" src="{{url($category->image)}}"></a>
                                 </div>
                             </div>
