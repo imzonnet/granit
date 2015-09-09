@@ -22,8 +22,33 @@ class DesignsController extends \BaseController {
     }
     
     public function index() {
+        // echo $pid, $cid;
         $this->layout->title = 'Design';
         $this->layout->content = View::make('Stones::public.design.index')
+        ->with('products', Product::all())
+        ->with('productCategories', Category::all())
+        ->with('colors', Color::all())
+        ->with('fonts', Font::all_fonts())
+        ->with('fonts_include', Font::all())
+        ->with('icons', Icon::all())
+        ->with('iconcategories', IconCategory::all());
+    }
+
+    public function loadDesign($pid, $cid) {
+       // echo $pid, $cid;
+
+        $pdata = Product::findOrFail($pid);
+        $cat_data = Category::findOrFail($pdata->cat_id);
+        $load_data = array(
+            'pid' => $pid,
+            'cat' => $cat_data->name,
+            'cid' => $cid,
+            );
+        //echo '<pre>'; print_r($cat_data->name); echo '</pre>';
+
+        $this->layout->title = 'Design';
+        $this->layout->content = View::make('Stones::public.design.index')
+        ->with('loadData', $load_data)
         ->with('products', Product::all())
         ->with('productCategories', Category::all())
         ->with('colors', Color::all())

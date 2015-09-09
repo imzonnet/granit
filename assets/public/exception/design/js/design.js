@@ -53,6 +53,10 @@ function switchForm(elem, type){
 
 !(function($){
 	$(function(){
+		var url_ajax = root_url+'design/ajax';
+
+
+
 		// unlock test
 		$('.content-area-design')
 		.on({
@@ -174,6 +178,17 @@ function switchForm(elem, type){
 			};
 		}		
 		/*-------End Rebuild-------*/
+
+		/* load */
+		var st_load = {};
+		if(loadData.pid) {
+			st_load = {
+				l_type: false,
+				l_pid: false,
+				l_cid: false,
+			};
+		}
+		/* load */
 
 		// pSearch
 		$('input[name="psearch"]').bind('input', function(){
@@ -516,7 +531,7 @@ function switchForm(elem, type){
 			$.ajax({
 				headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },
 				type: "POST",
-				url: "design/ajax",
+				url: url_ajax,
 				data: { handle: handle, id: value },
 				success: function(data){
 					var obj = $.parseJSON(data);
@@ -717,7 +732,7 @@ function switchForm(elem, type){
 					},
 	      			headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },
 					type: "POST",
-					url: "design/ajax",
+					url: url_ajax,
 					data: { handle: 'uploadImageAccessories', data: dataURL, rooturl: root_url },
 					success: function(data){
 						var obj = JSON.parse(data);
@@ -954,7 +969,7 @@ function switchForm(elem, type){
 								},
 				      			headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },
 								type: "POST",
-								url: "design/ajax",
+								url: url_ajax,
 								data: { handle: 'uploadImageAccessories', data: dataURL, rooturl: root_url },
 								success: function(data){
 									$ajax_upload_loader.removeClass('show');
@@ -1673,7 +1688,7 @@ function switchForm(elem, type){
 			$.ajax({
 				headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },
 				type: "POST",
-				url: "design/ajax",
+				url: url_ajax,
 				data: { handle: 'getProductByCatId', id: catId },
 				success: function(data){
 					var obj = $.parseJSON(data),
@@ -1712,6 +1727,12 @@ function switchForm(elem, type){
 							console.log(st_designed);
 						}
 					}
+
+					if(st_load.l_pid == false) {
+						$('.content-products .product-item[data-product-id="'+loadData.pid+'"]').trigger('click');
+						st_load.l_pid = true;
+						console.log(st_designed);
+					}
 					/* ------End ReDesigned------ */
 				}
 			})
@@ -1724,6 +1745,9 @@ function switchForm(elem, type){
 				st_designed.handle_type = true;
 			}
 			/* ------End ReDesigned------ */
+		}else if( st_load.l_type == false ){
+			$('.product-cat-content li a[title="'+loadData.cat+'"]').trigger('click');
+			st_load.l_type = true;
 		}else{
 			$('.product-cat-content li:first-child a').trigger('click');
 		}
@@ -1766,7 +1790,7 @@ function switchForm(elem, type){
 				headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },
 				type: "POST",
 				async: false,
-				url: "design/ajax",
+				url: url_ajax,
 				data: { handle: 'getProductColorByProductid', id: p_id },
 				success: function(data){
 					var obj = $.parseJSON(data);
@@ -1816,6 +1840,9 @@ function switchForm(elem, type){
 							      	
 							    };
 								// End check frame load comlepte
+							}else if(st_load.l_cid) {
+								$('.content-area-design').find('.content-product-color ul li a[data-pcolor-id="'+loadData.cid+'"]').trigger('click'); 
+								st_load.l_cid = true;
 							}else {
 								$('.content-area-design').find('.content-product-color ul li:first-child a').trigger('click'); // active first item
 							}
@@ -2493,7 +2520,7 @@ function switchForm(elem, type){
 			$.ajax({
 				headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },
 				type: "POST",
-				url: "design/ajax",
+				url: url_ajax,
 				data: { handle: 'getIconsById', id: c_id },
 				success: function(data){
 					// console.log(data);
@@ -3219,7 +3246,7 @@ function switchForm(elem, type){
 			$.ajax({
 				headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },
 				type: "POST",
-				url: "design/ajax",
+				url: url_ajax,
 				data: $_data,
 				success: function(data){
 					//console.log(data)
@@ -3409,7 +3436,7 @@ function switchForm(elem, type){
 					$.ajax({
 						headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },
 						type: "POST",
-						url: "design/ajax",
+						url: url_ajax,
 						data: { handle: 'getAccessories', id: item.id, x: item.x, y: item.y, itemData: item},
 						success: function(data){
 							if(data){

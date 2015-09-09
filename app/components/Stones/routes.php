@@ -14,3 +14,4 @@ Route::post('/design/edit/design/ajax', 'Components\Stones\Controllers\DesignsCo
 
 // my design
 Route::get('/my-design', 'Components\Stones\Controllers\DesignsController@myDesign');
+Route::get('/ldesign/{pid?}/{cid?}', 'Components\Stones\Controllers\DesignsController@loadDesign');

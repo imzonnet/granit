@@ -43,6 +43,10 @@
     <script type="text/javascript">
         var root_url = "<?php echo Request::root().'/'; ?>";
         var d_id = '<?php echo isset($d_id) ? $d_id : ""; ?>';
+        var loadData = {};
+        <?php if( isset( $loadData ) ): ?>
+            loadData = JSON.parse('<?php echo json_encode($loadData); ?>');
+        <?php endif; ?>
         <?php if(isset($designed)){
             echo "var data_designed = JSON.parse('{$designed->data}');";
             echo "console.log(data_designed)";
@@ -83,7 +87,8 @@
 <!-- END PAGE HEADING -->
 @stop
 
-@section('content')
+@section('content') 
+
     <!--
     <pre>
         <?php //print_r(json_decode($designed->data)); ?>
