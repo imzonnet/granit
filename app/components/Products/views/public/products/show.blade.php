@@ -82,7 +82,7 @@
                         </ul>
                     </div>
                     <div class="list-item product-block item-add">
-                        <form class="form-design" action="{{url('/design/'.$product->id.'/'.$productColor->first()->color_id)}}" method="post">
+                        <form class="form-design" action="{{url('/ldesign/'.$product->id.'/'.$productColor->first()->color_id)}}" method="get">
                             <div class="left add-items"><a href="#"><i class="fa fa-minus"></i></a></div>
                             <div class="left"><input id="items-num" value="1"></div>
                             <div class="left add-items"><a href="#"><i class="fa fa-plus"></i></a></div>
