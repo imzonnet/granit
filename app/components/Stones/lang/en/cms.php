@@ -6,4 +6,5 @@ return array(
     'stones.icon-categories' => 'Icon Categories',
     'stones.colors'          => 'Colors',
     'stones.fonts'           => 'Fonts',
+    'stones.settings'		 => 'Settings',
 );

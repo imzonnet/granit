@@ -192,6 +192,13 @@
                            </a>
                         </li>
                     @endif
+                    @if (can_access_menu($current_user, array('stone-settings')))
+                        <li class="{{ Request::is('backend/stones/stone-settings*') ? 'active' : null }}">
+                           <a href="{{ URL::to('backend/stones/stone-settings') }}">
+                               {{ trans('Stones::cms.stones.settings') }}
+                           </a>
+                        </li>
+                    @endif
                 </ul>
             </li>
             @endif

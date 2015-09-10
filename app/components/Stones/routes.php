@@ -4,7 +4,8 @@ Route::resource('/backend/stones/icons', 'Components\Stones\Controllers\Backend\
 Route::resource('/backend/stones/icon-categories', 'Components\Stones\Controllers\Backend\IconCategoriesController');
 Route::resource('/backend/stones/colors', 'Components\Stones\Controllers\Backend\ColorsController');
 Route::resource('/backend/stones/fonts', 'Components\Stones\Controllers\Backend\FontsController');
-
+Route::resource('/backend/stones/stone-settings', 'Components\Stones\Controllers\Backend\StoneSettingsController');
+//Route::post('/backend/stones/stone-settings', 'Components\Stones\Controllers\Backend\StoneSettingsController@index');
 
 //Route For Front-end
 Route::resource('/design', 'Components\Stones\Controllers\DesignsController');

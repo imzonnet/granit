@@ -89,11 +89,11 @@
 
 @section('content') 
 
-    <!--
-    <pre>
-        <?php //print_r(json_decode($designed->data)); ?>
-    </pre>
-    -->
+    
+    <!-- <pre>
+        <?php // print_r( $settings ); ?>
+    </pre> -->
+    
     <input type="file" id="upload-field-area" style="display: none;">
     <input type="file" id="upload-field-area2" style="display: none;">
     <div class="padd-vertical-20">

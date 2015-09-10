@@ -10,6 +10,7 @@ use Components\Stones\Models\Font;
 use Components\Stones\Models\Icon;
 use Components\Stones\Models\IconCategory;
 use Components\Stones\Models\Design;
+use Components\Stones\Models\StoneSetting;
 
 class DesignsController extends \BaseController {
     
@@ -22,9 +23,12 @@ class DesignsController extends \BaseController {
     }
     
     public function index() {
+        $modelStoneSetting = new StoneSetting;
+
         // echo $pid, $cid;
         $this->layout->title = 'Design';
         $this->layout->content = View::make('Stones::public.design.index')
+        ->with('settings', $modelStoneSetting->get_settings())
         ->with('products', Product::all())
         ->with('productCategories', Category::all())
         ->with('colors', Color::all())
@@ -36,7 +40,7 @@ class DesignsController extends \BaseController {
 
     public function loadDesign($pid, $cid) {
        // echo $pid, $cid;
-
+        $modelStoneSetting = new StoneSetting;
         $pdata = Product::findOrFail($pid);
         $cat_data = Category::findOrFail($pdata->cat_id);
         $load_data = array(
@@ -48,6 +52,7 @@ class DesignsController extends \BaseController {
 
         $this->layout->title = 'Design';
         $this->layout->content = View::make('Stones::public.design.index')
+        ->with('settings', $modelStoneSetting->get_settings())
         ->with('loadData', $load_data)
         ->with('products', Product::all())
         ->with('productCategories', Category::all())
@@ -59,6 +64,7 @@ class DesignsController extends \BaseController {
     }
 
     public function edit($id = 0){
+        $modelStoneSetting = new StoneSetting;
         $designed = $this->getDesigned($id);
         $user = \Sentry::getUser();
         if($designed->created_by != 0){
@@ -69,6 +75,7 @@ class DesignsController extends \BaseController {
 
         $this->layout->title = 'Design';
         $this->layout->content = View::make('Stones::public.design.index')
+        ->with('settings', $modelStoneSetting->get_settings())
         ->with('d_id', $id)
         ->with('designed', $designed)
         ->with('products', Product::all())
