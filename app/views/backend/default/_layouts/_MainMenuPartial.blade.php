@@ -203,6 +203,25 @@
             </li>
             @endif
             
+            @if (can_access_menu($current_user, array('shop')))
+            <li class="has-sub {{ Request::is('backend/shop*') || Request::is('backend/shop/orders*') ? 'active' : null }} ">
+                <a href="javascript:;">
+                    <i class="icon-shopping-cart"></i>
+                    <span class="title">{{ trans('Shop::cms.shop') }}</span>
+                    <span class="arrow "></span>
+                </a>  
+                <ul class="sub">
+                    @if (can_access_menu($current_user, array('orders')))
+                        <li class="{{ Request::is('backend/shop/orders*') ? 'active' : null }}">
+                           <a href="{{ URL::to('backend/shop/orders') }}">
+                               {{ trans('Shop::cms.shop.orders') }}
+                           </a>
+                        </li>
+                    @endif
+                </ul>
+            </li>
+             @endif
+
             @if (can_access_menu($current_user, array('memorials', 'memorial-guestbook', 'memorial-media')))
             <li class="has-sub {{ Request::is('backend/memorials*') || Request::is('backend/memorial*') || Request::is('backend/stones/icons*') || Request::is('backend/stones/fonts*') || Request::is('backend/stones/colors*') ? 'active' : null }} ">
                 <a href="javascript:;">

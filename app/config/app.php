@@ -122,6 +122,7 @@ return array(
             'App\Components\Stones\StonesServiceProvider',
             'App\Components\Testimonials\TestimonialsServiceProvider',
             'App\Components\Blocks\BlocksServiceProvider',
+            'App\Components\Shop\ShopServiceProvider',
 
 	),
 

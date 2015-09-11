@@ -142,6 +142,7 @@ function switchForm(elem, type){
 		/* save desigl */
 		if($('#save_design').length > 0){
 			$('#save_design').bind('click', function(){
+				$(this).prepend('<i class="fa fa-spinner fa-spin" style=""></i> ');
 				setDataSave({handle: 'userSaveDesign'});
 				$(this).addClass('btn-save-design-loading')
 			})
@@ -3118,6 +3119,9 @@ function switchForm(elem, type){
 
 			var _main_frame_image_top = designParams.main_frame_image.offset().top,
 				_main_frame_image_left = designParams.main_frame_image.offset().left;
+
+			dataSave.total_price = $('.tfooter-tr-content').find('.sub-title-price').html();
+			dataSave.word_number = $('.tbody-design-overview').find('.pernament-text .qty').html();
 
 			// First text
 			var firstEl = $('.layout-firsttext-area');

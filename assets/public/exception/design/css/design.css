@@ -7,7 +7,7 @@
     font-family: 'garamondmi';
     src: url('Garamond-Premier-Pro-Medium-Italic_19583.ttf') format('truetype');
 }*/
-@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css");
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css");
 
 .sectionWrapper{
 	padding: 10px 0;
@@ -488,6 +488,7 @@ input[name="color"]{
 	display: inline-block;
 	border-radius: 50%;
 	overflow: hidden;
+	width: 25px;
 }
 .content-product-color ul li.active{
 	/*box-shadow: 0 0 0 2px #4FBC1C;*/
