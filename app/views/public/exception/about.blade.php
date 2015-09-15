@@ -50,7 +50,7 @@
 
 <div class="sectionWrapper gry-pattern">
     <div class="container team-boxes">
-        <h3 class="block-head">{{ trans('Meet Our Team') }}</h3>
+        {{ region_render('team') }}
         @foreach($users as $team)
         <div class="cell-4 fx" data-animate="bounceIn">
             <div class="team-box">

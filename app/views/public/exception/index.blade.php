@@ -424,7 +424,7 @@ $(window).load(function () {
                             @endforeach
                         </div>
 
-                        {{ region_render('testimonial_quotes') }}
+
 
                     </div>
                     <!-- testimonials end -->
@@ -434,11 +434,7 @@ $(window).load(function () {
 
                 <!-- our skills right block -->
                 <div class="cell-4 fx" data-animate="fadeInRight">
-                    <div class="catalogue main-bg padd-vertical-10 center">
-                        <h1>Catalogue</h1>
-                        {{HTML::image(asset('uploads/images/news.png'))}}
-                        <p><a href="#" class="btn more-btn btn-large">Read</a></p>
-                    </div>
+                    {{ region_render('advertisement') }}
                 </div>
                 <!-- our skills right block end -->							
             </div>
