@@ -3784,7 +3784,8 @@ button.skew-25 i {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-.team-img .email {
+.team-img .email,
+.team-img .position {
     display: block;
     text-align: center;
 }

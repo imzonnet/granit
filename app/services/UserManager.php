@@ -70,6 +70,7 @@ class UserManager {
             'photo'             => $photo,
             'first_name'        => $input['first_name'],
             'last_name'         => $input['last_name'],
+            'position'         => $input['position'],
             'security_question' => isset($input['security_question']) ? $input['security_question'] : '',
             'security_answer'   => isset($input['security_answer']) ? $input['security_answer'] : '',
             'auto_logout_time'  => $input['auto_logout_time'],
@@ -107,6 +108,7 @@ class UserManager {
         $user->photo = $photo;
         $user->first_name = $input['first_name'];
         $user->last_name = $input['last_name'];
+        $user->position = $input['position'];
         if (isset($input['security_question'])) {
             $user->security_question = $input['security_question'];
         }

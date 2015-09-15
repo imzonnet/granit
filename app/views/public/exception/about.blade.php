@@ -57,6 +57,7 @@
                 <div class="team-img">
                     <img alt="" src="{{URL::to($team->photo)}}">
                     <h3>{{$team->first_name}} {{$team->last_name}}</h3>
+                    <span class="position">{{$team->position}}</span>
                     <span class="email"><a href="mailto:{{ $team->email }}" title="envelope"><span class="fa fa-envelope"></span> {{ $team->email }}</a></span>
                 </div>
             </div>

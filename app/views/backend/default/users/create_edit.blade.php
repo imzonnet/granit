@@ -78,6 +78,13 @@
                                             {{ $errors->first('last_name', '<span class="help-inline">:message</span>') }}
                                         </div>
                                     </div>
+                                    <div class="control-group {{{ $errors->has('position') ? 'error' : '' }}}">
+                                        <label class="control-label">Job Position</label>
+                                        <div class="controls">
+                                            {{ Form::text('position', (!isset($user)) ? Input::old('position') : $user->position, array('class' => 'input-xlarge'))}}
+                                            {{ $errors->first('position', '<span class="help-inline">:message</span>') }}
+                                        </div>
+                                    </div>
 
                                     @if (!isset($user) || (isset($user) && $user->id == $current_user->id))
                                     <div class="control-group {{{ $errors->has('password') ? 'error' : '' }}}">
