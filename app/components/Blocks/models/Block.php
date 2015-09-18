@@ -73,7 +73,10 @@ class Block extends \Eloquent {
             'testimonials'  =>  'Testimonials',
             'testimonial_quotes'  =>  'Testimonial Quotes',
             'advertisement' => 'Advertisement',
-            'team' => 'Teams'
+            'team' => 'Teams',
+            'slideshow' => 'Slideshow',
+            'sidebar' => 'Sidebar',
+            'content' => 'Content'
         ];
     }
     /**

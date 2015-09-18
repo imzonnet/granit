@@ -53,7 +53,7 @@ return array(
 	*/
 
 	'locale' => 'en',
-
+    'fallback_locale' => 'en',
 	/*
 	|--------------------------------------------------------------------------
 	| Encryption Key
@@ -115,6 +115,7 @@ return array(
 		'Barryvdh\DomPDF\ServiceProvider',
 		'Mews\Captcha\CaptchaServiceProvider',
         'Artdarek\OAuth\OAuthServiceProvider',
+        'Barryvdh\TranslationManager\ManagerServiceProvider',
 
         'App\Components\Memorials\MemorialsServiceProvider',
         'App\Components\Shop\ShopServiceProvider',
@@ -198,5 +199,7 @@ return array(
                 'OAuth' => 'Artdarek\OAuth\Facade\OAuth',
 
 	),
+
+    'cipher' => MCRYPT_RIJNDAEL_256
 
 );

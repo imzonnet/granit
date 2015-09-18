@@ -291,3 +291,7 @@ if (!Config::get('app.debug')) {
  * Switch Language
  */
 Route::get('language/{lang?}', ['as' => 'language.switch', 'uses' => 'HomeController@language']);
+
+Route::group(array('before' => array('auth', 'auth.backend', 'csrf')), function() {
+    Route::controller('translations', 'Barryvdh\TranslationManager\Controller');
+});

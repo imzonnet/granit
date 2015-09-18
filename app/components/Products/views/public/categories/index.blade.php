@@ -46,6 +46,9 @@
         <div class="row">
             <div class="cell-3">
                 @include('Products::public._layouts.sidebar')
+
+                {{ region_render('sidebar') }}
+
                 <div class="widget menu-categories fx animated fadeInLeft undefined" style="">
                     <div class="catalogue gry-bg padd-horizontal-10 center">
                         <h1 class="main-color">SPECIAL <br />OFFER</h1>
@@ -74,6 +77,7 @@
                     </div>
                     <div class="clearfix"></div>
                 </div>
+                {{ region_render('content') }}
                 <div class="block-wrap">
                     <h2 class="block-head">Gravestones</h2>
                     <div class="categories-items">
