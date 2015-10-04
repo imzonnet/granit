@@ -292,6 +292,14 @@ if (!Config::get('app.debug')) {
  */
 Route::get('language/{lang?}', ['as' => 'language.switch', 'uses' => 'HomeController@language']);
 
+/**
+ * Translate route
+ */
 Route::group(array('before' => array('auth', 'auth.backend', 'csrf')), function() {
-    Route::controller('translations', 'Barryvdh\TranslationManager\Controller');
+    Route::get('translate/{module}/{id}', ['as' => 'translate.index', 'uses' => 'Backend\TranslateController@index']);
+    Route::get('translate/{module}/{id}/create', ['as' => 'translate.create', 'uses' => 'Backend\TranslateController@create']);
+    Route::get('translate/{module}/{id}/edit', ['as' => 'translate.edit', 'uses' => 'Backend\TranslateController@edit']);
+    Route::post('translate/{module}/{id}/store', ['as' => 'translate.store', 'uses' => 'Backend\TranslateController@store']);
+    Route::put('translate/{module}/{id}/update', ['as' => 'translate.update', 'uses' => 'Backend\TranslateController@update']);
+    Route::delete('translate/{module}/{id}', ['as' => 'translate.destroy', 'uses' => 'Backend\TranslateController@destroy']);
 });

@@ -115,7 +115,6 @@ return array(
 		'Barryvdh\DomPDF\ServiceProvider',
 		'Mews\Captcha\CaptchaServiceProvider',
         'Artdarek\OAuth\OAuthServiceProvider',
-        'Barryvdh\TranslationManager\ManagerServiceProvider',
 
         'App\Components\Memorials\MemorialsServiceProvider',
         'App\Components\Shop\ShopServiceProvider',

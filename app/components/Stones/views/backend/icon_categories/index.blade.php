@@ -64,6 +64,7 @@
                                     <td>{{ $category->author() }}</td>
                                     <td>
                                         <a href="{{ URL::to($link_type . '/stones/icon-categories/' . $category->id . '/edit') }}" class="btn btn-mini"><i class="icon-edit"></i></a>
+                                        <a href="{{ route('backend.stones.icon-categories.translate.index', $category->id)  }}" class="btn btn-mini"><i class="icon-plus"></i></a>
 
                                         <div class="actions inline">
                                             <div class="btn btn-mini">

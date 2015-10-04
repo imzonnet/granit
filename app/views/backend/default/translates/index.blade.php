@@ -10,13 +10,7 @@
             <!-- BEGIN EXAMPLE TABLE widget-->
             <div class="widget light-gray box">
                 <div class="blue widget-title">
-                    <h4><i class="icon-th-list"></i> All Entries</h4>
-                    <div class="tools">
-                        <a href="javascript:;" class="collapse"></a>
-                        <a href="#widget-config" data-toggle="modal" class="config"></a>
-                        <a href="javascript:;" class="reload"></a>
-                        <a href="javascript:;" class="remove"></a>
-                    </div>
+                    <h4><i class="icon-th-list"></i>{{ trans('cms.all_users') }}</h4>
                 </div>
                 <div class="widget-body">
                     <div class="clearfix margin-bottom-10">
@@ -26,55 +20,74 @@
                                     <i class="icon-cog"> Actions</i>
                                 </div>
                                 <ul class="btn">
-                                    @if ($current_user->hasAccess("stones-icons.destroy"))
+                                @if ($current_user->hasAccess("users.destroy"))
                                     <li>
-                                        {{ Form::open(array('route' => array($link_type . '.stones.icons.destroy', 'multiple'), 'method' => 'delete', 'class'=>'inline', 'onsubmit'=>"return deleteRecords($(this), 'icons');")) }}
+                                        {{ Form::open(array('route' => array($link_type . '.users.destroy', 'multiple'), 'method' => 'delete', 'class'=>'inline', 'onsubmit'=>"return deleteRecords($(this), 'user');")) }}
                                             {{ Form::hidden('selected_ids', '', array('id'=>'selected_ids')) }}
                                             <button type="submit" class="danger delete"><i class="icon-trash"></i> Delete</button>
                                         {{ Form::close() }}
                                     </li>
-                                    @endif
+                                @endif
                                 </ul>
                             </div>
                         </div>
-                        @if ($current_user->hasAccess("stones-icons.create"))
                         <div class="btn-group pull-right">
-                            <button data-href="{{ URL::to($link_type . '/stones/icons/create') }}" class="btn btn-success">
-                                Add New <i class="icon-plus"></i>
-                            </button>
+                            @if ($current_user->hasAccess('users.create'))
+                                <button data-href="{{ URL::to($link_type . '/users/create') }}" class="btn btn-success">
+                                    Add New <i class="icon-plus"></i>
+                                </button>
+                            @endif
                         </div>
-                        @endif
                     </div>
                     <table class="table table-striped table-hover table-bordered" id="sample_1">
                         <thead>
                             <tr>
                                 <th class="span1"><input type="checkbox" class="select_all" /></th>
-                                <th>Title</th>
+                                <th>Username</th>
+                                <th>Full Name</th>
+                                <th>User Group</th>
                                 <th>Status</th>
-                                <th>Price</th>
-                                <th>Created by</th>
-                                <th class="span2"></th>
+                                <th>Created At</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach( $icons as $icon )
-                            <tr>
-                                    <td>{{ Form::checkbox($icon->id, 'checked', false) }}</td>
-                                    <td>{{ HTML::link(url($link_type . '/stones/icons/'.$icon->id), $icon->name) }}</td>
-                                    <td>{{ $icon->status() }}</td>
-                                    <td>{{ $icon->price }}</td>
-                                    <td>{{ $icon->author() }}</td>
+                            @foreach($users as $user)
+
+                                <tr class="">
+                                    <td>{{ Form::checkbox($user->id, 'checked', false) }}</td>
+                                    <td>{{ $user->username }}</td>
+                                    <td>{{ $user->first_name }} {{ $user->last_name }}</td>
+                                    <td>{{ implode(', ', $user->user_groups) }}</td>
+                                    <td>{{ $user->is_banned ? 'Inactive' : 'Active' }}</td>
+                                    <td>{{ $user->created_at }}</td>
                                     <td>
-                                        <a href="{{ URL::to($link_type . '/stones/icons/' . $icon->id . '/edit') }}" class="btn btn-mini"><i class="icon-edit"></i></a>
-                                        <a href="{{ route('backend.stones.icons.translate.index', $icon->id)  }}" class="btn btn-mini"><i class="icon-plus"></i></a>
+                                        @if ($current_user->hasAccess('users.edit'))
+                                        <a href="{{ URL::to($link_type . '/users/' . $user->id . '/edit') }}" class="btn btn-mini"><i class="icon-edit"></i></a>
+                                        @endif
+
                                         <div class="actions inline">
                                             <div class="btn btn-mini">
                                                 <i class="icon-cog"> Actions</i>
                                             </div>
                                             <ul class="btn btn-mini">
-                                                @if ($current_user->hasAccess("stones-icons.destroy"))
+                                                @if ($current_user->hasAccess('users.activate'))
                                                 <li>
-                                                    {{ Form::open(array('route' => array($link_type . '.stones.icons.destroy', $icon->id), 'method' => 'delete', 'class'=>'inline', 'onsubmit'=>"return deleteRecord($(this), 'product icon');")) }}
+                                                    @if (User::isBanned($user->id))
+                                                    {{ Form::open(array('route' => array($link_type . '.users.activate', $user->id), 'method' => 'post', 'class'=>'inline')) }}
+                                                        <button type="submit" class=""> Activate</button>
+                                                    {{ Form::close() }}
+                                                    @else
+                                                    {{ Form::open(array('route' => array($link_type . '.users.deactivate', $user->id), 'method' => 'post', 'class'=>'inline')) }}
+                                                        <button type="submit" class=""> Deactivate</button>
+                                                    {{ Form::close() }}
+                                                    @endif
+                                                </li>
+                                                <hr>
+                                                @endif
+                                                @if ($current_user->hasAccess("users.destroy"))
+                                                <li>
+                                                    {{ Form::open(array('route' => array($link_type . '.users.destroy', $user->id), 'method' => 'delete', 'class'=>'inline', 'onclick'=>"return deleteRecord($(this), 'user');")) }}
                                                         <button type="submit" class="danger delete"><i class="icon-trash"></i> Delete</button>
                                                     {{ Form::close() }}
                                                 </li>
@@ -83,7 +96,8 @@
                                         </div>
                                     </td>
                                 </tr>
-                        @endforeach
+
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

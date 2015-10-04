@@ -78,7 +78,7 @@ class Category extends \Eloquent implements PresentableInterface {
         $html = '<ul class="menu '.$class.'">';
         $html .= '<li><a href="'.url('category/all').'">All Gravestones</a></li>';
         foreach( Category::all() as $cat  ) {
-            $html .= '<li class="list-child"><a href="'.url('category/'.$cat->alias).'">'.$cat->name.'</a></li>';
+            $html .= '<li class="list-child"><a href="'.url('category/'.$cat->alias).'">'.get_trans($cat, 'name').'</a></li>';
         }
         $html .= '</ul>';
         return $html;

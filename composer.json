@@ -15,8 +15,7 @@
 		"barryvdh/laravel-dompdf": "*",
 		"mews/captcha": "dev-master",
 		"fzaninotto/faker": "1.5.*@dev",
-		"artdarek/oauth-4-laravel": "dev-master",
-		"barryvdh/laravel-translation-manager": "*"
+		"artdarek/oauth-4-laravel": "dev-master"
 	},
 	"require-dev": {
 		"way/generators": "2.*",
@@ -42,7 +41,8 @@
             "app/modules/Slideshow/Database/migrations"
 		],
 		"files": [
-			"app/helpers.php"
+			"app/helpers/helpers.php",
+			"app/helpers/translates.php"
 		],
 		"psr-4": {
 			"Modules\\": "app/modules",
