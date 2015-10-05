@@ -14,6 +14,9 @@ Route::resource('/backend/stones/icon-categories.translate',
 Route::resource('/backend/stones/icons.translate',
     'Components\Stones\Controllers\Backend\TranslateIconsController',
     ['only' => ['edit', 'update', 'index']]);
+Route::resource('/backend/stones/colors.translate',
+    'Components\Stones\Controllers\Backend\TranslateColorsController',
+    ['only' => ['edit', 'update', 'index']]);
 
 
 //Route For Front-end

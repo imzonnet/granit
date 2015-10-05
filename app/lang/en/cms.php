@@ -45,5 +45,7 @@ return array (
   'all_menu_entries' => 'All Menu Entries',
   'register' => 'Register',
   'site_map' => 'Site Map',
-  'hello' => 'Hi',
+  'hello'  => 'Hi',
+  'design' => 'Design'
+
 );

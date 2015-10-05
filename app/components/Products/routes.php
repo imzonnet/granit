@@ -18,6 +18,9 @@ Route::get('/product/{id}/{color}', 'Components\Products\Controllers\ProductsCon
 Route::resource('/backend/product-categories.translate',
     'Components\Products\Controllers\Backend\TranslateCategoriesController',
     ['only' => ['edit', 'update', 'index']]);
+Route::resource('/backend/product-colors.translate',
+    'Components\Products\Controllers\Backend\TranslateColorsController',
+    ['only' => ['edit', 'update', 'index']]);
 Route::resource('/backend/products.translate',
     'Components\Products\Controllers\Backend\TranslateProductsController',
     ['only' => ['edit', 'update', 'index']]);

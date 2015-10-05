@@ -80,17 +80,17 @@
                         @foreach( $products as $product )
                         <div class="cell-4 fx product-item shop-item" data-animate="fadeInUp">
                             <div class="item-box">
-                                <h3 class="item-title"><a href="{{url('products/'.$product->alias)}}">{{$product->name}}</a></h3>
+                                <h3 class="item-title"><a href="{{url('products/'.$product->alias)}}">{{get_trans($product, 'name')}}</a></h3>
                                 <div class="item-img">
                                     <a href="{{url('products/'.$product->alias)}}"><img alt="" src="{{url($product->thumbnail)}}"></a>
                                 </div>
                                 <div class="item-details">
-                                    <p> {{$product->description}} </p>
+                                    <p> {{ get_trans($product, 'description') }} </p>
                                     <div class="left">
                                         <div class="item-price">${{$product->price}}</div>
                                     </div>
                                     <div class="right">
-                                        <a href="{{url('/design')}}"><div class="item-price"><i class="fa fa-shopping-cart"></i> Design</div></a>
+                                        <a href="{{url('/design')}}"><div class="item-price"><i class="fa fa-shopping-cart"></i> {{ trans('cms.design') }}</div></a>
                                     </div>
                                 </div>
                             </div>
