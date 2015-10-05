@@ -20,7 +20,6 @@ class ExpTranslates extends Migration {
             $table->string('content');
             $table->string('language');
             $table->timestamps();
-            $table->unique(['ref_id', 'module', 'field', 'language']);
         });
 	}
 
