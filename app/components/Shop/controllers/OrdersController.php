@@ -67,7 +67,8 @@ class OrdersController extends \BaseController {
 		if( isset( $did ) ) {
 			$designItem = Design::findOrFail( $did );
 			$designInfo = json_decode( $designItem->data );
-			$price = $designInfo->total_price;
+			print_r( $designInfo );die;
+			//$price = $designInfo->total_price;
 
 			$product_code = md5( date('YmdHis') );
 
