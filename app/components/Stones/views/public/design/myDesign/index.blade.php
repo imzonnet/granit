@@ -127,6 +127,13 @@
                                         </a>
                                         <ul class="stone-design-social">
                                             <?php $root_url = Request::root().'/'; ?>
+                                            <li>
+                                                <form class="form-design" action="{{url('/shop/add-to-cart')}}" method="post">
+                                                    {{ Form::token() }} 
+                                                    <input type="hidden" name="did" value="{{ $d_item->id }}">
+                                                    <button class="btn-add-to-cart-design" title="add to cart"><i class="fa fa-shopping-cart"></i></button>
+                                                </form>
+                                            </li>
                                             <li><a onclick="socialHandle(this)" href="javascript:" data-social='{"type": "facebook", "url": "{{ $root_url }}design/edit/{{ $d_item->id }}"}' class="share-f"><i class="fa fa-facebook"></i></a></li>
                                             <li><a onclick="socialHandle(this)" href="javascript:" data-social='{"type": "twitter", "url": "{{ $root_url }}design/edit/{{ $d_item->id }}"}' class="share-t"><i class="fa fa-twitter"></i></a></li>
                                             <li><a href="mailto:someone@example.com?Subject=Design%20Stone&body={{ $root_url }}design/edit/{{ $d_item->id }}" data-social='{"type": "mailto", "url": "{{ $root_url }}design/edit/{{ $d_item->id }}"}' class="share-g"><i class="fa fa-envelope"></i></a></li>
