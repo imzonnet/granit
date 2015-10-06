@@ -65,6 +65,7 @@
                             <td>
                                 <a href="{{ URL::to($link_type . '/products/' . $product->id . '/edit') }}" class="btn btn-mini"><i class="icon-edit"></i></a>
                                 <a href="{{ URL::to($link_type . '/product/' . $product->id . '/colors') }}" class="btn btn-mini btn-success"><i class="icon-plus"></i> List Color</a>
+                                <a href="{{ route('backend.products.translate.index', $product->id)  }}" class="btn btn-mini"><i class="icon-plus"></i></a>
                                 <div class="actions inline">
                                     <div class="btn btn-mini">
                                         <i class="icon-cog"> Actions</i>

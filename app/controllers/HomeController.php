@@ -108,6 +108,7 @@ class HomeController extends BaseController {
             \Session::put('lang', \Config::get('app.locale'));
         }
         \Session::put('lang', $lang);
+        \Session::put('language', $lang);
         return \Redirect::back();
     }
 }

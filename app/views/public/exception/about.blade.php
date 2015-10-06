@@ -50,13 +50,14 @@
 
 <div class="sectionWrapper gry-pattern">
     <div class="container team-boxes">
-        <h3 class="block-head">{{ trans('Meet Our Team') }}</h3>
+        {{ region_render('team') }}
         @foreach($users as $team)
         <div class="cell-4 fx" data-animate="bounceIn">
             <div class="team-box">
                 <div class="team-img">
                     <img alt="" src="{{URL::to($team->photo)}}">
                     <h3>{{$team->first_name}} {{$team->last_name}}</h3>
+                    <span class="position">{{$team->position}}</span>
                     <span class="email"><a href="mailto:{{ $team->email }}" title="envelope"><span class="fa fa-envelope"></span> {{ $team->email }}</a></span>
                 </div>
             </div>

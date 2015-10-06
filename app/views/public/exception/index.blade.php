@@ -119,124 +119,7 @@ $(window).load(function () {
                 </div>
         -->
         <div class="slider-container">
-            <div class="slider" id="revolutionSlider">
-                <ul>
-
-                    <li data-transition="fade" data-slotamount="3" data-masterspeed="1200" >
-
-                        <img src="{{asset('assets/shared/slider/img/bg.png')}}" data-bgfit="cover" data-bgposition="left center" data-bgrepeat="no-repeat" >
-
-                        <div class="tp-caption big-label sft stb"
-                             data-x="0"
-                             data-y="50"
-                             data-speed="1000"
-                             data-start="100"
-                             data-easing="easeOutExpo">Design a Gravestone online!</div>
-
-                        <div class="tp-caption medium-label sft stb"
-                             data-x="0"
-                             data-y="115"
-                             data-speed="1000"
-                             data-start="200"
-                             data-easing="easeOutExpo">Design, Get a Bid, Share with Family</div>
-
-                        <div class="tp-caption white-text sft stb"
-                             data-x="00"
-                             data-y="165"
-                             data-speed="1000"
-                             data-start="300"
-                             data-easing="easeOutExpo">On our new website you can easily find a Gravestone for you loved ones.<br /><strong>Choose a Gravestone > Insert your own Text > Add Accessories > Finish</strong></div>
-
-                        <div class="tp-caption white sft stb"
-                             data-x="00"
-                             data-y="230"
-                             data-speed="1000"
-                             data-start="400"
-                             data-easing="easeOutExpo"><strong>Sign up!</strong> & save all your designs, Compare designs, Invite friends & family to join stone Design. <br />Discuss, Comment, Chat, Share and Design Gravestones together with our Design System.</div>
-
-                        <div class="tp-caption white sfl stb"
-                             data-x="00"
-                             data-y="280"
-                             data-speed="1000"
-                             data-start="500"
-                             data-easing="easeOutExpo"><img src="{{asset('assets/shared/slider/img/small.png')}}" /></div>
-
-                        <div class="tp-caption white sfl stb"
-                             data-x="300"
-                             data-y="280"
-                             data-speed="1000"
-                             data-start="600"
-                             data-easing="easeOutExpo"><img src="{{asset('assets/shared/slider/img/medium.png')}}" /></div>
-
-                        <div class="tp-caption white sfl stb"
-                             data-x="620"
-                             data-y="280"
-                             data-speed="1000"
-                             data-start="700"
-                             data-easing="easeOutExpo"><img src="{{asset('assets/shared/slider/img/large.png')}}" /></div>
-
-
-                    </li>
-
-                    <li data-transition="fade" data-slotamount="3" data-masterspeed="1200" >
-
-                        <img src="{{asset('assets/shared/slider/img/bg.png')}}" data-bgfit="cover" data-bgposition="left center" data-bgrepeat="no-repeat" >
-
-                        <div class="tp-caption big-label sft stb"
-                             data-x="0"
-                             data-y="50"
-                             data-speed="1000"
-                             data-start="100"
-                             data-easing="easeOutExpo">Design a Gravestone online!</div>
-
-                        <div class="tp-caption big-label sft stb"
-                             data-x="0"
-                             data-y="115"
-                             data-speed="1000"
-                             data-start="200"
-                             data-easing="easeOutExpo">Design, Get a Bid, Share with Family</div>
-
-                        <div class="tp-caption white-text sft stb"
-                             data-x="00"
-                             data-y="165"
-                             data-speed="1000"
-                             data-start="300"
-                             data-easing="easeOutExpo">On our new website you can easily find a Gravestone for you loved ones.<br /><strong>Choose a Gravestone > Insert your own Text > Add Accessories > Finish</strong></div>
-
-                        <div class="tp-caption white sft stb"
-                             data-x="00"
-                             data-y="230"
-                             data-speed="1000"
-                             data-start="400"
-                             data-easing="easeOutExpo"><strong>Sign up!</strong> & save all your designs, Compare designs, Invite friends & family to join stone Design. <br />Discuss, Comment, Chat, Share and Design Gravestones together with our Design System.</div>
-
-                        <div class="tp-caption white sfr stb"
-                             data-x="00"
-                             data-y="280"
-                             data-speed="1000"
-                             data-start="500"
-                             data-easing="easeOutExpo"><img src="{{asset('assets/shared/slider/img/small.png')}}" /></div>
-
-                        <div class="tp-caption white sfr stb"
-                             data-x="300"
-                             data-y="280"
-                             data-speed="1000"
-                             data-start="600"
-                             data-easing="easeOutExpo"><img src="{{asset('assets/shared/slider/img/medium.png')}}" /></div>
-
-                        <div class="tp-caption white sfr stb"
-                             data-x="620"
-                             data-y="280"
-                             data-speed="1000"
-                             data-start="700"
-                             data-easing="easeOutExpo"><img src="{{asset('assets/shared/slider/img/large.png')}}" /></div>
-
-
-                    </li>
-
-                   
-                </ul>
-            </div>
+            {{ region_render('slideshow') }}
         </div> <!--SLIDER-->
     </div>
 
@@ -260,17 +143,11 @@ $(window).load(function () {
     <div class="gry-bg">
         <div class="container">
             <div class="row">
-                <div class="cell-3 fx" data-animate="fadeInUp" data-animation-delay="200">
+                <div class="cell-6 fx" data-animate="fadeInUp" data-animation-delay="200">
                     {{ region_render('feature_first') }}
                 </div>
-                <div class="cell-3 fx" data-animate="fadeInUp" data-animation-delay="200">
+                <div class="cell-6 fx" data-animate="fadeInUp" data-animation-delay="200">
                     {{ region_render('feature_second') }}
-                </div>
-                <div class="cell-3 fx" data-animate="fadeInUp" data-animation-delay="200">
-                    {{ region_render('feature_third') }}
-                </div>
-                <div class="cell-3 fx" data-animate="fadeInUp" data-animation-delay="200">
-                    {{ region_render('feature_fourth') }}
                 </div>
             </div>
         </div>
@@ -424,7 +301,7 @@ $(window).load(function () {
                             @endforeach
                         </div>
 
-                        {{ region_render('testimonial_quotes') }}
+
 
                     </div>
                     <!-- testimonials end -->
@@ -434,11 +311,7 @@ $(window).load(function () {
 
                 <!-- our skills right block -->
                 <div class="cell-4 fx" data-animate="fadeInRight">
-                    <div class="catalogue main-bg padd-vertical-10 center">
-                        <h1>Catalogue</h1>
-                        {{HTML::image(asset('uploads/images/news.png'))}}
-                        <p><a href="#" class="btn more-btn btn-large">Read</a></p>
-                    </div>
+                    {{ region_render('advertisement') }}
                 </div>
                 <!-- our skills right block end -->							
             </div>

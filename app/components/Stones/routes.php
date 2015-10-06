@@ -5,7 +5,19 @@ Route::resource('/backend/stones/icon-categories', 'Components\Stones\Controller
 Route::resource('/backend/stones/colors', 'Components\Stones\Controllers\Backend\ColorsController');
 Route::resource('/backend/stones/fonts', 'Components\Stones\Controllers\Backend\FontsController');
 Route::resource('/backend/stones/stone-settings', 'Components\Stones\Controllers\Backend\StoneSettingsController');
-//Route::post('/backend/stones/stone-settings', 'Components\Stones\Controllers\Backend\StoneSettingsController@index');
+/**
+ * Translates
+ */
+Route::resource('/backend/stones/icon-categories.translate',
+    'Components\Stones\Controllers\Backend\TranslateIconCategoriesController',
+    ['only' => ['edit', 'update', 'index']]);
+Route::resource('/backend/stones/icons.translate',
+    'Components\Stones\Controllers\Backend\TranslateIconsController',
+    ['only' => ['edit', 'update', 'index']]);
+Route::resource('/backend/stones/colors.translate',
+    'Components\Stones\Controllers\Backend\TranslateColorsController',
+    ['only' => ['edit', 'update', 'index']]);
+
 
 //Route For Front-end
 Route::resource('/design', 'Components\Stones\Controllers\DesignsController');

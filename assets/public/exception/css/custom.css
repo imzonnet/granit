@@ -516,3 +516,15 @@
 .block .block-links-wrapper .block-links li a:hover {
     color: #FFF;
 }
+
+
+.testimonials-1 {
+    padding-left: 40px;
+    padding-right: 40px;
+}
+.testimonials-1.slick-slider .slick-prev {
+    left: -10px;
+}
+.testimonials-1.slick-slider .slick-next {
+    right: -10px;
+}

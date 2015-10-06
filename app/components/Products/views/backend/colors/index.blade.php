@@ -62,7 +62,7 @@
                                     <td><img src="{{ url($color->icon) }}" alt=""/></td>
                                     <td>
                                         <a href="{{ URL::to($link_type . '/product-colors/' . $color->id . '/edit') }}" class="btn btn-mini"><i class="icon-edit"></i></a>
-
+                                        <a href="{{ route('backend.product-colors.translate.index', $color->id)  }}" class="btn btn-mini"><i class="icon-plus"></i></a>
                                         <div class="actions inline">
                                             <div class="btn btn-mini">
                                                 <i class="icon-cog"> Actions</i>

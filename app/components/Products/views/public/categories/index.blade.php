@@ -46,6 +46,9 @@
         <div class="row">
             <div class="cell-3">
                 @include('Products::public._layouts.sidebar')
+
+                {{ region_render('sidebar') }}
+
                 <div class="widget menu-categories fx animated fadeInLeft undefined" style="">
                     <div class="catalogue gry-bg padd-horizontal-10 center">
                         <h1 class="main-color">SPECIAL <br />OFFER</h1>
@@ -74,6 +77,7 @@
                     </div>
                     <div class="clearfix"></div>
                 </div>
+                {{ region_render('content') }}
                 <div class="block-wrap">
                     <h2 class="block-head">Gravestones</h2>
                     <div class="categories-items">
@@ -90,9 +94,9 @@
                             @foreach( $categories as $category)
                             <div class="cell-4 fx product-category category-item shop-item" data-animate="fadeInUp">
                                 <div class="item-box">
-                                    <h3 class="item-title"><a href="{{url('category/'.$category->alias)}}">{{$category->name}}</a></h3>
-                                    <div class="item-img {{ \Str::slug(strtolower($category->name)) }}">
-                                        <a href="{{url('category/'.$category->alias)}}"><img alt="" src="{{url($category->image)}}"></a>
+                                    <h3 class="item-title"><a href="{{url('category/'.$category->alias)}}">{{get_trans($category, 'name')}}</a></h3>
+                                    <div class="item-img {{ \Str::slug(strtolower(get_trans($category, 'name'))) }}">
+                                        <a href="{{url('category/'.$category->alias)}}"><img alt="" src="{{url(get_trans($category, 'image'))}}"></a>
                                     </div>
                                 </div>
                             </div>
@@ -108,9 +112,9 @@
                         @foreach( $icon_categories as $category)
                         <div class="cell-3 fx accessories category-item shop-item" data-animate="fadeInUp">
                             <div class="item-box">
-                                <h3 class="item-title"><a href="{{url('icon-category/'.$category->alias)}}">{{$category->name}}</a></h3>
-                                <div class="item-img {{ \Str::slug(strtolower($category->name)) }}">
-                                    <a href="{{url('icon-category/'.$category->alias)}}"><img alt="" src="{{url($category->image)}}"></a>
+                                <h3 class="item-title"><a href="{{url('icon-category/'.$category->alias)}}">{{ get_trans($category, 'name') }}</a></h3>
+                                <div class="item-img {{ \Str::slug(strtolower(get_trans($category, 'name'))) }}">
+                                    <a href="{{url('icon-category/'.$category->alias)}}"><img alt="" src="{{url(get_trans($category, 'image'))}}"></a>
                                 </div>
                             </div>
                         </div>

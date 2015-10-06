@@ -53,7 +53,7 @@ return array(
 	*/
 
 	'locale' => 'en',
-
+    'fallback_locale' => 'en',
 	/*
 	|--------------------------------------------------------------------------
 	| Encryption Key
@@ -114,15 +114,15 @@ return array(
 		'Menu\MenuServiceProvider',
 		'Barryvdh\DomPDF\ServiceProvider',
 		'Mews\Captcha\CaptchaServiceProvider',
-                'Artdarek\OAuth\OAuthServiceProvider',
+        'Artdarek\OAuth\OAuthServiceProvider',
 
-            'App\Components\Memorials\MemorialsServiceProvider',
-            'App\Components\MyGalleries\ServiceProvider',
-            'App\Components\Products\ProductsServiceProvider',
-            'App\Components\Stones\StonesServiceProvider',
-            'App\Components\Testimonials\TestimonialsServiceProvider',
-            'App\Components\Blocks\BlocksServiceProvider',
-            'App\Components\Shop\ShopServiceProvider',
+        'App\Components\Memorials\MemorialsServiceProvider',
+        'App\Components\Shop\ShopServiceProvider',
+        'App\Components\MyGalleries\ServiceProvider',
+        'App\Components\Products\ProductsServiceProvider',
+        'App\Components\Stones\StonesServiceProvider',
+        'App\Components\Testimonials\TestimonialsServiceProvider',
+        'App\Components\Blocks\BlocksServiceProvider',
 
 	),
 
@@ -199,5 +199,7 @@ return array(
                 'OAuth' => 'Artdarek\OAuth\Facade\OAuth',
 
 	),
+
+    'cipher' => MCRYPT_RIJNDAEL_256
 
 );

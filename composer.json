@@ -42,7 +42,8 @@
             "app/modules/Slideshow/Database/migrations"
 		],
 		"files": [
-			"app/helpers.php"
+			"app/helpers/helpers.php",
+			"app/helpers/translates.php"
 		],
 		"psr-4": {
 			"Modules\\": "app/modules",

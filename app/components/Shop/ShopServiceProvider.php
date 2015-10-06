@@ -1,7 +1,9 @@
-<?php
+<?php 
 namespace App\Components\Shop;
 
-class ShopServiceProvider extends \App\Components\ServiceProvider {
+use App\Components\ServiceProvider;
+
+class ShopServiceProvider extends ServiceProvider {
 
     public function register()
     {

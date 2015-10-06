@@ -62,7 +62,7 @@
                         @foreach( $icons as $category)
                         <div class="cell-3 fx accessories-item category-item" data-animate="fadeInUp">
                             <div class="item-box">
-                                <h3 class="item-title"><a href="#">{{$category->name}}</a></h3>
+                                <h3 class="item-title"><a href="#">{{ get_trans($category, 'name') }}</a></h3>
                                 <div class="item-img">
                                     <a href="#"><img alt="" src="{{url($category->image)}}"></a>
                                 </div>

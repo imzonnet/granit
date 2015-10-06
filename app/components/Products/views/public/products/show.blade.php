@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 <div class="cell-8">
-                    <h2 class="main-color">{{$product->name}}</h2>
+                    <h2 class="main-color">{{ get_trans($product, 'name') }}</h2>
                     <div class="product-specs product-block list-item">
                         <label class="control-label">Color:</label>
                         <div class="thumbs">
@@ -68,7 +68,7 @@
                                     <a href="#" data-url="{{url('/design/'.$product->id.'/'.$color->color_id)}}" data-price='{{$color->getPrice()}}' data-image="{{url($color->image)}}" class="change-color">
                                         <img alt="" src="{{url($color->color->icon)}}">
                                     </a><br /> 
-                                    <span>{{$color->color->name}}</span>
+                                    <span>{{ get_trans($color->color, 'name') }}</span>
                                 </li>
                                 @endforeach
                             </ul>
@@ -125,7 +125,7 @@
                         @foreach( $product_relateds as $product )
                         <div class="product-item cell-3 fx"  data-animate="fadeInUp">
                             <div class="product-box">
-                                <h3 class="product-title"><a class="product-url" href="{{url('product/'.$product->alias.'/'.$product->productColor->first()->color_id)}}">{{$product->product_code}} {{$product->name}}</a></h3>
+                                <h3 class="product-title"><a class="product-url" href="{{url('product/'.$product->alias.'/'.$product->productColor->first()->color_id)}}">{{$product->product_code}} {{get_trans($product, 'name') }}</a></h3>
                                 <div class="product-sale">
                                     @if($product->productColor->first()->sale > 0)
                                     <span class="discount">{{$product->productColor->first()->sale}}% </span>

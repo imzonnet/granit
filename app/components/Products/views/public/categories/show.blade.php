@@ -77,7 +77,7 @@
                             <ul id="filter-colors">
                                 <li><a class="button active" href="#" data-filter="*"><span>All</span></a></li>
                                 @foreach($colors as $color)
-                                <li><a class="button" href="#" data-filter=".{{\Str::slug($color->name)}}-{{$color->id}}"><img src="{{url($color->icon)}}" alt="" />{{$color->name}}</a></li>
+                                <li><a class="button" href="#" data-filter=".{{\Str::slug($color->name)}}-{{$color->id}}"><img src="{{url($color->icon)}}" alt="" />{{ get_trans($color, 'name') }}</a></li>
                                 @endforeach
                             </ul>
                         </div>
@@ -115,7 +115,7 @@
                         @foreach( $products as $product )
                         <div class="product-item cell-4 {{$product->getClasses()}}" data-width="{{$product->width}}" data-height="{{$product->height}}">
                             <div class="product-box">
-                                <h3 class="product-title"><a class="product-url name" href="{{url('product/'.$product->alias.'/'.$product->productColor->first()->color_id)}}">{{$product->product_code}} {{$product->name}}</a></h3>
+                                <h3 class="product-title"><a class="product-url name" href="{{url('product/'.$product->alias.'/'.$product->productColor->first()->color_id)}}">{{$product->product_code}} {{ get_trans($product, 'name') }}</a></h3>
                                 <div class="product-sale">
                                     @if($product->productColor->first()->sale > 0)
                                     <span class="discount">{{$product->productColor->first()->sale}}% </span>

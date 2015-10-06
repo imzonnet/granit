@@ -6,7 +6,6 @@ use App,
     Str;
 use Robbo\Presenter\PresentableInterface;
 use Components\Stones\Presenters\IconCategoryPresenter;
-use Components\Stones\Models\Icon;
 
 class IconCategory extends \Eloquent implements PresentableInterface {
 
@@ -14,6 +13,9 @@ class IconCategory extends \Eloquent implements PresentableInterface {
     public $timestamps = false;
     protected $fillable = array('name', 'alias', 'image', 'description', 'status', 'ordering', 'created_by', 'parent_id');
     protected $guarded = array('id');
+
+    public function translate() { return array('name', 'description'); }
+    public function table() { return $this->table; }
 
     public function icon() {
         return $this->hasMany('Components\Stones\Models\Icon', 'cat_id', 'id', 'granit_icon_categories');
@@ -85,7 +87,7 @@ class IconCategory extends \Eloquent implements PresentableInterface {
     public static function menu($class = "list list-ok alt") {
         $html = '<ul class="menu ' . $class . '">';
         foreach (IconCategory::all() as $icon) {
-            $html .= '<li><a href="' . url('icon-category/' . $icon->alias) . '">' . $icon->name . '</a></li>';
+            $html .= '<li><a href="' . url('icon-category/' . $icon->alias) . '">' . get_trans($icon, 'name') . '</a></li>';
         }
         $html .= '</ul>';
         return $html;

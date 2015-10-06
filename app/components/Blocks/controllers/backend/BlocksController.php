@@ -20,8 +20,8 @@ class BlocksController extends \BaseController {
         //add hint for views
         View::addLocation(app_path() . '/components/Blocks/views');
         View::addNamespace('Blocks', app_path() . '/components/Blocks/views');
-
         parent::__construct();
+        $this->language = 'en';
     }
 
     /**

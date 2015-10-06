@@ -64,6 +64,7 @@
                                     <td>{{ $color->author() }}</td>
                                     <td>
                                         <a href="{{ URL::to($link_type . '/stones/colors/' . $color->id . '/edit') }}" class="btn btn-mini"><i class="icon-edit"></i></a>
+                                        <a href="{{ route('backend.stones.colors.translate.index', $color->id)  }}" class="btn btn-mini"><i class="icon-plus"></i></a>
 
                                         <div class="actions inline">
                                             <div class="btn btn-mini">

@@ -12,3 +12,15 @@ Route::get('/category/{id}', 'Components\Products\Controllers\CategoriesControll
 Route::get('/icon-categories', 'Components\Products\Controllers\CategoriesController@index');
 Route::get('/icon-category/{id}', 'Components\Products\Controllers\CategoriesController@showIcon');
 Route::get('/product/{id}/{color}', 'Components\Products\Controllers\ProductsController@show');
+
+//Translates
+
+Route::resource('/backend/product-categories.translate',
+    'Components\Products\Controllers\Backend\TranslateCategoriesController',
+    ['only' => ['edit', 'update', 'index']]);
+Route::resource('/backend/product-colors.translate',
+    'Components\Products\Controllers\Backend\TranslateColorsController',
+    ['only' => ['edit', 'update', 'index']]);
+Route::resource('/backend/products.translate',
+    'Components\Products\Controllers\Backend\TranslateProductsController',
+    ['only' => ['edit', 'update', 'index']]);
