@@ -1,8 +1,6 @@
 <?php 
 namespace Components\Shop\Controllers;
 
-require_once '/../helper/paypal.php';
-
 use View, App, Str, Cart, Redirect, paypal, Request;
 use Components\Shop\Models\Order;
 use Components\Stones\Models\Design;

@@ -43,6 +43,7 @@
 		],
 		"files": [
 			"app/helpers/helpers.php",
+			"app/components/Shop/helper/paypal.php",
 			"app/helpers/translates.php"
 		],
 		"psr-4": {
