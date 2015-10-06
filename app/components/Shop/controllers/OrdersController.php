@@ -227,6 +227,11 @@ class OrdersController extends \BaseController {
 		$resArrayDoExpressCheckout = $this->paypal->ConfirmPayment ( $finalPaymentAmount );
 		$ackDoExpressCheckout = strtoupper( $resArrayDoExpressCheckout["ACK"] );
 
+		print_r( $finalPaymentAmount );
+		print_r( $resArrayDoExpressCheckout );
+		print_r( $ackDoExpressCheckout );
+		die;
+
 		if( $ackDoExpressCheckout == "SUCCESS" || $ackDoExpressCheckout == "SUCCESSWITHWARNING" ) {
 			//echo '<pre>'; print_r( $resArrayDoExpressCheckout ); echo '</pre>';
 			$order_id = $_SESSION["order_id"];
