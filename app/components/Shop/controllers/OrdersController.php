@@ -228,7 +228,7 @@ class OrdersController extends \BaseController {
 		$ackDoExpressCheckout = strtoupper( $resArrayDoExpressCheckout["ACK"] );
 
 		if( $ackDoExpressCheckout == "SUCCESS" || $ackDoExpressCheckout == "SUCCESSWITHWARNING" ) {
-			//echo '<pre>'; print_r( $resArrayDoExpressCheckout ); echo '</pre>';
+			echo '<pre>'; print_r( $resArrayDoExpressCheckout ); echo '</pre>';die;
 			$order_id = $_SESSION["order_id"];
 			$_data = array(
 				'status' => 'success',
