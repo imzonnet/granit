@@ -58,6 +58,13 @@ class OrdersController extends \BaseController {
    	 	->with( 'cart', $content );
 	}
 
+	public function removeProduct( $rowId ) {
+		Cart::remove($rowId);
+
+		return Redirect::to("shop/cart");
+		exit;
+	}
+
 	/**
 	* add to cart
 	*/
@@ -228,7 +235,7 @@ class OrdersController extends \BaseController {
 		$ackDoExpressCheckout = strtoupper( $resArrayDoExpressCheckout["ACK"] );
 
 		if( $ackDoExpressCheckout == "SUCCESS" || $ackDoExpressCheckout == "SUCCESSWITHWARNING" ) {
-			echo '<pre>'; print_r( $resArrayDoExpressCheckout ); echo '</pre>';die;
+			//echo '<pre>'; print_r( $resArrayDoExpressCheckout ); echo '</pre>';die;
 			$order_id = $_SESSION["order_id"];
 			$_data = array(
 				'status' => 'success',
@@ -238,7 +245,7 @@ class OrdersController extends \BaseController {
 			
 			return Redirect::to("shop/checkout/success");
 		}else{
-			echo '<pre>'; print_r( $resArrayDoExpressCheckout ); echo '</pre>';die;
+			//echo '<pre>'; print_r( $resArrayDoExpressCheckout ); echo '</pre>';die;
 			return Redirect::to("shop/cancel");
 		}
 
@@ -259,5 +266,6 @@ class OrdersController extends \BaseController {
 		$this->layout->title = 'Checkout Success';
    	 	$this->layout->content = View::make('Shop::frontend.orders.checkout_success');
 	}
+
 }
 ?>

@@ -69,9 +69,12 @@
                             </thead>
                             <tbody>
                             @foreach( $cart as $cart_item )
-                                <?php // print_r( $cart_item ); ?>
+                                <?php 
+                                    // echo '<pre>'; print_r( $cart_item ); echo '</pre>'; 
+                                    $url_remove_product = '/shop/cart/remove/' . $cart_item->rowid;
+                                ?>
                                 <tr>
-                                    <td class="center"><a href="#" class="cart-remove-item"><i class="fa fa-times"></i></a></td>
+                                    <td class="center"><a href="{{ url( $url_remove_product ) }}" class="cart-remove-item"><i class="fa fa-times"></i></a></td>
                                     <td class="center"><img src="{{ url( $cart_item->options->thumb ) }}" title="thumb" style="height: 40px;"/></td>
                                     <td class="right">{{$cart_item->price}}</td>
                                     <td class="center"><input min="1" style="padding: 5px; text-align: center; width: 64px;" type="number" name="cart[qty][{{ $cart_item->rowid }}]" value="{{$cart_item->qty}}" required></td>

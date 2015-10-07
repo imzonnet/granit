@@ -20,6 +20,7 @@ Route::post('/shop/do-checkout', 'Components\Shop\Controllers\OrdersController@d
 Route::get('/shop/return', 'Components\Shop\Controllers\OrdersController@pp_return');
 Route::get('shop/checkout/success', 'Components\Shop\Controllers\OrdersController@pp_checkout_success');
 Route::get('/shop/cancel', 'Components\Shop\Controllers\OrdersController@pp_cancel');
+Route::get('/shop/cart/remove/{id?}', 'Components\Shop\Controllers\OrdersController@removeProduct');
 
 
 
