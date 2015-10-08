@@ -20,7 +20,7 @@ class OrdersController extends \BaseController {
 
 		$this->layout->title = 'All Orders';
    	 	$this->layout->content = View::make('Shop::backend.orders.index')
-   	 	->with('orders', Order::get());
+   	 	->with('orders', Order::orderBy('id', 'desc')->get() );
 	}
 
 	/**
