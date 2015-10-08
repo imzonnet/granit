@@ -142,7 +142,7 @@ class paypal
 		* If an error occured, show the resulting errors
 		*/
 	    $resArray = $this->hash_call( "SetExpressCheckout", $nvpstr );	
-		$ack = ( isset( $resArray["ACK"] ) ) ? strtoupper( $resArray["ACK"] ) : '';
+		$ack = strtoupper( $resArray["ACK"] );
 		if($ack=="SUCCESS" || $ack=="SUCCESSWITHWARNING")
 		{
 			$token = urldecode($resArray["TOKEN"]);

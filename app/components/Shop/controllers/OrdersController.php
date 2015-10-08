@@ -159,6 +159,11 @@ class OrdersController extends \BaseController {
 
 		$order = Order::findOrFail( $order_id );
 
+		// if (session_id() == "") 
+		// 	session_start();
+
+		// $_SESSION["order_id"] = $order_id;
+
 		$this->layout->title = 'Payment';
    	 	$this->layout->content = View::make('Shop::frontend.orders.payment')
    	 	->with( 'order', $order )
@@ -245,7 +250,7 @@ class OrdersController extends \BaseController {
 			
 			return Redirect::to("shop/checkout/success");
 		}else{
-			//echo '<pre>'; print_r( $resArrayDoExpressCheckout ); echo '</pre>';die;
+			echo '<pre>'; print_r( $resArrayDoExpressCheckout ); echo '</pre>';die;
 			return Redirect::to("shop/cancel");
 		}
 
