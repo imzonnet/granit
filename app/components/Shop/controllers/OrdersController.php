@@ -250,7 +250,7 @@ class OrdersController extends \BaseController {
 			
 			return Redirect::to("shop/checkout/success");
 		}else{
-			echo '<pre>'; print_r( $resArrayDoExpressCheckout ); echo '</pre>';die;
+			echo '<pre>'; print_r( $resArrayDoExpressCheckout ); echo '</pre>';
 			return Redirect::to("shop/cancel");
 		}
 
