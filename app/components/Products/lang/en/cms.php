@@ -3,6 +3,7 @@
 return array(
     'products'               => 'Products',
     'categories'     => 'Product Categories',
+    'category'     => 'Category',
     'colors'         => 'Stone Colors',
     'gravestones' => 'Gravestones',
     'all-gravestones' => 'All Gravestones',

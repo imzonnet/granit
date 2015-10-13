@@ -31,7 +31,7 @@
                 <div data-animate="fadeInUp" class="breadcrumbs main-bg fx animated fadeInUp" style="">
                     <span class="bold">{{ trans('cms.you_are_in') }}:</span>
                     <a href="{{ url('/') }}">{{ trans('cms.home') }}</a><span class="line-separate">/</span>
-                    <a href="{{ url('category') }}">Category</a><span class="line-separate"></span>
+                    <a href="{{ url('category') }}">{{ trans('Products::cms.category') }}<</a><span class="line-separate"></span>
                 </div>
             </div>
         </div>
@@ -49,7 +49,7 @@
             </div>
             <div class="cell-9">
                 <div class="block-wrap">
-                    <h2 class="block-head">{{ trans('Products::cms.product.icon.categories') }}</h2>
+                    <h2 class="block-head">{{ trans('Products::cms.gravestones') }}</h2>
                     <div class="categories-items">
                         @foreach( $icons as $category)
                         <div class="cell-3 fx accessories-item category-item" data-animate="fadeInUp">

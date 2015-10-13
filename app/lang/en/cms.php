@@ -48,6 +48,7 @@ return array (
   'hello'  => 'Hi',
   'design' => 'Design',
   'you_are_in' => 'You Are In',
-  'home' => 'Home'
+  'home' => 'Home',
+  'cancle' => 'Cancel'
 
 );

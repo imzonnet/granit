@@ -37,9 +37,9 @@
                 ?>
                 <h1 class="fx" style="">{{ $type }}</h1>
                 <div data-animate="fadeInUp" class="breadcrumbs main-bg fx animated fadeInUp" style="">
-                    <span class="bold">You Are In:</span>
-                    <a href="{{ url('/') }}">Home</a><span class="line-separate">/</span>
-                    <a href="{{ url('shop/payment') }}">payment</a><span class="line-separate"></span>
+                    <span class="bold">{{ trans('cms.you_are_in') }}:</span>
+                    <a href="{{ url('/') }}">{{ trans('cms.home') }}</a><span class="line-separate">/</span>
+                    <a href="{{ url('shop/payment') }}">{{ trans('Shop::cms.payment') }}</a><span class="line-separate"></span>
                 </div>
             </div>
         </div>
@@ -58,38 +58,38 @@
                     $products_info = json_decode( $order->products );
                 ?>
                 <div class="user-info-content cell-6" >
-                    <h4 class="title">User Info</h4>
+                    <h4 class="title">{{ trans('Shop::cms.user_info') }}</h4>
                     <div class="user-group">
-                        <label>{{ trans('Shop::cms.shop.first_name') }}: </label>
+                        <label>{{ trans('Shop::cms.first_name') }}: </label>
                         <span>{{ $user_info->first_name }}</span>
                     </div>
                     <div class="user-group">
-                        <label>{{ trans('Shop::cms.shop.last_name') }}: </label>
+                        <label>{{ trans('Shop::cms.last_name') }}: </label>
                         <span>{{ $user_info->last_name }}</span>
                     </div>
                     <div class="user-group">
-                        <label>{{ trans('Shop::cms.shop.email') }}: </label>
+                        <label>{{ trans('Shop::cms.email') }}: </label>
                         <span>{{ $user_info->email }}</span>
                     </div>
                     <div class="user-group">
-                        <label>{{ trans('Shop::cms.shop.phone') }}: </label>
+                        <label>{{ trans('Shop::cms.phone') }}: </label>
                         <span>{{ $user_info->phone }}</span>
                     </div>
                     <div class="user-group">
-                        <label>{{ trans('Shop::cms.shop.address') }}: </label>
+                        <label>{{ trans('Shop::cms.address') }}: </label>
                         <span>{{ $user_info->address }}</span>
                     </div>
                     <div class="user-group">
-                        <label>{{ trans('Shop::cms.shop.note') }}: </label>
+                        <label>{{ trans('Shop::cms.note') }}: </label>
                         <span>{{ $order->customer_message }}</span>
                     </div>
                     <div class="user-group">
-                        <label>{{ trans('Shop::cms.shop.create_date') }}: </label>
+                        <label>{{ trans('Shop::cms.create_date') }}: </label>
                         <span>{{ $order->created_at }}</span>
                     </div>
                 </div>
                 <div class="cell-6 product-info-content">
-                    <h4 class="title">Products Thumb</h4>
+                    <h4 class="title">{{ trans('Shop::cms.products_thumb') }}</h4>
                     @if( count( $products_info ) > 0 )
                         @foreach( $products_info as $pitem )
                             <div class="product-payment-item">
@@ -112,7 +112,7 @@
                     <input type="hidden" class="form-control" name="currencyCodeType" readonly="" value="<?php echo $currency; ?>">
                     <input type="hidden" class="form-control" readonly="" value="1" name="L_PAYMENTREQUEST_0_QTY0">
                     <input type="hidden" class="form-control" readonly="" name="PAYMENTREQUEST_0_AMT" value="{{ $order->total_price }}"></input> 
-                    <button id="placeOrderBtn" class="btn btn-primary btn-checkout">{{ trans('Shop::cms.shop.checkout') }} ({{ $order->total_price }} {{ $currency }})</button>
+                    <button id="placeOrderBtn" class="btn btn-primary btn-checkout">{{ trans('Shop::cms.checkout') }} ({{ $order->total_price }} {{ $currency }})</button>
                 </form>
             </div>
         </div>
