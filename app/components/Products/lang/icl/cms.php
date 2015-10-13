@@ -2,7 +2,7 @@
 
 return array(
     'products'               => 'Products',
-    'categories'     => 'Product Categories English',
+    'categories'     => 'Product Categories Translated',
     'category'     => 'Category',
     'colors'         => 'Stone Colors',
     'gravestones' => 'Gravestones',

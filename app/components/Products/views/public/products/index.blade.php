@@ -31,7 +31,7 @@
                 <div data-animate="fadeInUp" class="breadcrumbs main-bg fx animated fadeInUp" style="">
                     <span class="bold">{{ trans('cms.you_are_in') }}:</span>
                     <a href="{{ url('/') }}">{{ trans('cms.home') }}</a><span class="line-separate">/</span>
-                    <a href="{{ url('products') }}">{{ trans('Products::home.products') }}</a><span class="line-separate"></span>
+                    <a href="{{ url('products') }}">{{ trans('Products::cms.products') }}</a><span class="line-separate"></span>
                 </div>
             </div>
         </div>

@@ -49,6 +49,6 @@ return array (
   'design' => 'Design',
   'you_are_in' => 'You Are In',
   'home' => 'Home',
-  'cancle' => 'Cancel'
+  'cancel' => 'Cancel'
 
 );
