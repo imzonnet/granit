@@ -292,33 +292,7 @@
                </a>
             </li>
             @endif
-            <!-- Hieu 18.11.14 (Demo Com) -->
-            @if (can_access_menu($current_user, array('mygalleries')))
-            <li class="has-sub {{ Request::is('backend/mygalleries*') || Request::is('backend/mygallery-categories*') ? 'active' : null }}">
-                <a href="javascript:;">
-                    <i class="icon-play"></i>
-                    <span class="title">My Galleries</span>
-                    <span class="arrow "></span>
-                </a>
-                <ul class="sub">
-                  @if (can_access_menu($current_user, array('mygalleries')))
-                        <li class="{{ Request::is('backend/mygalleries') ? 'active' : null }}">
-                           <a href="{{ URL::to('backend/mygalleries') }}">
-                               My Galleries
-                           </a>
-                        </li>
-                    @endif
-                    @if (can_access_menu($current_user, array('mygallery-categories')))
-                        <li class="{{ Request::is('backend/mygallery-categories') ? 'active' : null }}">
-                           <a href="{{ URL::to('backend/mygallery-categories') }}">
-                               Categories
-                           </a>
-                        </li>
-                    @endif
-                </ul>
-            </li>
-            @endif
-            <!-- End Hieu 18.11.14 (Demo Com) -->
+
             @if (can_access_menu($current_user, array('contact-manager')))
             <li class="has-sub {{ Request::is('backend/contact-manager*') || Request::is('backend/contact-categories*') ? 'active' : null }} ">
                 <a href="javascript:;">

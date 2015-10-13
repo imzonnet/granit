@@ -7,7 +7,7 @@
                 <div class="cell-12">
                     <h1 class="fx" data-animate="fadeInLeft">Page <span>Not Found</span></h1>
                     <div class="breadcrumbs main-bg fx" data-animate="fadeInUp">
-                        <span class="bold">You Are In:</span><a href="#">Home</a><span class="line-separate">/</span><a href="#">Pages </a><span class="line-separate">/</span><span>Page Not Found</span>
+                        <span class="bold">{{ trans('cms.you_are_in') }}:</span><a href="#">{{ trans('cms.home') }}</a><span class="line-separate">/</span><a href="#">Pages </a><span class="line-separate">/</span><span>Page Not Found</span>
                     </div>
                 </div>
             </div>

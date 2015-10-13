@@ -108,7 +108,6 @@
 
                             <div class="form-actions">
                                 <button type="submit" class="btn btn-primary" name="form_save">Save</button>
-                                <button type="submit" class="btn btn-success" name="form_save_new">Save &amp; New</button>
                                 <button type="submit" class="btn btn-primary btn-danger" name="form_close">Close</button>
                             </div>
                             {{ Form::close() }}

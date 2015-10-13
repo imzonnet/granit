@@ -46,6 +46,8 @@ return array (
   'register' => 'Register',
   'site_map' => 'Site Map',
   'hello'  => 'Hi',
-  'design' => 'Design'
+  'design' => 'Design',
+  'you_are_in' => 'You Are In',
+  'home' => 'Home'
 
 );
