@@ -15,7 +15,8 @@
 		"barryvdh/laravel-dompdf": "*",
 		"mews/captcha": "dev-master",
 		"fzaninotto/faker": "1.5.*@dev",
-		"artdarek/oauth-4-laravel": "dev-master"
+		"artdarek/oauth-4-laravel": "dev-master",
+		"gloudemans/shoppingcart": "~1.2"
 	},
 	"require-dev": {
 		"way/generators": "2.*",
@@ -42,6 +43,7 @@
 		],
 		"files": [
 			"app/helpers/helpers.php",
+			"app/components/Shop/helper/paypal.php",
 			"app/helpers/translates.php"
 		],
 		"psr-4": {

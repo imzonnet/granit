@@ -218,6 +218,13 @@
                            </a>
                         </li>
                     @endif
+                    @if (can_access_menu($current_user, array('settings')))
+                        <li class="{{ Request::is('backend/shop/settings*') ? 'active' : null }}">
+                           <a href="{{ URL::to('backend/shop/settings') }}">
+                               {{ trans('Shop::cms.shop.settings') }}
+                           </a>
+                        </li>
+                    @endif
                 </ul>
             </li>
              @endif

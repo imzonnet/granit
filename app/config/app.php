@@ -106,7 +106,7 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
-
+		'Gloudemans\Shoppingcart\ShoppingcartServiceProvider',
 		'Cartalyst\Sentry\SentryServiceProvider',
 		'Creolab\LaravelModules\ServiceProvider',
 		'Robbo\Presenter\PresenterServiceProvider',
@@ -188,6 +188,7 @@ return array(
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
+		'Cart'            => 'Gloudemans\Shoppingcart\Facades\Cart',
 
 		'Sentry' => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
 		'Image'  => 'Intervention\Image\Facades\Image',

@@ -15,7 +15,16 @@
                     <ul class="right"> 
                         <li><a href="{{ URL::route('language.switch', 'en') }}">{{HTML::image(asset('uploads/images/en.png'), 'English',['width' => '30px', 'class' => 'left', 'style' => 'padding:0 5px; margin-top: 8px;'])}} EN</a></li>
                         <li><a href="{{ URL::route('language.switch', 'icl') }}">{{HTML::image(asset('uploads/images/icl.png'), 'IceLand',['width' => '30px', 'class' => 'left', 'style' => 'padding: 0 5px; margin-top: 8px;'])}} ICL</a></li>
-                        <li><a href="cart.html"><i class="fa fa-shopping-cart"></i>0 item(s) - $0.00</a></li>
+                        <?php 
+                            use Components\Shop\Models\ShopSetting; 
+                            $getModel = new ShopSetting;
+                            $shopSettings = $getModel->get_settings();
+                            $currency_symbols = $getModel->currency_symbols();
+                            $symbols = $currency_symbols[$shopSettings->pp_currencyCodeType];
+                        ?>
+                        <!-- <li><a href="cart.html"><i class="fa fa-shopping-cart"></i>0 item(s) - $0.00</a></li> -->
+                        <li><a href="{{ url( 'shop/cart' ) }}"><i class="fa fa-shopping-cart"></i>{{ Cart::count() }} item(s) - {{ $symbols }}{{ number_format( Cart::total(), 2 ) }}</a></li>
+                        
                         <li><a href="#"><i class="fa fa-sitemap"></i> {{ trans('cms.site_map') }}</a></li>
                         @if( !\Sentry::check() )
                         <li><a href="{{url('register')}}"><i class="fa fa-user"></i>{{ trans('cms.register') }}</a></li>
