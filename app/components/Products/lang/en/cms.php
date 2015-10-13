@@ -7,7 +7,7 @@ return array(
     'gravestones' => 'Gravestones',
     'all-gravestones' => 'All Gravestones',
     'simular_Gravestones' => 'Simular Gravestones',
-    'icon.categories' => 'Accessories',
+    'accessories' => 'Accessories',
     'measurements' => 'Measurements',
     'height' => 'Height',
     'width' => 'Width',

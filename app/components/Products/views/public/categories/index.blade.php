@@ -55,7 +55,7 @@
                     <div class="categories-items">
                         <div class="category-item">
                             <div class="item-box">
-                                <h3 class="item-title"><a href="{{url('category/all')}}">{{trans('Products::cms.product.all-gravestones')}}</a></h3>
+                                <h3 class="item-title"><a href="{{url('category/all')}}">{{trans('Products::cms.all-gravestones')}}</a></h3>
                                 <div class="item-img">
                                     <a href="{{url('category/all')}}"><img src="{{url('assets/granit/cat.png')}}" alt="" /></a>
                                 </div>
@@ -79,7 +79,7 @@
                 <div class="clearfix"></div>
                 
                 <div class="block-wrap">
-                    <h2 class="block-head">Accessories</h2>
+                    <h2 class="block-head">{{ trans('Products::cms.accessories') }}</h2>
                     <div class="categories-items">
                         @foreach( $icon_categories as $category)
                         <div class="cell-3 fx accessories category-item shop-item" data-animate="fadeInUp">
