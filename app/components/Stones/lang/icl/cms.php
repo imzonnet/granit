@@ -5,6 +5,6 @@ return array(
     'stones.icons'           => 'Icons',
     'stones.icon-categories' => 'Icon Categories',
     'stones.colors'          => 'Litir',
-    'stones.fonts'           => 'Leturgerð',
+    'stones.fonts'           => 'LeturgerÃ°',
     'stones.settings'		 => 'Stillingar',
 );

@@ -59,15 +59,15 @@ return array(
 	"required_if"      => "The :attribute field is required when :other is :value.",
 	"required_with"    => "The :attribute field is required when :values is present.",
 	"required_without" => "The :attribute field is required when :values is not present.",
-	"same"             => "The :attribute og :verğur ağ stemma",
+	"same"             => "The :attribute og :verÃ°ur aÃ° stemma",
 	"size"             => array(
-		"numeric" => "The :attribute verğur ağ vera :stærğ.",
-		"file"    => "The :attribute verğur ağ vera :stærğ í kilobætum.",
-		"string"  => "The :attribute verğur ağ vera :stærğ characters.",
-		"array"   => "The :attribute verğur ağ innihalda :stærğ hlutar.",
+		"numeric" => "The :attribute verÃ°ur aÃ° vera :stÃ¦rÃ°.",
+		"file"    => "The :attribute verÃ°ur aÃ° vera :stÃ¦rÃ° Ã­ kilobÃ¦tum.",
+		"string"  => "The :attribute verÃ°ur aÃ° vera :stÃ¦rÃ° characters.",
+		"array"   => "The :attribute verÃ°ur aÃ° innihalda :stÃ¦rÃ° hlutar.",
 	),
-	"unique"           => "The :attribute er nú şegar í notkun",
-	"url"              => "The :attribute form ógilt.",
+	"unique"           => "The :attribute er nÃº Ã¾egar Ã­ notkun",
+	"url"              => "The :attribute form Ã³gilt.",
 
 	/*
 	|--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ return array(
 	|
 	*/
 
-	"alpha_spaces"     => "The :attribute má ağeins innihalda stafi og bil.",
+	"alpha_spaces"     => "The :attribute mÃ¡ aÃ°eins innihalda stafi og bil.",
 
 	'custom' => array(),
 

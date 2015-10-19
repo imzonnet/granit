@@ -13,12 +13,12 @@ return array(
 	|
 	*/
 
-	"password" => "Lykilorğ şarf ağ innihalda ağ minnstakosti 6 stafi (Bókstafi, tölustafi eğa tákn)",
+	"password" => "LykilorÃ° Ã¾arf aÃ° innihalda aÃ° minnstakosti 6 stafi (BÃ³kstafi, tÃ¶lustafi eÃ°a tÃ¡kn)",
 
-	"user" => "Enginn notandi fannst meğ şetta netfang.",
+	"user" => "Enginn notandi fannst meÃ° Ã¾etta netfang.",
 
-	"token" => "Ekki tókst ağ endurstilla lykilorğiğ",
+	"token" => "Ekki tÃ³kst aÃ° endurstilla lykilorÃ°iÃ°",
 
-	"sent" => "Lykilorğ sent",
+	"sent" => "LykilorÃ° sent",
 
 );

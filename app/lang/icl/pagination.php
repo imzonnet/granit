@@ -15,6 +15,6 @@ return array(
 
 	'previous' => '&laquo; Tilbaka',
 
-	'next'     => 'Næsta &raquo;',
+	'next'     => 'NÃ¦sta &raquo;',
 
 );
