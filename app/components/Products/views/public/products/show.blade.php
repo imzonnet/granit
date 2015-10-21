@@ -29,9 +29,9 @@
                 ?>
                 <h1 class="fx" style="">{{ $type }}</h1>
                 <div data-animate="fadeInUp" class="breadcrumbs main-bg fx animated fadeInUp" style="">
-                    <span class="bold">You Are In:</span>
-                    <a href="{{ url('/') }}">Home</a><span class="line-separate">/</span>
-                    <a href="{{ url('/categories') }}">Categories</a><span class="line-separate"></span>
+                    <span class="bold">{{ trans('cms.you_are_in') }}:</span>
+                    <a href="{{ url('/') }}">{{ trans('cms.home') }}</a><span class="line-separate">/</span>
+                    <a href="{{ url('/categories') }}">{{ trans('Products::cms.categories') }}</a><span class="line-separate"></span>
                 </div>
             </div>
         </div>
@@ -56,7 +56,7 @@
                 <div class="cell-8">
                     <h2 class="main-color">{{ get_trans($product, 'name') }}</h2>
                     <div class="product-specs product-block list-item">
-                        <label class="control-label">Color:</label>
+                        <label class="control-label">{{ trans('Products::cms.color') }}:</label>
                         <div class="thumbs">
                             <ul id="gal1" class="product-colors">
                                 @foreach( $product->productColor as $index => $color )
@@ -75,10 +75,10 @@
                         </div>
                     </div>
                     <div class="product-specs product-block list-item">
-                        <label class="control-label">Measurements:</label>
+                        <label class="control-label">{{ trans('Products::cms.measurements') }}:</label>
                         <ul class="product-size">
-                            <li><i class="fa fa-arrows-v"></i> Height: {{$product->height}} cm</li>
-                            <li><i class="fa fa-arrows-h"></i> Width: {{$product->width}} cm</li>
+                            <li><i class="fa fa-arrows-v"></i> >{{ trans('Products::cms.height') }}: {{$product->height}} cm</li>
+                            <li><i class="fa fa-arrows-h"></i> >{{ trans('Products::cms.width') }}: {{$product->width}} cm</li>
                         </ul>
                     </div>
                     <div class="list-item product-block item-add">
@@ -92,7 +92,7 @@
                     </div>
                     <div class="product-specs product-block list-item">
                         <ul class="product-social product-size">
-                            <li>SHARE:</li>
+                            <li>{{ trans('Products::cms.share') }}:</li>
                             <li><a href="https://www.facebook.com/sharer/sharer.php?u={{url('product/'.$product->alias.'/'.$product->productColor->first()->color_id)}}" onclick="javascript:void window.open(this.href,'','width=600,height=300,resizable=true,left=200px,top=200px');return false;"><i class="fa fa-facebook"></i></a></li>
                             <li><a href="https://twitter.com/intent/tweet?text={{ $product->name }}&url={{url('product/'.$product->alias.'/'.$product->productColor->first()->color_id)}}" onclick="javascript:void window.open(this.href,'','width=600,height=300,resizable=true,left=200px,top=200px');return false;"><i class="fa fa-twitter"></i></a></li>
                             <li><a href="https://www.linkedin.com/cws/share?url={{url('product/'.$product->alias.'/'.$product->productColor->first()->color_id)}}" onclick="javascript:void window.open(this.href,'','width=600,height=300,resizable=true,left=200px,top=200px');return false;"><i class="fa fa-linkedin"></i></a></li>
@@ -106,7 +106,7 @@
                     </div>
                     -->
                     <div class="product-specs price-block list-item last-list">
-                        <label class="control-label">Price:</label>
+                        <label class="control-label">{{ trans('Products::cms.price') }}:</label>
                         <div class="price-box">
                             {{$productColor->first()->getPrice()}}
                         </div>
@@ -119,7 +119,7 @@
         <!-- Product Relateds -->
         <div class="row">
             <div class="product-relateds">
-                <h2 class="block-head">Simular Gravestones</h2>
+                <h2 class="block-head">{{ trans('Products::cms.simular_gravestones') }}</h2>
                 <div class="product-items grid-list">
                     <div class="row">
                         @foreach( $product_relateds as $product )

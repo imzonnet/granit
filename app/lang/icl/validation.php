@@ -59,15 +59,15 @@ return array(
 	"required_if"      => "The :attribute field is required when :other is :value.",
 	"required_with"    => "The :attribute field is required when :values is present.",
 	"required_without" => "The :attribute field is required when :values is not present.",
-	"same"             => "The :attribute and :other must match.",
+	"same"             => "The :attribute og :verður að stemma",
 	"size"             => array(
-		"numeric" => "The :attribute must be :size.",
-		"file"    => "The :attribute must be :size kilobytes.",
-		"string"  => "The :attribute must be :size characters.",
-		"array"   => "The :attribute must contain :size items.",
+		"numeric" => "The :attribute verður að vera :stærð.",
+		"file"    => "The :attribute verður að vera :stærð í kilobætum.",
+		"string"  => "The :attribute verður að vera :stærð characters.",
+		"array"   => "The :attribute verður að innihalda :stærð hlutar.",
 	),
-	"unique"           => "The :attribute has already been taken.",
-	"url"              => "The :attribute format is invalid.",
+	"unique"           => "The :attribute er nú þegar í notkun",
+	"url"              => "The :attribute form ógilt.",
 
 	/*
 	|--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ return array(
 	|
 	*/
 
-	"alpha_spaces"     => "The :attribute may only contain letters and spaces.",
+	"alpha_spaces"     => "The :attribute má aðeins innihalda stafi og bil.",
 
 	'custom' => array(),
 

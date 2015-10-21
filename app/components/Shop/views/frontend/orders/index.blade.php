@@ -37,9 +37,9 @@
                 ?>
                 <h1 class="fx" style="">{{ $type }}</h1>
                 <div data-animate="fadeInUp" class="breadcrumbs main-bg fx animated fadeInUp" style="">
-                    <span class="bold">You Are In:</span>
-                    <a href="{{ url('/') }}">Home</a><span class="line-separate">/</span>
-                    <a href="{{ url('shop/cart') }}">cart</a><span class="line-separate"></span>
+                    <span class="bold">{{ trans('cms.you_are_in') }}:</span>
+                    <a href="{{ url('/') }}">{{ trans('cms.home') }}</a><span class="line-separate">/</span>
+                    <a href="{{ url('shop/cart') }}">{{ trans('Shop::cms.cart') }}</a><span class="line-separate"></span>
                 </div>
             </div>
         </div>
@@ -62,9 +62,9 @@
                                 <tr>
                                     <th></th>
                                     <th></th>
-                                    <th class="right">Price</th>
-                                    <th class="center">Quantity</th>
-                                    <th class="right">Total</th>
+                                    <th class="right">{{ trans('Products::cms.price') }}</th>
+                                    <th class="center">{{ trans('Shop::cms.quantity') }}</th>
+                                    <th class="right">{{ trans('Shop::cms.total') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -83,7 +83,7 @@
                             @endforeach
                                 <tr>
                                     <td class="actions" colspan="5">
-                                        <button class="btn btn-primary">Update Cart</button>
+                                        <button class="btn btn-primary">{{ trans('Shop::cms.update_cart') }}</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -91,21 +91,21 @@
                     </form>
 
                     <div class="cart-total">
-                        <h4 class="title">Cart Totals</h4>
+                        <h4 class="title">{{ trans('Shop::cms.cart_totals') }}</h4>
                         <table class="table-cart">
                             <tbody>
                                 <tr>
-                                    <th>Cart Subtotal</th>
+                                    <th>{{ trans('Shop::cms.cart_subtotal') }}</th>
                                     <td>{{ number_format( Cart::total(), 2 ) }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Order Total</th>
+                                    <th>{{ trans('Shop::cms.order_total') }}</th>
                                     <td>{{ number_format( Cart::total(), 2 ) }}</td>
                                 </tr>
                             </tbody>
                         </table>
                         <br />
-                        <a href="{{ url( 'shop/checkout' ) }}" class="btn btn-primary">Checkout</a>
+                        <a href="{{ url( 'shop/checkout' ) }}" class="btn btn-primary">{{ trans('Shop::cms.checkout') }}</a>
                     </div>
                 @else
                     Not item.

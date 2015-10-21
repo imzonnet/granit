@@ -29,8 +29,8 @@
                 ?>
                 <h1 class="fx" style="">{{ $type }}</h1>
                 <div data-animate="fadeInUp" class="breadcrumbs main-bg fx animated fadeInUp" style="">
-                    <span class="bold">You Are In:</span>
-                    <a href="{{ url('/') }}">Home</a><span class="line-separate">/</span>
+                    <span class="bold">{{ trans('cms.you_are_in') }}:</span>
+                    <a href="{{ url('/') }}">{{ trans('cms.home') }}</a><span class="line-separate">/</span>
                     <a href="{{ url('products') }}">Products</a><span class="line-separate"></span>
                 </div>
             </div>

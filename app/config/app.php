@@ -118,7 +118,6 @@ return array(
 
         'App\Components\Memorials\MemorialsServiceProvider',
         'App\Components\Shop\ShopServiceProvider',
-        'App\Components\MyGalleries\ServiceProvider',
         'App\Components\Products\ProductsServiceProvider',
         'App\Components\Stones\StonesServiceProvider',
         'App\Components\Testimonials\TestimonialsServiceProvider',

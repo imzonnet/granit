@@ -37,9 +37,9 @@
                 ?>
                 <h1 class="fx" style="">{{ $type }}</h1>
                 <div data-animate="fadeInUp" class="breadcrumbs main-bg fx animated fadeInUp" style="">
-                    <span class="bold">You Are In:</span>
-                    <a href="{{ url('/') }}">Home</a><span class="line-separate">/</span>
-                    <a href="{{ url('shop/checkout') }}">checkout</a><span class="line-separate"></span>
+                    <span class="bold">{{ trans('cms.you_are_in') }}:</span>
+                    <a href="{{ url('/') }}">{{ trans('cms.home') }}</a><span class="line-separate">/</span>
+                    <a href="{{ url('shop/checkout') }}">{{ trans('Shop::cms.checkout') }}</a><span class="line-separate"></span>
                 </div>
             </div>
         </div>
@@ -58,40 +58,40 @@
                 {{ Form::token() }} 
                 <div class="row">
                     <div class="cell-6 cart-billing-details">
-                        <h3 class="title">Billing Details</h3>
+                        <h3 class="title">{{ trans('Shop::cms.billing_details') }}</h3>
                         <div class="group-field">
-                            <label>First name <span class="field-required">*</span></label>
+                            <label>{{ trans('Shop::cms.first_name') }} <span class="field-required">*</span></label>
                             <input type="text" name="user[first_name]" required>
                         </div>
                         <div class="group-field">
-                            <label>Last name <span class="field-required">*</span></label>
+                            <label>{{ trans('Shop::cms.last_name') }} <span class="field-required">*</span></label>
                             <input type="text" name="user[last_name]" required>
                         </div>
                         <div class="group-field">
-                            <label>Email <span class="field-required">*</span></label>
+                            <label>{{ trans('Shop::cms.email') }} <span class="field-required">*</span></label>
                             <input type="email" name="user[email]" required>
                         </div>
                         <div class="group-field">
-                            <label>Phone <span class="field-required">*</span></label>
+                            <label>{{ trans('Shop::cms.phone') }} <span class="field-required">*</span></label>
                             <input type="text" name="user[phone]" required>
                         </div>
                         <div class="group-field">
-                            <label>Address <span class="field-required">*</span></label>
+                            <label>{{ trans('Shop::cms.address') }} <span class="field-required">*</span></label>
                             <input type="text" name="user[address]" required>
                         </div>
                         <div class="group-field">
-                            <label>Order Notes</label>
+                            <label>{{ trans('Shop::cms.order_notes') }}</label>
                             <textarea name="customer_message"></textarea>
                         </div>
                     </div>
                     <div class="cell-6 cart-billing-details">
                         <div class="order-review">
-                            <h3 class="title">Your Order</h4>
+                            <h3 class="title">{{ trans('Shop::cms.your_order') }}</h3>
                             <table class="custom-table" style="width: 100%; margin: auto;">
                                 <thead>
                                     <tr>
                                         <th></th>
-                                        <th class="right">Total</th>
+                                        <th class="right">{{ trans('Shop::cms.total') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -116,7 +116,7 @@
                 <hr />
                 <div class="row">
                     <div class="cell-12" style="text-align: right;">
-                        <button class="btn btn-primary btn-payment">Proceed to Payment</button>
+                        <button class="btn btn-primary btn-payment">{{ trans('Shop::cms.proceed_to_payment') }}</button>
                     </div>
                 </div>
             </form>

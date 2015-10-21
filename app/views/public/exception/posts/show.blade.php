@@ -21,8 +21,8 @@
                         <div class="cell-12">
                             <h1 data-animate="fadeInLeft" class="fx animated fadeInLeft" style="">{{ $post->title }}</h1>
                             <div data-animate="fadeInUp" class="breadcrumbs main-bg fx animated fadeInUp" style="">
-                                <span class="bold">You Are In:</span>
-                                    <a href="{{ url('/') }}">Home</a><span class="line-separate">/</span>
+                                <span class="bold">{{ trans('cms.you_are_in') }}:</span>
+                                    <a href="{{ url('/') }}">{{ trans('cms.home') }}</a><span class="line-separate">/</span>
                                     @if (Request::is('pages/*'))
                                         <a href="{{ url('pages') }}">pages</a><span class="line-separate">/</span>
                                     @else

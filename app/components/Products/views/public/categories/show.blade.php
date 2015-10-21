@@ -29,9 +29,9 @@
                 ?>
                 <h1 class="fx" style="">{{ $type }}</h1>
                 <div data-animate="fadeInUp" class="breadcrumbs main-bg fx animated fadeInUp" style="">
-                    <span class="bold">You Are In:</span>
-                    <a href="{{ url('/') }}">Home</a><span class="line-separate">/</span>
-                    <a href="{{ url('categories') }}">Categories</a><span class="line-separate"></span>
+                    <span class="bold">{{ trans('cms.you_are_in') }}:</span>
+                    <a href="{{ url('/') }}">{{ trans('cms.home') }}</a><span class="line-separate">/</span>
+                    <a href="{{ url('categories') }}">{{ trans('Products::cms.categories') }}</a><span class="line-separate"></span>
                 </div>
             </div>
         </div>
@@ -48,12 +48,12 @@
                 @include('Products::public._layouts.sidebar')
                 <!-- filter -->
                 <div id="product-filter" class="widget menu-categories fx animated fadeInLeft">
-                    <h3 class="widget-head">Search Filters</h3> 
+                    <h3 class="widget-head">{{ trans('Products::cms.search_filters') }}</h3>
                     <div class="widget-content">
                         <div class="clearfix filter-item">
                             <h3>Price</h3>
                             <p>
-                                <label for="amount">Range: <span id="amount"></span></label>
+                                <label for="amount">{{ trans('Products::cms.range') }}: <span id="amount"></span></label>
                             </p>
                             <div id="filter-price" data-value-max="{{$price['max']}}" data-value-min="{{$price['min']}}"></div>
                         </div>
@@ -61,13 +61,13 @@
                             <h3>Measurements</h3>
                             <div>
                                 <p>
-                                    <label for="width">Width: <span id="width"></span></label>
+                                    <label for="width">{{ trans('Products::cms.width') }}: <span id="width"></span></label>
                                 </p>
                                 <div id="filter-width" data-value-max="{{$width['max']}}" data-value-min="{{$width['min']}}"></div>
                             </div>
                             <div>
                                 <p>
-                                    <label for="height">Height: <span id="height"></span></label>
+                                    <label for="height">{{ trans('Products::cms.height') }}: <span id="height"></span></label>
                                 </p>
                                 <div id="filter-height" data-value-max="{{$height['max']}}" data-value-min="{{$height['min']}}"></div>
                             </div>
@@ -90,11 +90,11 @@
                 <div class="toolsBar">
                     <div class="cell-10 left products-filter-top">
                         <div class="left">
-                            <span>Sort by: </span>
+                            <span>{{ trans('Products::cms.sort_by') }}: </span>
                             <select name="is-sort" id="sorts">
                                 <option value="original-order" data-sort-by="original-order" selected="selected">Date</option>
-                                <option value="name" data-sort-by="name">Name</option>
-                                <option value="price" data-sort-by="price">Price</option>
+                                <option value="name" data-sort-by="name">{{ trans('Products::cms.name') }}</option>
+                                <option value="price" data-sort-by="price">{{ trans('Products::cms.price') }}</option>
                             </select>
                         </div>
                         <div class="left">
@@ -110,7 +110,7 @@
                 <!-- end sort -->
                 <div class="clearfix"></div>
                 <div class="products-wrap">
-                    <h2 class="block-head">Gravestones</h2>
+                    <h2 class="block-head">{{ trans('Products::cms.gravestones') }}</h2>
                     <div class="product-items grid-list">
                         @foreach( $products as $product )
                         <div class="product-item cell-4 {{$product->getClasses()}}" data-width="{{$product->width}}" data-height="{{$product->height}}">
@@ -155,10 +155,10 @@
                     <div class="cell-8">
                         <h2 class="product-title" class="main-color"></h2>
                         <div class="product-specs product-block list-item">
-                            <label class="control-label">Measurements:</label>
+                            <label class="control-label">{{ trans('Products::cms.measurements') }}:</label>
                             <ul class="product-size">
-                                <li><i class="fa fa-arrows-v"></i> Height: <span id="height"></span> cm</li>
-                                <li><i class="fa fa-arrows-h"></i> Width: <span id="width"></span> cm</li>
+                                <li><i class="fa fa-arrows-v"></i> {{ trans('Products::cms.height') }}: <span id="height"></span> cm</li>
+                                <li><i class="fa fa-arrows-h"></i> {{ trans('Products::cms.width') }}: <span id="width"></span> cm</li>
                             </ul>
                         </div>
                         <div class="list-item product-block item-add">
@@ -171,7 +171,7 @@
                             </form>
                         </div>
                         <div class="product-specs price-block list-item last-list">
-                            <label class="control-label">Price:</label>
+                            <label class="control-label">{{ trans('Products::cms.price') }}:</label>
                             <div class="price-box"></div>
                         </div>
                     </div>

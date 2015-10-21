@@ -37,9 +37,9 @@
                 ?>
                 <h1 class="fx" style="">{{ $type }}</h1>
                 <div data-animate="fadeInUp" class="breadcrumbs main-bg fx animated fadeInUp" style="">
-                    <span class="bold">You Are In:</span>
-                    <a href="{{ url('/') }}">Home</a><span class="line-separate">/</span>
-                    <a href="{{ url('shop/payment') }}">return</a><span class="line-separate"></span>
+                    <span class="bold">{{ trans('cms.you_are_in') }}:</span>
+                    <a href="{{ url('/') }}">{{ trans('cms.home') }}</a><span class="line-separate">/</span>
+                    <a href="{{ url('shop/payment') }}">{{ trans('Shop::cms.return') }}</a><span class="line-separate"></span>
                 </div>
             </div>
         </div>
@@ -53,7 +53,7 @@
     <div class="padd-vertical-20">
         <div class="container">
             <div class="row">
-                Return
+                {{ trans('Shop::cms.return') }}
             </div>
         </div>
     </div>

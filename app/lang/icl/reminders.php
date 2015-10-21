@@ -13,12 +13,12 @@ return array(
 	|
 	*/
 
-	"password" => "Passwords must be at least six characters and match the confirmation.",
+	"password" => "Lykilorð þarf að innihalda að minnstakosti 6 stafi (Bókstafi, tölustafi eða tákn)",
 
-	"user" => "We can't find a user with that e-mail address.",
+	"user" => "Enginn notandi fannst með þetta netfang.",
 
-	"token" => "This password reset token is invalid.",
+	"token" => "Ekki tókst að endurstilla lykilorðið",
 
-	"sent" => "Password reminder sent!",
+	"sent" => "Lykilorð sent",
 
 );
