@@ -2585,6 +2585,8 @@ function switchForm(elem, type){
 					tr_el.remove();
 					resetAutoNum();
 				})
+
+				accessorieEl.find('.l-upload').trigger('click');
 			})
 		}
 
