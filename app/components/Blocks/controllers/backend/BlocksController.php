@@ -21,7 +21,7 @@ class BlocksController extends \BaseController {
         View::addLocation(app_path() . '/components/Blocks/views');
         View::addNamespace('Blocks', app_path() . '/components/Blocks/views');
         parent::__construct();
-        $this->language = 'en';
+        $this->language = \Config::get('app.locale');
     }
 
     /**

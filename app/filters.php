@@ -19,7 +19,7 @@ App::before(function($request)
     }
 
     // Get the language based on what is saved in the session
-    $language = Session::get('language', 'en');
+    $language = Session::get('language', \Config::get('app.locale'));
     App::setLocale($language);
 });
 

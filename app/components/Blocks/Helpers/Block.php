@@ -18,7 +18,7 @@ if( !function_exists('region_render') ) {
         foreach ($blocks as $block) :
             $translate = $block->translates->first();
             if (empty($translate)) {
-                $translate = $block->translates('en')->first();
+                $translate = $block->translates('icl')->first();
             }
             if (!check_visibility($block)) {
                 continue;
@@ -65,7 +65,7 @@ if( !function_exists('current_language') ) {
     function current_language()
     {
         if (!\Session::has('lang')) {
-            \Session::put('lang', 'en');
+            \Session::put('lang', \Config::get('app.locale'));
         }
         return \Session::get('lang');
     }

@@ -52,8 +52,7 @@ return array(
 	|
 	*/
 
-	'locale' => 'en',
-    'fallback_locale' => 'en',
+	'locale' => 'icl',
 	/*
 	|--------------------------------------------------------------------------
 	| Encryption Key
@@ -195,7 +194,7 @@ return array(
 		'Menus'  => 'Menu\Menu',
 		'PDF'    => 'Barryvdh\DomPDF\Facade',
 		'Captcha' => 'Mews\Captcha\Facades\Captcha',
-                'OAuth' => 'Artdarek\OAuth\Facade\OAuth',
+        'OAuth' => 'Artdarek\OAuth\Facade\OAuth',
 
 	),
 

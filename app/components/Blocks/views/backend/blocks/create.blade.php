@@ -102,7 +102,7 @@
                             <div class="control-group">
                                 <label class="control-label">Language</label>
                                 <div class="controls line">
-                                    <input type="text" disabled="disabled" value="{{ isset($block) ? $block->translates()->first()->language : 'en' }}" />
+                                    <input type="text" disabled="disabled" value="{{ isset($block) ? $block->translates()->first()->language : \Config::get('app.locale') }}" />
                                 </div>
                             </div>
 
