@@ -528,3 +528,14 @@
 .testimonials-1.slick-slider .slick-next {
     right: -10px;
 }
+
+.btn.btn-primary {
+  background-color: #eeeeee;
+  color: #e75130;
+  padding: 15px 25px;
+  border: 3px solid #eeeeee;
+}
+.btn.btn-primary:hover {
+  background-color: #e75130;
+  color: #FFF;
+}
