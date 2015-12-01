@@ -61,10 +61,10 @@ class ProductsController extends \BaseController {
             return Redirect::to("backend/products");
         }
         try {
-            $redirect = (isset($input['form_save'])) ? "backend/products" : "backend/products/create";
-            Product::create($input);
+            //$redirect = (isset($input['form_save'])) ? "backend/products" : "backend/products/create";
+            $product = Product::create($input);
 
-            return Redirect::to($redirect)
+            return Redirect::route('backend.product.colors.create', $product->id)
                             ->with('success_message', 'The product was created.');
         } catch (ValidationException $e) {
             return Redirect::back()->withInput()->withErrors($e->getErrors());

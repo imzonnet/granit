@@ -59,11 +59,11 @@ class Product extends \Eloquent implements PresentableInterface {
      */
     public function setAliasAttribute($alias) {
         if ($alias == '') {
-            $this->attributes['alias'] = Str::slug($this->attributes['name'], '-');
-
-            if (Product::where('alias', '=', $this->attributes['alias'])->first()) {
-                $this->attributes['alias'] = Str::slug($this->attributes['name'], '-') . '-1';
-            }
+	        $slug = Str::slug($this->attributes['name']);
+	        $slugCount = count( Product::whereRaw("alias REGEXP '^{$slug}(-[0-9]*)?$'")->get() );
+	        $this->attributes['alias'] = ($slugCount > 0) ? "{$slug}-{$slugCount}" : $slug;
+        } else {
+	        $this->attributes['alias'] = $alias;
         }
     }
 

@@ -64,26 +64,28 @@
                                             {{ $errors->first('alias', '<span class="help-inline">:message</span>') }}
                                         </div>
                                     </div>
-                                    <div class="control-group {{{ $errors->has('image') ? 'error' : '' }}}">
-                                        <label class="control-label">Thumbnail <span class="red">*</span></label>
-                                        <div class="controls">
-                                            {{ Form::hidden('image', (!isset($product)) ? Input::old('image') : $product->image) }}
-                                            <a class="btn btn-primary insert-media" id="insert-main-image" href="#"> Select main image</a>
-                                            <span class="file-name">
-                                                {{ $product->image or '' }}
-                                                @if(isset($product))
-                                                <img src="{{url($product->image)}}" alt="" />
-                                                @endif
-                                            </span>
-                                            {{ $errors->first('icon', '<span class="help-inline">:message</span>') }}
-                                        </div>
-                                    </div>
+
                                     <div class="control-group {{{ $errors->has('cat_id') ? 'error' : '' }}}">
                                         <label class="control-label">Category <span class="red">*</span></label>
                                         <div class="controls line">
                                             {{ Form::select('cat_id', $categories, (!isset($product)) ? Input::old('cat_id') : $product->cat_id, array('class'=>'chosen span6 m-wrap', 'style'=>'width:285px')) }}
                                             {{ HTML::link("$link_type/product-categories/create", "Add Category", array('class'=>'btn btn-mini mb-15')) }}
                                             {{ $errors->first('cat_id', '<span class="help-inline">:message</span>') }}
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group {{{ $errors->has('width') ? 'error' : '' }}}">
+                                        <label class="control-label">Width <span class="red">*</span></label>
+                                        <div class="controls">
+                                            {{ Form::text('width', (!isset($product)) ? Input::old('width') : $product->width, array('class' => 'input-xlarge'))}}
+                                            {{ $errors->first('width', '<span class="help-inline">:message</span>') }}
+                                        </div>
+                                    </div>
+                                    <div class="control-group {{{ $errors->has('height') ? 'error' : '' }}}">
+                                        <label class="control-label">Height <span class="red">*</span></label>
+                                        <div class="controls">
+                                            {{ Form::text('height', (!isset($product)) ? Input::old('height') : $product->height, array('class' => 'input-xlarge'))}}
+                                            {{ $errors->first('height', '<span class="help-inline">:message</span>') }}
                                         </div>
                                     </div>
 

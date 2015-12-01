@@ -53,20 +53,6 @@ class ProductColor extends \Eloquent implements PresentableInterface {
     }
 
     /**
-     * Automatically set the alias, if one is not provided
-     * @param string $alias
-     */
-    public function setAliasAttribute($alias) {
-        if ($alias == '') {
-            $this->attributes['alias'] = Str::slug($this->attributes['name'], '-');
-
-            if (Product::where('alias', '=', $this->attributes['alias'])->first()) {
-                $this->attributes['alias'] = Str::slug($this->attributes['name'], '-') . '-1';
-            }
-        }
-    }
-
-    /**
      * Get all the published posts that are within the publish date range
      * @return query
      */

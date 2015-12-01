@@ -49,6 +49,7 @@
                     <thead>
                         <tr>
                             <th class="span1"><input type="checkbox" class="select_all" /></th>
+                            <th>Code</th>
                             <th>Title</th>
                             <th>Status</th>
                             <th>Created by</th>
@@ -59,6 +60,7 @@
                         @foreach( $products as $product )
                         <tr>
                             <td>{{ Form::checkbox($product->id, 'checked', false) }}</td>
+                            <td>{{ $product->product_code }}</td>
                             <td>{{ HTML::link(url($link_type . '/products/'.$product->id), $product->name) }}</td>
                             <td>{{ $product->status() }}</td>
                             <td>{{ $product->author() }}</td>
