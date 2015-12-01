@@ -532,8 +532,9 @@
 .btn.btn-primary {
   background-color: #eeeeee;
   color: #e75130;
-  padding: 15px 25px;
+  padding: 10px 25px;
   border: 3px solid #eeeeee;
+  font-size: 25px;
 }
 .btn.btn-primary:hover {
   background-color: #e75130;
