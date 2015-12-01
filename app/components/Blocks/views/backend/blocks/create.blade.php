@@ -56,7 +56,11 @@
                                     {{ $errors->first('info', '<span class="help-inline">:message</span>') }}
                                 </div>
                             </div>
-
+                            <div class="control-group">
+                                <div class="controls line">
+                                    <a class="btn btn-primary insert-media" id="insert-media" href="#"> Insert Media</a>
+                                </div>
+                            </div>
                             <div class="control-group {{{ $errors->has('description') ? 'error' : '' }}}">
                                 <label class="control-label">Block Description <span class="red">*</span></label>
                                 <div class="controls line">

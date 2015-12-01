@@ -14,7 +14,7 @@
     padding-right: 5px;
 }
 
-.team-boxes .cell-4:nth-child(4n+1) {
+.team-boxes .cell-4:nth-child(3n+1) {
     clear: left;
 }
 .product-colors {
