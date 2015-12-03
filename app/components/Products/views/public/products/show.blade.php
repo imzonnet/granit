@@ -50,7 +50,7 @@
             <div class="cell-9 product-detail product-item">
                 <div class="cell-4">
                     <div class="product-image">
-                        <img alt="" id="img_01" src="{{url($productColor->first()->image)}}" />
+                        <img alt="" id="img_01" src="{{url($productColor->image)}}" />
                     </div>
                 </div>
                 <div class="cell-8">
