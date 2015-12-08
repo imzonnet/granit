@@ -294,8 +294,6 @@ input[name="color"]{
 	background: url("../images/logo.png") no-repeat;
 	background-position: 100% 20px;
 	padding-top: 95px;
-	min-width: 690px;
-	max-width: 690px;
 }
 .content-area-design .design-inner{}
 .content-area-design .design-inner .image-frame{
@@ -461,8 +459,6 @@ input[name="color"]{
 	margin-bottom: 0;
 }
 .content-area-design .content-inner{
-	min-height: 620px;
-	max-height: 620px;
 	position: relative;
 }
 .content-product-color{
@@ -1082,7 +1078,7 @@ input[name="text-color"]:checked ~ span{
 	background: #669933;
 	color: #FFF;
 	position: absolute;
-	bottom: 15px;
+	bottom: -20px;
     right: 20px;
     padding: 10px 20px;
     cursor: pointer;
@@ -1689,7 +1685,4 @@ a.cart-remove-item:hover{
 }
 .design-area.right{
  height: 100% !important;
-}
-.content-area-design{
- height: 94% !important;
 }
