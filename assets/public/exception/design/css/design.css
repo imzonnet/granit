@@ -1053,8 +1053,8 @@ input[name="text-color"]:checked ~ span{
 }
 .total-price-content-layout{
 	position: absolute;
-	left: 20px; 
-	bottom: -10px;
+	left: 40px; 
+	bottom: -37px;
 }
 .total-price-content-layout p,
 .total-price-content-layout h4{
